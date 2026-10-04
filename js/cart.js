@@ -1432,7 +1432,7 @@
 
                 var inCart = isTitleInCart(cleanTitle);
                 var btnClass = 'add_to_cart' + (inCart ? ' added-in-cart' : '');
-                var btnIcon = inCart ? '<i class="bi bi-check-lg"></i>' : '+';
+                var btnText = inCart ? '<i class="bi bi-check-lg"></i> Dans le Panier' : '<i class="icon_cart"></i> Ajouter au Panier';
 
                 itemsHtml += '<div class="col-xl-3 col-lg-4 col-md-6 col-6 tasty-card-col mb-4" style="opacity: 1 !important; visibility: visible !important;">' +
                     '<div class="tasty-food-card" data-dish-id="' + dish.id + '">' +
@@ -1447,7 +1447,7 @@
                     '<div class="tasty-card-divider"></div>' +
                     '<div class="tasty-card-footer-row">' +
                     '<div class="tasty-card-price">' + priceText + '</div>' +
-                    '<button type="button" class="' + btnClass + ' tasty-circle-add-btn" onclick="window.FOORES_CART.addToCartFromBtn(this, event); return false;" title="Ajouter au Panier">' + btnIcon + '</button>' +
+                    '<button type="button" class="' + btnClass + ' tasty-pill-add-btn" onclick="window.FOORES_CART.addToCartFromBtn(this, event); return false;">' + btnText + '</button>' +
                     '</div>' +
                     '</div>' +
                     '</div>' +
