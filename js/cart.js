@@ -1405,13 +1405,13 @@
             if (loadMoreContainer) loadMoreContainer.style.display = 'none';
         } else {
             var APPETIZING_BADGES = {
-                'burgers': '🔥 RECETTE MAISON',
-                'pizzas': '🔥 RECETTE MAISON',
-                'pastas': '🔥 RECETTE MAISON',
-                'grillades': '🔥 RECETTE MAISON',
-                'salades': '🔥 RECETTE MAISON',
-                'boissons': '🔥 SIGNATURE',
-                'desserts': '🔥 DOUCEUR MAISON'
+                'burgers': '🔥 Populaire',
+                'pizzas': '🔥 Populaire',
+                'pastas': '🔥 Populaire',
+                'grillades': '🔥 Spécial Chef',
+                'salades': '🔥 Populaire',
+                'boissons': '🔥 Signature',
+                'desserts': '🔥 Gourmand'
             };
 
             var visibleDishes = filtered.slice(0, currentVisibleLimit);
@@ -1422,7 +1422,7 @@
                 var catBadgeText = CATEGORY_BADGES[dish.category] || dish.category;
                 var cleanTitle = dish.title || 'Plat Délicieux';
                 var cleanDesc = dish.description || 'Ingrédients frais préparés à la commande par notre chef.';
-                var dishBadge = APPETIZING_BADGES[(dish.category || '').toLowerCase()] || '🔥 RECETTE MAISON';
+                var dishBadge = APPETIZING_BADGES[(dish.category || '').toLowerCase()] || '🔥 Populaire';
 
                 var escapedTitle = cleanTitle.replace(/'/g, "\\'");
                 var escapedCat = catBadgeText.replace(/'/g, "\\'");
@@ -1431,27 +1431,23 @@
                 var escapedImg = imgUrl.replace(/'/g, "\\'");
 
                 var inCart = isTitleInCart(cleanTitle);
-                var btnClass = 'btn-add-creative add_to_cart' + (inCart ? ' added-in-cart' : '');
-                var btnText = inCart ? '<i class="bi bi-check-lg"></i> DANS LE PANIER' : '<i class="icon_cart"></i> AJOUTER AU PANIER';
+                var btnClass = 'add_to_cart' + (inCart ? ' added-in-cart' : '');
+                var btnIcon = inCart ? '<i class="bi bi-check-lg"></i>' : '+';
 
                 itemsHtml += '<div class="col-xl-3 col-lg-4 col-md-6 col-6 tasty-card-col mb-4" style="opacity: 1 !important; visibility: visible !important;">' +
                     '<div class="tasty-food-card" data-dish-id="' + dish.id + '">' +
                     '<div class="tasty-card-img-container" onclick="window.FOORES_CART.openImageLightbox(\'' + escapedImg + '\', \'' + escapedTitle + '\', \'' + escapedCat + '\', \'' + escapedPrice + '\', \'' + escapedDesc + '\', \'' + dish.id + '\')">' +
                     '<span class="tasty-card-badge">' + dishBadge + '</span>' +
                     '<span class="tasty-card-rating-badge">4.9</span>' +
-                    '<button type="button" class="tasty-fav-btn" onclick="this.classList.toggle(\'active\'); if(event) event.stopPropagation();" title="Ajouter aux favoris">' +
-                    '<i class="fa-regular fa-heart"></i>' +
-                    '<i class="fa-solid fa-heart active-heart"></i>' +
-                    '</button>' +
                     '<img src="' + imgUrl + '" alt="' + cleanTitle + '" onerror="this.onerror=null; this.src=\'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&auto=format&fit=crop&q=80\';">' +
                     '</div>' +
                     '<div class="tasty-card-body">' +
                     '<h3 class="tasty-card-title" onclick="window.FOORES_CART.openImageLightbox(\'' + escapedImg + '\', \'' + escapedTitle + '\', \'' + escapedCat + '\', \'' + escapedPrice + '\', \'' + escapedDesc + '\', \'' + dish.id + '\')">' + cleanTitle + '</h3>' +
-                    '<p class="tasty-card-sub">' + (dish.description ? dish.description.substring(0, 48) + '...' : 'Ingrédients frais préparés maison') + '</p>' +
+                    '<p class="tasty-card-sub">' + cleanDesc + '</p>' +
+                    '<div class="tasty-card-divider"></div>' +
+                    '<div class="tasty-card-footer-row">' +
                     '<div class="tasty-card-price">' + priceText + '</div>' +
-                    '<div class="tasty-card-actions">' +
-                    '<button type="button" class="tasty-quickview-btn" onclick="window.FOORES_CART.openImageLightbox(\'' + escapedImg + '\', \'' + escapedTitle + '\', \'' + escapedCat + '\', \'' + escapedPrice + '\', \'' + escapedDesc + '\', \'' + dish.id + '\')" title="Aperçu rapide"><i class="fa-regular fa-eye"></i></button>' +
-                    '<button type="button" class="' + btnClass + ' tasty-cart-add-btn" onclick="window.FOORES_CART.addToCartFromBtn(this, event); return false;">' + btnText + '</button>' +
+                    '<button type="button" class="' + btnClass + ' tasty-circle-add-btn" onclick="window.FOORES_CART.addToCartFromBtn(this, event); return false;" title="Ajouter au Panier">' + btnIcon + '</button>' +
                     '</div>' +
                     '</div>' +
                     '</div>' +
