@@ -1482,17 +1482,19 @@
         var liveMenuContainer = document.getElementById('live_menu_container');
 
         if (liveMenuContainer) {
-            var html = '<div class="tasty-menu-header">' +
+            var html = '<div class="tasty-menu-header-card mb-4 text-center">' +
+                '<div class="tasty-header-glow"></div>' +
                 '<span class="tasty-header-tag">✨ SÉLECTION GASTRONOMIQUE DE CASABLANCA</span>' +
                 '<h2 class="tasty-menu-title">Notre Carte <span>Gourmande</span></h2>' +
                 '<p class="tasty-menu-subtitle">Découvrez notre sélection artisanale préparée à la commande avec des ingrédients frais par notre chef</p>' +
+                '<div class="search-filter-wrapper mx-auto mt-4">' +
+                '<i class="icon_search search-bar-icon"></i>' +
+                '<input type="text" id="creativeMenuSearchInput" placeholder="Rechercher un plat, un ingrédient gourmand (ex: Truffe, Angus, Saumon)..." oninput="window.FOORES_CART.filterMenuBySearch(this.value)">' +
+                '<button type="button" class="search-bar-action-btn" onclick="var inp=document.getElementById(\'creativeMenuSearchInput\'); if(inp) window.FOORES_CART.filterMenuBySearch(inp.value)">' +
+                '<i class="icon_search"></i> Chercher' +
+                '</button>' +
                 '</div>' +
-                '<div class="search-filter-wrapper mx-auto mb-4" style="max-width: 480px; position: relative;">' +
-                '<i class="icon_search" style="position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: #e45d16; font-size: 18px;"></i>' +
-                '<input type="text" id="creativeMenuSearchInput" placeholder="Rechercher un plat, ingrédient..." ' +
-                'style="width: 100%; padding: 12px 20px 12px 48px; border-radius: 30px; border: 2px solid #E5E7EB; font-size: 14.5px; outline: none; transition: all 0.3s ease; background: #FFF; box-shadow: 0 4px 15px rgba(0,0,0,0.03);" ' +
-                'oninput="window.FOORES_CART.filterMenuBySearch(this.value)">' +
-                '</div>' +
+                '</div>'; +
                 '<div class="creative-category-bar-box mb-4">' +
                 '<div class="d-flex align-items-center justify-content-start justify-content-md-center gap-3 gap-md-4 overflow-auto py-2 category-scroll-container">' +
                 '<div class="category-circle-item active" data-category="all" onclick="window.FOORES_CART.filterCategory(\'all\', this)" role="button" title="Tous les Plats">' +
