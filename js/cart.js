@@ -1462,7 +1462,7 @@
                 if (filtered.length > currentVisibleLimit) {
                     var remaining = filtered.length - visibleDishes.length;
                     loadMoreContainer.style.display = 'block';
-                    loadMoreContainer.innerHTML = '<button type="button" class="tasty-load-more-btn" onclick="window.FOORES_CART.loadMoreDishes()">Charger Plus de Plats (' + remaining + ' restants)</button>';
+                    loadMoreContainer.innerHTML = '<button type="button" class="tasty-load-more-btn" onclick="window.FOORES_CART.loadMoreDishes()">Charger Plus de Plats</button>';
                 } else {
                     if (filtered.length > INITIAL_DISH_LIMIT) {
                         loadMoreContainer.style.display = 'block';
