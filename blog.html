@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Foores - Single Restaurant Version">
+    <meta name="author" content="Ansonika">
+    <title>Foores - Single Restaurant Version</title>
+
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" type="image/x-icon" href="img/apple-touch-icon-57x57-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="img/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="img/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="img/apple-touch-icon-144x144-precomposed.png">
+
+    <!-- GOOGLE WEB FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Lora:ital@1&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- BASE CSS -->
+    <link href="css/vendors.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- SPECIFIC CSS -->
+    <link href="css/blog.css" rel="stylesheet">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="css/custom.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+	<div id="preloader">
+		<div data-loader="circle-side"></div>
+	</div><!-- /Page Preload -->
+				
+	<header class="header clearfix element_to_stick">
+		<div class="layer"></div><!-- Opacity Mask Menu Mobile -->
+		<!-- Top Header Bar -->
+		<div class="top-header-bar d-none d-lg-block">
+			<div class="container-fluid d-flex justify-content-between align-items-center">
+				<div class="top-header-left d-flex align-items-center gap-4">
+					<span class="top-info-item"><i class="bi bi-geo-alt-fill"></i> 123 Rue Gourmande, Casablanca, Maroc</span>
+					<span class="top-info-item"><i class="bi bi-clock-fill"></i> Lun - Dim: 10:00 AM - 23:00 PM</span>
+				</div>
+				<div class="top-header-right d-flex align-items-center gap-3">
+					<span class="top-info-item"><i class="bi bi-telephone-fill"></i> +212 522 22 33 44</span>
+					<div class="top-social-links d-flex align-items-center gap-2 ms-2">
+						<a href="#0" class="social-icon-circle"><i class="bi bi-facebook"></i></a>
+						<a href="#0" class="social-icon-circle"><i class="bi bi-instagram"></i></a>
+						<a href="#0" class="social-icon-circle"><i class="bi bi-twitter-x"></i></a>
+						<a href="#0" class="social-icon-circle"><i class="bi bi-pinterest"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Main Navigation Bar -->
+		<div class="main-nav-bar">
+			<div class="container-fluid d-flex align-items-center justify-content-between">
+				<div id="logo" class="my-0">
+					<a href="index.html">
+						<img src="img/logo_sticky.svg" width="140" height="35" alt="" class="logo_normal">
+						<img src="img/logo_sticky.svg" width="140" height="35" alt="" class="logo_sticky">
+					</a>
+				</div>
+				
+				<a href="#0" class="open_close">
+					<i class="icon_menu"></i><span>Menu</span>
+				</a>
+				
+				<nav class="main-menu">
+					<div id="header_menu">
+						<a href="#0" class="open_close">
+							<i class="icon_close"></i><span>Menu</span>
+						</a>
+						<a href="index.html"><img src="img/logo_sticky.svg" width="140" height="35" alt=""></a>
+					</div>
+					<ul>
+						<li><a href="index.html">ACCUEIL</a></li>
+						<li><a href="about.html">À PROPOS</a></li>
+						<li><a href="menu-2.html">MENU</a></li>
+						<li><a href="reservations.html">RÉSERVATION</a></li>
+						<li><a href="gallery.html">GALERIE</a></li>
+						<li><a href="blog.html" class="active">BLOG</a></li>
+						<li><a href="contacts.html">CONTACT</a></li>
+					</ul>
+				</nav>
+
+				<div class="header-right-actions d-flex align-items-center gap-3">
+					<ul id="top_menu" class="m-0 p-0 d-flex align-items-center list-unstyled">
+						<li><a href="#0" class="search-overlay-menu-btn"></a></li>
+						<li>
+							<div class="dropdown dropdown-cart">
+								<a href="shop-cart.html" class="cart_bt"><strong id="cart-count">0</strong></a>
+								<div class="dropdown-menu">
+									<ul id="nav-cart-items">
+										<!-- Dynamically populated by js/cart.js -->
+									</ul>
+									<div class="total_drop">
+										<div class="clearfix add_bottom_15"><strong>Total</strong><span id="nav-cart-total">.00</span></div>
+										<a href="shop-cart.html" class="btn_1 outline">Voir Panier</a><a href="shop-checkout.html" class="btn_1">Commander</a>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<a href="reservations.html" class="btn_book_table_pill d-none d-sm-inline-block">BOOK A TABLE</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- Search -->
+		<div class="search-overlay-menu">
+			<span class="search-overlay-close"><span class="closebt"><i class="icon_close"></i></span></span>
+			<form role="search" id="searchform" method="get">
+				<input value="" name="q" type="search" placeholder="Rechercher..." />
+				<button type="submit"><i class="icon_search"></i></button>
+			</form>
+		</div><!-- End Search -->
+	</header>
+	<!-- /header -->
+	
+	<main>
+		<div class="hero_single inner_pages background-image" data-background="url(img/hero_general.jpg)">
+			<div class="opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)">
+				<div class="container">
+					<div class="row justify-content-center">
+						<div class="col-xl-9 col-lg-10 col-md-8">
+							<h1>Foores Blog</h1>
+							<p>Per consequat adolescens ex cu nibh commune</p>
+						</div>
+					</div>
+					<!-- /row -->
+				</div>
+			</div>
+			<div class="frame white"></div>
+		</div>
+		<!-- /hero_single -->
+
+		<div class="container margin_60_40">			
+			<div class="row">
+				<div class="col-lg-9">
+					<div class="row">
+						<div class="col-md-6" data-cue="slideInUp">
+							<article class="blog">
+								<figure>
+									<a href="blog-post.html"><img src="img/blog-1.jpg" alt="">
+										<div class="preview"><span>Découvrir le Menu</span></div>
+									</a>
+								</figure>
+								<div class="post_info">
+									<small>Category - 20 Nov. 2017</small>
+									<h2><a href="blog-post.html">Ea exerci option hendrerit</a></h2>
+									<p>Quodsi sanctus pro eu, ne audire scripserit quo. Vel an enim offendit salutandi, in eos quod omnes epicurei, ex veri qualisque scriptorem mei.</p>
+									<ul>
+										<li>
+											<div class="thumb"><img src="img/avatar.jpg" alt=""></div> Admin
+										</li>
+										<li><i class="icon_comment_alt"></i>20</li>
+									</ul>
+								</div>
+							</article>
+							<!-- /article -->
+						</div>
+						<!-- /col -->
+						<div class="col-md-6" data-cue="slideInUp">
+							<article class="blog">
+								<figure>
+									<a href="blog-post.html"><img src="img/blog-2.jpg" alt="">
+										<div class="preview"><span>Découvrir le Menu</span></div>
+									</a>
+								</figure>
+								<div class="post_info">
+									<small>Category - 20 Nov. 2017</small>
+									<h2><a href="blog-post.html">At usu sale dolorum offendit</a></h2>
+									<p>Quodsi sanctus pro eu, ne audire scripserit quo. Vel an enim offendit salutandi, in eos quod omnes epicurei, ex veri qualisque scriptorem mei.</p>
+									<ul>
+										<li>
+											<div class="thumb"><img src="img/avatar.jpg" alt=""></div> Admin
+										</li>
+										<li><i class="icon_comment_alt"></i>20</li>
+									</ul>
+								</div>
+							</article>
+							<!-- /article -->
+						</div>
+						<!-- /col -->
+						<div class="col-md-6" data-cue="slideInUp">
+							<article class="blog">
+								<figure>
+									<a href="blog-post.html"><img src="img/blog-3.jpg" alt="">
+										<div class="preview"><span>Découvrir le Menu</span></div>
+									</a>
+								</figure>
+								<div class="post_info">
+									<small>Category - 20 Nov. 2017</small>
+									<h2><a href="blog-post.html">Iusto nominavi petentium in</a></h2>
+									<p>Quodsi sanctus pro eu, ne audire scripserit quo. Vel an enim offendit salutandi, in eos quod omnes epicurei, ex veri qualisque scriptorem mei.</p>
+									<ul>
+										<li>
+											<div class="thumb"><img src="img/avatar.jpg" alt=""></div> Admin
+										</li>
+										<li><i class="icon_comment_alt"></i>20</li>
+									</ul>
+								</div>
+							</article>
+							<!-- /article -->
+						</div>
+						<!-- /col -->
+						<div class="col-md-6" data-cue="slideInUp">
+							<article class="blog">
+								<figure>
+									<a href="blog-post.html"><img src="img/blog-4.jpg" alt="">
+										<div class="preview"><span>Découvrir le Menu</span></div>
+									</a>
+								</figure>
+								<div class="post_info">
+									<small>Category - 20 Nov. 2017</small>
+									<h2><a href="blog-post.html">Assueverit concludaturque quo</a></h2>
+									<p>Quodsi sanctus pro eu, ne audire scripserit quo. Vel an enim offendit salutandi, in eos quod omnes epicurei, ex veri qualisque scriptorem mei.</p>
+									<ul>
+										<li>
+											<div class="thumb"><img src="img/avatar.jpg" alt=""></div> Admin
+										</li>
+										<li><i class="icon_comment_alt"></i>20</li>
+									</ul>
+								</div>
+							</article>
+							<!-- /article -->
+						</div>
+						<!-- /col -->
+						<div class="col-md-6" data-cue="slideInUp">
+							<article class="blog">
+								<figure>
+									<a href="blog-post.html"><img src="img/blog-5.jpg" alt="">
+										<div class="preview"><span>Découvrir le Menu</span></div>
+									</a>
+								</figure>
+								<div class="post_info">
+									<small>Category - 20 Nov. 2017</small>
+									<h2><a href="blog-post.html">Nec nihil menandri appellantur</a></h2>
+									<p>Quodsi sanctus pro eu, ne audire scripserit quo. Vel an enim offendit salutandi, in eos quod omnes epicurei, ex veri qualisque scriptorem mei.</p>
+									<ul>
+										<li>
+											<div class="thumb"><img src="img/avatar.jpg" alt=""></div> Admin
+										</li>
+										<li><i class="icon_comment_alt"></i>20</li>
+									</ul>
+								</div>
+							</article>
+							<!-- /article -->
+						</div>
+						<!-- /col -->
+						<div class="col-md-6" data-cue="slideInUp">
+							<article class="blog">
+								<figure>
+									<a href="blog-post.html"><img src="img/blog-6.jpg" alt="">
+										<div class="preview"><span>Découvrir le Menu</span></div>
+									</a>
+								</figure>
+								<div class="post_info">
+									<small>Category - 20 Nov. 2017</small>
+									<h2><a href="blog-post.html">Te congue everti his salutandi</a></h2>
+									<p>Quodsi sanctus pro eu, ne audire scripserit quo. Vel an enim offendit salutandi, in eos quod omnes epicurei, ex veri qualisque scriptorem mei.</p>
+									<ul>
+										<li>
+											<div class="thumb"><img src="img/avatar.jpg" alt=""></div> Admin
+										</li>
+										<li><i class="icon_comment_alt"></i>20</li>
+									</ul>
+								</div>
+							</article>
+							<!-- /article -->
+						</div>
+						<!-- /col -->
+					</div>
+					<!-- /row -->
+
+					<div class="pagination_fg">
+					  <a href="#">&laquo;</a>
+					  <a href="#" class="active">1</a>
+					  <a href="#">2</a>
+					  <a href="#">3</a>
+					  <a href="#">4</a>
+					  <a href="#">5</a>
+					  <a href="#">&raquo;</a>
+					</div>
+
+				</div>
+				<!-- /col -->
+
+				<aside class="col-lg-3">
+					<div class="widget">
+						<div class="widget-title first">
+							<h4>Latest Post</h4>
+						</div>
+						<ul class="comments-list">
+							<li>
+								<div class="alignleft">
+									<a href="#0"><img src="img/blog-5.jpg" alt=""></a>
+								</div>
+								<small>Category - 11.08.2016</small>
+								<h3><a href="#" title="">Verear qualisque ex minimum...</a></h3>
+							</li>
+							<li>
+								<div class="alignleft">
+									<a href="#0"><img src="img/blog-6.jpg" alt=""></a>
+								</div>
+								<small>Category - 11.08.2016</small>
+								<h3><a href="#" title="">Verear qualisque ex minimum...</a></h3>
+							</li>
+							<li>
+								<div class="alignleft">
+									<a href="#0"><img src="img/blog-4.jpg" alt=""></a>
+								</div>
+								<small>Category - 11.08.2016</small>
+								<h3><a href="#" title="">Verear qualisque ex minimum...</a></h3>
+							</li>
+						</ul>
+					</div>
+					<!-- /widget -->
+					<div class="widget">
+						<div class="widget-title">
+							<h4>Categories</h4>
+						</div>
+						<ul class="cats">
+							<li><a href="#">Food <span>(12)</span></a></li>
+							<li><a href="#">Places to visit <span>(21)</span></a></li>
+							<li><a href="#">New Places <span>(44)</span></a></li>
+							<li><a href="#">Suggestions and guides <span>(31)</span></a></li>
+						</ul>
+					</div>
+					<!-- /widget -->
+					<div class="widget">
+						<div class="widget-title">
+							<h4>Popular Tags</h4>
+						</div>
+						<div class="tags">
+							<a href="#">Food</a>
+							<a href="#">Bars</a>
+							<a href="#">Cooktails</a>
+							<a href="#">Shops</a>
+							<a href="#">Best Offers</a>
+							<a href="#">Transports</a>
+							<a href="#">Restaurants</a>
+						</div>
+					</div>
+					<!-- /widget -->
+				</aside>
+				<!-- /aside -->
+			</div>
+			<!-- /row -->	
+		</div>
+		<!-- /container -->
+	</main>
+	<!-- /main -->
+
+	<footer>
+	    <div class="frame black"></div>
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+	                <div class="footer_wp">
+	                    <i class="icon_pin_alt"></i>
+	                    <h3>Adresse</h3>
+	                    <p>128 Boulevard Anfa<br>Casablanca - Maroc</p>
+	                </div>
+	            </div>
+	            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+	                <div class="footer_wp">
+	                    <i class="icon_tag_alt"></i>
+	                    <h3>Réservations</h3>
+	                    <p><a href="tel:+212522223344">+212 522 22 33 44</a><br><a href="#0">contact@foores.ma</a></p>
+	                </div>
+	            </div>
+	            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+	                <div class="footer_wp">
+	                    <i class="icon_clock_alt"></i>
+	                    <h3>Horaires d'Ouverture</h3>
+	                    <ul>
+	                        <li>Lun - Sam: 12h00 - 23h00</li>
+	                        <li>Dimanche: 12h00 - 00h00</li>
+	                    </ul>
+	                </div>
+	            </div>
+	            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+	                <h3>Restons en Contact</h3>
+	                <div id="newsletter">
+	                    <div id="message-newsletter"></div>
+	                    <form method="post" action="phpmailer/newsletter_template_email.php" name="newsletter_form" id="newsletter_form">
+	                        <div class="form-group">
+	                            <input type="email" name="email_newsletter" id="email_newsletter" class="form-control" placeholder="Votre e-mail">
+	                            <button type="submit" id="submit-newsletter"><i class="arrow_carrot-right"></i></button>
+	                        </div>
+	                    </form>
+	                </div>
+	            </div>
+	        </div>
+	        <!-- /row-->
+	        <hr>
+	        <div class="row">
+	            <div class="col-sm-5">
+	                <p class="copy">© Foores Restaurant - Tous droits réservés</p>
+	            </div>
+	            <div class="col-sm-7">
+	                <div class="follow_us">
+	                    <ul>
+					        <li><a href="#0"><i class="bi bi-facebook"></i></a></li>
+					        <li><a href="#0"><i class="bi bi-twitter-x"></i></a></li>
+					        <li><a href="#0"><i class="bi bi-instagram"></i></a></li>
+					        <li><a href="#0"><i class="bi bi-tiktok"></i></a></li>
+					        <li><a href="#0"><i class="bi bi-whatsapp"></i></a></li>
+					    </ul>
+	                </div>
+	            </div>
+	        </div>
+	        <p class="text-center"></p>
+	    </div>
+	</footer>
+	<!--/footer-->
+
+		<!-- Fixed Floating Buttons (WhatsApp & Reservation) -->
+	<div class="fixed-floating-buttons">
+	    <a href="https://wa.me/212522223344" target="_blank" class="float-btn float-whatsapp" title="WhatsApp">
+	        <i class="bi bi-whatsapp"></i> <span>WhatsApp</span>
+	    </a>
+	    <a href="reservations.html" class="float-btn float-reservation" title="Réserver une table">
+	        <i class="icon_calendar"></i> <span>Réservation</span>
+	    </a>
+	</div>
+<div id="toTop"></div><!-- Back to top button -->
+		
+	<!-- COMMON SCRIPTS -->
+    <script src="js/common_scripts.min.js"></script>
+    <script src="js/common_func.js"></script>
+    <script src="phpmailer/validate.js"></script>
+
+    <script src="js/cart.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+

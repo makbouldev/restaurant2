@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Foores - Single Restaurant Version">
+    <meta name="author" content="Ansonika">
+    <title>Foores - Single Restaurant Version</title>
+
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" type="image/x-icon" href="img/apple-touch-icon-57x57-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="img/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="img/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="img/apple-touch-icon-144x144-precomposed.png">
+
+    <!-- GOOGLE WEB FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- BASE CSS -->
+    <link href="css/vendors.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- SPECIFIC CSS -->
+    <link href="css/wizard.css" rel="stylesheet">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="css/custom.css?v=60.0" rel="stylesheet">
+
+</head>
+
+<body>
+	
+	<div id="preloader">
+		<div data-loader="circle-side"></div>
+	</div><!-- /Page Preload -->
+	
+	<header class="header clearfix element_to_stick">
+		<div class="layer"></div><!-- Opacity Mask Menu Mobile -->
+		<!-- Top Header Bar -->
+		<div class="top-header-bar d-none d-lg-block">
+			<div class="container-fluid d-flex justify-content-between align-items-center">
+				<div class="top-header-left d-flex align-items-center gap-4">
+					<span class="top-info-item"><i class="bi bi-geo-alt-fill"></i> 123 Rue Gourmande, Casablanca, Maroc</span>
+					<span class="top-info-item"><i class="bi bi-clock-fill"></i> Lun - Dim: 10:00 AM - 23:00 PM</span>
+				</div>
+				<div class="top-header-right d-flex align-items-center gap-3">
+					<span class="top-info-item"><i class="bi bi-telephone-fill"></i> +212 522 22 33 44</span>
+					<div class="top-social-links d-flex align-items-center gap-2 ms-2">
+						<a href="#0" class="social-icon-circle"><i class="bi bi-facebook"></i></a>
+						<a href="#0" class="social-icon-circle"><i class="bi bi-instagram"></i></a>
+						<a href="#0" class="social-icon-circle"><i class="bi bi-twitter-x"></i></a>
+						<a href="#0" class="social-icon-circle"><i class="bi bi-pinterest"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Main Navigation Bar -->
+		<div class="main-nav-bar">
+			<div class="container-fluid d-flex align-items-center justify-content-between">
+				<div class="header-left-brand d-flex align-items-center gap-2">
+					<a href="#0" class="open_close d-lg-none">
+						<i class="icon_menu"></i><span>Menu</span>
+					</a>
+					<div id="logo" class="my-0">
+						<a href="index.html">
+							<img src="img/logo_sticky.svg" width="140" height="35" alt="" class="logo_normal">
+							<img src="img/logo_sticky.svg" width="140" height="35" alt="" class="logo_sticky">
+						</a>
+					</div>
+				</div>
+
+				<nav class="main-menu">
+					<div id="header_menu">
+						<a href="#0" class="open_close">
+							<i class="icon_close"></i><span>Menu</span>
+						</a>
+						<a href="index.html"><img src="img/logo_sticky.svg" width="130" height="32" alt=""></a>
+					</div>
+					<ul>
+						<li><a href="index.html" class="active">ACCUEIL</a></li>
+						<li><a href="about.html">À PROPOS</a></li>
+						<li><a href="menu-2.html">MENU</a></li>
+						<li><a href="reservations.html">RÉSERVATION</a></li>
+						<li><a href="gallery.html">GALERIE</a></li>
+						<li><a href="blog.html">BLOG</a></li>
+						<li><a href="contacts.html">CONTACT</a></li>
+						<li class="d-lg-none mt-3"><a href="reservations.html" class="btn_book_table_pill text-center text-white">BOOK A TABLE</a></li>
+					</ul>
+				</nav>
+
+				<div class="header-right-actions d-flex align-items-center gap-3">
+					<ul id="top_menu" class="m-0 p-0 d-flex align-items-center list-unstyled">
+						<li><a href="#0" class="search-overlay-menu-btn"></a></li>
+						<li>
+							<div class="dropdown dropdown-cart">
+								<a href="shop-cart.html" class="cart_bt"><strong id="cart-count">0</strong></a>
+								<div class="dropdown-menu">
+									<ul id="nav-cart-items">
+										<!-- Dynamically populated by js/cart.js -->
+									</ul>
+									<div class="total_drop">
+										<div class="clearfix add_bottom_15"><strong>Total</strong><span id="nav-cart-total">.00</span></div>
+										<a href="shop-cart.html" class="btn_1 outline">Voir Panier</a><a href="shop-checkout.html" class="btn_1">Commander</a>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<a href="reservations.html" class="btn_book_table_pill d-none d-lg-inline-block">BOOK A TABLE</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- Search -->
+		<div class="search-overlay-menu">
+			<span class="search-overlay-close"><span class="closebt"><i class="icon_close"></i></span></span>
+			<form role="search" id="searchform" method="get">
+				<input value="" name="q" type="search" placeholder="Rechercher..." />
+				<button type="submit"><i class="icon_search"></i></button>
+			</form>
+		</div><!-- End Search -->
+	</header>
+	<!-- /header -->
+	
+	<main>
+		<!-- Creative Hero Section (100% Matching Reference) -->
+		<section class="creative-hero-section">
+			<div class="container">
+				<div class="row align-items-center min-vh-hero">
+					
+					<!-- Left Content Column -->
+					<div class="col-lg-6 mb-4 mb-lg-0 pe-lg-4 text-start">
+						<div class="hero-badge-tag mb-2">
+							<span class="text-uppercase fw-bold tracking-wider text-orange">GOOD FOOD | GOOD MOOD</span>
+						</div>
+						
+						<h1 class="hero-main-title mb-3">
+							Delicious Food <br>
+							for <span class="cursive-accent">Every Mood</span>
+						</h1>
+						
+						<p class="hero-description mb-3">
+							Experience a perfect blend of taste, quality, and ambience. Every dish is crafted with love and passion to bring joy to your table.
+						</p>
+						
+						<div class="hero-buttons-wrapper d-flex flex-wrap align-items-center gap-3 mb-4">
+							<a href="menu-2.html" class="btn-hero-orange">
+								<i class="bi bi-utensils me-2"></i> EXPLORE MENU
+							</a>
+							<a href="reservations.html" class="btn-hero-outline">
+								<i class="bi bi-calendar-event me-2"></i> BOOK A TABLE
+							</a>
+						</div>
+						
+						<!-- Bottom Feature Badges -->
+						<div class="hero-features-row d-flex align-items-center gap-3 gap-md-4">
+							<div class="feature-item d-flex align-items-center gap-2">
+								<div class="feature-icon-circle">
+									<i class="bi bi-tree"></i>
+								</div>
+								<div class="feature-text">
+									<strong>Fresh</strong>
+									<span>Ingredients</span>
+								</div>
+							</div>
+							
+							<div class="feature-item d-flex align-items-center gap-2">
+								<div class="feature-icon-circle">
+									<i class="bi bi-award"></i>
+								</div>
+								<div class="feature-text">
+									<strong>Expert</strong>
+									<span>Chefs</span>
+								</div>
+							</div>
+							
+							<div class="feature-item d-flex align-items-center gap-2">
+								<div class="feature-icon-circle">
+									<i class="bi bi-heart"></i>
+								</div>
+								<div class="feature-text">
+									<strong>Made with</strong>
+									<span>Love</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<!-- Right Image Column -->
+					<div class="col-lg-6 position-relative text-center">
+						<div class="hero-image-wrapper">
+							<img src="img/hero_dish.jpg" alt="Delicious Gourmet Salmon" class="img-fluid hero-dish-img">
+							
+							<!-- Floating Signature Dishes Badge -->
+							<div class="floating-signature-badge">
+								<div class="badge-inner">
+									<span class="badge-number">30+</span>
+									<span class="badge-label">Signature<br>Dishes</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</section>
+		<!-- /creative-hero-section -->
+
+		<ul id="banners_grid" class="clearfix">
+			<li>
+				<a href="menu-2.html" class="img_container">
+					<img src="img/banners_cat_placeholder.jpg" data-src="img/banner_1.jpg" alt="" class="lazy">
+					<div class="short_info opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
+						<h3>Notre Menu</h3>
+						<p>Découvrez nos spécialités</p>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="menu-2.html" class="img_container">
+					<img src="img/banners_cat_placeholder.jpg" data-src="img/banner_2.jpg" alt="" class="lazy">
+					<div class="short_info opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
+						<h3>Livraison</h3>
+						<p>Livraison à domicile ou à emporter</p>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="gallery.html" class="img_container">
+					<img src="img/banners_cat_placeholder.jpg" data-src="img/banner_3.jpg" alt="" class="lazy">
+					<div class="short_info opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
+						<h3>L'Univers Foores</h3>
+						<p>Découvrez notre galerie</p>
+					</div>
+				</a>
+			</li>
+		</ul>
+		<!--/banners_grid -->
+
+		<!-- ==========================================================================
+		     SECTION 1: OUR POPULAR DISHES (CHEF'S SPECIAL - CATEGORIES & DISHES)
+		     ========================================================================== -->
+		<section class="popular-dishes-section">
+			<div class="container">
+				<!-- Section Header -->
+				<div class="popular-header-wrapper d-flex justify-content-between align-items-end mb-4">
+					<div class="text-center text-md-start flex-grow-1">
+						<span class="popular-subtag">CHEF'S SPECIAL</span>
+						<h2 class="popular-title">— Our Popular Menu —</h2>
+					</div>
+					<div class="d-none d-md-block ms-auto">
+						<a href="menu-2.html" class="popular-view-all-link">VIEW FULL MENU <i class="bi bi-chevron-right ms-1"></i></a>
+					</div>
+				</div>
+
+				<!-- ROW 1: Ultra-Creative Luxury Category Bar Box -->
+				<div class="creative-category-bar-box mb-4">
+					<div class="d-flex align-items-center justify-content-start justify-content-md-center gap-3 gap-md-4 overflow-auto py-2 category-scroll-container">
+						
+						<div class="category-circle-item active" data-category="all" role="button" title="Tous les Plats">
+							<div class="circle-img-box">
+								<span class="circle-badge">✨</span>
+								<img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=300&auto=format&fit=crop&q=80" alt="Tous les Plats" class="cat-circle-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=300&auto=format&fit=crop&q=80';">
+							</div>
+							<span class="category-circle-label">Tous</span>
+						</div>
+
+						<div class="category-circle-item" data-category="pastas" role="button" title="Pâtes">
+							<div class="circle-img-box">
+								<span class="circle-badge">🍝</span>
+								<img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=300&auto=format&fit=crop&q=80" alt="Pâtes" class="cat-circle-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=300&auto=format&fit=crop&q=80';">
+							</div>
+							<span class="category-circle-label">Pâtes</span>
+						</div>
+
+						<div class="category-circle-item" data-category="burgers" role="button" title="Burgers">
+							<div class="circle-img-box">
+								<span class="circle-badge">🍔</span>
+								<img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300&auto=format&fit=crop&q=80" alt="Burgers" class="cat-circle-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300&auto=format&fit=crop&q=80';">
+							</div>
+							<span class="category-circle-label">Burgers</span>
+						</div>
+
+						<div class="category-circle-item" data-category="pizzas" role="button" title="Pizzas">
+							<div class="circle-img-box">
+								<span class="circle-badge">🍕</span>
+								<img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=300&auto=format&fit=crop&q=80" alt="Pizzas" class="cat-circle-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1513104890138-7c749659a591?w=300&auto=format&fit=crop&q=80';">
+							</div>
+							<span class="category-circle-label">Pizzas</span>
+						</div>
+
+						<div class="category-circle-item" data-category="grillades" role="button" title="Grillades">
+							<div class="circle-img-box">
+								<span class="circle-badge">🥩</span>
+								<img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=300&auto=format&fit=crop&q=80" alt="Grillades" class="cat-circle-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544025162-d76694265947?w=300&auto=format&fit=crop&q=80';">
+							</div>
+							<span class="category-circle-label">Grillades</span>
+						</div>
+
+						<div class="category-circle-item" data-category="salades" role="button" title="Salades">
+							<div class="circle-img-box">
+								<span class="circle-badge">🥗</span>
+								<img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300&auto=format&fit=crop&q=80" alt="Salades" class="cat-circle-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1540420773420-3366772f4999?w=300&auto=format&fit=crop&q=80';">
+							</div>
+							<span class="category-circle-label">Salades</span>
+						</div>
+
+						<div class="category-circle-item" data-category="boissons" role="button" title="Boissons">
+							<div class="circle-img-box">
+								<span class="circle-badge">🥤</span>
+								<img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=300&auto=format&fit=crop&q=80" alt="Boissons" class="cat-circle-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=300&auto=format&fit=crop&q=80';">
+							</div>
+							<span class="category-circle-label">Boissons</span>
+						</div>
+
+						<div class="category-circle-item" data-category="desserts" role="button" title="Desserts">
+							<div class="circle-img-box">
+								<span class="circle-badge">🍨</span>
+								<img src="https://images.unsplash.com/photo-1587314168485-3236d6710814?w=300&auto=format&fit=crop&q=80" alt="Desserts" class="cat-circle-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1587314168485-3236d6710814?w=300&auto=format&fit=crop&q=80';">
+							</div>
+							<span class="category-circle-label">Desserts</span>
+						</div>
+
+					</div>
+				</div>
+
+				<!-- ROW 2: Dishes Grid Container -->
+				<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4" id="popularDishesGrid">
+					<!-- Dynamically loaded via JS from api/dishes.php with default fallbacks -->
+				</div>
+
+				<!-- Mobile View Full Menu Link -->
+				<div class="text-center mt-4 d-md-none">
+					<a href="menu-2.html" class="popular-view-all-link">VIEW FULL MENU <i class="bi bi-chevron-right ms-1"></i></a>
+				</div>
+			</div>
+		</section>
+
+		<!-- ==========================================================================
+		     SECTION 2: LUXURY DINING EXPERIENCE & TABLE RESERVATION BANNER
+		     ========================================================================== -->
+		<section class="luxury-reservation-section my-5">
+			<div class="container">
+				<div class="luxury-banner-wrapper position-relative overflow-hidden" style="background-image: url('img/restaurant_table_bg.jpg');">
+					<div class="luxury-banner-overlay p-4 p-md-5">
+						<div class="row align-items-center g-4">
+							
+							<!-- Left Column: Title & Description -->
+							<div class="col-lg-7 col-md-12 text-white">
+								<span class="luxury-subtag">EXPÉRIENCE GASTRONOMIQUE</span>
+								<h2 class="luxury-title mt-2 mb-3">Réservez Votre Table Pour Une Soirée D'Exception</h2>
+								<p class="luxury-desc mb-4">
+									Profitez d'une ambiance raffinée et chaleureuse, d'un service attentionné et de nos meilleures spécialités culinaires préparées minute avec des ingrédients d'exception.
+								</p>
+								<div class="luxury-features-list d-flex flex-wrap gap-3">
+									<span class="luxury-feature-badge"><i class="bi bi-stars text-orange me-2"></i> Ambiance Chaleureuse</span>
+									<span class="luxury-feature-badge"><i class="bi bi-award text-orange me-2"></i> Chefs Passionnés</span>
+									<span class="luxury-feature-badge"><i class="bi bi-geo-alt text-orange me-2"></i> Casablanca, Maroc</span>
+								</div>
+							</div>
+
+							<!-- Right Column: Card & Reservation Button -->
+							<div class="col-lg-5 col-md-12 text-center text-lg-end">
+								<div class="luxury-action-card p-4 p-md-5 bg-white rounded-4 text-start shadow-lg">
+									<h4 class="luxury-card-title mb-2">Réservez en Ligne</h4>
+									<p class="small text-muted mb-4">Garantissez votre table idéale pour votre déjeuner ou dîner.</p>
+									<div class="d-flex align-items-center gap-3 mb-3">
+										<i class="bi bi-clock-fill text-orange fs-4"></i>
+										<div>
+											<strong class="d-block small text-dark">Horaires de Service</strong>
+											<span class="small text-muted">Lun - Dim: 12h00 - 23h00</span>
+										</div>
+									</div>
+									<div class="d-flex align-items-center gap-3 mb-4">
+										<i class="bi bi-telephone-fill text-orange fs-4"></i>
+										<div>
+											<strong class="d-block small text-dark">Service Client & Hotline</strong>
+											<span class="small text-muted">+212 522 22 33 44</span>
+										</div>
+									</div>
+									<a href="reservations.html" class="btn-hero-orange w-100 justify-content-center text-center py-3">
+										<i class="bi bi-calendar3 me-2"></i> RÉSERVER UNE TABLE NOW
+									</a>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<div class="pattern_2">
+		    <div class="container margin_120_100 home_intro">
+		        <div class="row justify-content-center d-flex align-items-center">
+		            <div class="col-lg-5 text-lg-center d-none d-lg-block" data-cue="slideInUp">
+		                <figure>
+		                    <img src="img/home_1_placeholder.png" data-src="img/home_1.jpg" width="354" height="440" alt="" class="img-fluid lazy">
+		                    <a href="https://www.youtube.com/watch?v=MO7Hi_kBBBg" class="btn_play" data-cue="zoomIn" data-delay="500"><span class="pulse_bt"><i class="arrow_triangle-right"></i></span></a>
+		                </figure>
+		            </div>
+		            <div class="col-lg-5 pt-lg-4" data-cue="slideInUp" data-delay="500">
+		                <div class="main_title">
+		                    <span><em></em></span>
+		                    <h2>À Propos de Nous</h2>
+		                    <p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
+		                </div>
+		                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+		                <p><img src="img/signature.png" width="140" height="50" alt="" class="mt-3"></p>
+		            </div>
+		        </div>
+		        <!--/row -->
+		    </div>
+		    <!--/container -->
+		</div>
+		<!--/pattern_2 -->
+
+
+
+		<div class="call_section lazy" data-bg="url(img/bg_call_section.jpg)">
+		    <div class="container clearfix">
+		    	<div class="row justify-content-center">
+			        <div class="col-lg-5 col-md-6 text-center">
+			            <div class="box_1" data-cue="slideInUp">
+			                <h2>Celebrate<span>a Special Event with us!</span></h2>
+			                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+			                <a href="contacts.html" class="btn_1 mt-3">Contact us</a>
+			            </div>
+			        </div>
+			    </div>
+    		</div>
+    	</div>
+   		<!--/call_section-->
+
+		<!-- Ultra-Creative Luxury Testimonials Section -->
+		<section class="pro-testimonials-section py-5" style="background-color: #faf8f5;">
+		    <div class="container py-4">
+		        
+		        <!-- Header & Trust Summary -->
+		        <div class="text-center mb-5" data-cue="slideInUp">
+		            <span class="pro-badge-sub text-uppercase fw-bold" style="color: #e45d16; font-size: 12.5px; letter-spacing: 2.5px;">L'AVIS DE NOS ÉPICURIENS</span>
+		            <h2 class="pro-section-title mt-2 mb-3" style="font-family: 'Playfair Display', serif; font-size: 38px; font-weight: 700; color: #111111;">Expériences & Témoignages</h2>
+		            
+		            <!-- Trust Badge Pill -->
+		            <div class="d-inline-flex align-items-center gap-3 bg-white px-4 py-2 rounded-pill shadow-sm border border-light mt-2">
+		                <span class="fw-extrabold fs-5" style="color: #111111;">4.9 / 5.0</span>
+		                <div class="text-warning fs-6">★★★★★</div>
+		                <span class="text-muted small border-start ps-3">+380 Avis Vérifiés sur Google & TripAdvisor</span>
+		            </div>
+		        </div>
+
+		        <!-- 3 Professional Review Cards Grid -->
+		        <div class="row g-4 justify-content-center">
+		            
+		            <!-- Card 1 -->
+		            <div class="col-lg-4 col-md-6" data-cue="slideInUp" data-delay="100">
+		                <div class="pro-review-card h-100 bg-white p-4 rounded-4 shadow-sm border position-relative d-flex flex-column justify-content-between">
+		                    <div>
+		                        <div class="d-flex align-items-center justify-content-between mb-3">
+		                            <div class="d-flex align-items-center gap-3">
+		                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80" alt="Yassine B." class="rounded-circle" style="width: 52px; height: 52px; object-fit: cover; border: 2px solid #e45d16;">
+		                                <div>
+		                                    <h5 class="fw-bold mb-0 text-dark" style="font-size: 16px;">Yassine Benjelloun</h5>
+		                                    <small class="text-muted d-block" style="font-size: 11.5px;"><i class="bi bi-patch-check-fill text-success me-1"></i> Client Vérifié · Casablanca</small>
+		                                </div>
+		                            </div>
+		                            <span class="badge bg-light text-dark border"><i class="bi bi-google text-primary me-1"></i> 5.0</span>
+		                        </div>
+
+		                        <div class="text-warning mb-2" style="font-size: 14px;">★★★★★</div>
+
+		                        <p class="fst-italic text-secondary mb-4" style="font-size: 14px; line-height: 1.6;">
+		                            « Une expérience gastronomique d'exception à Casablanca ! Réservation en ligne fluide, ambiance élégante et tagliatelles à la truffe d'une finesse rare. Un grand bravo à toute l'équipe. »
+		                        </p>
+		                    </div>
+
+		                    <div class="pt-3 border-top d-flex align-items-center justify-content-between text-muted small">
+		                        <span class="badge bg-light text-secondary border fw-normal" style="font-size: 11px;">🍝 Tagliatelle aux Truffes</span>
+		                        <span style="font-size: 11.5px;">Il y a 3 jours</span>
+		                    </div>
+		                </div>
+		            </div>
+
+		            <!-- Card 2 (Featured) -->
+		            <div class="col-lg-4 col-md-6" data-cue="slideInUp" data-delay="200">
+		                <div class="pro-review-card featured h-100 bg-white p-4 rounded-4 shadow border-2 position-relative d-flex flex-column justify-content-between" style="border-color: #e45d16 !important;">
+		                    <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-orange px-3 py-2 text-white shadow-sm" style="background-color: #e45d16; font-size: 10.5px; letter-spacing: 0.5px;">✨ AVIS COUP DE CŒUR</span>
+		                    <div>
+		                        <div class="d-flex align-items-center justify-content-between mb-3 mt-2">
+		                            <div class="d-flex align-items-center gap-3">
+		                                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&auto=format&fit=crop&q=80" alt="Sophia A." class="rounded-circle" style="width: 52px; height: 52px; object-fit: cover; border: 2px solid #e45d16;">
+		                                <div>
+		                                    <h5 class="fw-bold mb-0 text-dark" style="font-size: 16px;">Sophia Alami</h5>
+		                                    <small class="text-muted d-block" style="font-size: 11.5px;"><i class="bi bi-patch-check-fill text-success me-1"></i> Client Fidéle · Casablanca</small>
+		                                </div>
+		                            </div>
+		                            <span class="badge bg-light text-dark border"><i class="bi bi-star-fill text-warning me-1"></i> 5.0</span>
+		                        </div>
+
+		                        <div class="text-warning mb-2" style="font-size: 14px;">★★★★★</div>
+
+		                        <p class="fst-italic text-secondary mb-4" style="font-size: 14px; line-height: 1.6;">
+		                            « Troisième visite chez Foores et la qualité reste irréprochable. Le Double Angus Burger est succulent, le pain brioché artisanal et la viande de bœuf Black Angus parfaitement préparée. Recommandé sans réserve ! »
+		                        </p>
+		                    </div>
+
+		                    <div class="pt-3 border-top d-flex align-items-center justify-content-between text-muted small">
+		                        <span class="badge bg-light text-secondary border fw-normal" style="font-size: 11px;">🍔 Double Angus Burger</span>
+		                        <span style="font-size: 11.5px;">Il y a 1 semaine</span>
+		                    </div>
+		                </div>
+		            </div>
+
+		            <!-- Card 3 -->
+		            <div class="col-lg-4 col-md-6" data-cue="slideInUp" data-delay="300">
+		                <div class="pro-review-card h-100 bg-white p-4 rounded-4 shadow-sm border position-relative d-flex flex-column justify-content-between">
+		                    <div>
+		                        <div class="d-flex align-items-center justify-content-between mb-3">
+		                            <div class="d-flex align-items-center gap-3">
+		                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&auto=format&fit=crop&q=80" alt="Karim T." class="rounded-circle" style="width: 52px; height: 52px; object-fit: cover; border: 2px solid #e45d16;">
+		                                <div>
+		                                    <h5 class="fw-bold mb-0 text-dark" style="font-size: 16px;">Karim Tazi</h5>
+		                                    <small class="text-muted d-block" style="font-size: 11.5px;"><i class="bi bi-patch-check-fill text-success me-1"></i> Client Vérifié · Casablanca</small>
+		                                </div>
+		                            </div>
+		                            <span class="badge bg-light text-dark border"><i class="bi bi-tripadvisor text-success me-1"></i> 5.0</span>
+		                        </div>
+
+		                        <div class="text-warning mb-2" style="font-size: 14px;">★★★★★</div>
+
+		                        <p class="fst-italic text-secondary mb-4" style="font-size: 14px; line-height: 1.6;">
+		                            « Ambiance raffinée, cuisson de la viande de bœuf maturée parfaite au feu de bois avec des frites croustillantes faites maison. Une adresse incontournable pour un dîner réussi. »
+		                        </p>
+		                    </div>
+
+		                    <div class="pt-3 border-top d-flex align-items-center justify-content-between text-muted small">
+		                        <span class="badge bg-light text-secondary border fw-normal" style="font-size: 11px;">🥩 Entrecôte Sauce Poivre</span>
+		                        <span style="font-size: 11.5px;">Il y a 2 semaines</span>
+		                    </div>
+		                </div>
+		            </div>
+
+		        </div>
+
+		        <!-- Leave Google Review Action Footer -->
+		        <div class="text-center mt-5" data-cue="slideInUp">
+		            <div class="d-flex flex-wrap justify-content-center align-items-center gap-3">
+		                <a href="https://search.google.com/local/writereview" target="_blank" class="btn text-white rounded-pill px-4 py-2.5 fw-bold shadow-sm d-inline-flex align-items-center" style="background: linear-gradient(135deg, #e45d16, #ff7e33); border: none; font-size: 14.5px; transition: all 0.3s ease;">
+		                    <i class="bi bi-star-fill text-warning me-2" style="font-size: 16px;"></i> Donnez votre avis sur Google
+		                </a>
+		                <a href="https://google.com" target="_blank" class="btn btn-outline-dark rounded-pill px-4 py-2.5 fw-semibold d-inline-flex align-items-center" style="font-size: 14px; border-color: #ddd;">
+		                    <i class="bi bi-google me-2" style="color: #4285F4; font-size: 15px;"></i> Voir tous nos avis Google (4.9 ★)
+		                </a>
+		            </div>
+		            <p class="text-muted small mt-2 mb-0" style="font-size: 12px;"><i class="bi bi-shield-check text-success me-1"></i> Votre avis compte énormément pour nous et aide notre restaurant à grandir !</p>
+		        </div>
+
+		    </div>
+		</section>
+		<!-- /Ultra-Creative Luxury Testimonials Section -->
+
+	
+	</main>
+	<!-- /main -->
+
+	<footer>
+	    <div class="frame black"></div>
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+	                <div class="footer_wp">
+	                    <i class="icon_pin_alt"></i>
+	                    <h3>Adresse</h3>
+	                    <p>128 Boulevard Anfa<br>Casablanca - Maroc</p>
+	                </div>
+	            </div>
+	            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+	                <div class="footer_wp">
+	                    <i class="icon_tag_alt"></i>
+	                    <h3>Réservations</h3>
+	                    <p><a href="tel:+212522223344">+212 522 22 33 44</a><br><a href="#0">contact@foores.ma</a></p>
+	                </div>
+	            </div>
+	            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+	                <div class="footer_wp">
+	                    <i class="icon_clock_alt"></i>
+	                    <h3>Horaires d'Ouverture</h3>
+	                    <ul>
+	                        <li>Lun - Sam: 12h00 - 23h00</li>
+	                        <li>Dimanche: 12h00 - 00h00</li>
+	                    </ul>
+	                </div>
+	            </div>
+	            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+	                <h3>Restons en Contact</h3>
+	                <div id="newsletter">
+	                    <div id="message-newsletter"></div>
+	                    <form method="post" action="phpmailer/newsletter_template_email.php" name="newsletter_form" id="newsletter_form">
+	                        <div class="form-group">
+	                            <input type="email" name="email_newsletter" id="email_newsletter" class="form-control" placeholder="Votre e-mail">
+	                            <button type="submit" id="submit-newsletter"><i class="arrow_carrot-right"></i></button>
+	                        </div>
+	                    </form>
+	                </div>
+	            </div>
+	        </div>
+	        <!-- /row-->
+	        <hr>
+	        <div class="row">
+	            <div class="col-sm-6">
+	                <p class="copy">© Foores Restaurant - Tous droits réservés | <a href="admin/index.html" target="_blank" style="color: #9B804E; text-decoration: none; font-weight: 500;"><i class="icon_lock me-1"></i> Espace Admin</a></p>
+	            </div>
+	            <div class="col-sm-7">
+	                <div class="follow_us">
+	                    <ul>
+					        <li><a href="#0"><i class="bi bi-facebook"></i></a></li>
+					        <li><a href="#0"><i class="bi bi-twitter-x"></i></a></li>
+					        <li><a href="#0"><i class="bi bi-instagram"></i></a></li>
+					        <li><a href="#0"><i class="bi bi-tiktok"></i></a></li>
+					        <li><a href="#0"><i class="bi bi-whatsapp"></i></a></li>
+					    </ul>
+	                </div>
+	            </div>
+	        </div>
+	        <p class="text-center"></p>
+	    </div>
+	</footer>
+	<!--/footer-->
+
+		<!-- Fixed Floating Buttons (WhatsApp & Reservation) -->
+	<div class="fixed-floating-buttons">
+	    <a href="https://wa.me/212522223344" target="_blank" class="float-btn float-whatsapp" title="WhatsApp">
+	        <i class="bi bi-whatsapp"></i> <span>WhatsApp</span>
+	    </a>
+	    <a href="reservations.html" class="float-btn float-reservation" title="Réserver une table">
+	        <i class="icon_calendar"></i> <span>Réservation</span>
+	    </a>
+	</div>
+<div id="toTop"></div><!-- Back to top button -->
+
+	<!-- Modal terms -->
+	<div class="modal fade" id="terms-txt" tabindex="-1" role="dialog" aria-labelledby="termsLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="termsLabel">Terms and conditions</h4>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<p>Lorem ipsum dolor sit amet, in porro albucius qui, in <strong>nec quod novum accumsan</strong>, mei ludus tamquam dolores id. No sit debitis meliore postulant, per ex prompta alterum sanctus, pro ne quod dicunt sensibus.</p>
+					<p>Lorem ipsum dolor sit amet, in porro albucius qui, in nec quod novum accumsan, mei ludus tamquam dolores id. No sit debitis meliore postulant, per ex prompta alterum sanctus, pro ne quod dicunt sensibus. Lorem ipsum dolor sit amet, <strong>in porro albucius qui</strong>, in nec quod novum accumsan, mei ludus tamquam dolores id. No sit debitis meliore postulant, per ex prompta alterum sanctus, pro ne quod dicunt sensibus.</p>
+					<p>Lorem ipsum dolor sit amet, in porro albucius qui, in nec quod novum accumsan, mei ludus tamquam dolores id. No sit debitis meliore postulant, per ex prompta alterum sanctus, pro ne quod dicunt sensibus.</p>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+	
+	<!-- COMMON SCRIPTS -->
+    <script src="js/common_scripts.min.js"></script>
+    <script src="js/common_func.js"></script>
+    <script src="phpmailer/validate.js"></script>
+
+    <!-- SPECIFIC SCRIPTS -->
+    <script src="js/modernizr.min.js"></script>
+    <script src="js/video_header.min.js"></script>
+    <script>
+		// Video Header
+		HeaderVideo.init({
+			container: $('.header-video'),
+			header: $('.header-video--media'),
+			videoTrigger: $("#video-trigger"),
+			autoPlayVideo: true
+		});
+	</script>
+
+    <!-- SPECIFIC SCRIPTS (wizard form) -->
+    <script src="js/wizard/wizard_scripts.min.js"></script>
+    <script src="js/wizard/wizard_func.js"></script>
+
+    <script src="js/cart.js"></script>
+    <script src="js/dishes_data.js"></script>
+
+    <!-- POPULAR DISHES & MINI BOOKING SCRIPT -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var dishesGrid = document.getElementById('popularDishesGrid');
+        if (!dishesGrid) return;
+
+        var defaultDishes = window.REAL_MYSQL_DISHES || [];
+        var loadedDishes = defaultDishes;
+        var currentCategory = 'all';
+
+        function renderPopularDishes(category) {
+            currentCategory = category || 'all';
+            dishesGrid.innerHTML = '';
+
+            var filtered = loadedDishes;
+            if (currentCategory !== 'all') {
+                filtered = loadedDishes.filter(function(d) {
+                    return d.category === currentCategory;
+                });
+            }
+
+            var list = (currentCategory === 'all') ? loadedDishes.slice(0, 8) : filtered;
+            if (!list || list.length === 0) list = loadedDishes.slice(0, 8);
+            
+            list.forEach(function(item) {
+                var col = document.createElement('div');
+                col.className = 'col';
+                
+                var priceDisplay = (typeof item.price === 'number') ? (Math.round(item.price) + ' DH') : item.price;
+                var imgSrc = item.image || 'img/menu_items/1.jpg';
+                var titleText = item.title || 'Spécialité Gourmet';
+                var descText = item.description || 'Préparé avec des ingrédients frais de qualité supérieure.';
+
+                col.innerHTML = 
+                    '<div class="popular-dish-card h-100 d-flex flex-column justify-content-between">' +
+                    '    <div class="popular-dish-img-wrap">' +
+                    '        <span class="popular-tag-badge">🔥 Populaire</span>' +
+                    '        <span class="popular-rating-badge"><i class="bi bi-star-fill" style="color: #f1c40f;"></i> 4.9</span>' +
+                    '        <img src="' + imgSrc + '" alt="' + titleText.replace(/"/g, '&quot;') + '" onerror="this.onerror=null; this.src=\'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&auto=format&fit=crop&q=80\';">' +
+                    '    </div>' +
+                    '    <div class="popular-dish-body flex-grow-1 d-flex flex-column justify-content-between">' +
+                    '        <div>' +
+                    '            <h3 class="popular-dish-title">' + titleText + '</h3>' +
+                    '            <p class="popular-dish-desc">' + descText + '</p>' +
+                    '        </div>' +
+                    '        <div class="popular-dish-footer mt-3">' +
+                    '            <span class="popular-dish-price">' + priceDisplay + '</span>' +
+                    '            <button type="button" class="popular-dish-add-btn" data-title="' + titleText.replace(/"/g, '&quot;') + '" data-price="' + item.price + '" data-image="' + imgSrc.replace(/"/g, '&quot;') + '" title="Ajouter au Panier">+</button>' +
+                    '        </div>' +
+                    '    </div>' +
+                    '</div>';
+
+                dishesGrid.appendChild(col);
+            });
+        }
+
+        // Helper function to update circle category thumbnails dynamically from MySQL dish images
+        function updateCategoryThumbnailsFromMySQL(dishes) {
+            var categoryImgMap = {};
+            dishes.forEach(function(d) {
+                if (d.category && d.image && !categoryImgMap[d.category]) {
+                    categoryImgMap[d.category] = d.image;
+                }
+            });
+
+            for (var catKey in categoryImgMap) {
+                var targetImg = document.querySelector('.category-circle-item[data-category="' + catKey + '"] .cat-circle-img');
+                if (targetImg && categoryImgMap[catKey]) {
+                    targetImg.src = categoryImgMap[catKey];
+                }
+            }
+        }
+
+        // Initialize thumbnails and grid with MySQL real data
+        updateCategoryThumbnailsFromMySQL(loadedDishes);
+        renderPopularDishes('all');
+
+        // Circular Category Item click handler
+        var categoryCircles = document.querySelectorAll('.category-circle-item');
+        categoryCircles.forEach(function(circle) {
+            circle.addEventListener('click', function() {
+                categoryCircles.forEach(function(c) { c.classList.remove('active'); });
+                this.classList.add('active');
+                var cat = this.getAttribute('data-category');
+                
+                // Render dishes for this category
+                renderPopularDishes(cat);
+
+                // Update "VIEW FULL MENU" links to lead to menu-2.html filtered for this category
+                var viewAllLinks = document.querySelectorAll('.popular-view-all-link');
+                viewAllLinks.forEach(function(link) {
+                    link.href = (cat === 'all') ? 'menu-2.html' : ('menu-2.html?category=' + encodeURIComponent(cat));
+                });
+            });
+        });
+
+        // Fetch dishes dynamically from MySQL API if backend PHP is running
+        fetch('api/dishes.php')
+            .then(function(res) { return res.json(); })
+            .then(function(data) {
+                if (data && data.status === 'success' && Array.isArray(data.dishes) && data.dishes.length > 0) {
+                    loadedDishes = data.dishes;
+                    updateCategoryThumbnailsFromMySQL(loadedDishes);
+                    renderPopularDishes(currentCategory);
+                }
+            })
+            .catch(function(err) {
+                console.log('Using MySQL default popular dishes dataset fallback');
+            });
+
+        // Add to Cart handler
+        dishesGrid.addEventListener('click', function(e) {
+            var btn = e.target.closest('.popular-dish-add-btn');
+            if (btn) {
+                var title = btn.getAttribute('data-title');
+                var price = parseFloat(btn.getAttribute('data-price')) || 0;
+                var image = btn.getAttribute('data-image');
+
+                if (window.FOORES_CART && typeof window.FOORES_CART.addToCart === 'function') {
+                    window.FOORES_CART.addToCart({
+                        title: title,
+                        price: price,
+                        image: image,
+                        quantity: 1
+                    });
+                }
+            }
+        });
+
+        // Mini Booking Form redirect handler
+        var miniBookingForm = document.getElementById('homeMiniBookingForm');
+        if (miniBookingForm) {
+            miniBookingForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                var date = document.getElementById('miniBookDate').value;
+                var time = document.getElementById('miniBookTime').value;
+                var people = document.getElementById('miniBookPeople').value;
+                window.location.href = 'reservations.html?date=' + encodeURIComponent(date) + '&time=' + encodeURIComponent(time) + '&people=' + encodeURIComponent(people);
+            });
+        }
+    });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

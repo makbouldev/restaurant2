@@ -1,0 +1,567 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Foores - Single Restaurant Version">
+    <meta name="author" content="Ansonika">
+    <title>Foores - Single Restaurant Version</title>
+
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" type="image/x-icon" href="img/apple-touch-icon-57x57-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="img/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="img/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="img/apple-touch-icon-144x144-precomposed.png">
+
+    <!-- GOOGLE WEB FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Lora:ital@1&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- BASE CSS -->
+    <link href="css/vendors.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="css/custom.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+	<div id="preloader">
+		<div data-loader="circle-side"></div>
+	</div><!-- /Page Preload -->
+				
+	<header class="header clearfix element_to_stick">
+		<div class="layer"></div><!-- Opacity Mask Menu Mobile -->
+		<div class="container-fluid">
+		<div id="logo">
+			<a href="index.html">
+				<img src="img/logo.svg" width="140" height="35" alt="" class="logo_normal">
+				<img src="img/logo_sticky.svg" width="140" height="35" alt="" class="logo_sticky">
+			</a>
+		</div>
+		<ul id="top_menu">
+			<li><a href="#0" class="search-overlay-menu-btn"></a></li>
+			<li>
+				<div class="dropdown dropdown-cart">
+				    <a href="shop-cart.html" class="cart_bt"><strong id="cart-count">0</strong></a>
+				    <div class="dropdown-menu">
+				        <ul id="nav-cart-items">
+				            <!-- Dynamically populated by js/cart.js -->
+				        </ul>
+				        <div class="total_drop">
+				            <div class="clearfix add_bottom_15"><strong>Total</strong><span id="nav-cart-total">.00</span></div>
+				            <a href="shop-cart.html" class="btn_1 outline">Voir Panier</a><a href="shop-checkout.html" class="btn_1">Commander</a>
+				        </div>
+				    </div>
+				</div>
+				<!-- /dropdown-cart-->
+			</li>
+		</ul>
+		<!-- /top_menu -->
+		<a href="#0" class="open_close">
+			<i class="icon_menu"></i><span>Menu</span>
+		</a>
+		<nav class="main-menu">
+		    <div id="header_menu">
+		        <a href="#0" class="open_close">
+		            <i class="icon_close"></i><span>Menu</span>
+		        </a>
+		        <a href="index.html"><img src="img/logo.svg" width="140" height="35" alt=""></a>
+		    </div>
+		    <ul>
+		        <li><a href="index.html">Accueil</a></li>
+		        <li><a href="menu-2.html">Notre Menu</a></li>
+		        		        <li><a href="about.html">À Propos</a></li>
+		        <li><a href="gallery.html">Galerie</a></li>
+		        <li><a href="contacts.html">Contact</a></li>
+		        
+		        <li><a href="reservations.html" class="btn_top">Réservations</a></li>
+		    </ul>
+		</nav>
+	</div>
+	<!-- Search -->
+	<div class="search-overlay-menu">
+	    <span class="search-overlay-close"><span class="closebt"><i class="icon_close"></i></span></span>
+	    <form role="search" id="searchform" method="get">
+	        <input value="" name="q" type="search" placeholder="Rechercher..." />
+	        <button type="submit"><i class="icon_search"></i></button>
+	    </form>
+	</div><!-- End Search -->
+	</header>
+	<!-- /header -->
+	
+	<main>
+	    <div class="hero_single inner_pages background-image" data-background="url(img/hero_menu.jpg)">
+	        <div class="opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)">
+	            <div class="container">
+	                <div class="row justify-content-center">
+	                    <div class="col-xl-9 col-lg-10 col-md-8">
+	                        <h1>Menu with Tabs</h1>
+	                        <p>Cooking delicious and tasty food since 2005</p>
+	                    </div>
+	                </div>
+	                <!-- /row -->
+	            </div>
+	        </div>
+	        <div class="frame white"></div>
+	    </div>
+	    <!-- /hero_single -->
+
+	    <div class="pattern_2">
+	        <div class="container margin_60_40" data-cue="slideInUp">
+	          <div class="tabs_menu add_bottom_25">
+				    <ul class="nav nav-tabs" role="tablist">
+				        <li class="nav-item">
+				            <a id="tab-A" href="#pane-A" class="nav-link active" data-bs-toggle="tab" role="tab">Starters</a>
+				        </li>
+				        <li class="nav-item">
+				            <a id="tab-B" href="#pane-B" class="nav-link" data-bs-toggle="tab" role="tab">Main Dishes</a>
+				        </li>
+				         <li class="nav-item">
+				            <a id="tab-C" href="#pane-C" class="nav-link" data-bs-toggle="tab" role="tab">Desserts</a>
+				        </li>
+				    </ul>
+				    <div class="tab-content add_bottom_25" role="tablist">
+				        <div id="pane-A" class="card tab-pane fade show active" role="tabpanel" aria-labelledby="tab-A">
+				            <div class="card-header" role="tab" id="heading-A">
+				                <h5>
+				                    <a class="collapsed" data-bs-toggle="collapse" href="#collapse-A" aria-expanded="true" aria-controls="collapse-A">
+				                        Starters
+				                    </a>
+				                </h5>
+				            </div>
+				            <div id="collapse-A" class="collapse" role="tabpanel" aria-labelledby="heading-A">
+				                <div class="card-body">
+				                	<div class="banner lazy" data-bg="url(img/banner_bg_2.jpg)">
+							            <div class="wrapper d-flex align-items-center justify-content-between opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)">
+							                <div>
+							                   <small>Starters Special Offer</small>
+							                    <h3>Mix Starters Menu 180 DH only</h3>
+							                    <p>Hamburgher, Chips, Mix Sausages, Beer, Muffin</p>
+							                    <a href="reservations.html" class="btn_1">Réserver Maintenant</a>
+							                </div>
+							                <figure class="d-none d-lg-block"><img src="img/banner.svg" alt="" width="200" height="200" class="img-fluid"></figure>
+							            </div>
+							            <!-- /wrapper -->
+							        </div>
+							        <!-- /banner -->
+				                	<div class="row magnific-gallery add_top_30">
+							            <div class="col-lg-6">
+							                <div class="menu_item">
+							                    <figure>
+							                        <a href="img/menu_items/large/1.jpg" title="Soft shell crab" data-effect="mfp-zoom-in">
+							                        	<img src="img/menu_items/menu_items_placeholder.png" data-src="img/menu_items/1.jpg" class="lazy" alt="">
+							                        </a>
+							                    </figure>
+							                    <div class="menu_title">
+							                        <h3>Soft shell crab</h3><em>140 DH</em>
+							                    </div>
+							                    <p>Chicken, Potato, Salad</p>
+							                </div>
+							            </div>
+							            <div class="col-lg-6">
+							                <div class="menu_item">
+							                    <figure>
+							                        <a href="img/menu_items/large/2.jpg" title="Marinated Grilled" data-effect="mfp-zoom-in">
+							                        	<img src="img/menu_items/menu_items_placeholder.png" data-src="img/menu_items/2.jpg" class="lazy" alt="">
+							                        </a>
+							                    </figure>
+							                    <div class="menu_title">
+							                        <h3>Marinated Grilled Shrimp</h3><em>110 DH</em>
+							                    </div>
+							                    <p>Fresh Shrimp, Oive Oil, Tomato Sauce</p>
+							                </div>
+							            </div>
+							            <div class="col-lg-6">
+							                <div class="menu_item">
+							                    <figure>
+							                        <a href="img/menu_items/large/3.jpg" title="Avocado & Mango Salsa" data-effect="mfp-zoom-in">
+							                        	<img src="img/menu_items/menu_items_placeholder.png" data-src="img/menu_items/3.jpg" class="lazy" alt="">
+							                        </a>
+							                    </figure>
+							                    <div class="menu_title">
+							                        <h3>Avocado & Mango Salsa</h3><em>160 DH</em>
+							                    </div>
+							                    <p>Avocado, Mango, Tomatoes</p>
+							                </div>
+							            </div>
+							            <div class="col-lg-6">
+							                <div class="menu_item">
+							                    <figure>
+							                        <a href="img/menu_items/large/4.jpg" title="Baked Potato Skins" data-effect="mfp-zoom-in">
+							                        	<img src="img/menu_items/menu_items_placeholder.png" data-src="img/menu_items/4.jpg" class="lazy" alt="">
+							                        </a>
+							                    </figure>
+							                    <div class="menu_title">
+							                        <h3>Baked Potato Skins</h3><em>100 DH</em>
+							                    </div>
+							                    <p>Potatoes, Oil, Garlic</p>
+							                </div>
+							            </div>
+							            <div class="col-lg-6">
+							                <div class="menu_item">
+							                    <figure>
+							                        <a href="img/menu_items/large/5.jpg" title="Braised Pork Chops" data-effect="mfp-zoom-in">
+							                        	<img src="img/menu_items/menu_items_placeholder.png" data-src="img/menu_items/5.jpg" class="lazy" alt="">
+							                        </a>
+							                    </figure>
+							                    <div class="menu_title">
+							                        <h3>Braised Pork Chops</h3><em>120 DH</em>
+							                    </div>
+							                    <p>Pork chops, Olive oil, Garlic</p>
+							                </div>
+							            </div>
+							            <div class="col-lg-6">
+							                <div class="menu_item">
+							                    <figure>
+							                        <a href="img/menu_items/large/6.jpg" title="Cream of Asparagus" data-effect="mfp-zoom-in">
+							                        	<img src="img/menu_items/menu_items_placeholder.png" data-src="img/menu_items/6.jpg" class="lazy" alt="">
+							                        </a>
+							                    </figure>
+							                    <div class="menu_title">
+							                        <h3>Cream of Asparagus</h3><em>140 DH</em>
+							                    </div>
+							                    <p>Asparagus, Ootato, Celery, Onion</p>
+							                </div>
+							            </div>
+							        </div>
+							        <!-- /row -->
+				                </div>
+				                <!-- /card-body -->
+				            </div>
+				        </div>
+				        <!-- /tab -->
+				        <div id="pane-B" class="card tab-pane fade" role="tabpanel" aria-labelledby="tab-B">
+				            <div class="card-header" role="tab" id="heading-B">
+				                <h5>
+				                    <a class="collapsed" data-bs-toggle="collapse" href="#collapse-B" aria-expanded="false" aria-controls="collapse-B">
+				                        Main Dishes
+				                    </a>
+				                </h5>
+				            </div>
+				            <div id="collapse-B" class="collapse" role="tabpanel" aria-labelledby="heading-B">
+				                <div class="card-body">
+				                	<div class="banner lazy" data-bg="url(img/bg_call_section.jpg)">
+                    <div class="wrapper d-flex align-items-center justify-content-between opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.65)">
+                        <div>
+                            <small style="color: #9B804E; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Expérience Gastronomique</small>
+                            <h3 style="font-size: 26px; margin-top: 5px; margin-bottom: 8px;">Réservez Votre Table pour une Soirée D'Exception</h3>
+                            <p style="font-size: 15px; opacity: 0.9; margin-bottom: 18px;">Profitez d'une ambiance raffinée, d'un service attentionné et de nos meilleures spécialités culinaires à Casablanca.</p>
+                            <a href="reservations.html" class="btn_1">Réserver une Table</a>
+                        </div>
+                        <div class="d-none d-lg-block text-center text-white ps-4 border-start border-light border-opacity-25 ms-4" style="min-width: 210px;">
+                            <i class="icon_calendar fs-1 mb-2" style="font-size: 38px; color: #9B804E;"></i>
+                            <h5 class="text-white fw-bold mb-1" style="font-size: 16px;">Horaires de Service</h5>
+                            <p class="small text-white-50 mb-1" style="font-size: 13px;">Lun - Dim: 12h00 - 23h00</p>
+                            <span class="badge bg-gold" style="background-color: #9B804E; color: #fff; font-size: 12px; padding: 4px 8px;">Casablanca - Maroc</span>
+                        </div>
+                    </div>
+                    <!-- /wrapper -->
+                </div>
+                <!-- /banner -->
+				                	<div class="row magnific-gallery add_top_30">
+							            <div class="col-lg-6">
+							                <div class="menu_item">
+							                    <figure>
+							                        <a href="img/menu_items/large/7.jpg" title="Prime Rib" data-effect="mfp-zoom-in">
+							                        	<img src="img/menu_items/menu_items_placeholder.png" data-src="img/menu_items/7.jpg" class="lazy" alt="">
+							                        </a>
+							                    </figure>
+							                    <div class="menu_title">
+							                        <h3>Prime Rib</h3><em>180 DH</em>
+							                    </div>
+							                    <p>Rib, Rosemary, Black pepper</p>
+							                </div>
+							            </div>
+							            <div class="col-lg-6">
+							                <div class="menu_item">
+							                    <figure>
+							                        <a href="img/menu_items/large/8.jpg" title="Coconut Fried Chicken" data-effect="mfp-zoom-in">
+							                        	<img src="img/menu_items/menu_items_placeholder.png" data-src="img/menu_items/8.jpg" class="lazy" alt="">
+							                        </a>
+							                    </figure>
+							                    <div class="menu_title">
+							                        <h3>Coconut Fried Chicken</h3><em>140 DH</em>
+							                    </div>
+							                    <p>8 chicken pieces, Coconut milk</p>
+							                </div>
+							            </div>
+							            <div class="col-lg-6">
+							                <div class="menu_item">
+							                    <figure>
+							                        <a href="img/menu_items/large/9.jpg" title="Sriracha Beef Skewers" data-effect="mfp-zoom-in">
+							                        	<img src="img/menu_items/menu_items_placeholder.png" data-src="img/menu_items/9.jpg" class="lazy" alt="">
+							                        </a>
+							                    </figure>
+							                    <div class="menu_title">
+							                        <h3>Sriracha Beef Skewers</h3><em>120 DH</em>
+							                    </div>
+							                    <p>Beef, Garlic, Sesame oil</p>
+							                </div>
+							            </div>
+							            <div class="col-lg-6">
+							                <div class="menu_item">
+							                    <figure>
+							                        <a href="img/menu_items/large/10.jpg" title="Chicken with Garlic" data-effect="mfp-zoom-in">
+							                        	<img src="img/menu_items/menu_items_placeholder.png" data-src="img/menu_items/10.jpg" class="lazy" alt="">
+							                        </a>
+							                    </figure>
+							                    <div class="menu_title">
+							                        <h3>Chicken with Garlic</h3><em>100 DH</em>
+							                    </div>
+							                    <p>Chicken, Cherry tomatoes, Olive oil</p>
+							                </div>
+							            </div>
+							            <div class="col-lg-6">
+							                <div class="menu_item">
+							                    <figure>
+							                        <a href="img/menu_items/large/11.jpg" title="Soft shell crab" data-effect="mfp-zoom-in">
+							                        	<img src="img/menu_items/menu_items_placeholder.png" data-src="img/menu_items/11.jpg" class="lazy" alt="">
+							                        </a>
+							                    </figure>
+							                    <div class="menu_title">
+							                        <h3>Soft shell crab</h3><em>140 DH</em>
+							                    </div>
+							                    <p>Chicken, Potato, Salad</p>
+							                </div>
+							            </div>
+							            <div class="col-lg-6">
+							                <div class="menu_item">
+							                    <figure>
+							                        <a href="img/menu_items/large/1.jpg" title="Terrific Turkey Chili" data-effect="mfp-zoom-in">
+							                        	<img src="img/menu_items/menu_items_placeholder.png" data-src="img/menu_items/1.jpg" class="lazy" alt="">
+							                        </a>
+							                    </figure>
+							                    <div class="menu_title">
+							                        <h3>Terrific Turkey Chili</h3><em>180 DH</em>
+							                    </div>
+							                    <p>Turkey, Oregano, Tomato paste</p>
+							                </div>
+							            </div>
+							        </div>
+							        <!-- /row -->
+				                </div>
+				            </div>
+				        </div>
+				        <!-- /tab -->
+				        <div id="pane-C" class="card tab-pane fade" role="tabpanel" aria-labelledby="tab-C">
+				            <div class="card-header" role="tab" id="heading-C">
+				                <h5>
+				                    <a class="collapsed" data-bs-toggle="collapse" href="#collapse-C" aria-expanded="false" aria-controls="collapse-C">
+				                        Desserts and Drinks
+				                    </a>
+				                </h5>
+				            </div>
+				            <div id="collapse-C" class="collapse" role="tabpanel" aria-labelledby="heading-C">
+				                <div class="card-body">
+				                	<div class="banner lazy" data-bg="url(img/banner_bg_3.jpg)">
+							            <div class="wrapper d-flex align-items-center justify-content-between opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
+							                <div>
+							                	<small>Desserts Special Offer</small>
+							                    <h3>Mix Cakes 120 DH only</h3>
+							                    <p>Cheese cake, Muffin, Sweet bred</p>
+							                    <a href="reservations.html" class="btn_1">Réserver Maintenant</a>
+							                </div>
+							                <figure class="d-none d-lg-block"><img src="img/banner.svg" alt="" width="200" height="200" class="img-fluid"></figure>
+							            </div>
+							            <!-- /wrapper -->
+							        </div>
+							        <!-- /banner -->
+				                	<div class="row magnific-gallery add_top_30">
+							            <div class="col-lg-6">
+							                <div class="menu_item">
+							                    <figure>
+							                        <a href="img/menu_items/large/3.jpg" title="Summer Berry" data-effect="mfp-zoom-in">
+							                        	<img src="img/menu_items/menu_items_placeholder.png" data-src="img/menu_items/3.jpg" class="lazy" alt="">
+							                        </a>
+							                    </figure>
+							                    <div class="menu_title">
+							                        <h3>Summer Berry</h3><em>80 DH</em>
+							                    </div>
+							                    <p>Raspberries, Blackberries</p>
+							                </div>
+							            </div>
+							            <div class="col-lg-6">
+							                <div class="menu_item">
+							                    <figure>
+							                        <a href="img/menu_items/large/4.jpg" title="Coconut Tart" data-effect="mfp-zoom-in">
+							                        	<img src="img/menu_items/menu_items_placeholder.png" data-src="img/menu_items/4.jpg" class="lazy" alt="">
+							                        </a>
+							                    </figure>
+							                    <div class="menu_title">
+							                        <h3>Coconut Tart</h3><em>100 DH</em>
+							                    </div>
+							                    <p>Blueberries, Graham cracker crumbs</p>
+							                </div>
+							            </div>
+							            <div class="col-lg-6">
+							                <div class="menu_item">
+							                    <figure>
+							                        <a href="img/menu_items/large/5.jpg" title="Pumpkin Cookies" data-effect="mfp-zoom-in">
+							                        	<img src="img/menu_items/menu_items_placeholder.png" data-src="img/menu_items/5.jpg" class="lazy" alt="">
+							                        </a>
+							                    </figure>
+							                    <div class="menu_title">
+							                        <h3>Pumpkin Cookies</h3><em>110 DH</em>
+							                    </div>
+							                    <p>Pumpkin, Sugar, Butter</p>
+							                </div>
+							            </div>
+							            <div class="col-lg-6">
+							                <div class="menu_item">
+							                    <figure>
+							                        <a href="img/menu_items/large/6.jpg" title="Cookies Cream Cheese" data-effect="mfp-zoom-in">
+							                        	<img src="img/menu_items/menu_items_placeholder.png" data-src="img/menu_items/6.jpg" class="lazy" alt="">
+							                        </a>
+							                    </figure>
+							                    <div class="menu_title">
+							                        <h3>Cookies Cream Cheese</h3><em>140 DH</em>
+							                    </div>
+							                    <p>Sugar, Butter, Eggs</p>
+							                </div>
+							            </div>
+							            <div class="col-lg-6">
+							                <div class="menu_item">
+							                    <figure>
+							                        <a href="img/menu_items/large/8.jpg" title="Chocolate Cupcakes" data-effect="mfp-zoom-in">
+							                        	<img src="img/menu_items/menu_items_placeholder.png" data-src="img/menu_items/8.jpg" class="lazy" alt="">
+							                        </a>
+							                    </figure>
+							                    <div class="menu_title">
+							                        <h3>Chocolate Cupcakes</h3><em>140 DH</em>
+							                    </div>
+							                    <p>Chocolate, Eggs, Vanilla</p>
+							                </div>
+							            </div>
+							            <div class="col-lg-6">
+							                <div class="menu_item">
+							                    <figure>
+							                        <a href="img/menu_items/large/9.jpg" title="Chocolate Cupcakes" data-effect="mfp-zoom-in">
+							                        	<img src="img/menu_items/menu_items_placeholder.png" data-src="img/menu_items/9.jpg" class="lazy" alt="">
+							                        </a>
+							                    </figure>
+							                    <div class="menu_title">
+							                        <h3>Chocolate Cupcakes</h3><em>140 DH</em>
+							                    </div>
+							                    <p>Chocolate, Eggs, Vanilla</p>
+							                </div>
+							            </div>
+							        </div>
+							        <!-- /row -->
+				                </div>
+				            </div>
+				        </div>
+				        <!-- /tab -->
+				    </div>
+				    <!-- /tab-content -->
+			  </div>
+			  <!-- /tabs_menu-->
+
+	            
+	        </div>
+	        <!-- /container -->
+	    </div>
+	    <!-- /pattern -->
+
+	</main>
+	<!-- /main -->
+
+	<footer>
+	    <div class="frame black"></div>
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+	                <div class="footer_wp">
+	                    <i class="icon_pin_alt"></i>
+	                    <h3>Adresse</h3>
+	                    <p>128 Boulevard Anfa<br>Casablanca - Maroc</p>
+	                </div>
+	            </div>
+	            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+	                <div class="footer_wp">
+	                    <i class="icon_tag_alt"></i>
+	                    <h3>Réservations</h3>
+	                    <p><a href="tel:+212522223344">+212 522 22 33 44</a><br><a href="#0">contact@foores.ma</a></p>
+	                </div>
+	            </div>
+	            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+	                <div class="footer_wp">
+	                    <i class="icon_clock_alt"></i>
+	                    <h3>Horaires d'Ouverture</h3>
+	                    <ul>
+	                        <li>Lun - Sam: 12h00 - 23h00</li>
+	                        <li>Dimanche: 12h00 - 00h00</li>
+	                    </ul>
+	                </div>
+	            </div>
+	            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+	                <h3>Restons en Contact</h3>
+	                <div id="newsletter">
+	                    <div id="message-newsletter"></div>
+	                    <form method="post" action="phpmailer/newsletter_template_email.php" name="newsletter_form" id="newsletter_form">
+	                        <div class="form-group">
+	                            <input type="email" name="email_newsletter" id="email_newsletter" class="form-control" placeholder="Votre e-mail">
+	                            <button type="submit" id="submit-newsletter"><i class="arrow_carrot-right"></i></button>
+	                        </div>
+	                    </form>
+	                </div>
+	            </div>
+	        </div>
+	        <!-- /row-->
+	        <hr>
+	        <div class="row">
+	            <div class="col-sm-5">
+	                <p class="copy">© Foores Restaurant - Tous droits réservés</p>
+	            </div>
+	            <div class="col-sm-7">
+	                <div class="follow_us">
+	                    <ul>
+					        <li><a href="#0"><i class="bi bi-facebook"></i></a></li>
+					        <li><a href="#0"><i class="bi bi-twitter-x"></i></a></li>
+					        <li><a href="#0"><i class="bi bi-instagram"></i></a></li>
+					        <li><a href="#0"><i class="bi bi-tiktok"></i></a></li>
+					        <li><a href="#0"><i class="bi bi-whatsapp"></i></a></li>
+					    </ul>
+	                </div>
+	            </div>
+	        </div>
+	        <p class="text-center"></p>
+	    </div>
+	</footer>
+	<!--/footer-->
+
+		<!-- Fixed Floating Buttons (WhatsApp & Reservation) -->
+	<div class="fixed-floating-buttons">
+	    <a href="https://wa.me/212522223344" target="_blank" class="float-btn float-whatsapp" title="WhatsApp">
+	        <i class="bi bi-whatsapp"></i> <span>WhatsApp</span>
+	    </a>
+	    <a href="reservations.html" class="float-btn float-reservation" title="Réserver une table">
+	        <i class="icon_calendar"></i> <span>Réservation</span>
+	    </a>
+	</div>
+<div id="toTop"></div><!-- Back to top button -->
+		
+	<!-- COMMON SCRIPTS -->
+    <script src="js/common_scripts.min.js"></script>
+    <script src="js/common_func.js"></script>
+    <script src="phpmailer/validate.js"></script>
+
+    <script src="js/cart.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

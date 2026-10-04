@@ -1,0 +1,2225 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flavorist - Dark Culinary Admin Panel</title>
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/admin/styles.css?v=40.0">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-top">
+                <div class="brand-logo">
+                    <div class="logo-icon-box">
+                        <i class="fa-solid fa-kitchen-set"></i>
+                    </div>
+                    <span class="logo-title">Foores Admin</span>
+                </div>
+                <button class="mobile-close-btn" id="closeSidebarBtn">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="px-3 py-2 border-bottom border-secondary border-opacity-25 mb-2">
+                <a href="/index.html" target="_blank" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: rgba(155, 128, 78, 0.2); color: #D4AF37; padding: 8px 12px; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 600; border: 1px solid rgba(155, 128, 78, 0.4); transition: all 0.3s ease;">
+                    <i class="fa-solid fa-globe"></i> <span>Voir le Site Client</span>
+                </a>
+            </div>
+
+            <nav class="sidebar-menu">
+                <div class="nav-section">
+                    <span class="nav-section-title">Menu Principal</span>
+                    <ul>
+                        <li class="active" data-view="home">
+                            <a href="#home">
+                                <i class="fa-solid fa-gauge-high"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li data-view="recipes">
+                            <a href="#recipes">
+                                <i class="fa-solid fa-utensils"></i>
+                                <span>Recettes</span>
+                            </a>
+                        </li>
+                        <li data-view="categories">
+                            <a href="#categories">
+                                <i class="fa-solid fa-layer-group"></i>
+                                <span>Catégories</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <span class="nav-section-title">Gestion & Direct</span>
+                    <ul>
+                        <li data-view="orders">
+                            <a href="#orders">
+                                <i class="fa-solid fa-receipt"></i>
+                                <span>Commandes</span>
+                            </a>
+                        </li>
+                        <li data-view="reservations">
+                            <a href="#reservations">
+                                <i class="fa-solid fa-calendar-check"></i>
+                                <span>Réservations Site</span>
+                                <span class="badge badge-alert" id="sidebarResaBadge">6</span>
+                            </a>
+                        </li>
+                        <li data-view="offers">
+                            <a href="#offers">
+                                <i class="fa-solid fa-tags"></i>
+                                <span>Offres & Promos</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <span class="nav-section-title">Configuration</span>
+                    <ul>
+                        <li data-view="settings">
+                            <a href="#settings">
+                                <i class="fa-solid fa-gear"></i>
+                                <span>Paramètres</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user-card">
+                    <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=100&auto=format&fit=crop&q=80" alt="Emma Johnson" class="user-avatar">
+                    <div class="user-details">
+                        <span class="user-name">Emma Johnson</span>
+                        <span class="user-status">Chef / Admin</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down user-more-icon"></i>
+                </div>
+            </div>
+        </aside>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- Main Content Wrapper -->
+        <main class="main-wrapper">
+
+
+            <!-- ================= PAGE 1: HOME ================= -->
+            <div class="page-view active" id="view-home">
+                <!-- Stat Bar Header with Date Filters -->
+                <div class="kpi-header-bar">
+                    <div class="kpi-header-title">
+                        <h3><i class="fa-solid fa-chart-pie text-green"></i> Aperçu des Performances Restaurant</h3>
+                    </div>
+                    <div class="date-filter-group kpi-date-filters">
+                        <button class="date-filter-btn active" data-range="today">Aujourd'hui</button>
+                        <button class="date-filter-btn" data-range="this-week">Cette Semaine</button>
+                        <button class="date-filter-btn" data-range="this-month">Ce Mois</button>
+                        <button class="date-filter-btn icon-only" id="kpiDateBtn" title="Choisir une date">
+                            <i class="fa-regular fa-calendar-days"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 4 Restaurant KPI Stat Cards -->
+                <div class="stat-cards-grid">
+                    <div class="stat-card green-card" data-kpi-type="orders">
+                        <div class="stat-icon green">
+                            <i class="fa-solid fa-bag-shopping"></i>
+                        </div>
+                        <div class="stat-data">
+                            <span class="stat-title">Total Commandes</span>
+                            <h3 class="stat-number" id="kpiOrders">142</h3>
+                            <span class="stat-badge positive"><i class="fa-solid fa-arrow-trend-up"></i> +18.4% aujourd'hui</span>
+                        </div>
+                        <button class="kpi-info-btn" data-kpi="orders" title="Voir l'analyse détaillée des commandes">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
+
+                    <div class="stat-card orange-card" data-kpi-type="reservations">
+                        <div class="stat-icon orange">
+                            <i class="fa-solid fa-chair"></i>
+                        </div>
+                        <div class="stat-data">
+                            <span class="stat-title">Réservations Tables</span>
+                            <h3 class="stat-number" id="kpiReservations">28</h3>
+                            <span class="stat-badge positive"><i class="fa-solid fa-user-check"></i> 85% Occupé</span>
+                        </div>
+                        <button class="kpi-info-btn" data-kpi="reservations" title="Voir les détails des réservations">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
+
+                    <div class="stat-card purple-card" data-kpi-type="revenue">
+                        <div class="stat-icon purple">
+                            <i class="fa-solid fa-vault"></i>
+                        </div>
+                        <div class="stat-data">
+                            <span class="stat-title">Chiffre d'Affaires</span>
+                            <h3 class="stat-number" id="kpiRevenue">14 850 DH</h3>
+                            <span class="stat-badge positive"><i class="fa-solid fa-arrow-trend-up"></i> +12.6% ce mois</span>
+                        </div>
+                        <button class="kpi-info-btn" data-kpi="revenue" title="Voir l'analyse financière">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
+
+                    <div class="stat-card blue-card" data-kpi-type="avgTicket">
+                        <div class="stat-icon blue">
+                            <i class="fa-solid fa-receipt"></i>
+                        </div>
+                        <div class="stat-data">
+                            <span class="stat-title">Panier Moyen</span>
+                            <h3 class="stat-number" id="kpiAvgTicket">245 DH</h3>
+                            <span class="stat-badge positive">★ 3.2 couverts/table</span>
+                        </div>
+                        <button class="kpi-info-btn" data-kpi="avgTicket" title="Voir l'analyse du panier moyen">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Main Grid Middle Row -->
+                <div class="home-middle-grid">
+                    <!-- Creative Weekly Orders Statistics Card -->
+                    <div class="featured-stats-card">
+                        <div class="stats-card-top-header">
+                            <div class="header-titles">
+                                <span class="tag-label"><i class="fa-solid fa-chart-simple"></i> PERFORMANCE DES COMMANDES</span>
+                                <h2 class="stats-main-title" id="statsMainTitle">Statistiques des Commandes de la Semaine</h2>
+                                <p class="stats-subtitle">Résultats en direct du volume de commandes et du chiffre d'affaires</p>
+                            </div>
+                            <div class="date-filter-group">
+                                <button class="date-filter-btn" data-range="today">Aujourd'hui</button>
+                                <button class="date-filter-btn active" data-range="this-week">Cette Semaine</button>
+                                <button class="date-filter-btn" data-range="this-month">Ce Mois</button>
+                                <button class="date-filter-btn icon-only" id="customDateBtn" title="Plage de date personnalisée">
+                                    <i class="fa-regular fa-calendar-days"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Canvas Chart for Weekly Orders -->
+                        <div class="weekly-orders-chart-container">
+                            <canvas id="weeklyOrdersChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Side Card: Top Selling Dishes Leaderboard -->
+                    <div class="side-card top-dishes-card">
+                        <div class="card-top-header">
+                            <h3><i class="fa-solid fa-trophy text-gold"></i> Plats les Plus Vendus</h3>
+                            <a href="#recipes" class="link-green nav-trigger" data-target="recipes">Voir Tout</a>
+                        </div>
+
+                        <div class="top-dishes-leaderboard">
+                            <!-- Rank 1 (Gold) -->
+                            <div class="leaderboard-item rank-1">
+                                <span class="rank-badge gold">#1</span>
+                                <img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=120&auto=format&fit=crop&q=80" alt="Garlic Pasta" class="dish-thumb">
+                                <div class="dish-meta-info">
+                                    <h4>Garlic Parmesan Pasta</h4>
+                                    <span class="dish-sub">420 vendus • 35 700 DH</span>
+                                </div>
+                                <div class="sales-meter">
+                                    <div class="sales-progress gold-bar" style="width: 95%;"></div>
+                                </div>
+                            </div>
+
+                            <!-- Rank 2 (Silver) -->
+                            <div class="leaderboard-item rank-2">
+                                <span class="rank-badge silver">#2</span>
+                                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=120&auto=format&fit=crop&q=80" alt="Burger" class="dish-thumb">
+                                <div class="dish-meta-info">
+                                    <h4>Double Cheeseburger</h4>
+                                    <span class="dish-sub">380 vendus • 32 300 DH</span>
+                                </div>
+                                <div class="sales-meter">
+                                    <div class="sales-progress silver-bar" style="width: 82%;"></div>
+                                </div>
+                            </div>
+
+                            <!-- Rank 3 (Bronze) -->
+                            <div class="leaderboard-item rank-3">
+                                <span class="rank-badge bronze">#3</span>
+                                <img src="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=120&auto=format&fit=crop&q=80" alt="Pizza" class="dish-thumb">
+                                <div class="dish-meta-info">
+                                    <h4>Pizza Margherita</h4>
+                                    <span class="dish-sub">295 vendus • 19 175 DH</span>
+                                </div>
+                                <div class="sales-meter">
+                                    <div class="sales-progress bronze-bar" style="width: 68%;"></div>
+                                </div>
+                            </div>
+
+                            <!-- Rank 4 -->
+                            <div class="leaderboard-item">
+                                <span class="rank-badge">#4</span>
+                                <img src="https://images.unsplash.com/photo-1625813506062-0aeb1d7a094b?w=120&auto=format&fit=crop&q=80" alt="Chicken" class="dish-thumb">
+                                <div class="dish-meta-info">
+                                    <h4>Crispy Chicken Spicy</h4>
+                                    <span class="dish-sub">240 vendus • 16 800 DH</span>
+                                </div>
+                                <div class="sales-meter">
+                                    <div class="sales-progress green-bar" style="width: 54%;"></div>
+                                </div>
+                            </div>
+
+                            <!-- Rank 5 -->
+                            <div class="leaderboard-item">
+                                <span class="rank-badge">#5</span>
+                                <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=120&auto=format&fit=crop&q=80" alt="Mojito" class="dish-thumb">
+                                <div class="dish-meta-info">
+                                    <h4>Mojito Passion Artisanal</h4>
+                                    <span class="dish-sub">210 vendus • 7 350 DH</span>
+                                </div>
+                                <div class="sales-meter">
+                                    <div class="sales-progress green-bar" style="width: 45%;"></div>
+                                </div>
+                            </div>
+
+                            <!-- Rank 6 -->
+                            <div class="leaderboard-item">
+                                <span class="rank-badge">#6</span>
+                                <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=120&auto=format&fit=crop&q=80" alt="Salmon" class="dish-thumb">
+                                <div class="dish-meta-info">
+                                    <h4>Pavé de Saumon Grillé</h4>
+                                    <span class="dish-sub">185 vendus • 22 200 DH</span>
+                                </div>
+                                <div class="sales-meter">
+                                    <div class="sales-progress blue-bar" style="width: 38%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Row Grid (Left: Financial Accounting, Right: Reservations Chart) -->
+                <div class="home-bottom-grid">
+                    <!-- LEFT: Channels & Services Breakdown Card -->
+                    <div class="featured-stats-card finance-accounting-card">
+                        <div class="stats-card-top-header">
+                            <div class="header-titles">
+                                <span class="tag-label"><i class="fa-solid fa-chart-pie text-green"></i> CANAUX DE VENTE & SERVICES</span>
+                                <h2 class="stats-main-title">Sur Place, Livraison & Emporter</h2>
+                                <p class="stats-subtitle">Répartition du Chiffre d'Affaires selon le mode de service</p>
+                            </div>
+                            <div class="finance-total-badge">
+                                <span class="label">Total Ventes</span>
+                                <strong id="financeTotalAmount">48 250 DH</strong>
+                            </div>
+                        </div>
+
+                        <!-- Services Breakdown Grid -->
+                        <div class="finance-breakdown-grid">
+                            <!-- Sur Place -->
+                            <div class="payment-method-box">
+                                <div class="pay-icon-title">
+                                    <div class="pay-icon credit-card"><i class="fa-solid fa-utensils"></i></div>
+                                    <div class="pay-meta">
+                                        <span class="pay-name">Commandes Sur Place</span>
+                                        <span class="pay-pct">60% des ventes (347 comm.)</span>
+                                    </div>
+                                </div>
+                                <div class="pay-amount-bar">
+                                    <strong id="payCardAmount">28 950 DH</strong>
+                                    <div class="pay-progress-bg"><div class="pay-progress-bar card-bar" id="payCardBar" style="width: 60%;"></div></div>
+                                </div>
+                            </div>
+
+                            <!-- Livraison à Domicile -->
+                            <div class="payment-method-box">
+                                <div class="pay-icon-title">
+                                    <div class="pay-icon delivery"><i class="fa-solid fa-motorcycle"></i></div>
+                                    <div class="pay-meta">
+                                        <span class="pay-name">Livraison à Domicile</span>
+                                        <span class="pay-pct">25% des ventes (145 livr.)</span>
+                                    </div>
+                                </div>
+                                <div class="pay-amount-bar">
+                                    <strong id="payCashAmount">12 060 DH</strong>
+                                    <div class="pay-progress-bg"><div class="pay-progress-bar delivery-bar" id="payCashBar" style="width: 25%;"></div></div>
+                                </div>
+                            </div>
+
+                            <!-- À Emporter / Drive -->
+                            <div class="payment-method-box">
+                                <div class="pay-icon-title">
+                                    <div class="pay-icon cash"><i class="fa-solid fa-bag-shopping"></i></div>
+                                    <div class="pay-meta">
+                                        <span class="pay-name">Commandes À Emporter</span>
+                                        <span class="pay-pct">15% des ventes (87 emportés)</span>
+                                    </div>
+                                </div>
+                                <div class="pay-amount-bar">
+                                    <strong id="payDeliveryAmount">7 240 DH</strong>
+                                    <div class="pay-progress-bg"><div class="pay-progress-bar cash-bar" id="payDeliveryBar" style="width: 15%;"></div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Service Summary Chips -->
+                        <div class="finance-summary-row">
+                            <div class="fin-chip">
+                                <span class="fin-chip-label">Moyenne Sur Place</span>
+                                <strong class="fin-chip-val text-green" id="finMarginVal">285 DH</strong>
+                            </div>
+                            <div class="fin-chip">
+                                <span class="fin-chip-label">Moyenne Livraison</span>
+                                <strong class="fin-chip-val text-orange" id="finFeesVal">195 DH</strong>
+                            </div>
+                            <div class="fin-chip">
+                                <span class="fin-chip-label">Temps Livr. Moyen</span>
+                                <strong class="fin-chip-val text-purple" id="finNetVal">24 min</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT: Creative Table Reservations Statistics Chart Card -->
+                    <div class="featured-stats-card reservations-chart-card">
+                        <div class="stats-card-top-header">
+                            <div class="header-titles">
+                                <span class="tag-label"><i class="fa-solid fa-chair text-orange"></i> SUIVI DES TABLES & RÉSAS</span>
+                                <h2 class="stats-main-title" id="resaMainTitle">Statistiques des Réservations de la Semaine</h2>
+                                <p class="stats-subtitle">Évolution du nombre de tables réservées</p>
+                            </div>
+                            <div class="date-filter-group">
+                                <button class="date-filter-btn" data-resa-range="today">Aujourd'hui</button>
+                                <button class="date-filter-btn active" data-resa-range="this-week">Cette Semaine</button>
+                                <button class="date-filter-btn" data-resa-range="this-month">Ce Mois</button>
+                                <button class="date-filter-btn icon-only" id="resaDateBtn" title="Plage de date personnalisée">
+                                    <i class="fa-regular fa-calendar-days"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Canvas Chart for Table Reservations -->
+                        <div class="weekly-orders-chart-container">
+                            <canvas id="reservationsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= PAGE 2: RECIPES & CATALOGUE ================= -->
+            <div class="page-view" id="view-recipes">
+                <div class="section-title-bar">
+                    <div>
+                        <h2>Catalogue du Menu & Plats Gourmet</h2>
+                        <p>Gérez vos recettes, catégories, prix et l'accès d'édition en direct</p>
+                    </div>
+                    <button class="btn btn-green" id="addNewDishBtn"><i class="fa-solid fa-plus"></i> + Ajouter un Plat</button>
+                </div>
+
+                <!-- Category Filter Bar & Search Input -->
+                <div class="recipes-filter-bar">
+                    <div class="category-pills-scroll">
+                        <button class="cat-pill-btn active" data-cat="all">Tous (12)</button>
+                        <button class="cat-pill-btn" data-cat="pastas">🍝 Pastas</button>
+                        <button class="cat-pill-btn" data-cat="burgers">🍔 Burgers</button>
+                        <button class="cat-pill-btn" data-cat="pizzas">🍕 Pizzas</button>
+                        <button class="cat-pill-btn" data-cat="grillades">🥩 Grillades</button>
+                        <button class="cat-pill-btn" data-cat="salades">🥗 Salades</button>
+                        <button class="cat-pill-btn" data-cat="boissons">🍹 Boissons</button>
+                        <button class="cat-pill-btn" data-cat="desserts">🍰 Desserts</button>
+                    </div>
+                    <div class="recipe-search-box">
+                        <input type="text" id="recipeSearchInput" placeholder="Rechercher un plat, ingrédient..." />
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                </div>
+
+                <!-- Gourmet Recipes Catalogue Grid -->
+                <div class="recipes-grid" id="recipesGridContainer">
+                    <!-- Dishes loaded dynamically from MySQL API (api/dishes.php) -->
+                </div>
+            </div>
+
+            <!-- ================= PAGE 3: CATEGORIES ================= -->
+            <div class="page-view" id="view-categories">
+                <div class="categories-header-bar">
+                    <div class="section-title-box">
+                        <h2>Catégories de Plats & Collections</h2>
+                        <p class="section-subtitle">Gérez vos catégories de plats, recettes et collections gourmandes</p>
+                    </div>
+                    <div class="categories-actions-row">
+                        <div class="recipe-search-box category-search-box">
+                            <input type="text" id="categorySearchInput" placeholder="Rechercher une catégorie..." />
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
+                        <button class="btn btn-green" id="addNewCategoryBtn">
+                            <i class="fa-solid fa-plus"></i> Nouvelle Catégorie
+                        </button>
+                    </div>
+                </div>
+
+                <div class="categories-showcase-grid" id="categoriesGridContainer">
+                    <!-- Category Card 1 -->
+                    <div class="cat-card-large" data-cat-id="1" data-category="pastas">
+                        <img src="https://images.unsplash.com/photo-1621996346565-e3d5d6281274?w=500&auto=format&fit=crop&q=80" alt="Pastas & Pâtes">
+                        <div class="cat-action-overlay">
+                            <button class="cat-action-btn edit-cat-btn" data-id="1" title="Modifier la catégorie"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button class="cat-action-btn delete-btn delete-cat-btn" data-id="1" title="Supprimer la catégorie"><i class="fa-solid fa-trash-can"></i></button>
+                        </div>
+                        <div class="cat-overlay">
+                            <span class="cat-icon-badge">🍝</span>
+                            <h3>Pastas & Pâtes</h3>
+                            <span>0 Plat Disponible</span>
+                        </div>
+                    </div>
+
+                    <!-- Category Card 2 -->
+                    <div class="cat-card-large" data-cat-id="2" data-category="burgers">
+                        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500&auto=format&fit=crop&q=80" alt="Burgers Gourmet">
+                        <div class="cat-action-overlay">
+                            <button class="cat-action-btn edit-cat-btn" data-id="2" title="Modifier la catégorie"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button class="cat-action-btn delete-btn delete-cat-btn" data-id="2" title="Supprimer la catégorie"><i class="fa-solid fa-trash-can"></i></button>
+                        </div>
+                        <div class="cat-overlay">
+                            <span class="cat-icon-badge">🍔</span>
+                            <h3>Burgers Gourmet</h3>
+                            <span>0 Plat Disponible</span>
+                        </div>
+                    </div>
+
+                    <!-- Category Card 3 -->
+                    <div class="cat-card-large" data-cat-id="3" data-category="pizzas">
+                        <img src="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500&auto=format&fit=crop&q=80" alt="Pizzas Italiennes">
+                        <div class="cat-action-overlay">
+                            <button class="cat-action-btn edit-cat-btn" data-id="3" title="Modifier la catégorie"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button class="cat-action-btn delete-btn delete-cat-btn" data-id="3" title="Supprimer la catégorie"><i class="fa-solid fa-trash-can"></i></button>
+                        </div>
+                        <div class="cat-overlay">
+                            <span class="cat-icon-badge">🍕</span>
+                            <h3>Pizzas Italiennes</h3>
+                            <span>0 Plat Disponible</span>
+                        </div>
+                    </div>
+
+                    <!-- Category Card 4 -->
+                    <div class="cat-card-large" data-cat-id="4" data-category="grillades">
+                        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=500&auto=format&fit=crop&q=80" alt="Grillades & Viandes">
+                        <div class="cat-action-overlay">
+                            <button class="cat-action-btn edit-cat-btn" data-id="4" title="Modifier la catégorie"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button class="cat-action-btn delete-btn delete-cat-btn" data-id="4" title="Supprimer la catégorie"><i class="fa-solid fa-trash-can"></i></button>
+                        </div>
+                        <div class="cat-overlay">
+                            <span class="cat-icon-badge">🥩</span>
+                            <h3>Grillades & Viandes</h3>
+                            <span>0 Plat Disponible</span>
+                        </div>
+                    </div>
+
+                    <!-- Category Card 5 -->
+                    <div class="cat-card-large" data-cat-id="5" data-category="salades">
+                        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500&auto=format&fit=crop&q=80" alt="Salades Fraîches">
+                        <div class="cat-action-overlay">
+                            <button class="cat-action-btn edit-cat-btn" data-id="5" title="Modifier la catégorie"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button class="cat-action-btn delete-btn delete-cat-btn" data-id="5" title="Supprimer la catégorie"><i class="fa-solid fa-trash-can"></i></button>
+                        </div>
+                        <div class="cat-overlay">
+                            <span class="cat-icon-badge">🥗</span>
+                            <h3>Salades Fraîches</h3>
+                            <span>0 Plat Disponible</span>
+                        </div>
+                    </div>
+
+                    <!-- Category Card 6 -->
+                    <div class="cat-card-large" data-cat-id="6" data-category="boissons">
+                        <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=500&auto=format&fit=crop&q=80" alt="Boissons & Cocktails">
+                        <div class="cat-action-overlay">
+                            <button class="cat-action-btn edit-cat-btn" data-id="6" title="Modifier la catégorie"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button class="cat-action-btn delete-btn delete-cat-btn" data-id="6" title="Supprimer la catégorie"><i class="fa-solid fa-trash-can"></i></button>
+                        </div>
+                        <div class="cat-overlay">
+                            <span class="cat-icon-badge">🍹</span>
+                            <h3>Boissons & Cocktails</h3>
+                            <span>0 Plat Disponible</span>
+                        </div>
+                    </div>
+
+                    <!-- Category Card 7 -->
+                    <div class="cat-card-large" data-cat-id="7" data-category="desserts">
+                        <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=500&auto=format&fit=crop&q=80" alt="Desserts Gourmands">
+                        <div class="cat-action-overlay">
+                            <button class="cat-action-btn edit-cat-btn" data-id="7" title="Modifier la catégorie"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button class="cat-action-btn delete-btn delete-cat-btn" data-id="7" title="Supprimer la catégorie"><i class="fa-solid fa-trash-can"></i></button>
+                        </div>
+                        <div class="cat-overlay">
+                            <span class="cat-icon-badge">🍰</span>
+                            <h3>Desserts Gourmands</h3>
+                            <span>0 Plat Disponible</span>
+                        </div>
+                    </div>
+
+                    <!-- Category Card 8 -->
+                    <div class="cat-card-large" data-cat-id="8" data-category="breakfast">
+                        <img src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=500&auto=format&fit=crop&q=80" alt="Petit-déjeuner & Brunch">
+                        <div class="cat-action-overlay">
+                            <button class="cat-action-btn edit-cat-btn" data-id="8" title="Modifier la catégorie"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <button class="cat-action-btn delete-btn delete-cat-btn" data-id="8" title="Supprimer la catégorie"><i class="fa-solid fa-trash-can"></i></button>
+                        </div>
+                        <div class="cat-overlay">
+                            <span class="cat-icon-badge">🍳</span>
+                            <h3>Petit-déjeuner & Brunch</h3>
+                            <span>0 Plat Disponible</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- ================= PAGE 5: ORDERS MANAGEMENT SYSTEM ================= -->
+            <div class="page-view" id="view-orders">
+                <!-- Page Title Header -->
+                <div class="page-header flex-between orders-header-creative">
+                    <div>
+                        <span class="view-tagline"><i class="fa-solid fa-receipt text-green"></i> GESTION DES COMMANDES POS <span class="live-pulse-badge"><i class="fa-solid fa-circle"></i> SERVICE EN DIRECT</span></span>
+                        <h2>Centre de Contrôle des Commandes</h2>
+                    </div>
+                </div>
+
+                <!-- Orders Mini KPI Stats Row -->
+                <div class="orders-kpi-grid">
+                    <div class="order-kpi-card pending-card">
+                        <div class="kpi-icon"><i class="fa-solid fa-hourglass-half"></i></div>
+                        <div class="kpi-info">
+                            <span class="label">En Attente</span>
+                            <strong id="kpiCountPending">3 Commandes</strong>
+                        </div>
+                    </div>
+                    <div class="order-kpi-card online-card">
+                        <div class="kpi-icon"><i class="fa-solid fa-globe"></i></div>
+                        <div class="kpi-info">
+                            <span class="label">Commandes En Ligne</span>
+                            <strong id="kpiCountOnline">18 Commandes</strong>
+                        </div>
+                    </div>
+                    <div class="order-kpi-card kitchen-card">
+                        <div class="kpi-icon"><i class="fa-solid fa-fire-burner"></i></div>
+                        <div class="kpi-info">
+                            <span class="label">En Cuisine</span>
+                            <strong id="kpiCountCooking">8 Commandes</strong>
+                        </div>
+                    </div>
+                    <div class="order-kpi-card completed-card">
+                        <div class="kpi-icon"><i class="fa-solid fa-circle-check"></i></div>
+                        <div class="kpi-info">
+                            <span class="label">Terminé</span>
+                            <strong id="kpiCountCompleted">125 Commandes</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Creative Search Bar & Date Filter Toolbar -->
+                <div class="orders-toolbar-creative">
+                    <div class="creative-search-box">
+                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                        <input type="text" id="orderSearchInput" placeholder="Rechercher par N° commande (#CMD), client, plat...">
+                        <span class="search-kbd-shortcut"><i class="fa-solid fa-keyboard"></i> Ctrl + K</span>
+                    </div>
+
+                    <div class="creative-date-filter">
+                        <i class="fa-regular fa-calendar-check date-icon text-green"></i>
+                        <select id="orderDateSelect" class="creative-date-select">
+                            <option value="today" selected>Aujourd'hui</option>
+                            <option value="all">Toutes les dates</option>
+                            <option value="yesterday">Hier</option>
+                            <option value="this-week">7 Derniers Jours</option>
+                            <option value="this-month">Ce Mois-ci</option>
+                        </select>
+                        <button class="custom-date-trigger-btn" id="orderDatePickerBtn" title="Plage de dates personnalisée">
+                            <i class="fa-solid fa-sliders"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Status Filter Pills + Small New Order Button Side-by-Side -->
+                <div class="orders-filter-action-bar">
+                    <div class="category-pills-scroll">
+                        <button class="order-pill-btn active" data-status="all">Toutes (142)</button>
+                        <button class="order-pill-btn" data-status="pending">⏳ En Attente (3)</button>
+                        <button class="order-pill-btn" data-status="cooking">🔥 En Cuisine (8)</button>
+                        <button class="order-pill-btn" data-status="completed">✅ Terminé (125)</button>
+                    </div>
+                    <button class="glow-btn-sm" id="addNewOrderBtn" onclick="openAddOrderModal()" title="Créer une nouvelle commande POS">
+                        <i class="fa-solid fa-plus"></i> Commande
+                    </button>
+                </div>
+
+                <!-- Orders Table Container -->
+                <div class="orders-table-wrapper">
+                    <table class="creative-orders-table">
+                        <thead>
+                            <tr>
+                                <th>N° Commande</th>
+                                <th>Client & Service</th>
+                                <th>Plats Commandés</th>
+                                <th>Montant</th>
+                                <th>Heure</th>
+                                <th>Statut</th>
+                                <th style="text-align: right;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTableBody">
+                            <!-- Order Online 1 (Pending Confirmation) -->
+                            <tr class="order-row" data-order-id="CMD-8943" data-status="pending" data-channel="online">
+                                <td>
+                                    <div class="order-id-badge">
+                                        <strong>#CMD-8943</strong>
+                                        <span class="sub-channel online-order"><i class="fa-solid fa-globe"></i> En Ligne</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="client-meta">
+                                        <strong>Yassine Amrani</strong>
+                                        <span class="client-phone"><i class="fa-solid fa-phone text-green"></i> +212 661-892341</span>
+                                        <span class="client-addr"><i class="fa-solid fa-location-dot text-orange"></i> 14 Av. Hassan II, Apt 5, Casa</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="dishes-summary">
+                                        <span>🍕 1x Pizza Pepperoni Truffée</span>
+                                        <span>🍹 1x Mojito Passion Artisanal</span>
+                                    </div>
+                                </td>
+                                <td><strong class="price-tag">130 DH</strong></td>
+                                <td><span class="time-ago">À l'instant</span></td>
+                                <td><span class="order-status-badge status-pending"><i class="fa-solid fa-hourglass-half"></i> En Attente</span></td>
+                                <td style="text-align: right;">
+                                    <div class="order-action-btns">
+                                        <button class="order-btn cycle-status-btn" title="Confirmer (Passer en Cuisine)" data-id="CMD-8943"><i class="fa-solid fa-check text-green"></i></button>
+                                        <button class="order-btn view-ticket-btn" title="Voir Ticket POS" data-id="CMD-8943"><i class="fa-solid fa-receipt"></i></button>
+                                        <button class="order-btn delete-order-btn" title="Annuler commande" data-id="CMD-8943"><i class="fa-solid fa-trash-can"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Order Sur Place 1 (In Cooking State) -->
+                            <tr class="order-row" data-order-id="CMD-8942" data-status="cooking" data-channel="sur-place">
+                                <td>
+                                    <div class="order-id-badge">
+                                        <strong>#CMD-8942</strong>
+                                        <span class="sub-channel sur-place"><i class="fa-solid fa-utensils"></i> Sur Place</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="client-meta">
+                                        <span class="client-sub-badge sur-place"><i class="fa-solid fa-utensils text-green"></i> Sur Place</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="dishes-summary">
+                                        <span>🍝 1x Creamy Garlic Parmesan Pasta</span>
+                                        <span>🍹 2x Mojito Passion Artisanal</span>
+                                    </div>
+                                </td>
+                                <td><strong class="price-tag">175 DH</strong></td>
+                                <td><span class="time-ago">À l'instant</span></td>
+                                <td><span class="order-status-badge status-cooking"><i class="fa-solid fa-fire"></i> En Cuisine</span></td>
+                                <td style="text-align: right;">
+                                    <div class="order-action-btns">
+                                        <button class="order-btn cycle-status-btn" title="Valider & Marquer Complet" data-id="CMD-8942"><i class="fa-solid fa-check-double text-green"></i></button>
+                                        <button class="order-btn view-ticket-btn" title="Voir Ticket POS" data-id="CMD-8942"><i class="fa-solid fa-receipt"></i></button>
+                                        <button class="order-btn delete-order-btn" title="Annuler commande" data-id="CMD-8942"><i class="fa-solid fa-trash-can"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Order Takeaway (Completed) -->
+                            <tr class="order-row" data-order-id="CMD-8941" data-status="completed" data-channel="takeaway">
+                                <td>
+                                    <div class="order-id-badge">
+                                        <strong>#CMD-8941</strong>
+                                        <span class="sub-channel takeaway"><i class="fa-solid fa-bag-shopping"></i> À Emporter</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="client-meta">
+                                        <span class="client-sub-badge takeaway"><i class="fa-solid fa-bag-shopping text-orange"></i> À Emporter</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="dishes-summary">
+                                        <span>🍔 2x Double Angus Cheeseburger</span>
+                                        <span>🍰 1x Molten Lava Cake</span>
+                                    </div>
+                                </td>
+                                <td><strong class="price-tag">245 DH</strong></td>
+                                <td><span class="time-ago">Il y a 5 min</span></td>
+                                <td><span class="order-status-badge status-completed"><i class="fa-solid fa-circle-check"></i> Terminé</span></td>
+                                <td style="text-align: right;">
+                                     <div class="order-action-btns">
+                                         <button class="order-btn cycle-status-btn" title="Remettre en Attente" data-id="CMD-8941"><i class="fa-solid fa-rotate-left"></i></button>
+                                         <button class="order-btn view-ticket-btn" title="Voir Ticket POS" data-id="CMD-8941"><i class="fa-solid fa-receipt"></i></button>
+                                         <button class="order-btn delete-order-btn" title="Annuler commande" data-id="CMD-8941"><i class="fa-solid fa-trash-can"></i></button>
+                                     </div>
+                                 </td>
+                            </tr>
+
+                            <!-- Order Online 2 (Cooking) -->
+                            <tr class="order-row" data-order-id="CMD-8940" data-status="cooking" data-channel="online">
+                                <td>
+                                    <div class="order-id-badge">
+                                        <strong>#CMD-8940</strong>
+                                        <span class="sub-channel online-order"><i class="fa-solid fa-globe"></i> En Ligne</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="client-meta">
+                                        <strong>Omar Tazi</strong>
+                                        <span class="client-phone"><i class="fa-solid fa-phone text-green"></i> +212 612-998877</span>
+                                        <span class="client-addr"><i class="fa-solid fa-location-dot text-orange"></i> Res. Les Lilyas, Apt 14, Gauthier</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="dishes-summary">
+                                        <span>🍕 1x Pizza Margherita Supreme</span>
+                                        <span>🍕 1x Pizza Pepperoni Truffée</span>
+                                    </div>
+                                </td>
+                                <td><strong class="price-tag">150 DH</strong></td>
+                                <td><span class="time-ago">Il y a 12 min</span></td>
+                                <td><span class="order-status-badge status-cooking"><i class="fa-solid fa-fire"></i> En Cuisine</span></td>
+                                <td style="text-align: right;">
+                                    <div class="order-action-btns">
+                                        <button class="order-btn cycle-status-btn" title="Valider & Marquer Complet" data-id="CMD-8940"><i class="fa-solid fa-check-double text-green"></i></button>
+                                        <button class="order-btn view-ticket-btn" title="Voir Ticket POS" data-id="CMD-8940"><i class="fa-solid fa-receipt"></i></button>
+                                        <button class="order-btn delete-order-btn" title="Annuler commande" data-id="CMD-8940"><i class="fa-solid fa-trash-can"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Order Sur Place 2 (Pending) -->
+                            <tr class="order-row" data-order-id="CMD-8939" data-status="pending" data-channel="sur-place">
+                                <td>
+                                    <div class="order-id-badge">
+                                        <strong>#CMD-8939</strong>
+                                        <span class="sub-channel sur-place"><i class="fa-solid fa-utensils"></i> Sur Place</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="client-meta">
+                                        <span class="client-sub-badge sur-place"><i class="fa-solid fa-utensils text-green"></i> Sur Place</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="dishes-summary">
+                                        <span>🥩 1x Pavé de Saumon Grillé</span>
+                                        <span>🥗 1x Salade Caesar Poulet</span>
+                                    </div>
+                                </td>
+                                <td><strong class="price-tag">210 DH</strong></td>
+                                <td><span class="time-ago">Il y a 15 min</span></td>
+                                <td><span class="order-status-badge status-pending"><i class="fa-solid fa-hourglass-half"></i> En Attente</span></td>
+                                <td style="text-align: right;">
+                                    <div class="order-action-btns">
+                                        <button class="order-btn cycle-status-btn" title="Confirmer (Passer en Cuisine)" data-id="CMD-8939"><i class="fa-solid fa-check text-green"></i></button>
+                                        <button class="order-btn view-ticket-btn" title="Voir Ticket POS" data-id="CMD-8939"><i class="fa-solid fa-receipt"></i></button>
+                                        <button class="order-btn delete-order-btn" title="Annuler commande" data-id="CMD-8939"><i class="fa-solid fa-trash-can"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ================= PAGE 6: WEBSITE RESERVATIONS MANAGEMENT SYSTEM ================= -->
+            <div class="page-view" id="view-reservations">
+                <div class="section-title-bar">
+                    <div>
+                        <h2 style="display: flex; align-items: center; gap: 10px;">
+                            <i class="fa-solid fa-calendar-check text-green"></i> 
+                            Réservations En Ligne (Site Web)
+                        </h2>
+                        <p class="section-subtitle">Gestion en temps réel des réservations de tables envoyées depuis le site internet</p>
+                    </div>
+                </div>
+
+                <!-- 4 Top Mini KPI Cards for Website Reservations -->
+                <div class="orders-kpi-grid">
+                    <div class="order-kpi-card online-card">
+                        <div class="kpi-icon"><i class="fa-solid fa-globe"></i></div>
+                        <div class="kpi-info">
+                            <span class="label">Total Réservations Site</span>
+                            <strong id="kpiTotalResa">28</strong>
+                        </div>
+                    </div>
+                    <div class="order-kpi-card pending-card">
+                        <div class="kpi-icon"><i class="fa-solid fa-hourglass-half"></i></div>
+                        <div class="kpi-info">
+                            <span class="label">En Attente Confirmation</span>
+                            <strong id="kpiPendingResa">6</strong>
+                        </div>
+                    </div>
+                    <div class="order-kpi-card completed-card">
+                        <div class="kpi-icon"><i class="fa-solid fa-circle-check"></i></div>
+                        <div class="kpi-info">
+                            <span class="label">Confirmées (Aujourd'hui)</span>
+                            <strong id="kpiConfirmedResa">14</strong>
+                        </div>
+                    </div>
+                    <div class="order-kpi-card delivery-card">
+                        <div class="kpi-icon"><i class="fa-solid fa-wine-glass"></i></div>
+                        <div class="kpi-info">
+                            <span class="label">Clients Installés</span>
+                            <strong id="kpiSeatedResa">8</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Creative Search Bar & Date Filter Toolbar -->
+                <div class="orders-toolbar-creative">
+                    <div class="creative-search-box">
+                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                        <input type="text" id="resaSearchInput" placeholder="Rechercher par client, téléphone, table, notes... (#RES)">
+                        <span class="search-kbd-shortcut"><i class="fa-solid fa-keyboard"></i> Ctrl + K</span>
+                    </div>
+
+                    <div class="creative-date-filter">
+                        <i class="fa-regular fa-calendar-check date-icon text-green"></i>
+                        <select id="resaDateSelect" class="creative-date-select">
+                            <option value="today" selected>Aujourd'hui</option>
+                            <option value="all">Toutes les dates</option>
+                            <option value="tomorrow">Demain</option>
+                            <option value="this-week">7 Derniers Jours</option>
+                            <option value="this-month">Ce Mois-ci</option>
+                        </select>
+                        <button class="custom-date-trigger-btn" id="resaDatePickerBtn" title="Plage de dates personnalisée">
+                            <i class="fa-solid fa-sliders"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Status Filter Pills + Small New Reservation Button Side-by-Side -->
+                <div class="orders-filter-action-bar">
+                    <div class="category-pills-scroll">
+                        <button class="order-pill-btn resa-pill-btn active" data-resa-status="all">Toutes (28)</button>
+                        <button class="order-pill-btn resa-pill-btn" data-resa-status="pending">⏳ En Attente (6)</button>
+                        <button class="order-pill-btn resa-pill-btn" data-resa-status="confirmed">✅ Confirmées (14)</button>
+                        <button class="order-pill-btn resa-pill-btn" data-resa-status="seated">🍷 Installés (5)</button>
+                        <button class="order-pill-btn resa-pill-btn" data-resa-status="cancelled">❌ Annulées (3)</button>
+                    </div>
+                    <button class="glow-btn-sm" id="addNewResaBtn" title="Créer une nouvelle réservation">
+                        <i class="fa-solid fa-plus"></i> Réservation
+                    </button>
+                </div>
+
+                <!-- Futuristic Website Reservations Table Card -->
+                <div class="orders-table-wrapper">
+                    <table class="creative-orders-table">
+                        <thead>
+                            <tr>
+                                <th>RÉSERVATION & CANAL</th>
+                                <th>CLIENT & CONTACT</th>
+                                <th>DATE & HEURE</th>
+                                <th>PERSONNES & TABLE</th>
+                                <th>EXIGENCES / DEMANDES</th>
+                                <th>STATUT</th>
+                                <th style="text-align: right;">ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="resaTableBody">
+                            <!-- Reservation 1 (Pending) -->
+                            <tr class="resa-row" data-resa-id="#RES-7095" data-resa-status="pending">
+                                <td>
+                                    <div class="order-id-badge">
+                                        <strong>#RES-7095</strong>
+                                        <span class="sub-channel online-order"><i class="fa-solid fa-globe"></i> Formulaire Web</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="client-meta">
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <div class="avatar-circle-sm green">KA</div>
+                                            <div>
+                                                <strong>Karim El Amrani</strong>
+                                                <span class="client-phone"><i class="fa-solid fa-phone text-green"></i> +212 661-889922</span>
+                                                <span class="client-addr"><i class="fa-solid fa-envelope text-blue"></i> k.amrani@gmail.com</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="display: flex; flex-direction: column; gap: 2px;">
+                                        <strong style="color: #FFF; font-size: 13px;"><i class="fa-solid fa-clock text-green"></i> Aujourd'hui, 20:30</strong>
+                                        <span class="time-ago">Reçu il y a 8 min</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                                        <span class="guests-pill"><i class="fa-solid fa-user-group text-green"></i> 4 Personnes</span>
+                                        <span class="table-badge vip"><i class="fa-solid fa-utensils"></i> Table #08 (Zone VIP)</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="resa-notes-box">
+                                        <i class="fa-solid fa-cake-candles text-orange"></i> <span>Anniversaire de mariage 🎂 Table romantique souhaitée.</span>
+                                    </div>
+                                </td>
+                                <td><span class="order-status-badge status-pending"><i class="fa-solid fa-hourglass-half"></i> En Attente</span></td>
+                                <td style="text-align: right;">
+                                    <div class="order-action-btns">
+                                        <button class="order-btn cycle-resa-btn" title="Confirmer la réservation" data-id="#RES-7095"><i class="fa-solid fa-check text-green"></i></button>
+                                        <a href="https://wa.me/212661889922" target="_blank" class="order-btn" title="Contacter WhatsApp Client"><i class="fa-brands fa-whatsapp text-green"></i></a>
+                                        <button class="order-btn edit-resa-btn" title="Modifier" data-id="#RES-7095"><i class="fa-solid fa-pen-to-square"></i></button>
+                                        <button class="order-btn delete-resa-btn" title="Annuler réservation" data-id="#RES-7095"><i class="fa-solid fa-trash-can"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Reservation 2 (Confirmed) -->
+                            <tr class="resa-row" data-resa-id="#RES-7094" data-resa-status="confirmed">
+                                <td>
+                                    <div class="order-id-badge">
+                                        <strong>#RES-7094</strong>
+                                        <span class="sub-channel online-order"><i class="fa-solid fa-globe"></i> Formulaire Web</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="client-meta">
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <div class="avatar-circle-sm orange">SA</div>
+                                            <div>
+                                                <strong>Sara Alami</strong>
+                                                <span class="client-phone"><i class="fa-solid fa-phone text-green"></i> +212 663-445566</span>
+                                                <span class="client-addr"><i class="fa-solid fa-envelope text-blue"></i> sara.alami@outlook.com</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="display: flex; flex-direction: column; gap: 2px;">
+                                        <strong style="color: #FFF; font-size: 13px;"><i class="fa-solid fa-clock text-green"></i> Aujourd'hui, 21:00</strong>
+                                        <span class="time-ago">Reçu il y a 25 min</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                                        <span class="guests-pill"><i class="fa-solid fa-user-group text-green"></i> 2 Personnes</span>
+                                        <span class="table-badge terrace"><i class="fa-solid fa-sun"></i> Table #03 (Terrasse)</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="resa-notes-box">
+                                        <i class="fa-solid fa-fire text-orange"></i> <span>Près du chauffage extérieur S.V.P.</span>
+                                    </div>
+                                </td>
+                                <td><span class="order-status-badge status-completed"><i class="fa-solid fa-circle-check"></i> Confirmée</span></td>
+                                <td style="text-align: right;">
+                                    <div class="order-action-btns">
+                                        <button class="order-btn cycle-resa-btn" title="Marquer Client Installé En Salle" data-id="#RES-7094"><i class="fa-solid fa-wine-glass text-purple"></i></button>
+                                        <a href="https://wa.me/212663445566" target="_blank" class="order-btn" title="Contacter WhatsApp Client"><i class="fa-brands fa-whatsapp text-green"></i></a>
+                                        <button class="order-btn edit-resa-btn" title="Modifier" data-id="#RES-7094"><i class="fa-solid fa-pen-to-square"></i></button>
+                                        <button class="order-btn delete-resa-btn" title="Annuler réservation" data-id="#RES-7094"><i class="fa-solid fa-trash-can"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Reservation 3 (Seated) -->
+                            <tr class="resa-row" data-resa-id="#RES-7093" data-resa-status="seated">
+                                <td>
+                                    <div class="order-id-badge">
+                                        <strong>#RES-7093</strong>
+                                        <span class="sub-channel online-order"><i class="fa-solid fa-globe"></i> Formulaire Web</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="client-meta">
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <div class="avatar-circle-sm purple">YB</div>
+                                            <div>
+                                                <strong>Youssef Bennani</strong>
+                                                <span class="client-phone"><i class="fa-solid fa-phone text-green"></i> +212 670-112233</span>
+                                                <span class="client-addr"><i class="fa-solid fa-envelope text-blue"></i> y.bennani@tech.ma</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="display: flex; flex-direction: column; gap: 2px;">
+                                        <strong style="color: #FFF; font-size: 13px;"><i class="fa-solid fa-clock text-purple"></i> Aujourd'hui, 19:45</strong>
+                                        <span class="time-ago" style="color: #8B5CF6;">En Salle depuis 30 min</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                                        <span class="guests-pill"><i class="fa-solid fa-user-group text-green"></i> 6 Personnes</span>
+                                        <span class="table-badge indoor"><i class="fa-solid fa-chair"></i> Table #12 (Grand Salon)</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="resa-notes-box">
+                                        <i class="fa-solid fa-briefcase text-blue"></i> <span>Repas d'affaires VIP. Facture au nom de la société.</span>
+                                    </div>
+                                </td>
+                                <td><span class="order-status-badge status-seated"><i class="fa-solid fa-chair"></i> Client Installé</span></td>
+                                <td style="text-align: right;">
+                                    <div class="order-action-btns">
+                                        <button class="order-btn cycle-resa-btn" title="Remettre en Attente" data-id="#RES-7093"><i class="fa-solid fa-rotate-left"></i></button>
+                                        <a href="https://wa.me/212670112233" target="_blank" class="order-btn" title="Contacter WhatsApp Client"><i class="fa-brands fa-whatsapp text-green"></i></a>
+                                        <button class="order-btn edit-resa-btn" title="Modifier" data-id="#RES-7093"><i class="fa-solid fa-pen-to-square"></i></button>
+                                        <button class="order-btn delete-resa-btn" title="Annuler réservation" data-id="#RES-7093"><i class="fa-solid fa-trash-can"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Reservation 4 (Confirmed) -->
+                            <tr class="resa-row" data-resa-id="#RES-7092" data-resa-status="confirmed">
+                                <td>
+                                    <div class="order-id-badge">
+                                        <strong>#RES-7092</strong>
+                                        <span class="sub-channel online-order"><i class="fa-solid fa-globe"></i> Formulaire Web</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="client-meta">
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <div class="avatar-circle-sm blue">CB</div>
+                                            <div>
+                                                <strong>Chaimaa Berrada</strong>
+                                                <span class="client-phone"><i class="fa-solid fa-phone text-green"></i> +212 612-334455</span>
+                                                <span class="client-addr"><i class="fa-solid fa-envelope text-blue"></i> chaimaa.b@gmail.com</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="display: flex; flex-direction: column; gap: 2px;">
+                                        <strong style="color: #FFF; font-size: 13px;"><i class="fa-solid fa-calendar-day text-blue"></i> Demain, 13:00</strong>
+                                        <span class="time-ago">Déjeuner en famille</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                                        <span class="guests-pill"><i class="fa-solid fa-user-group text-green"></i> 3 Personnes</span>
+                                        <span class="table-badge indoor"><i class="fa-solid fa-chair"></i> Table #05 (Intérieur)</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="resa-notes-box">
+                                        <i class="fa-solid fa-baby text-green"></i> <span>Chaise haute enfant requise 👶</span>
+                                    </div>
+                                </td>
+                                <td><span class="order-status-badge status-completed"><i class="fa-solid fa-circle-check"></i> Confirmée</span></td>
+                                <td style="text-align: right;">
+                                    <div class="order-action-btns">
+                                        <button class="order-btn cycle-resa-btn" title="Marquer Client Installé En Salle" data-id="#RES-7092"><i class="fa-solid fa-wine-glass text-purple"></i></button>
+                                        <a href="https://wa.me/212612334455" target="_blank" class="order-btn" title="Contacter WhatsApp Client"><i class="fa-brands fa-whatsapp text-green"></i></a>
+                                        <button class="order-btn edit-resa-btn" title="Modifier" data-id="#RES-7092"><i class="fa-solid fa-pen-to-square"></i></button>
+                                        <button class="order-btn delete-resa-btn" title="Annuler réservation" data-id="#RES-7092"><i class="fa-solid fa-trash-can"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Reservation 5 (Pending) -->
+                            <tr class="resa-row" data-resa-id="#RES-7091" data-resa-status="pending">
+                                <td>
+                                    <div class="order-id-badge">
+                                        <strong>#RES-7091</strong>
+                                        <span class="sub-channel online-order"><i class="fa-solid fa-globe"></i> Formulaire Web</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="client-meta">
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <div class="avatar-circle-sm gold">MT</div>
+                                            <div>
+                                                <strong>Mehdi Tazi</strong>
+                                                <span class="client-phone"><i class="fa-solid fa-phone text-green"></i> +212 665-990011</span>
+                                                <span class="client-addr"><i class="fa-solid fa-envelope text-blue"></i> m.tazi@finance.ma</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="display: flex; flex-direction: column; gap: 2px;">
+                                        <strong style="color: #FFF; font-size: 13px;"><i class="fa-solid fa-calendar-day text-blue"></i> Demain, 20:00</strong>
+                                        <span class="time-ago">Reçu il y a 1 heure</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                                        <span class="guests-pill"><i class="fa-solid fa-user-group text-green"></i> 8 Personnes</span>
+                                        <span class="table-badge lounge"><i class="fa-solid fa-couch"></i> Table #15 (Zone Lounge)</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="resa-notes-box">
+                                        <i class="fa-solid fa-wine-bottle text-purple"></i> <span>Dégustation menu chef & vin recommandé.</span>
+                                    </div>
+                                </td>
+                                <td><span class="order-status-badge status-pending"><i class="fa-solid fa-hourglass-half"></i> En Attente</span></td>
+                                <td style="text-align: right;">
+                                    <div class="order-action-btns">
+                                        <button class="order-btn cycle-resa-btn" title="Confirmer la réservation" data-id="#RES-7091"><i class="fa-solid fa-check text-green"></i></button>
+                                        <a href="https://wa.me/212665990011" target="_blank" class="order-btn" title="Contacter WhatsApp Client"><i class="fa-brands fa-whatsapp text-green"></i></a>
+                                        <button class="order-btn edit-resa-btn" title="Modifier" data-id="#RES-7091"><i class="fa-solid fa-pen-to-square"></i></button>
+                                        <button class="order-btn delete-resa-btn" title="Annuler réservation" data-id="#RES-7091"><i class="fa-solid fa-trash-can"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Reservation 6 (Cancelled) -->
+                            <tr class="resa-row" data-resa-id="#RES-7090" data-resa-status="cancelled">
+                                <td>
+                                    <div class="order-id-badge">
+                                        <strong>#RES-7090</strong>
+                                        <span class="sub-channel online-order"><i class="fa-solid fa-globe"></i> Formulaire Web</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="client-meta">
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <div class="avatar-circle-sm red">SM</div>
+                                            <div>
+                                                <strong>Sophia Mansouri</strong>
+                                                <span class="client-phone"><i class="fa-solid fa-phone text-green"></i> +212 654-778899</span>
+                                                <span class="client-addr"><i class="fa-solid fa-envelope text-blue"></i> sophia.m@yahoo.fr</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="display: flex; flex-direction: column; gap: 2px;">
+                                        <strong style="color: #FFF; font-size: 13px;"><i class="fa-solid fa-calendar text-muted"></i> 03/10/2026, 21:30</strong>
+                                        <span class="time-ago">Annulé par le client</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                                        <span class="guests-pill"><i class="fa-solid fa-user-group text-green"></i> 2 Personnes</span>
+                                        <span class="table-badge terrace"><i class="fa-solid fa-sun"></i> Table #02 (Terrasse)</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="resa-notes-box">
+                                        <i class="fa-solid fa-circle-xmark text-red"></i> <span>Empêchement de dernière minute.</span>
+                                    </div>
+                                </td>
+                                <td><span class="order-status-badge status-cancelled"><i class="fa-solid fa-xmark"></i> Annulée</span></td>
+                                <td style="text-align: right;">
+                                    <div class="order-action-btns">
+                                        <button class="order-btn cycle-resa-btn" title="Remettre en Attente" data-id="#RES-7090"><i class="fa-solid fa-rotate-left"></i></button>
+                                        <a href="https://wa.me/212654778899" target="_blank" class="order-btn" title="Contacter WhatsApp Client"><i class="fa-brands fa-whatsapp text-green"></i></a>
+                                        <button class="order-btn edit-resa-btn" title="Modifier" data-id="#RES-7090"><i class="fa-solid fa-pen-to-square"></i></button>
+                                        <button class="order-btn delete-resa-btn" title="Annuler réservation" data-id="#RES-7090"><i class="fa-solid fa-trash-can"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ================= PAGE 7: OFFRES & PROMOTIONS MANAGEMENT SYSTEM ================= -->
+            <div class="page-view" id="view-offers">
+                <div class="section-title-bar">
+                    <div>
+                        <h2 style="display: flex; align-items: center; gap: 10px;">
+                            <i class="fa-solid fa-tags text-green"></i> 
+                            Offres Spéciales & Codes Promo 🎁
+                        </h2>
+                        <p class="section-subtitle">Gérez vos réductions, formules combo, happy hours et codes promo exclusifs</p>
+                    </div>
+                </div>
+
+                <!-- 4 Top Mini KPI Cards for Offers & Promos -->
+                <div class="orders-kpi-grid">
+                    <div class="order-kpi-card kitchen-card">
+                        <div class="kpi-icon"><i class="fa-solid fa-fire"></i></div>
+                        <div class="kpi-info">
+                            <span class="label">Offres Actives</span>
+                            <strong id="kpiActiveOffers">4 Promos</strong>
+                        </div>
+                    </div>
+                    <div class="order-kpi-card completed-card">
+                        <div class="kpi-icon"><i class="fa-solid fa-ticket"></i></div>
+                        <div class="kpi-info">
+                            <span class="label">Codes Promos Utilisés</span>
+                            <strong id="kpiUsedPromos">483 Fois</strong>
+                        </div>
+                    </div>
+                    <div class="order-kpi-card online-card">
+                        <div class="kpi-icon"><i class="fa-solid fa-chart-line"></i></div>
+                        <div class="kpi-info">
+                            <span class="label">Revenus Générés v/s Promos</span>
+                            <strong id="kpiPromoRevenue">42 800 DH</strong>
+                        </div>
+                    </div>
+                    <div class="order-kpi-card delivery-card">
+                        <div class="kpi-icon"><i class="fa-solid fa-percent"></i></div>
+                        <div class="kpi-info">
+                            <span class="label">Taux de Conversion Promos</span>
+                            <strong id="kpiConversionRate">+24.5%</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Search & Action Bar -->
+                <div class="orders-toolbar-creative">
+                    <div class="creative-search-box">
+                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                        <input type="text" id="offerSearchInput" placeholder="Rechercher une offre (Couscous Vendredi, 3 Plats = Monada, Menu Midi)...">
+                        <span class="search-kbd-shortcut"><i class="fa-solid fa-keyboard"></i> Ctrl + K</span>
+                    </div>
+
+                    <button class="glow-btn-sm" id="addNewOfferBtn" title="Créer une nouvelle offre promo">
+                        <i class="fa-solid fa-plus"></i> Créer Offre / Post
+                    </button>
+                </div>
+
+                <!-- Filter Pills -->
+                <div class="orders-filter-action-bar">
+                    <div class="category-pills-scroll">
+                        <button class="order-pill-btn offer-pill-btn active" data-offer-cat="all">Toutes les Offres (5)</button>
+                        <button class="order-pill-btn offer-pill-btn" data-offer-cat="friday">🇲🇦 Spécial Vendredi (Couscous)</button>
+                        <button class="order-pill-btn offer-pill-btn" data-offer-cat="freebie">🥤 Cadeaux & Gratuités (Monada Free)</button>
+                        <button class="order-pill-btn offer-pill-btn" data-offer-cat="combo">🎁 Formules & Menus</button>
+                        <button class="order-pill-btn offer-pill-btn" data-offer-cat="delivery">🚀 Delivery & Desserts</button>
+                    </div>
+                </div>
+
+                <!-- Creative Promos Deal Posts Cards Grid -->
+                <div class="offers-grid-container" id="offersGridContainer">
+
+                    <!-- Post 1: Spécial Vendredi Couscous Royal -->
+                    <div class="offer-card-creative" data-offer-id="OFF-201" data-offer-cat="friday">
+                        <div class="offer-card-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?w=600&auto=format&fit=crop&q=80" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&auto=format&fit=crop&q=80';" alt="Vendredi Couscous Royal" class="offer-card-img">
+                            <span class="offer-type-badge flash"><i class="fa-solid fa-star"></i> Spécial Vendredi 🇲🇦</span>
+                            <span class="offer-discount-badge">49 DH au lieu de 85 DH</span>
+                        </div>
+                        <div class="offer-card-body">
+                            <div class="offer-header-info">
+                                <div>
+                                    <h3 class="offer-card-title">Vendredi Couscous Royal 🇲🇦</h3>
+                                    <p class="offer-card-desc">Chaque Vendredi : Couscous Royal traditionnel au bœuf tendre, 7 légumes & Lben frais à prix réduit !</p>
+                                </div>
+                            </div>
+                            <div class="offer-code-bar">
+                                <div>
+                                    <span style="font-size: 10px; color: var(--text-muted); display: block; font-weight: 700; text-transform: uppercase;">CADEAU BONUS INCLUS</span>
+                                    <span class="code-badge" style="color: #10B981;"><i class="fa-solid fa-whiskey-glass"></i> 🥛 Lben & Dattes Offerts</span>
+                                </div>
+                                <button class="copy-code-btn" onclick="showToast('Offre Vendredi Couscous Activée ! 🇲🇦')">
+                                    <i class="fa-solid fa-circle-check"></i> Activer
+                                </button>
+                            </div>
+                            <div class="offer-footer-meta">
+                                <div class="offer-expiry">
+                                    <i class="fa-solid fa-clock text-orange"></i> Tous les Vendredis (12h - 16h)
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <span class="order-status-badge status-completed"><i class="fa-solid fa-circle-check"></i> Active</span>
+                                    <div class="offer-actions-btns">
+                                        <button class="offer-action-btn edit-offer-btn" title="Modifier l'offre" data-id="OFF-201"><i class="fa-solid fa-pen-to-square"></i></button>
+                                        <button class="offer-action-btn toggle-offer-btn" title="Activer / Pauser" data-id="OFF-201"><i class="fa-solid fa-pause"></i></button>
+                                        <button class="offer-action-btn delete-offer-btn" title="Supprimer l'offre" data-id="OFF-201"><i class="fa-solid fa-trash-can"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Post 2: Achetez 3 Plats = 3 Boissons Offertes -->
+                    <div class="offer-card-creative" data-offer-id="OFF-202" data-offer-cat="freebie">
+                        <div class="offer-card-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&auto=format&fit=crop&q=80" alt="3 Plats = Monada Free" class="offer-card-img">
+                            <span class="offer-type-badge combo"><i class="fa-solid fa-gift"></i> Offre Groupes 🥤</span>
+                            <span class="offer-discount-badge">3 BOISSONS GRATUITES</span>
+                        </div>
+                        <div class="offer-card-body">
+                            <div class="offer-header-info">
+                                <div>
+                                    <h3 class="offer-card-title">3 Plats Commandés = 3 Boissons OFFERTES 🥤</h3>
+                                    <p class="offer-card-desc">Commandez 3 plats au choix (Burgers, Pâtes ou Pizzas) et recevez 3 boissons gazeuses au choix ou jus frais GRATUITS !</p>
+                                </div>
+                            </div>
+                            <div class="offer-code-bar">
+                                <div>
+                                    <span style="font-size: 10px; color: var(--text-muted); display: block; font-weight: 700; text-transform: uppercase;">BONUS CADEAU</span>
+                                    <span class="code-badge" style="color: #F59E0B;"><i class="fa-solid fa-bottle-water"></i> 🥤 3 Monadas Free</span>
+                                </div>
+                                <button class="copy-code-btn" onclick="showToast('Pack 3 Plats = 3 Boissons Offertes Activé ! 🥤')">
+                                    <i class="fa-solid fa-cart-plus"></i> Activer Pack
+                                </button>
+                            </div>
+                            <div class="offer-footer-meta">
+                                <div class="offer-expiry">
+                                    <i class="fa-solid fa-calendar-check text-blue"></i> Valable 7j/7 sur place & emporter
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <span class="order-status-badge status-completed"><i class="fa-solid fa-circle-check"></i> Active</span>
+                                    <div class="offer-actions-btns">
+                                        <button class="offer-action-btn edit-offer-btn" title="Modifier l'offre" data-id="OFF-202"><i class="fa-solid fa-pen-to-square"></i></button>
+                                        <button class="offer-action-btn toggle-offer-btn" title="Activer / Pauser" data-id="OFF-202"><i class="fa-solid fa-pause"></i></button>
+                                        <button class="offer-action-btn delete-offer-btn" title="Supprimer l'offre" data-id="OFF-202"><i class="fa-solid fa-trash-can"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Post 3: Formule Déjeuner Express Midi -->
+                    <div class="offer-card-creative" data-offer-id="OFF-203" data-offer-cat="combo">
+                        <div class="offer-card-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=600&auto=format&fit=crop&q=80" alt="Formule Déjeuner Express" class="offer-card-img">
+                            <span class="offer-type-badge delivery"><i class="fa-solid fa-utensils"></i> Formule Midi ⏰</span>
+                            <span class="offer-discount-badge">Formule 89 DH</span>
+                        </div>
+                        <div class="offer-card-body">
+                            <div class="offer-header-info">
+                                <div>
+                                    <h3 class="offer-card-title">Menu Déjeuner Gourmet 89 DH</h3>
+                                    <p class="offer-card-desc">Du Lundi au Vendredi de 12h à 15h : Entrée du Chef + Plat Principal au choix + Dessert Maison & Café !</p>
+                                </div>
+                            </div>
+                            <div class="offer-code-bar">
+                                <div>
+                                    <span style="font-size: 10px; color: var(--text-muted); display: block; font-weight: 700; text-transform: uppercase;">BONUS INCLUS</span>
+                                    <span class="code-badge" style="color: #8B5CF6;"><i class="fa-solid fa-mug-hot"></i> ☕ Café / Thé Offert</span>
+                                </div>
+                                <button class="copy-code-btn" onclick="showToast('Formule Déjeuner Sélectionnée ! 🍽️')">
+                                    <i class="fa-solid fa-calendar"></i> Réserver
+                                </button>
+                            </div>
+                            <div class="offer-footer-meta">
+                                <div class="offer-expiry">
+                                    <i class="fa-solid fa-clock text-orange"></i> Lun - Ven (12:00 - 15:00)
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <span class="order-status-badge status-completed"><i class="fa-solid fa-circle-check"></i> Active</span>
+                                    <div class="offer-actions-btns">
+                                        <button class="offer-action-btn edit-offer-btn" title="Modifier l'offre" data-id="OFF-203"><i class="fa-solid fa-pen-to-square"></i></button>
+                                        <button class="offer-action-btn toggle-offer-btn" title="Activer / Pauser" data-id="OFF-203"><i class="fa-solid fa-pause"></i></button>
+                                        <button class="offer-action-btn delete-offer-btn" title="Supprimer l'offre" data-id="OFF-203"><i class="fa-solid fa-trash-can"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Post 4: Delivery VIP + Tiramisu Offert -->
+                    <div class="offer-card-creative" data-offer-id="OFF-204" data-offer-cat="delivery">
+                        <div class="offer-card-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=600&auto=format&fit=crop&q=80" alt="Tiramisu Offert Delivery" class="offer-card-img">
+                            <span class="offer-type-badge vip"><i class="fa-solid fa-truck-fast"></i> Special Delivery 🚀</span>
+                            <span class="offer-discount-badge">Livraison & Tiramisu 0 DH</span>
+                        </div>
+                        <div class="offer-card-body">
+                            <div class="offer-header-info">
+                                <div>
+                                    <h3 class="offer-card-title">Super Delivery & Tiramisu Free 🍰</h3>
+                                    <p class="offer-card-desc">Pour toute commande en ligne > 180 DH : Frais de livraison 100% offerts + 1 Tiramisu Classique Maison gratuit !</p>
+                                </div>
+                            </div>
+                            <div class="offer-code-bar">
+                                <div>
+                                    <span style="font-size: 10px; color: var(--text-muted); display: block; font-weight: 700; text-transform: uppercase;">BONUS CADEAU</span>
+                                    <span class="code-badge" style="color: #10B981;"><i class="fa-solid fa-cake-candles"></i> 🍰 1 Tiramisu Offert</span>
+                                </div>
+                                <button class="copy-code-btn" onclick="showToast('Pack Delivery & Tiramisu Free Activé ! 🚀')">
+                                    <i class="fa-solid fa-globe"></i> Commander
+                                </button>
+                            </div>
+                            <div class="offer-footer-meta">
+                                <div class="offer-expiry">
+                                    <i class="fa-solid fa-globe text-green"></i> Commande En Ligne (>180 DH)
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <span class="order-status-badge status-completed"><i class="fa-solid fa-circle-check"></i> Active</span>
+                                    <div class="offer-actions-btns">
+                                        <button class="offer-action-btn edit-offer-btn" title="Modifier l'offre" data-id="OFF-204"><i class="fa-solid fa-pen-to-square"></i></button>
+                                        <button class="offer-action-btn toggle-offer-btn" title="Activer / Pauser" data-id="OFF-204"><i class="fa-solid fa-pause"></i></button>
+                                        <button class="offer-action-btn delete-offer-btn" title="Supprimer l'offre" data-id="OFF-204"><i class="fa-solid fa-trash-can"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Post 5: Special Game Night / Match Combo -->
+                    <div class="offer-card-creative" data-offer-id="OFF-205" data-offer-cat="freebie">
+                        <div class="offer-card-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&auto=format&fit=crop&q=80" alt="Match Night Combo" class="offer-card-img">
+                            <span class="offer-type-badge flash"><i class="fa-solid fa-trophy"></i> Game Night ⚽</span>
+                            <span class="offer-discount-badge">129 DH (Économisez 51 DH)</span>
+                        </div>
+                        <div class="offer-card-body">
+                            <div class="offer-header-info">
+                                <div>
+                                    <h3 class="offer-card-title">Combo Soirée Match & Drinks ⚽</h3>
+                                    <p class="offer-card-desc">2 Double Angus Cheeseburgers + Grande Frite Truffée + 2 Mojitos Passion pour 129 DH au lieu de 180 DH !</p>
+                                </div>
+                            </div>
+                            <div class="offer-code-bar">
+                                <div>
+                                    <span style="font-size: 10px; color: var(--text-muted); display: block; font-weight: 700; text-transform: uppercase;">ÉCONOMIE IMMÉDIATE</span>
+                                    <span class="code-badge" style="color: #EF4444;"><i class="fa-solid fa-fire"></i> 🔥 -51 DH De Réduction</span>
+                                </div>
+                                <button class="copy-code-btn" onclick="showToast('Combo Soirée Match Activé ! ⚽')">
+                                    <i class="fa-solid fa-bolt"></i> Profiter
+                                </button>
+                            </div>
+                            <div class="offer-footer-meta">
+                                <div class="offer-expiry">
+                                    <i class="fa-solid fa-futbol text-blue"></i> Jours de Matchs Football
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <span class="order-status-badge status-completed"><i class="fa-solid fa-circle-check"></i> Active</span>
+                                    <div class="offer-actions-btns">
+                                        <button class="offer-action-btn edit-offer-btn" title="Modifier l'offre" data-id="OFF-205"><i class="fa-solid fa-pen-to-square"></i></button>
+                                        <button class="offer-action-btn toggle-offer-btn" title="Activer / Pauser" data-id="OFF-205"><i class="fa-solid fa-pause"></i></button>
+                                        <button class="offer-action-btn delete-offer-btn" title="Supprimer l'offre" data-id="OFF-205"><i class="fa-solid fa-trash-can"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+
+            <!-- ================= PAGE 10: SETTINGS & ADMIN PROFILE ================= -->
+            <div class="page-view" id="view-settings">
+                <div class="section-title-bar">
+                    <div>
+                        <h2><i class="fa-solid fa-user-gear text-green"></i> Paramètres du Système & Profil Admin</h2>
+                        <p class="section-subtitle">Gérez vos identifiants administrateur, votre mot de passe et les préférences globales du restaurant.</p>
+                    </div>
+                    <div class="header-action-btns">
+                        <button type="button" class="btn btn-green glow-btn-lg" onclick="saveAdminSettings(event)">
+                            <i class="fa-solid fa-floppy-disk"></i> Enregistrer les Modifications
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Admin Hero Card Profile -->
+                <div class="admin-hero-card">
+                    <div class="admin-hero-avatar-box">
+                        <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=150&auto=format&fit=crop&q=80" alt="Emma Johnson" class="admin-hero-avatar" id="adminHeroAvatarImg">
+                        <button class="avatar-edit-btn" title="Changer la photo de profil" onclick="document.getElementById('adminAvatarFileInput').click()">
+                            <i class="fa-solid fa-camera"></i>
+                        </button>
+                        <input type="file" id="adminAvatarFileInput" accept="image/*" style="display: none;">
+                    </div>
+                    <div class="admin-hero-info">
+                        <div class="admin-hero-top">
+                            <h3 id="adminHeroName">Emma Johnson</h3>
+                            <span class="role-badge"><i class="fa-solid fa-shield-halved"></i> Super Administrateur</span>
+                            <span class="status-pill-online"><i class="fa-solid fa-circle-check"></i> 2FA Actif</span>
+                        </div>
+                        <p class="admin-hero-email"><i class="fa-solid fa-envelope text-green"></i> <span id="adminHeroEmailDisplay">emma.johnson@flavorist.ma</span> • <i class="fa-solid fa-phone text-blue"></i> <span id="adminHeroPhoneDisplay">+212 661-998877</span></p>
+                        <div class="admin-meta-tags">
+                            <span class="meta-tag"><i class="fa-solid fa-clock"></i> Dernière Connexion : Aujourd'hui à 10:45</span>
+                            <span class="meta-tag"><i class="fa-solid fa-laptop-code"></i> IP : 197.230.112.44</span>
+                            <span class="meta-tag"><i class="fa-solid fa-key"></i> Session ID : #ADM-8890</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Grid Cards -->
+                <div class="settings-grid-container">
+                    
+                    <!-- Card 1: Identités Admin -->
+                    <div class="settings-card-dark">
+                        <div class="settings-card-header">
+                            <i class="fa-solid fa-id-card text-green"></i>
+                            <div>
+                                <h3>Informations Personnelles Admin</h3>
+                                <p>Identité et coordonnées du compte administrateur</p>
+                            </div>
+                        </div>
+                        <div class="settings-card-body">
+                            <div class="form-group-dark">
+                                <label><i class="fa-solid fa-user text-green"></i> Nom & Prénom Administrateur <span class="text-green">*</span></label>
+                                <input type="text" id="adminNameInput" value="Emma Johnson" placeholder="ex: Emma Johnson">
+                            </div>
+                            <div class="form-group-dark">
+                                <label><i class="fa-solid fa-award text-blue"></i> Titre / Rôle Professionnel</label>
+                                <input type="text" id="adminRoleInput" value="Chef Exécutif & Admin Système" placeholder="ex: Chef / Propriétaire">
+                            </div>
+                            <div class="form-group-dark">
+                                <label><i class="fa-solid fa-phone text-orange"></i> Numéro WhatsApp Direct</label>
+                                <input type="text" id="adminPhoneInput" value="+212 661-998877" placeholder="ex: +212 661-998877">
+                            </div>
+                            <div class="form-group-dark">
+                                <label><i class="fa-solid fa-signature text-purple"></i> Bio / Note de Signature</label>
+                                <textarea id="adminBioInput" rows="2" placeholder="Chef de Cuisine & Gestionnaire Général de Flavorist.">Chef de Cuisine & Gestionnaire Général de Flavorist Restaurant.</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Sécurité (Email & Mot de passe) -->
+                    <div class="settings-card-dark">
+                        <div class="settings-card-header">
+                            <i class="fa-solid fa-lock text-purple"></i>
+                            <div>
+                                <h3>Sécurité & Identifiants de Connexion</h3>
+                                <p>Modifier votre adresse email et votre mot de passe d'accès</p>
+                            </div>
+                        </div>
+                        <div class="settings-card-body">
+                            <div class="form-group-dark">
+                                <label><i class="fa-solid fa-envelope text-purple"></i> Adresse Email Administrateur <span class="text-green">*</span></label>
+                                <input type="email" id="adminEmailInput" value="emma.johnson@flavorist.ma" placeholder="admin@flavorist.ma">
+                            </div>
+                            <div class="form-group-dark">
+                                <label><i class="fa-solid fa-key text-yellow"></i> Mot de Passe Actuel</label>
+                                <div class="password-input-wrapper">
+                                    <input type="password" id="adminCurrentPassInput" value="Flavorist2026@Pass">
+                                    <button type="button" class="toggle-pass-btn" onclick="togglePassVisibility('adminCurrentPassInput', this)"><i class="fa-solid fa-eye"></i></button>
+                                </div>
+                            </div>
+                            <div class="date-picker-row">
+                                <div class="form-group-dark">
+                                    <label><i class="fa-solid fa-shield-halved text-green"></i> Nouveau Mot de Passe</label>
+                                    <div class="password-input-wrapper">
+                                        <input type="password" id="adminNewPassInput" placeholder="Nouveau mot de passe">
+                                        <button type="button" class="toggle-pass-btn" onclick="togglePassVisibility('adminNewPassInput', this)"><i class="fa-solid fa-eye"></i></button>
+                                    </div>
+                                </div>
+                                <div class="form-group-dark">
+                                    <label><i class="fa-solid fa-check-double text-blue"></i> Confirmer Mot de Passe</label>
+                                    <div class="password-input-wrapper">
+                                        <input type="password" id="adminConfirmPassInput" placeholder="Répéter mot de passe">
+                                        <button type="button" class="toggle-pass-btn" onclick="togglePassVisibility('adminConfirmPassInput', this)"><i class="fa-solid fa-eye"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Security Switches -->
+                            <div class="security-toggles-list">
+                                <div class="security-toggle-item">
+                                    <div>
+                                        <strong>Double Authentification (2FA)</strong>
+                                        <p>Recevoir un code SMS/Email à chaque connexion</p>
+                                    </div>
+                                    <label class="switch-dark">
+                                        <input type="checkbox" id="twoFaToggle" checked>
+                                        <span class="slider-dark"></span>
+                                    </label>
+                                </div>
+                                <div class="security-toggle-item">
+                                    <div>
+                                        <strong>Alertes de Connexion Suspecte</strong>
+                                        <p>Notifier par email si nouvelle adresse IP détectée</p>
+                                    </div>
+                                    <label class="switch-dark">
+                                        <input type="checkbox" id="loginAlertsToggle" checked>
+                                        <span class="slider-dark"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Réseaux Sociaux & Liens Officiels -->
+                    <div class="settings-card-dark">
+                        <div class="settings-card-header">
+                            <i class="fa-solid fa-share-nodes text-blue"></i>
+                            <div>
+                                <h3>Réseaux Sociaux & Liens Officiels</h3>
+                                <p>URLs officielles du restaurant sur les réseaux sociaux et le web</p>
+                            </div>
+                        </div>
+                        <div class="settings-card-body">
+                            <div class="date-picker-row">
+                                <div class="form-group-dark">
+                                    <label><i class="fa-brands fa-instagram text-purple"></i> Instagram Officiel</label>
+                                    <input type="url" id="adminInstagramInput" value="https://instagram.com/flavorist.maroc" placeholder="https://instagram.com/...">
+                                </div>
+                                <div class="form-group-dark">
+                                    <label><i class="fa-brands fa-facebook text-blue"></i> Facebook Page</label>
+                                    <input type="url" id="adminFacebookInput" value="https://facebook.com/flavorist.official" placeholder="https://facebook.com/...">
+                                </div>
+                            </div>
+
+                            <div class="date-picker-row">
+                                <div class="form-group-dark">
+                                    <label><i class="fa-brands fa-tiktok text-green"></i> TikTok Officiel</label>
+                                    <input type="url" id="adminTiktokInput" value="https://tiktok.com/@flavorist_maroc" placeholder="https://tiktok.com/@...">
+                                </div>
+                                <div class="form-group-dark">
+                                    <label><i class="fa-brands fa-whatsapp text-green"></i> Lien WhatsApp Direct</label>
+                                    <input type="text" id="adminWhatsappLinkInput" value="https://wa.me/212661998877" placeholder="https://wa.me/212661998877">
+                                </div>
+                            </div>
+
+                            <div class="date-picker-row">
+                                <div class="form-group-dark">
+                                    <label><i class="fa-solid fa-globe text-blue"></i> Site Web Officiel</label>
+                                    <input type="url" id="adminWebsiteInput" value="https://flavorist.ma" placeholder="https://flavorist.ma">
+                                </div>
+                                <div class="form-group-dark">
+                                    <label><i class="fa-solid fa-location-dot text-orange"></i> Lien Google Maps / Localisation</label>
+                                    <input type="url" id="adminMapsInput" value="https://maps.google.com/?q=flavorist+rabat" placeholder="https://maps.google.com/...">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Bottom Save Actions Bar -->
+                <div class="settings-bottom-bar">
+                    <button type="button" class="btn btn-outline-dark" onclick="resetAdminSettingsForm()"><i class="fa-solid fa-rotate-left"></i> Réinitialiser</button>
+                    <button type="button" class="btn btn-green glow-btn-lg" onclick="saveAdminSettings(event)">
+                        <i class="fa-solid fa-floppy-disk"></i> Enregistrer Tous les Paramètres Admin
+                    </button>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Recipe Details Modal -->
+    <div class="modal-overlay" id="recipeModal">
+        <div class="modal-card-dark">
+            <div class="modal-head">
+                <h3>Pâtes Crémeuses à l'Ail et au Parmesan</h3>
+                <button class="close-modal" id="closeRecipeModalBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body-dark">
+                <img src="https://images.unsplash.com/photo-1621996346565-e3d5d6281274?w=600&auto=format&fit=crop&q=80" alt="Recipe Detail">
+                <p>Temps de préparation : 30 minutes | Portions : 4 personnes | Calories : 520 kcal</p>
+                <h4>Ingrédients :</h4>
+                <ul>
+                    <li>250g Pâtes Fettuccine</li>
+                    <li>4 gousses d'Ail hachées</li>
+                    <li>100g Parmesan Râpé</li>
+                    <li>1 tasse Crème Fraîche & Basilic Frais</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Custom Date Range Picker (From / To) -->
+    <div class="modal-overlay" id="customDateModal">
+        <div class="modal-card-dark date-modal">
+            <div class="modal-head">
+                <h3><i class="fa-regular fa-calendar-days text-green"></i> Choisir une Plage de Dates</h3>
+                <button class="close-modal" id="closeDateModalBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="customDateForm">
+                <div class="date-picker-row">
+                    <div class="form-group-dark">
+                        <label for="dateFrom">Date de Début (Du)</label>
+                        <input type="date" id="dateFrom" required>
+                    </div>
+                    <div class="form-group-dark">
+                        <label for="dateTo">Date de Fin (Au)</label>
+                        <input type="date" id="dateTo" required>
+                    </div>
+                </div>
+
+                <div class="quick-date-presets">
+                    <span class="preset-title">Raccourcis rapides :</span>
+                    <div class="preset-chips">
+                        <button type="button" class="preset-chip" data-days="7">7 Derniers Jours</button>
+                        <button type="button" class="preset-chip" data-days="14">14 Derniers Jours</button>
+                        <button type="button" class="preset-chip" data-days="30">30 Derniers Jours</button>
+                    </div>
+                </div>
+
+                <div class="modal-actions-dark">
+                    <button type="button" class="btn btn-outline-dark" id="cancelDateModalBtn">Annuler</button>
+                    <button type="submit" class="btn btn-green"><i class="fa-solid fa-filter"></i> Appliquer le Filtre</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Automatic Live Notification Popup (Order / Reservation ticker popup) -->
+    <div class="live-popup-notif" id="liveNotifPopup">
+        <div class="popup-icon-box" id="liveNotifIcon">
+            <i class="fa-solid fa-cart-shopping"></i>
+        </div>
+        <div class="popup-content-box">
+            <div class="popup-top-line">
+                <span class="popup-title" id="liveNotifTitle">Nouvelle Commande !</span>
+                <span class="popup-time" id="liveNotifTime">À l'instant</span>
+            </div>
+            <p class="popup-message" id="liveNotifMsg"><strong>Sami B.</strong> vient de commander <em>Garlic Parmesan Pasta</em></p>
+            <div class="popup-action-row">
+                <button type="button" class="notif-confirm-btn" id="notifConfirmBtn">
+                    <i class="fa-solid fa-fire-flame-curved"></i> Confirmer & Passer en Cuisine
+                </button>
+            </div>
+        </div>
+        <button class="popup-close-btn" id="closeLiveNotifBtn" title="Fermer">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+
+    <!-- Top-Down Slide Modal Overlay for KPI Details -->
+    <div class="kpi-slide-modal-overlay" id="kpiDetailModal">
+        <div class="kpi-slide-modal-card">
+            <div class="kpi-modal-header">
+                <div class="kpi-modal-title-box">
+                    <div class="kpi-modal-icon" id="kpiModalIcon"><i class="fa-solid fa-chart-line"></i></div>
+                    <div>
+                        <h2 id="kpiModalTitle">Analyse Détaillée des Commandes</h2>
+                        <p id="kpiModalSubtitle">Rapport complet et répartition en direct</p>
+                    </div>
+                </div>
+                <button class="close-kpi-modal-btn" id="closeKpiModalBtn" title="Fermer"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="kpi-modal-body" id="kpiModalBody">
+                <!-- Dynamic Content Injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Add / Edit Dish Creative Modal -->
+    <div class="modal-overlay" id="dishFormModal">
+        <div class="modal-card-dark creative-dish-modal">
+            <div class="modal-head">
+                <h3 id="dishModalFormTitle"><i class="fa-solid fa-pen-to-square text-green"></i> Éditer le Plat Gourmet</h3>
+                <button class="close-modal" id="closeDishFormModalBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="creative-modal-split">
+                <!-- Left: Live Photo Preview & Quick Presets -->
+                <div class="dish-photo-preview-side">
+                    <div class="preview-box-wrapper" onclick="document.getElementById('dishFileInput').click()" title="Cliquer pour choisir une photo locale">
+                        <span class="preview-tag"><i class="fa-solid fa-camera"></i> Aperçu Photo HD</span>
+                        <img src="https://images.unsplash.com/photo-1621996346565-e3d5d6281274?w=500&auto=format&fit=crop&q=80" id="dishLivePreviewImg" alt="Aperçu Photo">
+                        <div class="live-preview-badge-overlay" id="dishLivePreviewBadge">
+                            <span id="dishLivePreviewBadgeIcon">🍝</span>
+                            <strong id="dishLivePreviewBadgeTitle">Pastas & Pâtes</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Form Controls -->
+                <div class="dish-form-controls-side">
+                    <form id="dishCrudForm">
+                        <input type="hidden" id="dishEditId">
+                        
+                        <div class="form-group-dark">
+                            <label for="dishNameInput"><i class="fa-solid fa-utensils text-green"></i> Nom du Plat</label>
+                            <input type="text" id="dishNameInput" placeholder="Ex: Creamy Garlic Parmesan Pasta" required>
+                        </div>
+
+                        <div class="date-picker-row">
+                            <div class="form-group-dark">
+                                <label for="dishCategoryInput"><i class="fa-solid fa-layer-group text-orange"></i> Catégorie</label>
+                                <select id="dishCategoryInput" required>
+                                    <option value="pastas">🍝 Pastas & Pâtes</option>
+                                    <option value="burgers">🍔 Burgers Gourmet</option>
+                                    <option value="pizzas">🍕 Pizzas Italiennes</option>
+                                    <option value="grillades">🥩 Grillades & Viandes</option>
+                                    <option value="salades">🥗 Salades Fraîches</option>
+                                    <option value="boissons">🍹 Boissons & Cocktails</option>
+                                    <option value="desserts">🍰 Desserts Gourmands</option>
+                                </select>
+                            </div>
+                            <div class="form-group-dark">
+                                <label for="dishPriceInput"><i class="fa-solid fa-tag text-purple"></i> Prix (DH)</label>
+                                <input type="number" id="dishPriceInput" placeholder="Ex: 85" required min="1">
+                            </div>
+                        </div>
+
+                        <div class="date-picker-row">
+                            <div class="form-group-dark">
+                                <label for="dishTimeInput"><i class="fa-solid fa-clock text-blue"></i> Temps Prépa (min)</label>
+                                <input type="number" id="dishTimeInput" placeholder="Ex: 25" required min="1">
+                            </div>
+                            <div class="form-group-dark">
+                                <label for="dishFileInput"><i class="fa-solid fa-cloud-arrow-up text-green"></i> Photo du Plat (Fichier Local)</label>
+                                <input type="file" id="dishFileInput" accept="image/*" style="display: none;">
+                                <div class="custom-file-upload-box" onclick="document.getElementById('dishFileInput').click()">
+                                    <i class="fa-solid fa-folder-open text-green"></i>
+                                    <span id="dishFileNameDisplay">Choisir une photo locale...</span>
+                                    <button type="button" class="btn-upload-browse"><i class="fa-solid fa-upload"></i> Parcourir</button>
+                                </div>
+                                <input type="hidden" id="dishImageInput">
+                            </div>
+                        </div>
+
+                        <div class="form-group-dark">
+                            <label for="dishDescInput"><i class="fa-solid fa-align-left text-muted"></i> Description Gourmande & Ingrédients</label>
+                            <textarea id="dishDescInput" rows="3" placeholder="Ingrédients secrets et description du chef..." required></textarea>
+                        </div>
+
+                        <!-- Custom Attributes & Options Section -->
+                        <div class="form-group-dark mt-3 p-3 rounded" style="background: rgba(255, 255, 255, 0.03); border: 1px dashed rgba(155, 128, 78, 0.4);">
+                            <label class="d-flex align-items-center justify-content-between mb-2">
+                                <span><i class="fa-solid fa-sliders text-gold me-1"></i> Options & Attributs Personnalisés</span>
+                                <span class="badge bg-gold" style="font-size: 11px; background-color: #9B804E;">Ex: Sauces, Cuisson, Extras</span>
+                            </label>
+                            <div id="dishOptionsContainer" class="dish-options-list mb-3"></div>
+                            <div class="d-flex flex-wrap gap-2">
+                                <button type="button" class="btn btn-sm btn-outline-light" id="addOptionRowBtn" style="font-size: 12px; border-color: rgba(255,255,255,0.2);">
+                                    <i class="fa-solid fa-plus text-green"></i> + Ajouter un attribut
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-warning" id="addQuickSauceBtn" style="font-size: 12px;">
+                                    ⚡ + Preset Sauce (Piquante/Douce/Mix)
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-info" id="addQuickCuissonBtn" style="font-size: 12px;">
+                                    ⚡ + Preset Cuisson
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="modal-actions-dark">
+                            <button type="button" class="btn btn-outline-dark" id="cancelDishFormBtn">Annuler</button>
+                            <button type="submit" class="btn btn-green"><i class="fa-solid fa-floppy-disk"></i> Enregistrer les Modifications</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add / Edit Category Creative Modal -->
+    <div class="modal-overlay" id="categoryFormModal">
+        <div class="modal-card-dark creative-dish-modal">
+            <div class="modal-head">
+                <h3 id="catModalFormTitle"><i class="fa-solid fa-layer-group text-green"></i> Éditer la Catégorie</h3>
+                <button class="close-modal" id="closeCatFormModalBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="creative-modal-split">
+                <!-- Left: Live Photo Preview & Quick Presets -->
+                <div class="dish-photo-preview-side">
+                    <div class="preview-box-wrapper" onclick="document.getElementById('categoryFileInput').click()" title="Cliquer pour choisir une photo locale">
+                        <span class="preview-tag"><i class="fa-solid fa-camera"></i> Image Catégorie HD</span>
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&auto=format&fit=crop&q=80" id="catLivePreviewImg" alt="Aperçu Photo">
+                        <div class="live-preview-badge-overlay" id="catLivePreviewBadge">
+                            <span id="catLivePreviewBadgeIcon">🍔</span>
+                            <strong id="catLivePreviewBadgeTitle">Burgers Gourmet</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Form Controls -->
+                <div class="dish-form-controls-side">
+                    <form id="categoryCrudForm">
+                        <input type="hidden" id="categoryEditId">
+                        
+                        <div class="form-group-dark">
+                            <label for="categoryTitleInput"><i class="fa-solid fa-tag text-green"></i> Nom de la Catégorie</label>
+                            <input type="text" id="categoryTitleInput" placeholder="Ex: Burgers Gourmet" required>
+                        </div>
+
+                        <div class="date-picker-row">
+                            <div class="form-group-dark">
+                                <label for="categoryIconInput"><i class="fa-solid fa-icons text-orange"></i> Icône / Emoji Badge</label>
+                                <input type="text" id="categoryIconInput" placeholder="Ex: 🍔" required>
+                            </div>
+                            <div class="form-group-dark">
+                                <label for="categorySubtitleInput"><i class="fa-solid fa-list-check text-purple"></i> Nombre / Texte de Recettes</label>
+                                <input type="text" id="categorySubtitleInput" placeholder="Ex: 150 Recettes Sélectionnées" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group-dark">
+                            <label for="categoryFileInput"><i class="fa-solid fa-cloud-arrow-up text-blue"></i> Photo Couverture (Fichier Local)</label>
+                            <input type="file" id="categoryFileInput" accept="image/*" style="display: none;">
+                            <div class="custom-file-upload-box" onclick="document.getElementById('categoryFileInput').click()">
+                                <i class="fa-solid fa-folder-open text-blue"></i>
+                                <span id="categoryFileNameDisplay">Choisir une photo locale...</span>
+                                <button type="button" class="btn-upload-browse"><i class="fa-solid fa-upload"></i> Parcourir</button>
+                            </div>
+                            <input type="hidden" id="categoryImageInput">
+                        </div>
+
+                        <div class="modal-actions-dark" style="margin-top: 24px;">
+                            <button type="button" class="btn btn-outline-dark" id="cancelCatFormBtn">Annuler</button>
+                            <button type="submit" class="btn btn-green"><i class="fa-solid fa-floppy-disk"></i> Enregistrer les Modifications</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add / Edit Order Creative POS Modal -->
+    <div class="modal-overlay" id="orderFormModal">
+        <div class="modal-card-dark pos-order-modal">
+            <div class="modal-head">
+                <h3 id="orderModalTitle"><i class="fa-solid fa-cash-register text-green"></i> Nouvelle Commande POS Terminal</h3>
+                <button class="close-modal" id="closeOrderFormModalBtn" onclick="closeOrderModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <form id="orderCrudForm">
+                <input type="hidden" id="orderEditId">
+
+                <div class="pos-modal-layout">
+                    <!-- Left Column: Category Tabs & Dish Picker -->
+                    <div class="pos-picker-pane">
+                        <div class="pos-section-label">
+                            <i class="fa-solid fa-layer-group text-green"></i> 1. Choisir la Catégorie
+                        </div>
+                        
+                        <div class="pos-cat-pills-bar">
+                            <button type="button" class="pos-cat-pill active" data-pos-cat="burgers">🍔 Burgers</button>
+                            <button type="button" class="pos-cat-pill" data-pos-cat="pastas">🍝 Pâtes</button>
+                            <button type="button" class="pos-cat-pill" data-pos-cat="pizzas">🍕 Pizzas</button>
+                            <button type="button" class="pos-cat-pill" data-pos-cat="grillades">🥩 Grillades</button>
+                            <button type="button" class="pos-cat-pill" data-pos-cat="salades">🥗 Salades</button>
+                            <button type="button" class="pos-cat-pill" data-pos-cat="boissons">🍹 Boissons</button>
+                            <button type="button" class="pos-cat-pill" data-pos-cat="desserts">🍰 Desserts</button>
+                        </div>
+
+                        <div class="pos-section-label" style="margin-top: 14px;">
+                            <i class="fa-solid fa-utensils text-orange"></i> 2. Sélectionner les Plats (Cliquer pour ajouter)
+                        </div>
+
+                        <div class="pos-dishes-grid" id="posDishesGridContainer">
+                            <!-- Dynamically Injected Dishes for active category -->
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Mode Service & Live Cart Summary -->
+                    <div class="pos-cart-pane">
+                        <div class="pos-section-label">
+                            <i class="fa-solid fa-utensils text-green"></i> 3. Mode Service
+                        </div>
+
+                        <div class="pos-form-row">
+                            <div class="form-group-dark" style="width: 100%;">
+                                <label for="orderChannelInput">Sélectionner le Type de Commande</label>
+                                <select id="orderChannelInput" required>
+                                    <option value="sur-place" selected>🍽️ Sur Place (Restaurant)</option>
+                                    <option value="takeaway">🛍️ À Emporter (Restaurant)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="pos-section-label" style="margin-top: 10px;">
+                            <i class="fa-solid fa-basket-shopping text-green"></i> Ticket & Plats Sélectionnés
+                        </div>
+
+                        <div class="pos-cart-items-list" id="posCartItemsList">
+                            <!-- Dynamic Cart Items list injected here -->
+                        </div>
+
+                        <div class="pos-cart-footer">
+                            <div class="pos-total-row">
+                                <span>TOTAL TICKET :</span>
+                                <strong id="posLiveTotalDisplay">0 DH</strong>
+                            </div>
+                            <input type="hidden" id="orderTotalInput" value="0">
+                            <input type="hidden" id="orderItemsInput" value="">
+                            <input type="hidden" id="orderTimeInput" value="À l'instant">
+
+                            <div class="pos-cart-actions">
+                                <button type="button" class="btn btn-outline-dark" id="cancelOrderFormBtn" onclick="closeOrderModal()">Annuler</button>
+                                <button type="submit" class="btn btn-green glow-btn-lg" id="confirmOrderSubmitBtn" onclick="submitPosOrder(event)">
+                                    <i class="fa-solid fa-circle-check"></i> Confirmer la Commande
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- POS Kitchen Ticket View Modal -->
+    <div class="modal-overlay" id="orderTicketModal">
+        <div class="modal-card-dark ticket-modal-card">
+            <div class="ticket-header">
+                <div class="brand-logo justify-center">
+                    <div class="logo-icon-box"><i class="fa-solid fa-kitchen-set"></i></div>
+                    <span class="logo-title">Flavorist POS</span>
+                </div>
+                <p class="ticket-subtitle">Ticket de Cuisine & Encaissement</p>
+            </div>
+            
+            <div class="ticket-divider">----------------------------------------</div>
+            
+            <div class="ticket-info-block" id="ticketContentBody">
+                <!-- Dynamic Content Injected via JS -->
+            </div>
+            
+            <div class="ticket-divider">----------------------------------------</div>
+            
+            <div class="modal-actions-dark justify-center" style="margin-top: 20px;">
+                <button type="button" class="btn btn-outline-dark" id="closeTicketModalBtn">Fermer</button>
+                <button type="button" class="btn btn-green" onclick="window.print()"><i class="fa-solid fa-print"></i> Imprimer Ticket</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add / Edit Website Reservation Modal -->
+    <div class="modal-overlay" id="resaFormModal">
+        <div class="modal-card-dark" style="max-width: 620px; width: 95%; padding: 26px 30px; position: relative;">
+            <div class="modal-head">
+                <h3 id="resaModalTitle"><i class="fa-solid fa-calendar-plus text-green"></i> Nouvelle Réservation Web</h3>
+                <button type="button" class="close-modal" id="closeResaFormModalBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="resaCrudForm">
+                <input type="hidden" id="resaEditId" value="">
+                <div class="date-picker-row">
+                    <div class="form-group-dark">
+                        <label><i class="fa-solid fa-user text-green"></i> Nom du Client <span class="text-green">*</span></label>
+                        <input type="text" id="resaClientNameInput" placeholder="ex: Karim El Amrani" required>
+                    </div>
+                    <div class="form-group-dark">
+                        <label><i class="fa-solid fa-phone text-green"></i> Numéro de Téléphone <span class="text-green">*</span></label>
+                        <input type="text" id="resaPhoneInput" placeholder="ex: +212 661-000000" required>
+                    </div>
+                </div>
+                <div class="date-picker-row">
+                    <div class="form-group-dark">
+                        <label><i class="fa-solid fa-envelope text-blue"></i> Adresse Email</label>
+                        <input type="email" id="resaEmailInput" placeholder="ex: client@gmail.com">
+                    </div>
+                    <div class="form-group-dark">
+                        <label><i class="fa-solid fa-user-group text-purple"></i> Nombre de Personnes <span class="text-green">*</span></label>
+                        <select id="resaGuestsInput" required>
+                            <option value="1 Personne">1 Personne</option>
+                            <option value="2 Personnes" selected>2 Personnes</option>
+                            <option value="3 Personnes">3 Personnes</option>
+                            <option value="4 Personnes">4 Personnes</option>
+                            <option value="5 Personnes">5 Personnes</option>
+                            <option value="6 Personnes">6 Personnes</option>
+                            <option value="8+ Personnes (Groupe)">8+ Personnes (Groupe VIP)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="date-picker-row">
+                    <div class="form-group-dark">
+                        <label><i class="fa-solid fa-calendar-day text-blue"></i> Date <span class="text-green">*</span></label>
+                        <input type="date" id="resaDateInput" required>
+                    </div>
+                    <div class="form-group-dark">
+                        <label><i class="fa-solid fa-clock text-green"></i> Heure <span class="text-green">*</span></label>
+                        <input type="time" id="resaTimeInput" required>
+                    </div>
+                </div>
+                <div class="date-picker-row">
+                    <div class="form-group-dark">
+                        <label><i class="fa-solid fa-utensils text-orange"></i> Table / Zone <span class="text-green">*</span></label>
+                        <select id="resaTableInput" required>
+                            <option value="Table #01 (Terrasse)">Table #01 (Terrasse Vue Mer)</option>
+                            <option value="Table #03 (Terrasse)">Table #03 (Terrasse Chauffée)</option>
+                            <option value="Table #05 (Intérieur)">Table #05 (Salle Intérieure)</option>
+                            <option value="Table #08 (Zone VIP)" selected>Table #08 (Zone VIP Panoramique)</option>
+                            <option value="Table #12 (Grand Salon)">Table #12 (Grand Salon Familial)</option>
+                            <option value="Table #15 (Zone Lounge)">Table #15 (Zone Lounge Soft)</option>
+                        </select>
+                    </div>
+                    <div class="form-group-dark">
+                        <label><i class="fa-solid fa-signal text-green"></i> Statut Initial</label>
+                        <select id="resaStatusInput">
+                            <option value="pending" selected>⏳ En Attente</option>
+                            <option value="confirmed">✅ Confirmée</option>
+                            <option value="seated">🍷 Client Installé</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group-dark" style="margin-bottom: 20px;">
+                    <label><i class="fa-solid fa-note-sticky text-orange"></i> Exigences / Notes Spéciales</label>
+                    <textarea id="resaNotesInput" rows="2" placeholder="ex: Anniversaire, chaise bébé, table calme..."></textarea>
+                </div>
+                <div class="modal-actions-dark">
+                    <button type="button" class="btn btn-outline-dark" id="cancelResaFormBtn">Annuler</button>
+                    <button type="submit" class="btn btn-green"><i class="fa-solid fa-floppy-disk"></i> Enregistrer Réservation</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add / Edit Promo Offer Modal -->
+    <div class="modal-overlay" id="offerFormModal">
+        <div class="modal-card-dark" style="max-width: 620px; width: 95%; padding: 26px 30px; position: relative;">
+            <div class="modal-head">
+                <h3 id="offerModalTitle"><i class="fa-solid fa-tags text-green"></i> Publier une Nouvelle Offre / Promotion</h3>
+                <button type="button" class="close-modal" id="closeOfferFormModalBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="offerCrudForm">
+                <input type="hidden" id="offerEditId" value="">
+                <div class="date-picker-row">
+                    <div class="form-group-dark">
+                        <label><i class="fa-solid fa-pen-nib text-green"></i> Titre du Post / Offre <span class="text-green">*</span></label>
+                        <input type="text" id="offerTitleInput" placeholder="ex: Vendredi Couscous Royal 🇲🇦" required>
+                    </div>
+                    <div class="form-group-dark">
+                        <label><i class="fa-solid fa-layer-group text-blue"></i> Catégorie de l'Offre</label>
+                        <select id="offerCategoryInput">
+                            <option value="friday">🇲🇦 Spécial Jour (ex: Vendredi Couscous)</option>
+                            <option value="freebie" selected>🥤 Cadeau Gratuit (3 Plats = Monada Free)</option>
+                            <option value="combo">🎁 Formule / Menu Combo Gourmet</option>
+                            <option value="delivery">🚀 Delivery Express & Dessert Offert</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="date-picker-row">
+                    <div class="form-group-dark">
+                        <label><i class="fa-solid fa-gift text-orange"></i> Cadeau / Bonus Offert <span class="text-green">*</span></label>
+                        <input type="text" id="offerBonusInput" placeholder="ex: 🥤 3 Monadas Free ou 🥛 Lben Offert" required>
+                    </div>
+                    <div class="form-group-dark">
+                        <label><i class="fa-solid fa-tag text-purple"></i> Prix Spécial / Avantage</label>
+                        <input type="text" id="offerDiscountInput" placeholder="ex: 49 DH (ou 3 Boissons Offertes)" required>
+                    </div>
+                </div>
+                <div class="date-picker-row">
+                    <div class="form-group-dark">
+                        <label><i class="fa-solid fa-clock text-blue"></i> Horaire / Jour de Validité</label>
+                        <input type="text" id="offerExpiryInput" placeholder="ex: Tous les Vendredis (12h - 16h) ou 7j/7" required>
+                    </div>
+                    <div class="form-group-dark">
+                        <label><i class="fa-solid fa-toggle-on text-green"></i> Statut Initial</label>
+                        <select id="offerStatusInput">
+                            <option value="active" selected>🟢 Active</option>
+                            <option value="inactive">🔴 Inactive / Pausée</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group-dark">
+                    <label><i class="fa-solid fa-image text-green"></i> Image URL de l'Offre</label>
+                    <input type="url" id="offerImgInput" placeholder="https://images.unsplash.com/...">
+                </div>
+                <div class="form-group-dark" style="margin-bottom: 20px;">
+                    <label><i class="fa-solid fa-align-left text-orange"></i> Description & Conditions du Post</label>
+                    <textarea id="offerDescInput" rows="2" placeholder="ex: Commandez 3 plats au choix (Burgers, Pâtes ou Pizzas) et recevez 3 boissons gazeuses offertes !"></textarea>
+                </div>
+                <div class="modal-actions-dark">
+                    <button type="button" class="btn btn-outline-dark" id="cancelOfferFormBtn">Annuler</button>
+                    <button type="submit" class="btn btn-green"><i class="fa-solid fa-paper-plane"></i> Publier l'Offre</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+    <!-- Toast Notification -->
+    <div class="toast-dark" id="darkToast">
+        <i class="fa-solid fa-circle-check"></i>
+        <span id="darkToastMsg">Action effectuée avec succès !</span>
+    </div>
+
+    <script src="/js/dishes_data.js"></script>
+    <script src="/admin/script.js?v=40.0"></script>
+</body>
+</html>
+

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Foores - Single Restaurant Version">
+    <meta name="author" content="Ansonika">
+    <title>Foores - Single Restaurant Version</title>
+
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" type="image/x-icon" href="img/apple-touch-icon-57x57-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="img/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="img/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="img/apple-touch-icon-144x144-precomposed.png">
+
+    <!-- GOOGLE WEB FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital@1&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- BASE CSS -->
+    <link href="css/vendors.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- SPECIFIC CSS -->
+    <link href="css/wizard.css" rel="stylesheet">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="css/custom.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div id="preloader">
+        <div data-loader="circle-side"></div>
+    </div><!-- /Page Preload -->
+
+	<div id="loader_form">
+		<div data-loader="circle-side-2"></div>
+	</div><!-- /loader_form -->
+				
+	<header class="header clearfix element_to_stick">
+        <div class="layer"></div><!-- Opacity Mask Menu Mobile -->
+		<!-- Top Header Bar -->
+		<div class="top-header-bar d-none d-lg-block">
+			<div class="container-fluid d-flex justify-content-between align-items-center">
+				<div class="top-header-left d-flex align-items-center gap-4">
+					<span class="top-info-item"><i class="bi bi-geo-alt-fill"></i> 123 Rue Gourmande, Casablanca, Maroc</span>
+					<span class="top-info-item"><i class="bi bi-clock-fill"></i> Lun - Dim: 10:00 AM - 23:00 PM</span>
+				</div>
+				<div class="top-header-right d-flex align-items-center gap-3">
+					<span class="top-info-item"><i class="bi bi-telephone-fill"></i> +212 522 22 33 44</span>
+					<div class="top-social-links d-flex align-items-center gap-2 ms-2">
+						<a href="#0" class="social-icon-circle"><i class="bi bi-facebook"></i></a>
+						<a href="#0" class="social-icon-circle"><i class="bi bi-instagram"></i></a>
+						<a href="#0" class="social-icon-circle"><i class="bi bi-twitter-x"></i></a>
+						<a href="#0" class="social-icon-circle"><i class="bi bi-pinterest"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Main Navigation Bar -->
+		<div class="main-nav-bar">
+			<div class="container-fluid d-flex align-items-center justify-content-between">
+				<div id="logo" class="my-0">
+					<a href="index.html">
+						<img src="img/logo_sticky.svg" width="140" height="35" alt="" class="logo_normal">
+						<img src="img/logo_sticky.svg" width="140" height="35" alt="" class="logo_sticky">
+					</a>
+				</div>
+				
+				<a href="#0" class="open_close">
+					<i class="icon_menu"></i><span>Menu</span>
+				</a>
+				
+				<nav class="main-menu">
+					<div id="header_menu">
+						<a href="#0" class="open_close">
+							<i class="icon_close"></i><span>Menu</span>
+						</a>
+						<a href="index.html"><img src="img/logo_sticky.svg" width="140" height="35" alt=""></a>
+					</div>
+					<ul>
+						<li><a href="index.html">ACCUEIL</a></li>
+						<li><a href="about.html">À PROPOS</a></li>
+						<li><a href="menu-2.html">MENU</a></li>
+						<li><a href="reservations.html" class="active">RÉSERVATION</a></li>
+						<li><a href="gallery.html">GALERIE</a></li>
+						<li><a href="blog.html">BLOG</a></li>
+						<li><a href="contacts.html">CONTACT</a></li>
+					</ul>
+				</nav>
+
+				<div class="header-right-actions d-flex align-items-center gap-3">
+					<ul id="top_menu" class="m-0 p-0 d-flex align-items-center list-unstyled">
+						<li><a href="#0" class="search-overlay-menu-btn"></a></li>
+						<li>
+							<div class="dropdown dropdown-cart">
+								<a href="shop-cart.html" class="cart_bt"><strong id="cart-count">0</strong></a>
+								<div class="dropdown-menu">
+									<ul id="nav-cart-items">
+										<!-- Dynamically populated by js/cart.js -->
+									</ul>
+									<div class="total_drop">
+										<div class="clearfix add_bottom_15"><strong>Total</strong><span id="nav-cart-total">.00</span></div>
+										<a href="shop-cart.html" class="btn_1 outline">Voir Panier</a><a href="shop-checkout.html" class="btn_1">Commander</a>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<a href="reservations.html" class="btn_book_table_pill d-none d-sm-inline-block">BOOK A TABLE</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- Search -->
+		<div class="search-overlay-menu">
+			<span class="search-overlay-close"><span class="closebt"><i class="icon_close"></i></span></span>
+			<form role="search" id="searchform" method="get">
+				<input value="" name="q" type="search" placeholder="Rechercher..." />
+				<button type="submit"><i class="icon_search"></i></button>
+			</form>
+		</div><!-- End Search -->
+	</header>
+	<!-- /header -->
+	
+	<main>
+
+    <div class="hero_single inner_pages background-image" data-background="url(img/hero_reservation.jpg)">
+        <div class="opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-9 col-lg-10 col-md-8">
+                        <h1>Réserver une Table</h1>
+                        <p>Réservez facilement votre table chez Foores Restaurant Casablanca</p>
+                    </div>
+                </div>
+                <!-- /row -->
+            </div>
+        </div>
+        <div class="frame white"></div>
+    </div>
+    <!-- /hero_single -->
+
+    <div class="pattern_2">
+        <div class="container margin_120_100 pb-0">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 text-center d-none d-lg-block" data-cue="slideInUp">
+                    <img src="img/chef.png" width="400" height="733" alt="" class="img-fluid">
+                </div>
+                <div class="col-lg-6 col-md-8" data-cue="slideInUp">
+                    <div class="main_title">
+                        <span><em></em></span>
+                        <h2>Réserver une Table</h2>
+                        <p>Ou appelez-nous directement au +212 522 22 33 44</p>
+                    </div>
+                    <div id="wizard_container">
+                        <form id="wrapped" method="POST">
+                            <input id="website" name="website" type="text" value="">
+                            <!-- Leave for security protection, read docs for details -->
+                            <div id="middle-wizard">
+                                <div class="step">
+                                    <h3 class="main_question"><strong>1/3</strong> Sélectionnez une date</h3>
+                                    <div class="form-group">
+                                        <input type="hidden" name="datepicker_field" id="datepicker_field" class="required">
+                                    </div>
+                                    <div id="DatePicker"></div>
+                                </div>
+                                <!-- /step-->
+                                <div class="step">
+                                    <h3 class="main_question"><strong>2/3</strong> Heure et Nombre de Personnes</h3>
+                                    <div class="step_wrapper">
+                                        <h4>Heure</h4>
+                                        <div class="radio_select add_bottom_15">
+                                            <ul>
+                                                <li>
+                                                    <input type="radio" id="time_1" name="time" value="12:00" class="required">
+                                                    <label for="time_1">12:00</label>
+                                                </li>
+                                                <li>
+                                                    <input type="radio" id="time_2" name="time" value="12:30" class="required">
+                                                    <label for="time_2">12:30</label>
+                                                </li>
+                                                <li>
+                                                    <input type="radio" id="time_3" name="time" value="13:00" class="required">
+                                                    <label for="time_3">13:00</label>
+                                                </li>
+                                                <li>
+                                                    <input type="radio" id="time_4" name="time" value="13:30" class="required">
+                                                    <label for="time_4">13:30</label>
+                                                </li>
+                                                <li>
+                                                    <input type="radio" id="time_5" name="time" value="20:00" class="required">
+                                                    <label for="time_5">20:00</label>
+                                                </li>
+                                                <li>
+                                                    <input type="radio" id="time_6" name="time" value="20:30" class="required">
+                                                    <label for="time_6">20:30</label>
+                                                </li>
+                                                <li>
+                                                    <input type="radio" id="time_7" name="time" value="21:00" class="required">
+                                                    <label for="time_7">21:00</label>
+                                                </li>
+                                                <li>
+                                                    <input type="radio" id="time_8" name="time" value="21:30" class="required">
+                                                    <label for="time_8">21:30</label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- /time_select -->
+                                    </div>
+                                    <!-- /step_wrapper -->
+                                    <div class="step_wrapper">
+                                        <h4>Combien de personnes ?</h4>
+                                        <div class="radio_select">
+                                            <ul>
+                                                <li>
+                                                    <input type="radio" id="people_1" name="people" value="1" class="required">
+                                                    <label for="people_1">1</label>
+                                                </li>
+                                                <li>
+                                                    <input type="radio" id="people_2" name="people" value="2" class="required">
+                                                    <label for="people_2">2</label>
+                                                </li>
+                                                <li>
+                                                    <input type="radio" id="people_3" name="people" value="3" class="required">
+                                                    <label for="people_3">3</label>
+                                                </li>
+                                                <li>
+                                                    <input type="radio" id="people_4" name="people" value="4" class="required">
+                                                    <label for="people_4">4</label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- /people_select -->
+                                    </div>
+                                    <!-- /step_wrapper -->
+                                </div>
+                                <!-- /step-->
+                                <div class="submit step">
+                                    <h3 class="main_question"><strong>3/3</strong> Vos Coordonnées</h3>
+                                    <div class="form-group">
+                                        <input type="text" name="name_reserve" class="form-control required" placeholder="Nom et Prénom">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <input type="email" name="email_reserve" class="form-control required" placeholder="Votre E-mail">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <input type="text" name="telephone_reserve" class="form-control required" placeholder="Votre Téléphone (+212)">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea class="form-control" name="opt_message_reserve" placeholder="Remarques particulières (facultatif)"></textarea>
+                                    </div>
+                                    <div class="form-group terms">
+                                        <label class="container_check">J'accepte les <a href="#" data-bs-toggle="modal" data-bs-target="#terms-txt">conditions générales</a>
+                                            <input type="checkbox" name="terms" value="Yes" class="required">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <!-- /step-->
+                            </div>
+                            <!-- /middle-wizard -->
+                            <div id="bottom-wizard">
+                                <button type="button" name="backward" class="backward">Précédent</button>
+                                <button type="button" name="forward" class="forward">Suivant</button>
+                                <button type="submit" name="process" class="submit">Confirmer la Réservation</button>
+                            </div>
+                            <!-- /bottom-wizard -->
+                        </form>
+                    </div>
+                    <!-- /Wizard container -->
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /pattern_2 -->
+
+	</main>
+	<!-- /main -->
+
+	<footer>
+        <div class="frame black"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                    <div class="footer_wp">
+                        <i class="icon_pin_alt"></i>
+                        <h3>Adresse</h3>
+                        <p>128 Boulevard Anfa<br>Casablanca - Maroc</p>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                    <div class="footer_wp">
+                        <i class="icon_tag_alt"></i>
+                        <h3>Réservations</h3>
+                        <p><a href="tel:+212522223344">+212 522 22 33 44</a><br><a href="#0">contact@foores.ma</a></p>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                    <div class="footer_wp">
+                        <i class="icon_clock_alt"></i>
+                        <h3>Horaires d'Ouverture</h3>
+                        <ul>
+                            <li>Lun - Sam: 12h00 - 23h00</li>
+                            <li>Dimanche: 12h00 - 00h00</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                    <h3>Restons en Contact</h3>
+                    <div id="newsletter">
+                        <div id="message-newsletter"></div>
+                        <form method="post" action="phpmailer/newsletter_template_email.php" name="newsletter_form" id="newsletter_form">
+                            <div class="form-group">
+                                <input type="email" name="email_newsletter" id="email_newsletter" class="form-control" placeholder="Votre e-mail">
+                                <button type="submit" id="submit-newsletter"><i class="arrow_carrot-right"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- /row-->
+            <hr>
+            <div class="row">
+                <div class="col-sm-5">
+                    <p class="copy">© Foores Restaurant - Tous droits réservés</p>
+                </div>
+                <div class="col-sm-7">
+                    <div class="follow_us">
+                        <ul>
+                            <li><a href="#0"><i class="bi bi-facebook"></i></a></li>
+                            <li><a href="#0"><i class="bi bi-twitter-x"></i></a></li>
+                            <li><a href="#0"><i class="bi bi-instagram"></i></a></li>
+                            <li><a href="#0"><i class="bi bi-tiktok"></i></a></li>
+                            <li><a href="#0"><i class="bi bi-whatsapp"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <p class="text-center"></p>
+        </div>
+    </footer>
+    <!--/footer-->
+
+		<!-- Fixed Floating Buttons (WhatsApp & Reservation) -->
+	<div class="fixed-floating-buttons">
+	    <a href="https://wa.me/212522223344" target="_blank" class="float-btn float-whatsapp" title="WhatsApp">
+	        <i class="bi bi-whatsapp"></i> <span>WhatsApp</span>
+	    </a>
+	    <a href="reservations.html" class="float-btn float-reservation" title="Réserver une table">
+	        <i class="icon_calendar"></i> <span>Réservation</span>
+	    </a>
+	</div>
+<div id="toTop"></div><!-- Back to top button -->
+		
+	<!-- COMMON SCRIPTS -->
+    <script src="js/common_scripts.min.js"></script>
+    <script src="js/common_func.js"></script>
+    <script src="phpmailer/validate.js"></script>
+
+    <!-- SPECIFIC SCRIPTS (wizard form) -->
+    <script src="js/wizard/wizard_scripts.min.js"></script>
+    <script src="js/wizard/wizard_func.js"></script>
+
+    <script src="js/cart.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+

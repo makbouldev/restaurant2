@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Foores - Single Restaurant Version">
+    <meta name="author" content="Ansonika">
+    <title>Foores - Single Restaurant Version</title>
+
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" type="image/x-icon" href="img/apple-touch-icon-57x57-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="img/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="img/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="img/apple-touch-icon-144x144-precomposed.png">
+
+    <!-- GOOGLE WEB FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Lora:ital@1&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- BASE CSS -->
+    <link href="css/vendors.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="css/custom.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+	<div id="preloader">
+		<div data-loader="circle-side"></div>
+	</div><!-- /Page Preload -->
+				
+	<!-- Top Header Bar -->
+	<div class="top-header-bar d-none d-lg-block">
+		<div class="container-fluid d-flex justify-content-between align-items-center">
+			<div class="top-header-left d-flex align-items-center gap-4">
+				<span class="top-info-item"><i class="bi bi-geo-alt-fill"></i> 123 Rue Gourmande, Casablanca, Maroc</span>
+				<span class="top-info-item"><i class="bi bi-clock-fill"></i> Lun - Dim: 10:00 AM - 23:00 PM</span>
+			</div>
+			<div class="top-header-right d-flex align-items-center gap-3">
+				<span class="top-info-item"><i class="bi bi-telephone-fill"></i> +212 522 22 33 44</span>
+				<div class="top-social-links d-flex align-items-center gap-2 ms-2">
+					<a href="#0" class="social-icon-circle"><i class="bi bi-facebook"></i></a>
+					<a href="#0" class="social-icon-circle"><i class="bi bi-instagram"></i></a>
+					<a href="#0" class="social-icon-circle"><i class="bi bi-twitter-x"></i></a>
+					<a href="#0" class="social-icon-circle"><i class="bi bi-pinterest"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<header class="header clearfix element_to_stick">
+		<div class="layer"></div><!-- Opacity Mask Menu Mobile -->
+		<div class="container-fluid">
+		<div id="logo">
+			<a href="index.html">
+				<img src="img/logo_sticky.svg" width="140" height="35" alt="" class="logo_normal">
+				<img src="img/logo_sticky.svg" width="140" height="35" alt="" class="logo_sticky">
+			</a>
+		</div>
+		<ul id="top_menu">
+			<li><a href="#0" class="search-overlay-menu-btn"></a></li>
+			<li>
+				<div class="dropdown dropdown-cart">
+				    <a href="shop-cart.html" class="cart_bt"><strong id="cart-count">0</strong></a>
+				    <div class="dropdown-menu">
+				        <ul id="nav-cart-items">
+				            <!-- Dynamically populated by js/cart.js -->
+				        </ul>
+				        <div class="total_drop">
+				            <div class="clearfix add_bottom_15"><strong>Total</strong><span id="nav-cart-total">.00</span></div>
+				            <a href="shop-cart.html" class="btn_1 outline">Voir Panier</a><a href="shop-checkout.html" class="btn_1">Commander</a>
+				        </div>
+				    </div>
+				</div>
+				<!-- /dropdown-cart-->
+			</li>
+		</ul>
+		<!-- /top_menu -->
+		<a href="#0" class="open_close">
+			<i class="icon_menu"></i><span>Menu</span>
+		</a>
+		<nav class="main-menu">
+		    <div id="header_menu">
+		        <a href="#0" class="open_close">
+		            <i class="icon_close"></i><span>Menu</span>
+		        </a>
+		        <a href="index.html"><img src="img/logo_sticky.svg" width="140" height="35" alt=""></a>
+		    </div>
+		    <ul>
+		        <li><a href="index.html">ACCUEIL</a></li>
+		        <li><a href="about.html">À PROPOS</a></li>
+		        <li><a href="menu-2.html">MENU</a></li>
+		        <li><a href="reservations.html">RÉSERVATION</a></li>
+		        <li><a href="gallery.html">GALERIE</a></li>
+		        <li><a href="blog.html">BLOG</a></li>
+		        <li><a href="contacts.html">CONTACT</a></li>
+		        <li><a href="reservations.html" class="btn_book_table_pill">BOOK A TABLE</a></li>
+		    </ul>
+		</nav>
+	</div>
+	</header>
+	<!-- /header -->
+	
+	<main class="pattern_2">
+		
+		<div class="container margin_60_40">
+		    <div class="row justify-content-center">
+		        <div class="col-lg-7 col-md-9">
+		        	<div class="box_booking_2 style_2">
+		                <div class="head text-center">
+		                    <div class="title">
+		                    	<h3 id="order-confirm-title" class="mb-1">Commande Enregistrée !</h3>
+		                    	<p class="text-muted mb-0" id="order-confirm-id">N° de Commande: #FR-000000</p>
+		                    </div>
+		                </div>
+		                <!-- /head -->
+		                <div class="main p-4">
+		                	<div id="confirm" class="text-center mb-4">
+								<div class="icon icon--order-success svg add_bottom_15">
+									<svg xmlns="http://www.w3.org/2000/svg" width="72" height="72">
+										<g fill="none" stroke="#8EC343" stroke-width="2">
+											<circle cx="36" cy="36" r="35" style="stroke-dasharray:240px, 240px; stroke-dashoffset: 480px;"></circle>
+											<path d="M17.417,37.778l9.93,9.909l25.444-25.393" style="stroke-dasharray:50px, 50px; stroke-dashoffset: 0px;"></path>
+										</g>
+									</svg>
+								</div>
+								<h4 class="text-success fw-bold">Merci pour votre commande !</h4>
+								<p class="text-muted" id="order-confirm-msg">Nous préparons vos plats avec soin. Notre livreur vous contactera dès son arrivée.</p>
+							</div>
+
+							<!-- Dynamic Order Summary Rendered by js/cart.js -->
+							<div class="order-details-card bg-light p-3 rounded mb-4" id="order-details-box">
+								<!-- Populated dynamically by js/cart.js -->
+							</div>
+
+							<div class="text-center d-flex flex-wrap justify-content-center gap-2">
+								<a href="index.html" class="btn_1 outline mb-2">Retour à l'Accueil</a>
+								<a href="menu-2.html" class="btn_1 mb-2">Découvrir d'autres plats</a>
+								<a id="wa-confirm-order-btn" href="#" target="_blank" class="btn-wa-order mb-2">
+									<i class="bi bi-whatsapp me-2"></i> Suivre sur WhatsApp
+								</a>
+							</div>
+		                </div>
+		            </div>
+		            <!-- /box_booking -->
+		        </div>
+		        <!-- /col -->
+		    </div>
+		    <!-- /row -->
+		</div>
+		<!-- /container -->
+		
+	</main>
+	<!-- /main -->
+
+	<footer>
+	    <div class="frame black"></div>
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+	                <div class="footer_wp">
+	                    <i class="icon_pin_alt"></i>
+	                    <h3>Adresse</h3>
+	                    <p>128 Boulevard Anfa<br>Casablanca - Maroc</p>
+	                </div>
+	            </div>
+	            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+	                <div class="footer_wp">
+	                    <i class="icon_tag_alt"></i>
+	                    <h3>Réservations</h3>
+	                    <p><a href="tel:+212522223344">+212 522 22 33 44</a><br><a href="#0">contact@foores.ma</a></p>
+	                </div>
+	            </div>
+	            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+	                <div class="footer_wp">
+	                    <i class="icon_clock_alt"></i>
+	                    <h3>Horaires d'Ouverture</h3>
+	                    <ul>
+	                        <li>Lun - Sam: 12h00 - 23h00</li>
+	                        <li>Dimanche: 12h00 - 00h00</li>
+	                    </ul>
+	                </div>
+	            </div>
+	            <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
+	                <h3>Restons en Contact</h3>
+	                <div id="newsletter">
+	                    <div id="message-newsletter"></div>
+	                    <form method="post" action="phpmailer/newsletter_template_email.php" name="newsletter_form" id="newsletter_form">
+	                        <div class="form-group">
+	                            <input type="email" name="email_newsletter" id="email_newsletter" class="form-control" placeholder="Votre e-mail">
+	                            <button type="submit" id="submit-newsletter"><i class="arrow_carrot-right"></i></button>
+	                        </div>
+	                    </form>
+	                </div>
+	            </div>
+	        </div>
+	        <!-- /row-->
+	        <hr>
+	        <div class="row">
+	            <div class="col-sm-5">
+	                <p class="copy">© Foores Restaurant - Tous droits réservés</p>
+	            </div>
+	            <div class="col-sm-7">
+	                <div class="follow_us">
+	                    <ul>
+					        <li><a href="#0"><i class="bi bi-facebook"></i></a></li>
+					        <li><a href="#0"><i class="bi bi-twitter-x"></i></a></li>
+					        <li><a href="#0"><i class="bi bi-instagram"></i></a></li>
+					        <li><a href="#0"><i class="bi bi-tiktok"></i></a></li>
+					        <li><a href="#0"><i class="bi bi-whatsapp"></i></a></li>
+					    </ul>
+	                </div>
+	            </div>
+	        </div>
+	        <p class="text-center"></p>
+	    </div>
+	</footer>
+	<!--/footer-->
+
+		<!-- Fixed Floating Buttons (WhatsApp & Reservation) -->
+	<div class="fixed-floating-buttons">
+	    <a href="https://wa.me/212522223344" target="_blank" class="float-btn float-whatsapp" title="WhatsApp">
+	        <i class="bi bi-whatsapp"></i> <span>WhatsApp</span>
+	    </a>
+	    <a href="reservations.html" class="float-btn float-reservation" title="Réserver une table">
+	        <i class="icon_calendar"></i> <span>Réservation</span>
+	    </a>
+	</div>
+<div id="toTop"></div><!-- Back to top button -->
+	
+	<!-- COMMON SCRIPTS -->
+    <script src="js/common_scripts.min.js"></script>
+    <script src="js/common_func.js"></script>
+    <script src="phpmailer/validate.js"></script>
+
+    <script src="js/cart.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
