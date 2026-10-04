@@ -1536,7 +1536,7 @@
 
             html += '<div class="row add_bottom_45 g-3 g-md-4" id="dishes_grid_display" style="opacity: 1 !important; visibility: visible !important;"></div>';
 
-            html += '<div class="text-center mt-3 mb-5"><button type="button" class="tasty-load-more-btn" onclick="window.FOORES_CART.filterCategory(\'all\')">Charger Plus de Plats</button></div>';
+            html += '<div class="text-center mt-3 mb-5" id="load_more_btn_container"><button type="button" class="tasty-load-more-btn" onclick="window.FOORES_CART.loadMoreDishes()">Charger Plus de Plats</button></div>';
 
 
 
