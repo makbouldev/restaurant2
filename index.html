@@ -29,7 +29,7 @@
     <link href="css/wizard.css" rel="stylesheet">
 
     <!-- YOUR CUSTOM CSS -->
-    <link href="css/custom.css?v=86.0" rel="stylesheet">
+    <link href="css/custom.css?v=87.0" rel="stylesheet">
 
 </head>
 
@@ -403,22 +403,31 @@
 
 		<div class="pattern_2">
 		    <div class="container margin_120_100 home_intro">
-		        <div class="row justify-content-center d-flex align-items-center">
-		            <div class="col-lg-5 text-lg-center d-none d-lg-block" data-cue="slideInUp">
-		                <figure>
-		                    <img src="img/home_1_placeholder.png" data-src="img/home_1.jpg" width="354" height="440" alt="" class="img-fluid lazy">
-		                    <a href="https://www.youtube.com/watch?v=MO7Hi_kBBBg" class="btn_play" data-cue="zoomIn" data-delay="500"><span class="pulse_bt"><i class="arrow_triangle-right"></i></span></a>
+		        <div class="row justify-content-center d-flex align-items-center g-4">
+		            <div class="col-lg-6 text-center text-lg-start" data-cue="slideInUp">
+		                <figure class="position-relative overflow-hidden rounded-4 shadow-lg mb-0">
+		                    <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=800&auto=format&fit=crop&q=80" alt="Chef Foores Restaurant Casablanca" class="img-fluid rounded-4" style="max-height: 460px; width: 100%; object-fit: cover;" onerror="this.onerror=null; this.src='img/home_1.jpg';">
 		                </figure>
 		            </div>
-		            <div class="col-lg-5 pt-lg-4" data-cue="slideInUp" data-delay="500">
-		                <div class="main_title">
-		                    <span><em></em></span>
-		                    <h2>À Propos de Nous</h2>
-		                    <p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
+		            <div class="col-lg-6 pt-lg-2 ps-lg-4" data-cue="slideInUp" data-delay="300">
+		                <div class="main_title text-start mb-3">
+		                    <span class="text-orange fw-bold text-uppercase fs-6 mb-1 d-block" style="color: #E45D16; letter-spacing: 1px;">✨ PASSION & GASTRONOMIE</span>
+		                    <h2 class="font-lora fw-bold display-6" style="font-family: 'Lora', Georgia, serif; color: #0F172A;">À Propos de Foores</h2>
+		                    <p class="lead text-muted fs-6" style="font-size: 15px;">Une alliance parfaite entre tradition culinaire et créativité moderne au cœur de Casablanca.</p>
 		                </div>
-		                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-		                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-		                <p><img src="img/signature.png" width="140" height="50" alt="" class="mt-3"></p>
+		                <p style="font-size: 14.5px; color: #475569; line-height: 1.7;">
+		                    Depuis notre ouverture à Casablanca, <strong>Foores Restaurant</strong> s'impose comme une adresse gastronomique incontournable. Notre philosophie repose sur la fraîcheur de nos ingrédients, sélectionnés chaque matin auprès des meilleurs producteurs.
+		                </p>
+		                <p style="font-size: 14.5px; color: #475569; line-height: 1.7;">
+		                    Que ce soit pour nos burgers gourmet Black Angus, nos pizzas napolitaines maturées 48h ou nos grillades d'exception au feu de bois, chaque plat est préparé minute avec passion pour vous offrir une expérience mémorable.
+		                </p>
+		                <div class="d-flex align-items-center gap-3 mt-4 pt-2">
+		                    <img src="img/signature.png" width="130" height="46" alt="Signature Chef" class="img-fluid">
+		                    <div>
+		                        <strong class="d-block text-dark font-lora" style="font-family: 'Lora', Georgia, serif;">L'Équipe Foores</strong>
+		                        <span class="small text-muted">Casablanca, Maroc</span>
+		                    </div>
+		                </div>
 		            </div>
 		        </div>
 		        <!--/row -->
@@ -427,16 +436,14 @@
 		</div>
 		<!--/pattern_2 -->
 
-
-
 		<div class="call_section lazy" data-bg="url(img/bg_call_section.jpg)">
 		    <div class="container clearfix">
 		    	<div class="row justify-content-center">
-			        <div class="col-lg-5 col-md-6 text-center">
-			            <div class="box_1" data-cue="slideInUp">
-			                <h2>Celebrate<span>a Special Event with us!</span></h2>
-			                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
-			                <a href="contacts.html" class="btn_1 mt-3">Contact us</a>
+			        <div class="col-lg-7 col-md-9 text-center">
+			            <div class="box_1 p-4 rounded-4 shadow-lg" data-cue="slideInUp" style="background: rgba(15, 23, 42, 0.82); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.15);">
+			                <h2 class="text-white font-lora" style="font-family: 'Lora', Georgia, serif;">Célébrez Vos Événements <span style="color: #E45D16;">Spéciaux Chez Nous !</span></h2>
+			                <p class="text-white-50 fs-6 mb-4">Anniversaires, dîners d'affaires ou réceptions privées : notre équipe dédiée crée pour vous un moment d'exception sur-mesure.</p>
+			                <a href="contacts.html" class="btn_1 mt-2 px-4 py-2" style="background: #E45D16; border: none;"><i class="bi bi-calendar-event me-2"></i> Organiser un Événement</a>
 			            </div>
 			        </div>
 			    </div>
