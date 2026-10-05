@@ -20,6 +20,14 @@
             return (page === targetPage) ? 'active' : '';
         };
 
+        // Remove any existing static top-header-bar elements outside header to prevent duplication
+        var existingTopBars = document.querySelectorAll('.top-header-bar');
+        existingTopBars.forEach(function(bar) {
+            if (!headerContainer.contains(bar)) {
+                bar.remove();
+            }
+        });
+
         var html = 
             '<div class="layer"></div>' +
             '<!-- Top Header Bar -->' +
