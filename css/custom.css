@@ -964,21 +964,25 @@ a.add_to_cart:hover {
 a.added-in-cart,
 button.added-in-cart,
 .btn-add-creative.added-in-cart,
-.lightbox-cart-btn.added-in-cart {
+.lightbox-cart-btn.added-in-cart,
+.tasty-pill-add-btn.added-in-cart {
     background: linear-gradient(135deg, #10B981 0%, #059669 100%) !important;
     color: #ffffff !important;
     border-color: #059669 !important;
-    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4) !important;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.45) !important;
+    font-weight: 700 !important;
 }
 
 .added-in-cart:hover,
 a.added-in-cart:hover,
 button.added-in-cart:hover,
 .btn-add-creative.added-in-cart:hover,
-.lightbox-cart-btn.added-in-cart:hover {
+.lightbox-cart-btn.added-in-cart:hover,
+.tasty-pill-add-btn.added-in-cart:hover {
     background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
     transform: translateY(-2px) !important;
-    box-shadow: 0 6px 18px rgba(16, 185, 129, 0.5) !important;
+    box-shadow: 0 6px 18px rgba(16, 185, 129, 0.6) !important;
+    color: #ffffff !important;
 }
 
 

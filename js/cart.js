@@ -34,36 +34,49 @@
         var cart = getCart();
         var cartTitles = cart.map(function(item) { return item.title ? item.title.trim().toLowerCase() : ''; });
 
-        var allBtns = document.querySelectorAll('.add_to_cart, .btn-add-creative, #lightboxAddToCartBtn');
+        var allBtns = document.querySelectorAll('.add_to_cart, .btn-add-creative, #lightboxAddToCartBtn, .tasty-pill-add-btn, .btn_add_cart, button[data-title]');
         allBtns.forEach(function(btn) {
-            var card = btn.closest('.creative-menu-card, .menu_item, .recipe-card-full, .lightbox-card-wrapper');
+            var card = btn.closest('.tasty-food-card, .creative-menu-card, .menu_item, .recipe-card-full, .lightbox-card-wrapper, .popular-dish-card, .grid_item, .box_grid, .col, .col-xl-3, .col-lg-4, .col-md-6, .col-12');
             var title = '';
-            if (btn.id === 'lightboxAddToCartBtn') {
+            
+            if (btn.getAttribute('data-title')) {
+                title = btn.getAttribute('data-title');
+            } else if (btn.id === 'lightboxAddToCartBtn') {
                 title = document.getElementById('lightboxModalTitle') ? document.getElementById('lightboxModalTitle').textContent : '';
             } else if (card) {
-                var titleEl = card.querySelector('.dish-title, h3, h4, h1');
+                var titleEl = card.querySelector('.tasty-card-title, .dish-title, .popular-title, .menu_title h3, .grid_item h3, h3, h4, h1');
                 if (titleEl) title = titleEl.textContent;
             }
 
             if (title) {
-                var isAdded = cartTitles.indexOf(title.trim().toLowerCase()) !== -1;
+                var cleanTitle = title.trim().toLowerCase();
+                var isAdded = cartTitles.indexOf(cleanTitle) !== -1;
+                
                 if (isAdded) {
                     btn.classList.add('added-in-cart');
+                    btn.setAttribute('data-in-cart', 'true');
+                    
                     if (btn.id === 'lightboxAddToCartBtn') {
-                        btn.innerHTML = '<i class="bi bi-check-lg"></i> Dans le Panier';
+                        btn.innerHTML = '<i class="bi bi-check-circle-fill me-1"></i> Dans le Panier';
                     } else if (btn.classList.contains('btn-add-creative')) {
-                        btn.innerHTML = '<i class="bi bi-check-lg"></i> Dans le Panier';
+                        btn.innerHTML = '<i class="bi bi-check-circle-fill me-1"></i> Dans le Panier';
+                    } else if (btn.classList.contains('tasty-pill-add-btn')) {
+                        btn.innerHTML = '<i class="bi bi-check-circle-fill me-1"></i> DANS LE PANIER';
                     } else {
-                        btn.innerHTML = '✓ Dans le Panier';
+                        btn.innerHTML = '<i class="bi bi-check-circle-fill me-1"></i> Dans le Panier';
                     }
                 } else {
                     btn.classList.remove('added-in-cart');
+                    btn.removeAttribute('data-in-cart');
+                    
                     if (btn.id === 'lightboxAddToCartBtn') {
                         btn.innerHTML = '<i class="icon_cart"></i> Ajouter au Panier';
                     } else if (btn.classList.contains('btn-add-creative')) {
                         btn.innerHTML = '<i class="icon_cart"></i> Ajouter au Panier';
+                    } else if (btn.classList.contains('tasty-pill-add-btn')) {
+                        btn.innerHTML = '<i class="icon_cart"></i> AJOUTER AU PANIER';
                     } else {
-                        btn.innerHTML = 'Ajouter au Panier';
+                        btn.innerHTML = '<i class="icon_cart"></i> Ajouter au Panier';
                     }
                 }
             }
@@ -252,6 +265,11 @@
             event._cartHandled = true;
         }
         if (!target) return;
+
+        if (target.classList.contains('added-in-cart') || target.getAttribute('data-in-cart') === 'true') {
+            toggleSideCart(true);
+            return;
+        }
         if (target._cartHandlingActive) return;
         target._cartHandlingActive = true;
         setTimeout(function() {
@@ -1473,6 +1491,7 @@
         gridContainer.innerHTML = itemsHtml;
         gridContainer.style.opacity = '1';
         gridContainer.style.visibility = 'visible';
+        updateAllCartButtons();
     }
 
     function renderDynamicMenu() {
@@ -1589,6 +1608,7 @@
             gallery.innerHTML = itemsHtml;
             gallery.style.opacity = '1';
             gallery.style.visibility = 'visible';
+            updateAllCartButtons();
         });
     }
 
