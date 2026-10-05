@@ -29,7 +29,7 @@
     <link href="css/wizard.css" rel="stylesheet">
 
     <!-- YOUR CUSTOM CSS -->
-    <link href="css/custom.css?v=60.0" rel="stylesheet">
+    <link href="css/custom.css?v=79.0" rel="stylesheet">
 
 </head>
 
@@ -687,7 +687,7 @@
     <script src="js/wizard/wizard_scripts.min.js"></script>
     <script src="js/wizard/wizard_func.js"></script>
 
-    <script src="js/cart.js"></script>
+    <script src="js/cart.js?v=79.0"></script>
     <script src="js/dishes_data.js"></script>
 
     <!-- POPULAR DISHES & MINI BOOKING SCRIPT -->
@@ -716,28 +716,35 @@
             
             list.forEach(function(item) {
                 var col = document.createElement('div');
-                col.className = 'col';
+                col.className = 'col mb-4';
                 
                 var priceDisplay = (typeof item.price === 'number') ? (Math.round(item.price) + ' DH') : item.price;
                 var imgSrc = item.image || 'img/menu_items/1.jpg';
                 var titleText = item.title || 'Spécialité Gourmet';
                 var descText = item.description || 'Préparé avec des ingrédients frais de qualité supérieure.';
+                var escapedTitle = titleText.replace(/'/g, "\\'");
+                var escapedImg = imgSrc.replace(/'/g, "\\'");
+                var escapedDesc = descText.replace(/'/g, "\\'");
+                var escapedPrice = priceDisplay.replace(/'/g, "\\'");
+
+                var inCart = (window.FOORES_CART && typeof window.FOORES_CART.getCart === 'function') ? window.FOORES_CART.getCart().some(function(i){ return i.title === titleText; }) : false;
+                var btnClass = 'add_to_cart tasty-pill-add-btn popular-dish-add-btn' + (inCart ? ' added-in-cart' : '');
+                var btnText = inCart ? '<i class="bi bi-check-lg"></i> Dans le Panier' : '<i class="icon_cart"></i> Ajouter au Panier';
 
                 col.innerHTML = 
-                    '<div class="popular-dish-card h-100 d-flex flex-column justify-content-between">' +
-                    '    <div class="popular-dish-img-wrap">' +
-                    '        <span class="popular-tag-badge">🔥 Populaire</span>' +
-                    '        <span class="popular-rating-badge"><i class="bi bi-star-fill" style="color: #f1c40f;"></i> 4.9</span>' +
+                    '<div class="tasty-food-card" data-dish-id="' + item.id + '">' +
+                    '    <div class="tasty-card-img-container" onclick="if(window.FOORES_CART) window.FOORES_CART.openImageLightbox(\'' + escapedImg + '\', \'' + escapedTitle + '\', \'' + (item.category || '').replace(/'/g, "\\'") + '\', \'' + escapedPrice + '\', \'' + escapedDesc + '\', \'' + item.id + '\')">' +
+                    '        <span class="tasty-card-badge">🔥 Populaire</span>' +
+                    '        <span class="tasty-card-rating-badge">4.9</span>' +
                     '        <img src="' + imgSrc + '" alt="' + titleText.replace(/"/g, '&quot;') + '" onerror="this.onerror=null; this.src=\'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&auto=format&fit=crop&q=80\';">' +
                     '    </div>' +
-                    '    <div class="popular-dish-body flex-grow-1 d-flex flex-column justify-content-between">' +
-                    '        <div>' +
-                    '            <h3 class="popular-dish-title">' + titleText + '</h3>' +
-                    '            <p class="popular-dish-desc">' + descText + '</p>' +
-                    '        </div>' +
-                    '        <div class="popular-dish-footer mt-3">' +
-                    '            <span class="popular-dish-price">' + priceDisplay + '</span>' +
-                    '            <button type="button" class="popular-dish-add-btn" data-title="' + titleText.replace(/"/g, '&quot;') + '" data-price="' + item.price + '" data-image="' + imgSrc.replace(/"/g, '&quot;') + '" title="Ajouter au Panier">+</button>' +
+                    '    <div class="tasty-card-body">' +
+                    '        <h3 class="tasty-card-title" onclick="if(window.FOORES_CART) window.FOORES_CART.openImageLightbox(\'' + escapedImg + '\', \'' + escapedTitle + '\', \'' + (item.category || '').replace(/'/g, "\\'") + '\', \'' + escapedPrice + '\', \'' + escapedDesc + '\', \'' + item.id + '\')">' + titleText + '</h3>' +
+                    '        <p class="tasty-card-sub">' + descText + '</p>' +
+                    '        <div class="tasty-card-divider"></div>' +
+                    '        <div class="tasty-card-footer-row">' +
+                    '            <div class="tasty-card-price">' + priceDisplay + '</div>' +
+                    '            <button type="button" class="' + btnClass + '" data-title="' + titleText.replace(/"/g, '&quot;') + '" data-price="' + item.price + '" data-image="' + imgSrc.replace(/"/g, '&quot;') + '" title="Ajouter au Panier">' + btnText + '</button>' +
                     '        </div>' +
                     '    </div>' +
                     '</div>';

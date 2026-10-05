@@ -1553,22 +1553,34 @@
                 var imgUrl = dish.image || 'img/menu_items/1.jpg';
                 var priceText = formatPrice(dish.price || 100);
                 var catBadgeText = CATEGORY_BADGES[dish.category] || dish.category;
+                var cleanTitle = dish.title || 'Plat Délicieux';
+                var cleanDesc = dish.description || 'Ingrédients frais préparés à la commande par notre chef.';
 
-                itemsHtml += '<div class="col-lg-6 mb-4" style="opacity: 1 !important; visibility: visible !important;">' +
-                    '<div class="creative-menu-card menu_item order">' +
-                    '<div class="card-img-box">' +
-                    '<img src="' + imgUrl + '" alt="' + dish.title + '">' +
-                    '<span class="card-category-badge">' + catBadgeText + '</span>' +
+                var escapedTitle = cleanTitle.replace(/'/g, "\\'");
+                var escapedCat = catBadgeText.replace(/'/g, "\\'");
+                var escapedPrice = priceText.replace(/'/g, "\\'");
+                var escapedDesc = cleanDesc.replace(/'/g, "\\'");
+                var escapedImg = imgUrl.replace(/'/g, "\\'");
+
+                var inCart = isTitleInCart(cleanTitle);
+                var btnClass = 'add_to_cart tasty-pill-add-btn' + (inCart ? ' added-in-cart' : '');
+                var btnText = inCart ? '<i class="bi bi-check-lg"></i> Dans le Panier' : '<i class="icon_cart"></i> Ajouter au Panier';
+
+                itemsHtml += '<div class="col-xl-3 col-lg-4 col-md-6 col-6 tasty-card-col mb-4" style="opacity: 1 !important; visibility: visible !important;">' +
+                    '<div class="tasty-food-card" data-dish-id="' + dish.id + '">' +
+                    '<div class="tasty-card-img-container" onclick="window.FOORES_CART.openImageLightbox(\'' + escapedImg + '\', \'' + escapedTitle + '\', \'' + escapedCat + '\', \'' + escapedPrice + '\', \'' + escapedDesc + '\', \'' + dish.id + '\')">' +
+                    '<span class="tasty-card-badge">🔥 Populaire</span>' +
+                    '<span class="tasty-card-rating-badge">4.9</span>' +
+                    '<img src="' + imgUrl + '" alt="' + cleanTitle + '" onerror="this.onerror=null; this.src=\'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&auto=format&fit=crop&q=80\';">' +
                     '</div>' +
-                    '<div class="card-details">' +
-                    '<div class="card-header-row menu_title">' +
-                    '<h3 class="dish-title">' + dish.title + '</h3>' +
-                    '<span class="dish-price-tag">' + priceText + '</span>' +
+                    '<div class="tasty-card-body">' +
+                    '<h3 class="tasty-card-title" onclick="window.FOORES_CART.openImageLightbox(\'' + escapedImg + '\', \'' + escapedTitle + '\', \'' + escapedCat + '\', \'' + escapedPrice + '\', \'' + escapedDesc + '\', \'' + dish.id + '\')">' + cleanTitle + '</h3>' +
+                    '<p class="tasty-card-sub">' + cleanDesc + '</p>' +
+                    '<div class="tasty-card-divider"></div>' +
+                    '<div class="tasty-card-footer-row">' +
+                    '<div class="tasty-card-price">' + priceText + '</div>' +
+                    '<button type="button" class="' + btnClass + '" onclick="window.FOORES_CART.addToCartFromBtn(this, event); return false;">' + btnText + '</button>' +
                     '</div>' +
-                    '<p class="dish-desc">' + (dish.description || 'Ingrédients frais et préparation artisanale.') + '</p>' +
-                    '<a href="#0" class="btn-add-creative add_to_cart" onclick="window.FOORES_CART.addToCartFromBtn(this); return false;">' +
-                    '<i class="icon_cart"></i> Ajouter au Panier' +
-                    '</a>' +
                     '</div>' +
                     '</div>' +
                     '</div>';
