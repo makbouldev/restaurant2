@@ -3268,9 +3268,11 @@ header.header ul#top_menu li a.cart_bt strong {
     left: 14px !important;
     background: #E45D16 !important;
     color: #FFFFFF !important;
-    font-size: 11.5px !important;
-    font-weight: 700 !important;
-    padding: 6px 14px !important;
+    font-size: 10.5px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.5px !important;
+    text-transform: uppercase !important;
+    padding: 5px 13px !important;
     border-radius: 20px !important;
     z-index: 5 !important;
     box-shadow: 0 4px 12px rgba(228, 93, 22, 0.3) !important;
@@ -3377,16 +3379,18 @@ header.header ul#top_menu li a.cart_bt strong {
     color: #FFFFFF !important;
     border: none !important;
     font-family: 'Poppins', sans-serif !important;
-    font-size: 11.5px !important;
-    font-weight: 700 !important;
-    padding: 7px 14px !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.5px !important;
+    text-transform: uppercase !important;
+    padding: 8px 16px !important;
     border-radius: 20px !important;
     display: inline-flex !important;
     align-items: center !important;
     gap: 5px !important;
     cursor: pointer !important;
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
-    box-shadow: 0 4px 12px rgba(228, 93, 22, 0.3) !important;
+    box-shadow: 0 4px 14px rgba(228, 93, 22, 0.35) !important;
     white-space: nowrap !important;
 }
 

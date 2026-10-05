@@ -1405,13 +1405,13 @@
             if (loadMoreContainer) loadMoreContainer.style.display = 'none';
         } else {
             var APPETIZING_BADGES = {
-                'burgers': '🔥 Populaire',
-                'pizzas': '🔥 Populaire',
-                'pastas': '🔥 Populaire',
-                'grillades': '🔥 Spécial Chef',
-                'salades': '🔥 Populaire',
-                'boissons': '🔥 Signature',
-                'desserts': '🔥 Gourmand'
+                'burgers': '🔥 POPULAIRE',
+                'pizzas': '🔥 POPULAIRE',
+                'pastas': '🔥 POPULAIRE',
+                'grillades': '🔥 SPÉCIAL CHEF',
+                'salades': '🔥 POPULAIRE',
+                'boissons': '🔥 SIGNATURE',
+                'desserts': '🔥 GOURMAND'
             };
 
             var visibleDishes = filtered.slice(0, currentVisibleLimit);
@@ -1422,7 +1422,7 @@
                 var catBadgeText = CATEGORY_BADGES[dish.category] || dish.category;
                 var cleanTitle = dish.title || 'Plat Délicieux';
                 var cleanDesc = dish.description || 'Ingrédients frais préparés à la commande par notre chef.';
-                var dishBadge = APPETIZING_BADGES[(dish.category || '').toLowerCase()] || '🔥 Populaire';
+                var dishBadge = APPETIZING_BADGES[(dish.category || '').toLowerCase()] || '🔥 POPULAIRE';
 
                 var escapedTitle = cleanTitle.replace(/'/g, "\\'");
                 var escapedCat = catBadgeText.replace(/'/g, "\\'");
@@ -1432,7 +1432,7 @@
 
                 var inCart = isTitleInCart(cleanTitle);
                 var btnClass = 'add_to_cart' + (inCart ? ' added-in-cart' : '');
-                var btnText = inCart ? '<i class="bi bi-check-lg"></i> Dans le Panier' : '<i class="icon_cart"></i> Ajouter au Panier';
+                var btnText = inCart ? '<i class="bi bi-check-lg"></i> DANS LE PANIER' : '<i class="icon_cart"></i> AJOUTER AU PANIER';
 
                 itemsHtml += '<div class="col-xl-3 col-lg-4 col-md-6 col-6 tasty-card-col mb-4" style="opacity: 1 !important; visibility: visible !important;">' +
                     '<div class="tasty-food-card" data-dish-id="' + dish.id + '">' +
@@ -1564,12 +1564,12 @@
 
                 var inCart = isTitleInCart(cleanTitle);
                 var btnClass = 'add_to_cart tasty-pill-add-btn' + (inCart ? ' added-in-cart' : '');
-                var btnText = inCart ? '<i class="bi bi-check-lg"></i> Dans le Panier' : '<i class="icon_cart"></i> Ajouter au Panier';
+                var btnText = inCart ? '<i class="bi bi-check-lg"></i> DANS LE PANIER' : '<i class="icon_cart"></i> AJOUTER AU PANIER';
 
                 itemsHtml += '<div class="col-xl-3 col-lg-4 col-md-6 col-6 tasty-card-col mb-4" style="opacity: 1 !important; visibility: visible !important;">' +
                     '<div class="tasty-food-card" data-dish-id="' + dish.id + '">' +
                     '<div class="tasty-card-img-container" onclick="window.FOORES_CART.openImageLightbox(\'' + escapedImg + '\', \'' + escapedTitle + '\', \'' + escapedCat + '\', \'' + escapedPrice + '\', \'' + escapedDesc + '\', \'' + dish.id + '\')">' +
-                    '<span class="tasty-card-badge">🔥 Populaire</span>' +
+                    '<span class="tasty-card-badge">🔥 POPULAIRE</span>' +
                     '<span class="tasty-card-rating-badge">4.9</span>' +
                     '<img src="' + imgUrl + '" alt="' + cleanTitle + '" onerror="this.onerror=null; this.src=\'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&auto=format&fit=crop&q=80\';">' +
                     '</div>' +
