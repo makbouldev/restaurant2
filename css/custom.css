@@ -2312,6 +2312,7 @@ header.header ul#top_menu li a.cart_bt strong {
     /* Search & Cart Action Buttons */
     header #top_menu a.search-overlay-menu-btn,
     header #top_menu a.cart_bt,
+    header a.open_close,
     a.search-overlay-menu-btn,
     a.cart_bt {
         display: inline-flex !important;
@@ -2325,34 +2326,55 @@ header.header ul#top_menu li a.cart_bt strong {
         background: #f5f5f5 !important;
         border: 1px solid #e5e5e5 !important;
         color: #222222 !important;
-        font-size: 17px !important;
-        text-decoration: none !important;
         position: relative !important;
         margin: 0 !important;
         padding: 0 !important;
         box-sizing: border-box !important;
         flex-shrink: 0 !important;
-        top: auto !important;
-        left: auto !important;
+        top: 0 !important;
+        left: 0 !important;
         right: auto !important;
         bottom: auto !important;
         line-height: 1 !important;
         transform: none !important;
         float: none !important;
+        overflow: visible !important;
     }
 
-    /* Suppress legacy pseudo-elements ::before */
+    /* Ultra-High Specificity Suppression of Legacy Template Pseudo-elements */
+    html body header ul#top_menu li a.search-overlay-menu-btn:before,
+    html body header ul#top_menu li a.cart_bt:before,
+    html body header ul#top_menu li a.search-overlay-menu-btn::before,
+    html body header ul#top_menu li a.cart_bt::before,
+    header #top_menu a.search-overlay-menu-btn:before,
+    header #top_menu a.cart_bt:before,
     header #top_menu a.search-overlay-menu-btn::before,
     header #top_menu a.cart_bt::before,
+    ul#top_menu li a.search-overlay-menu-btn:before,
+    ul#top_menu li a.cart_bt:before,
+    ul#top_menu li a.search-overlay-menu-btn::before,
+    ul#top_menu li a.cart_bt::before,
+    a.search-overlay-menu-btn:before,
+    a.cart_bt:before,
     a.search-overlay-menu-btn::before,
     a.cart_bt::before {
         display: none !important;
+        content: "" !important;
         content: none !important;
+        font-size: 0 !important;
+        width: 0 !important;
+        height: 0 !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        position: absolute !important;
+        left: -9999px !important;
+        top: -9999px !important;
     }
 
     /* Direct Icon Element Centering */
     header #top_menu a.search-overlay-menu-btn i,
     header #top_menu a.cart_bt i,
+    header a.open_close i,
     a.search-overlay-menu-btn i,
     a.cart_bt i {
         font-size: 17px !important;
@@ -2360,9 +2382,15 @@ header.header ul#top_menu li a.cart_bt strong {
         line-height: 1 !important;
         margin: 0 !important;
         padding: 0 !important;
-        display: inline-flex !important;
+        display: flex !important;
         align-items: center !important;
         justify-content: center !important;
+        position: static !important;
+        top: auto !important;
+        left: auto !important;
+        transform: none !important;
+        width: auto !important;
+        height: auto !important;
     }
 
     /* Cart Count Red/Orange Badge */
