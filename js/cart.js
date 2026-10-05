@@ -385,18 +385,40 @@
 
         if (price <= 0) price = 100;
 
-        // Check if dish has options in custom menu
-        var customMenu = getCustomMenu();
-        var matchingDish = customMenu.find(function(d) {
-            return d.title && d.title.trim().toLowerCase() === title.trim().toLowerCase();
-        });
+        if (!providedOptions) {
+            var customMenu = getCustomMenu();
+            var matchingDish = null;
 
-        if (!providedOptions && matchingDish && matchingDish.options && Array.isArray(matchingDish.options) && matchingDish.options.length > 0) {
-            openOptionsModal(matchingDish, function(selectedOptions) {
+            if (customMenu && customMenu.length > 0) {
+                matchingDish = customMenu.find(function(d) {
+                    return d.title && d.title.trim().toLowerCase() === title.trim().toLowerCase();
+                });
+            }
+
+            var categoryGuess = target.getAttribute('data-category') || (menuItem ? menuItem.getAttribute('data-category') : '') || '';
+            if (matchingDish && !categoryGuess && matchingDish.category) {
+                categoryGuess = matchingDish.category;
+            }
+
+            var dishOptions = (matchingDish && matchingDish.options && Array.isArray(matchingDish.options) && matchingDish.options.length > 0) 
+                ? matchingDish.options 
+                : getDishOptionsForCategory(categoryGuess || title);
+
+            var targetDishForModal = {
+                id: matchingDish ? matchingDish.id : ('dish_' + Date.now()),
+                title: matchingDish ? matchingDish.title : title,
+                price: matchingDish ? matchingDish.price : price,
+                image: matchingDish ? matchingDish.image : image,
+                category: categoryGuess || 'gourmand',
+                options: dishOptions
+            };
+
+            openOptionsModal(targetDishForModal, function(selectedOptions) {
                 addToCart({
-                    title: matchingDish.title,
-                    price: matchingDish.price || price,
-                    image: matchingDish.image || image,
+                    dishId: targetDishForModal.id,
+                    title: targetDishForModal.title,
+                    price: targetDishForModal.price || price,
+                    image: targetDishForModal.image || image,
                     quantity: 1,
                     selectedOptions: selectedOptions
                 });
@@ -1441,12 +1463,63 @@
             });
     }
 
+    function getDishOptionsForCategory(category) {
+        var cat = (category || '').toLowerCase();
+        if (cat.includes('burger')) {
+            return [
+                { name: "Taille / Format", values: ["Normal", "Double (+20 DH)", "Menu Frites & Boisson (+25 DH)"] },
+                { name: "Sauce au choix", values: ["Sauce Algérienne", "Sauce Blanche", "Sauce BBQ Fumé", "Sauce Mayo-Piquante", "Sauce Biggy"] },
+                { name: "Extra / Fromage", values: ["Sans Extra", "Double Cheddar (+8 DH)", "Bacon de Bœuf (+12 DH)", "Œuf au Plat (+6 DH)"] }
+            ];
+        } else if (cat.includes('pizza')) {
+            return [
+                { name: "Taille / Portion", values: ["Moyenne (30cm)", "Grande (40cm) (+25 DH)", "Familiale (50cm) (+45 DH)"] },
+                { name: "Pâte / Croûte", values: ["Pâte Napolitaine", "Pâte Fine Croustillante", "Croûte Fourrée Fromage (+15 DH)"] },
+                { name: "Extra Topping", values: ["Sans Extra", "Extra Mozzarella (+10 DH)", "Extra Champignons (+8 DH)", "Jalapeños Piquants (+6 DH)"] }
+            ];
+        } else if (cat.includes('pasta') || cat.includes('pâte')) {
+            return [
+                { name: "Type de Pâtes", values: ["Penne Rigate", "Spaghetti", "Tagliatelle Fraîches (+10 DH)", "Rigatoni"] },
+                { name: "Sauce / Crème", values: ["Sauce Tomate Basilic", "Crème Parme & Parmesan", "Sauce Arrabiata Piquante", "Crème Truffes (+20 DH)"] },
+                { name: "Extra Fromage", values: ["Parmesan Râpé", "Burrata Entière 125g (+25 DH)", "Mozzarella Gratinée (+12 DH)"] }
+            ];
+        } else if (cat.includes('grill') || cat.includes('viande')) {
+            return [
+                { name: "Cuisson de la Viande", values: ["Saignant 🥩", "À Point 🔥", "Bien Cuit 🍖"] },
+                { name: "Sauce d'accompagnement", values: ["Sauce Poivre Vert", "Sauce Champignons", "Sauce Béarnaise", "Beurre Maître d'Hôtel"] },
+                { name: "Accompagnement", values: ["Frites Maison", "Riz Parfumé aux Herbes", "Purée Maison", "Légumes Rôtis"] }
+            ];
+        } else if (cat.includes('salade')) {
+            return [
+                { name: "Vinaigrette / Sauce", values: ["Balsamique Honey", "Sauce César Maison", "Huile Olive & Citron", "Moutarde à l'Ancienne"] },
+                { name: "Extra Protéine", values: ["Sans Extra", "Poulet Grillé (+15 DH)", "Crevettes Sautées (+25 DH)", "Chèvre Chaud (+18 DH)"] }
+            ];
+        } else if (cat.includes('boisson') || cat.includes('drink')) {
+            return [
+                { name: "Taille / Format", values: ["Canette 33cl", "Bouteille 50cl (+5 DH)", "Grand Format 1L (+12 DH)"] },
+                { name: "Glaçons & Citron", values: ["Avec Glaçons & Citron 🧊🍋", "Sans Glaçons"] }
+            ];
+        } else if (cat.includes('dessert') || cat.includes('glace')) {
+            return [
+                { name: "Nappage / Sauce", values: ["Chocolat Fondu Valrhona", "Caramel Beurre Salé", "Coulis Fruits Rouges", "Miel & Noix"] },
+                { name: "Boule de Glace", values: ["Sans Extra", "Boule Vanille Bourbon (+10 DH)", "Boule Chocolat Noir (+10 DH)"] }
+            ];
+        }
+        return [
+            { name: "Format / Portion", values: ["Portion Normale", "Grande Portion (+15 DH)"] },
+            { name: "Sauce / Accompagnement", values: ["Sauce Maison", "Sauce Piquante", "Sans Sauce"] }
+        ];
+    }
+
     function getCustomMenu() {
         if (liveFetchedMenu && Array.isArray(liveFetchedMenu) && liveFetchedMenu.length > 0) {
             return liveFetchedMenu;
         }
         if (window.REAL_MYSQL_DISHES && Array.isArray(window.REAL_MYSQL_DISHES) && window.REAL_MYSQL_DISHES.length > 0) {
             return window.REAL_MYSQL_DISHES;
+        }
+        if (window.FOORES_DISHES_DATA && Array.isArray(window.FOORES_DISHES_DATA) && window.FOORES_DISHES_DATA.length > 0) {
+            return window.FOORES_DISHES_DATA;
         }
         return [];
     }
