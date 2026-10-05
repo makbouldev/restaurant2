@@ -149,7 +149,7 @@
         }
 
         saveCart(cart);
-        showToast('"' + item.title + '" a été ajouté au panier !');
+        animateCartIcon();
     }
 
     function openOptionsModal(item, onConfirm) {
@@ -847,20 +847,39 @@
         orderBox.innerHTML = html;
     }
 
-    // Show Toast Notification
+    // Creative Header Cart Icon Animation on Add to Cart
+    function animateCartIcon() {
+        var cartBtns = document.querySelectorAll('a.cart_bt');
+        cartBtns.forEach(function(btn) {
+            btn.classList.remove('cart-animate-pop');
+            void btn.offsetWidth;
+            btn.classList.add('cart-animate-pop');
+
+            var badge = btn.querySelector('#cart-count');
+            if (badge) {
+                badge.classList.remove('cart-badge-pop');
+                void badge.offsetWidth;
+                badge.classList.add('cart-badge-pop');
+            }
+
+            var floatBadge = document.createElement('span');
+            floatBadge.className = 'cart-float-badge';
+            floatBadge.innerHTML = '+1 🛒';
+            btn.appendChild(floatBadge);
+
+            setTimeout(function() {
+                btn.classList.remove('cart-animate-pop');
+                if (badge) badge.classList.remove('cart-badge-pop');
+                if (floatBadge && floatBadge.parentNode) {
+                    floatBadge.parentNode.removeChild(floatBadge);
+                }
+            }, 900);
+        });
+    }
+
+    // Show Toast Notification (Redirected to header cart animation)
     function showToast(message) {
-        var toast = document.getElementById('cart-toast');
-        if (!toast) {
-            toast = document.createElement('div');
-            toast.id = 'cart-toast';
-            toast.className = 'cart-toast-notification';
-            document.body.appendChild(toast);
-        }
-        toast.textContent = message;
-        toast.classList.add('show');
-        setTimeout(function () {
-            toast.classList.remove('show');
-        }, 3000);
+        animateCartIcon();
     }
 
     /* ==========================================================================
