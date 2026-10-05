@@ -34,18 +34,21 @@
         var cart = getCart();
         var cartTitles = cart.map(function(item) { return item.title ? item.title.trim().toLowerCase() : ''; });
 
-        var allBtns = document.querySelectorAll('.add_to_cart, .btn-add-creative, #lightboxAddToCartBtn, .tasty-pill-add-btn, .btn_add_cart, button[data-title]');
+        var allBtns = document.querySelectorAll('.add_to_cart, .btn-add-creative, #lightboxAddToCartBtn, .tasty-pill-add-btn, .btn_add_cart, button[data-title], a[data-title]');
         allBtns.forEach(function(btn) {
-            var card = btn.closest('.tasty-food-card, .creative-menu-card, .menu_item, .recipe-card-full, .lightbox-card-wrapper, .popular-dish-card, .grid_item, .box_grid, .col, .col-xl-3, .col-lg-4, .col-md-6, .col-12');
-            var title = '';
+            var title = btn.getAttribute('data-title') || '';
             
-            if (btn.getAttribute('data-title')) {
-                title = btn.getAttribute('data-title');
-            } else if (btn.id === 'lightboxAddToCartBtn') {
-                title = document.getElementById('lightboxModalTitle') ? document.getElementById('lightboxModalTitle').textContent : '';
-            } else if (card) {
-                var titleEl = card.querySelector('.tasty-card-title, .dish-title, .popular-title, .menu_title h3, .grid_item h3, h3, h4, h1');
-                if (titleEl) title = titleEl.textContent;
+            if (!title) {
+                if (btn.id === 'lightboxAddToCartBtn') {
+                    var lEl = document.getElementById('lightboxModalTitle');
+                    if (lEl) title = lEl.textContent;
+                } else {
+                    var card = btn.closest('.tasty-food-card, .tasty-card-col, .creative-menu-card, .menu_item, .recipe-card-full, .lightbox-card-wrapper, .popular-dish-card, .grid_item, .box_grid, .col, .col-xl-3, .col-lg-4, .col-md-6, .col-12');
+                    if (card) {
+                        var titleEl = card.querySelector('.tasty-card-title, .dish-title, .popular-title, .menu_title h3, .grid_item h3, h3, h4, h1');
+                        if (titleEl) title = titleEl.textContent;
+                    }
+                }
             }
 
             if (title) {
@@ -63,7 +66,7 @@
                     } else if (btn.classList.contains('tasty-pill-add-btn')) {
                         btn.innerHTML = '<i class="bi bi-check-circle-fill me-1"></i> DANS LE PANIER';
                     } else {
-                        btn.innerHTML = '<i class="bi bi-check-circle-fill me-1"></i> Dans le Panier';
+                        btn.innerHTML = '<i class="bi bi-check-circle-fill me-1"></i> DANS LE PANIER';
                     }
                 } else {
                     btn.classList.remove('added-in-cart');
@@ -76,7 +79,7 @@
                     } else if (btn.classList.contains('tasty-pill-add-btn')) {
                         btn.innerHTML = '<i class="icon_cart"></i> AJOUTER AU PANIER';
                     } else {
-                        btn.innerHTML = '<i class="icon_cart"></i> Ajouter au Panier';
+                        btn.innerHTML = '<i class="icon_cart"></i> AJOUTER AU PANIER';
                     }
                 }
             }
@@ -276,36 +279,41 @@
             try { delete target._cartHandlingActive; } catch(e) {}
         }, 300);
 
+        // Read data attributes directly from button element first
+        var title = target.getAttribute('data-title') || '';
+        var price = parseFloat(target.getAttribute('data-price')) || 0;
+        var image = target.getAttribute('data-image') || '';
+
         // Find closest specific item container
-        var menuItem = target.closest('.menu_item, .grid_item, .shop_item, .box_grid, .prod_info, .col-lg-6, .col-md-6, .col-6, .col-xl-3, .col-lg-4, .col-md-4, .creative-menu-card');
-        var title = 'Plat Délicieux';
-        var price = 0;
-        var image = 'img/menu_items/1.jpg';
+        var menuItem = target.closest('.tasty-food-card, .tasty-card-col, .creative-menu-card, .menu_item, .grid_item, .shop_item, .box_grid, .prod_info, .col, .col-xl-3, .col-lg-4, .col-md-6, .col-6, .col-12');
 
         if (menuItem) {
             // 1. Title Extraction
-            var titleEl = menuItem.querySelector('.menu_title h3, .grid_item h3, h3, h4, h1, .title, .dish-title');
-            if (titleEl) {
-                var cleanTitle = titleEl.textContent.trim();
-                if (cleanTitle) title = cleanTitle;
+            if (!title) {
+                var titleEl = menuItem.querySelector('.tasty-card-title, .dish-title, .popular-title, .menu_title h3, .grid_item h3, h3, h4, h1, .title');
+                if (titleEl) {
+                    var cleanTitle = titleEl.textContent.trim();
+                    if (cleanTitle) title = cleanTitle;
+                }
             }
 
             // 2. Price Extraction
-            var priceEl = menuItem.querySelector('.menu_title em, .price_box .new_price, .price_box span:not(.old_price), .price_main .new_price, .menu_item em, em, .price, .dish-price-tag');
-            
-            if (priceEl && priceEl.textContent.trim()) {
-                var rawPriceText = priceEl.textContent.trim();
-                var numMatch = rawPriceText.match(/\d+(?:\.\d+)?/);
-                if (numMatch) {
-                    var parsed = parseFloat(numMatch[0]);
-                    if (!isNaN(parsed) && parsed > 0) {
-                        price = parsed;
+            if (!price || price <= 0) {
+                var priceEl = menuItem.querySelector('.tasty-card-price, .menu_title em, .price_box .new_price, .price_box span:not(.old_price), .price_main .new_price, .menu_item em, em, .price, .dish-price-tag');
+                if (priceEl && priceEl.textContent.trim()) {
+                    var rawPriceText = priceEl.textContent.trim();
+                    var numMatch = rawPriceText.match(/\d+(?:\.\d+)?/);
+                    if (numMatch) {
+                        var parsed = parseFloat(numMatch[0]);
+                        if (!isNaN(parsed) && parsed > 0) {
+                            price = parsed;
+                        }
                     }
                 }
             }
 
             // Fallback price search if price is still 0
-            if (price <= 0) {
+            if (!price || price <= 0) {
                 var candidateEms = menuItem.querySelectorAll('em, span, strong');
                 for (var i = 0; i < candidateEms.length; i++) {
                     var txt = candidateEms[i].textContent.trim();
@@ -323,10 +331,12 @@
             }
 
             // 3. Image Extraction
-            var imgEl = menuItem.querySelector('figure img, img');
-            if (imgEl) {
-                var src = imgEl.getAttribute('data-src') || imgEl.getAttribute('src');
-                if (src && !src.includes('placeholder')) image = src;
+            if (!image) {
+                var imgEl = menuItem.querySelector('.tasty-card-img-container img, figure img, img');
+                if (imgEl) {
+                    var src = imgEl.getAttribute('data-src') || imgEl.getAttribute('src');
+                    if (src && !src.includes('placeholder')) image = src;
+                }
             }
         }
 
@@ -1465,7 +1475,7 @@
                     '<div class="tasty-card-divider"></div>' +
                     '<div class="tasty-card-footer-row">' +
                     '<div class="tasty-card-price">' + priceText + '</div>' +
-                    '<button type="button" class="' + btnClass + ' tasty-pill-add-btn" onclick="window.FOORES_CART.addToCartFromBtn(this, event); return false;">' + btnText + '</button>' +
+                    '<button type="button" class="' + btnClass + ' tasty-pill-add-btn" data-title="' + cleanTitle.replace(/"/g, '&quot;') + '" data-price="' + (dish.price || 100) + '" data-image="' + imgUrl.replace(/"/g, '&quot;') + '" ' + (inCart ? 'data-in-cart="true"' : '') + ' onclick="window.FOORES_CART.addToCartFromBtn(this, event); return false;">' + btnText + '</button>' +
                     '</div>' +
                     '</div>' +
                     '</div>' +
@@ -1599,7 +1609,7 @@
                     '<div class="tasty-card-divider"></div>' +
                     '<div class="tasty-card-footer-row">' +
                     '<div class="tasty-card-price">' + priceText + '</div>' +
-                    '<button type="button" class="' + btnClass + '" onclick="window.FOORES_CART.addToCartFromBtn(this, event); return false;">' + btnText + '</button>' +
+                    '<button type="button" class="' + btnClass + '" data-title="' + cleanTitle.replace(/"/g, '&quot;') + '" data-price="' + (dish.price || 100) + '" data-image="' + imgUrl.replace(/"/g, '&quot;') + '" ' + (inCart ? 'data-in-cart="true"' : '') + ' onclick="window.FOORES_CART.addToCartFromBtn(this, event); return false;">' + btnText + '</button>' +
                     '</div>' +
                     '</div>' +
                     '</div>' +

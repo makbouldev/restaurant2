@@ -29,7 +29,7 @@
     <link href="css/wizard.css" rel="stylesheet">
 
     <!-- YOUR CUSTOM CSS -->
-    <link href="css/custom.css?v=107.0" rel="stylesheet">
+    <link href="css/custom.css?v=108.0" rel="stylesheet">
 
 </head>
 
@@ -837,8 +837,8 @@
     <script src="js/wizard/wizard_scripts.min.js"></script>
     <script src="js/wizard/wizard_func.js"></script>
 
-    <script src="js/navbar.js?v=107.0"></script>
-    <script src="js/cart.js?v=107.0"></script>
+    <script src="js/navbar.js?v=108.0"></script>
+    <script src="js/cart.js?v=108.0"></script>
     <script src="js/dishes_data.js"></script>
 
     <!-- POPULAR DISHES & MINI BOOKING SCRIPT -->
@@ -896,7 +896,7 @@
                     '        <div class="tasty-card-divider"></div>' +
                     '        <div class="tasty-card-footer-row">' +
                     '            <div class="tasty-card-price">' + priceDisplay + '</div>' +
-                    '            <button type="button" class="' + btnClass + '" data-title="' + titleText.replace(/"/g, '&quot;') + '" data-price="' + item.price + '" data-image="' + imgSrc.replace(/"/g, '&quot;') + '" title="Ajouter au Panier">' + btnText + '</button>' +
+                    '            <button type="button" class="' + btnClass + '" data-title="' + titleText.replace(/"/g, '&quot;') + '" data-price="' + item.price + '" data-image="' + imgSrc.replace(/"/g, '&quot;') + '" ' + (inCart ? 'data-in-cart="true"' : '') + ' onclick="if(window.FOORES_CART) { window.FOORES_CART.addToCartFromBtn(this, event); return false; }" title="Ajouter au Panier">' + btnText + '</button>' +
                     '        </div>' +
                     '    </div>' +
                     '</div>';

@@ -959,14 +959,20 @@ a.add_to_cart:hover {
 }
 
 
-/* Added in Cart active state style */
+/* Added in Cart active green state style (Ultra High Specificity) */
 .added-in-cart,
+.add_to_cart.added-in-cart,
+.tasty-pill-add-btn.added-in-cart,
+.menu_item .add_to_cart.added-in-cart,
+.menu_item.order .add_to_cart.added-in-cart,
+a.add_to_cart.added-in-cart,
+button.add_to_cart.added-in-cart,
 a.added-in-cart,
 button.added-in-cart,
 .btn-add-creative.added-in-cart,
-.lightbox-cart-btn.added-in-cart,
-.tasty-pill-add-btn.added-in-cart {
-    background: linear-gradient(135deg, #10B981 0%, #059669 100%) !important;
+.lightbox-cart-btn.added-in-cart {
+    background: #10B981 !important;
+    background-color: #10B981 !important;
     color: #ffffff !important;
     border-color: #059669 !important;
     box-shadow: 0 4px 14px rgba(16, 185, 129, 0.45) !important;
@@ -974,15 +980,21 @@ button.added-in-cart,
 }
 
 .added-in-cart:hover,
+.add_to_cart.added-in-cart:hover,
+.tasty-pill-add-btn.added-in-cart:hover,
+.menu_item .add_to_cart.added-in-cart:hover,
+.menu_item.order .add_to_cart.added-in-cart:hover,
+a.add_to_cart.added-in-cart:hover,
+button.add_to_cart.added-in-cart:hover,
 a.added-in-cart:hover,
 button.added-in-cart:hover,
 .btn-add-creative.added-in-cart:hover,
-.lightbox-cart-btn.added-in-cart:hover,
-.tasty-pill-add-btn.added-in-cart:hover {
-    background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+.lightbox-cart-btn.added-in-cart:hover {
+    background: #059669 !important;
+    background-color: #059669 !important;
+    color: #ffffff !important;
     transform: translateY(-2px) !important;
     box-shadow: 0 6px 18px rgba(16, 185, 129, 0.6) !important;
-    color: #ffffff !important;
 }
 
 
