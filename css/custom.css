@@ -2371,13 +2371,17 @@ header.header ul#top_menu li a.cart_bt strong {
         top: -9999px !important;
     }
 
-    /* Direct Icon Element Centering */
+    /* Direct Icon Element Dead Geometric Centering */
     header #top_menu a.search-overlay-menu-btn i,
     header #top_menu a.cart_bt i,
     header a.open_close i,
     a.search-overlay-menu-btn i,
     a.cart_bt i {
-        font-size: 17px !important;
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        font-size: 18px !important;
         color: #222222 !important;
         line-height: 1 !important;
         margin: 0 !important;
@@ -2385,12 +2389,9 @@ header.header ul#top_menu li a.cart_bt strong {
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        position: static !important;
-        top: auto !important;
-        left: auto !important;
-        transform: none !important;
         width: auto !important;
         height: auto !important;
+        z-index: 5 !important;
     }
 
     /* Cart Count Red/Orange Badge */
