@@ -4927,4 +4927,84 @@ a.cart_bt strong#cart-count {
     color: #FFD700;
 }
 
+/* ==========================================================================
+   CHECKOUT SUMMARY ITEM CONTROLS & EDIT OPTIONS STYLES
+   ========================================================================== */
+.checkout-item-card {
+    background: #ffffff !important;
+    border-radius: 12px !important;
+    padding: 12px 14px !important;
+    margin-bottom: 12px !important;
+    border: 1px solid #e9ecef !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+    transition: all 0.25s ease !important;
+    list-style: none !important;
+}
+
+.checkout-item-card:hover {
+    border-color: #9B804E !important;
+    box-shadow: 0 4px 14px rgba(155, 128, 78, 0.12) !important;
+}
+
+.checkout-item-options-box {
+    font-size: 11.5px !important;
+    line-height: 1.35 !important;
+    background: #f8f9fa !important;
+    border-left: 3px solid #9B804E !important;
+    color: #555555 !important;
+}
+
+.checkout-qty-stepper {
+    background: #f8f9fa !important;
+    border-radius: 8px !important;
+    border: 1px solid #dee2e6 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    overflow: hidden !important;
+}
+
+.checkout-qty-stepper button {
+    background: transparent !important;
+    border: none !important;
+    color: #222222 !important;
+    font-weight: 700 !important;
+    padding: 2px 9px !important;
+    font-size: 14px !important;
+    transition: background 0.2s ease !important;
+    cursor: pointer !important;
+}
+
+.checkout-qty-stepper button:hover {
+    background: #e9ecef !important;
+    color: #9B804E !important;
+}
+
+.checkout-qty-stepper span {
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    color: #1a1a1a !important;
+    min-width: 22px !important;
+    text-align: center !important;
+}
+
+.btn-edit-options {
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    color: #9B804E !important;
+    background: rgba(155, 128, 78, 0.08) !important;
+    border: 1px solid rgba(155, 128, 78, 0.25) !important;
+    border-radius: 20px !important;
+    padding: 3px 10px !important;
+    transition: all 0.2s ease !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+}
+
+.btn-edit-options:hover {
+    background: #9B804E !important;
+    color: #ffffff !important;
+}
+
+
 

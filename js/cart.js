@@ -152,7 +152,7 @@
         animateCartIcon();
     }
 
-    function openOptionsModal(item, onConfirm) {
+    function openOptionsModal(item, onConfirm, preSelected) {
         if (!item || !item.options || !Array.isArray(item.options) || item.options.length === 0) {
             if (typeof onConfirm === 'function') onConfirm(null);
             return;
@@ -192,6 +192,13 @@
         document.getElementById('optModalCategory').textContent = item.category ? (CATEGORY_BADGES[item.category] || item.category) : '✨ Spécialité';
         document.getElementById('optModalPrice').textContent = formatPrice(item.price || 100);
 
+        var confirmBtn = document.getElementById('optModalConfirmBtn');
+        if (preSelected) {
+            confirmBtn.innerHTML = '<i class="bi bi-check2-circle me-1"></i> Enregistrer les modifications';
+        } else {
+            confirmBtn.innerHTML = '<i class="bi bi-cart-plus-fill me-1"></i> Ajouter au Panier';
+        }
+
         var listContainer = document.getElementById('optModalOptionsList');
         listContainer.innerHTML = '';
 
@@ -222,14 +229,16 @@
             pillsRow.className = 'opt-pills-row';
 
             var values = optGroup.values || [];
+            var currentlyChosen = (preSelected && preSelected[optGroup.name]) ? preSelected[optGroup.name] : values[0];
+
             if (values.length > 0) {
-                currentSelected[optGroup.name] = values[0];
+                currentSelected[optGroup.name] = currentlyChosen;
             }
 
-            values.forEach(function(val, valIndex) {
+            values.forEach(function(val) {
                 var btn = document.createElement('button');
                 btn.type = 'button';
-                btn.className = 'opt-pill-btn' + (valIndex === 0 ? ' active' : '');
+                btn.className = 'opt-pill-btn' + (val === currentlyChosen ? ' active' : '');
                 btn.textContent = val;
                 btn.onclick = function() {
                     pillsRow.querySelectorAll('.opt-pill-btn').forEach(function(b) { b.classList.remove('active'); });
@@ -243,7 +252,6 @@
             listContainer.appendChild(groupDiv);
         });
 
-        var confirmBtn = document.getElementById('optModalConfirmBtn');
         confirmBtn.onclick = function() {
             closeOptionsModal();
             if (typeof onConfirm === 'function') {
@@ -252,6 +260,41 @@
         };
 
         modal.classList.add('active');
+    }
+
+    function editCartItemOptions(cartItemId) {
+        var cart = getCart();
+        var cartItemIndex = -1;
+        for (var i = 0; i < cart.length; i++) {
+            if (cart[i].id === cartItemId) {
+                cartItemIndex = i;
+                break;
+            }
+        }
+        if (cartItemIndex === -1) return;
+
+        var cartItem = cart[cartItemIndex];
+        var dishDef = null;
+
+        if (window.FOORES_DISHES_DATA && Array.isArray(window.FOORES_DISHES_DATA)) {
+            for (var d = 0; d < window.FOORES_DISHES_DATA.length; d++) {
+                var dish = window.FOORES_DISHES_DATA[d];
+                if ((dish.id === cartItem.dishId) || (dish.title && dish.title.toLowerCase() === (cartItem.title || '').toLowerCase())) {
+                    dishDef = dish;
+                    break;
+                }
+            }
+        }
+
+        if (!dishDef || !dishDef.options || dishDef.options.length === 0) {
+            alert("Ce plat n'a pas d'options à personnaliser.");
+            return;
+        }
+
+        openOptionsModal(dishDef, function(newSelectedOptions) {
+            cart[cartItemIndex].selectedOptions = newSelectedOptions;
+            saveCart(cart);
+        }, cartItem.selectedOptions);
     }
 
     function closeOptionsModal() {
@@ -693,7 +736,7 @@
         var totals = getTotals();
 
         if (cart.length === 0) {
-            summaryContainer.innerHTML = '<li class="text-muted text-center py-3">Votre panier est vide</li>';
+            summaryContainer.innerHTML = '<li class="text-muted text-center py-4">Votre panier est vide</li>';
             if (checkoutSubtotal) checkoutSubtotal.textContent = '0 DH';
             if (checkoutTotal) checkoutTotal.textContent = '0 DH';
             return;
@@ -702,7 +745,46 @@
         var html = '';
         cart.forEach(function (item) {
             var optText = formatOptionsText(item.selectedOptions);
-            html += '<li class="clearfix"><em>' + item.quantity + 'x ' + item.title + (optText ? ' (' + optText + ')' : '') + '</em> <span>' + formatPrice(item.price * item.quantity) + '</span></li>';
+
+            var hasOptionsAvailable = false;
+            if (window.FOORES_DISHES_DATA && Array.isArray(window.FOORES_DISHES_DATA)) {
+                for (var d = 0; d < window.FOORES_DISHES_DATA.length; d++) {
+                    var dish = window.FOORES_DISHES_DATA[d];
+                    if ((dish.id === item.dishId) || (dish.title && dish.title.toLowerCase() === (item.title || '').toLowerCase())) {
+                        if (dish.options && dish.options.length > 0) {
+                            hasOptionsAvailable = true;
+                        }
+                        break;
+                    }
+                }
+            }
+
+            html += 
+                '<li class="checkout-item-card mb-3 p-3 bg-white rounded border shadow-sm list-unstyled">' +
+                '   <div class="d-flex align-items-center justify-content-between gap-2 mb-2">' +
+                '       <div class="d-flex align-items-center gap-2 overflow-hidden">' +
+                '           <img src="' + item.image + '" alt="' + item.title + '" width="46" height="46" class="rounded object-fit-cover flex-shrink-0" onerror="this.onerror=null; this.src=\'img/menu_items/1.jpg\';">' +
+                '           <div class="lh-sm text-truncate">' +
+                '               <strong class="d-block text-dark text-truncate" style="font-size: 13.5px; font-weight: 700;">' + item.title + '</strong>' +
+                '               <span style="font-size: 13px; font-weight: 700; color: #9B804E;">' + formatPrice(item.price * item.quantity) + '</span>' +
+                '           </div>' +
+                '       </div>' +
+                '       <button type="button" class="btn btn-sm text-danger border-0 p-1 flex-shrink-0" onclick="window.FOORES_CART.removeFromCart(\'' + item.id + '\')" title="Supprimer">' +
+                '           <i class="bi bi-trash3-fill fs-6"></i>' +
+                '       </button>' +
+                '   </div>' +
+                (optText ? '   <div class="checkout-item-options-box p-2 mb-2 rounded border" style="font-size: 11.5px; line-height: 1.35; background: #f8f9fa; border-left: 3px solid #9B804E !important; color: #555555;"><i class="bi bi-sliders text-warning me-1"></i> ' + optText + '</div>' : '') +
+                '   <div class="d-flex align-items-center justify-content-between pt-2 border-top mt-2">' +
+                '       <div>' +
+                (hasOptionsAvailable ? '           <button type="button" class="btn-edit-options" onclick="window.FOORES_CART.editCartItemOptions(\'' + item.id + '\')"><i class="bi bi-pencil-square me-1"></i> Modifier options</button>' : '<span class="text-muted" style="font-size: 11px;">Standard</span>') +
+                '       </div>' +
+                '       <div class="checkout-qty-stepper d-flex align-items-center rounded border px-1" style="background: #f8f9fa; border-color: #dee2e6;">' +
+                '           <button type="button" class="btn btn-sm text-dark px-2 py-0 border-0 fw-bold" onclick="window.FOORES_CART.updateQuantity(\'' + item.id + '\', ' + (item.quantity - 1) + ')">-</button>' +
+                '           <span class="px-2 fw-bold text-dark" style="font-size: 13px; min-width: 22px; text-align: center;">' + item.quantity + '</span>' +
+                '           <button type="button" class="btn btn-sm text-dark px-2 py-0 border-0 fw-bold" onclick="window.FOORES_CART.updateQuantity(\'' + item.id + '\', ' + (item.quantity + 1) + ')">+</button>' +
+                '       </div>' +
+                '   </div>' +
+                '</li>';
         });
 
         summaryContainer.innerHTML = html;
@@ -1909,6 +1991,7 @@
         closeImageLightbox: closeImageLightbox,
         openOptionsModal: openOptionsModal,
         closeOptionsModal: closeOptionsModal,
+        editCartItemOptions: editCartItemOptions,
         toggleSideCart: toggleSideCart,
         renderSideCartDrawer: renderSideCartDrawer
     };
