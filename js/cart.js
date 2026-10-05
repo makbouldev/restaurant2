@@ -1434,7 +1434,7 @@
                 var btnClass = 'add_to_cart' + (inCart ? ' added-in-cart' : '');
                 var btnText = inCart ? '<i class="bi bi-check-lg"></i> DANS LE PANIER' : '<i class="icon_cart"></i> AJOUTER AU PANIER';
 
-                itemsHtml += '<div class="col-xl-3 col-lg-4 col-md-6 col-6 tasty-card-col mb-4" style="opacity: 1 !important; visibility: visible !important;">' +
+                itemsHtml += '<div class="col-xl-3 col-lg-4 col-md-6 col-12 tasty-card-col mb-4" style="opacity: 1 !important; visibility: visible !important;">' +
                     '<div class="tasty-food-card" data-dish-id="' + dish.id + '">' +
                     '<div class="tasty-card-img-container" onclick="window.FOORES_CART.openImageLightbox(\'' + escapedImg + '\', \'' + escapedTitle + '\', \'' + escapedCat + '\', \'' + escapedPrice + '\', \'' + escapedDesc + '\', \'' + dish.id + '\')">' +
                     '<span class="tasty-card-badge">' + dishBadge + '</span>' +
@@ -1567,7 +1567,7 @@
                 var btnClass = 'add_to_cart tasty-pill-add-btn' + (inCart ? ' added-in-cart' : '');
                 var btnText = inCart ? '<i class="bi bi-check-lg"></i> DANS LE PANIER' : '<i class="icon_cart"></i> AJOUTER AU PANIER';
 
-                itemsHtml += '<div class="col-xl-3 col-lg-4 col-md-6 col-6 tasty-card-col mb-4" style="opacity: 1 !important; visibility: visible !important;">' +
+                itemsHtml += '<div class="col-xl-3 col-lg-4 col-md-6 col-12 tasty-card-col mb-4" style="opacity: 1 !important; visibility: visible !important;">' +
                     '<div class="tasty-food-card" data-dish-id="' + dish.id + '">' +
                     '<div class="tasty-card-img-container" onclick="window.FOORES_CART.openImageLightbox(\'' + escapedImg + '\', \'' + escapedTitle + '\', \'' + escapedCat + '\', \'' + escapedPrice + '\', \'' + escapedDesc + '\', \'' + dish.id + '\')">' +
                     '<span class="tasty-card-badge">🔥 POPULAIRE</span>' +
