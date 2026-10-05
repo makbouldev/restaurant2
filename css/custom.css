@@ -3869,6 +3869,22 @@ header.header ul#top_menu li a.cart_bt strong {
     position: relative !important;
 }
 
+@media (min-width: 992px) {
+    .creative-map-luxury-section {
+        min-height: 70vh !important;
+        display: flex !important;
+        align-items: center !important;
+        padding-top: 2.5rem !important;
+        padding-bottom: 2.5rem !important;
+    }
+    .creative-map-luxury-section > .container {
+        width: 100% !important;
+    }
+    .map-inner-container {
+        min-height: 380px !important;
+    }
+}
+
 .creative-map-glow-bg {
     position: absolute !important;
     top: -20% !important;
