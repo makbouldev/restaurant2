@@ -1340,25 +1340,15 @@
         'desserts': '🍰 Desserts'
     };
 
-    function getInitialDishLimit() {
-        return (window.innerWidth <= 767) ? 4 : 12;
-    }
-
     var currentActiveCat = 'all';
     var currentSearchQuery = '';
+    var INITIAL_DISH_LIMIT = 12;
     var LOAD_MORE_STEP = 8;
-    var currentVisibleLimit = getInitialDishLimit();
-
-    window.addEventListener('resize', function() {
-        if (currentVisibleLimit <= 12) {
-            currentVisibleLimit = getInitialDishLimit();
-            renderFilteredDishesGrid();
-        }
-    });
+    var currentVisibleLimit = INITIAL_DISH_LIMIT;
 
     function filterCategory(cat, btnElement) {
         currentActiveCat = cat;
-        currentVisibleLimit = getInitialDishLimit();
+        currentVisibleLimit = INITIAL_DISH_LIMIT;
         var buttons = document.querySelectorAll('.tasty-cat-btn, .cat-filter-btn, .category-circle-item');
         buttons.forEach(function(b) {
             b.classList.remove('active');
@@ -1374,16 +1364,12 @@
 
     function filterMenuBySearch(query) {
         currentSearchQuery = (query || '').toLowerCase().trim();
-        currentVisibleLimit = getInitialDishLimit();
+        currentVisibleLimit = INITIAL_DISH_LIMIT;
         renderFilteredDishesGrid();
     }
 
     function loadMoreDishes() {
-        if (window.innerWidth <= 767) {
-            currentVisibleLimit += 100;
-        } else {
-            currentVisibleLimit += LOAD_MORE_STEP;
-        }
+        currentVisibleLimit += LOAD_MORE_STEP;
         renderFilteredDishesGrid();
     }
 
@@ -1471,28 +1457,12 @@
             if (loadMoreContainer) {
                 if (filtered.length > currentVisibleLimit) {
                     var remaining = filtered.length - visibleDishes.length;
-                    var isMobile = (window.innerWidth <= 767);
-                    var btnHtml = isMobile 
-                        ? '<div class="creative-view-menu-wrapper text-center my-3">' +
-                          '<button type="button" class="creative-view-menu-btn" onclick="window.FOORES_CART.loadMoreDishes()">' +
-                          '<span class="btn-sparkle-left">✨</span>' +
-                          '<span>VOIR TOUT LE MENU (' + remaining + ' DE PLUS)</span>' +
-                          '<span class="btn-arrow-icon">↓</span>' +
-                          '</button>' +
-                          '</div>'
-                        : '<div class="creative-view-menu-wrapper text-center my-3">' +
-                          '<button type="button" class="creative-view-menu-btn" onclick="window.FOORES_CART.loadMoreDishes()">' +
-                          '<span class="btn-sparkle-left">✨</span>' +
-                          '<span>CHARGER PLUS DE PLATS</span>' +
-                          '<span class="btn-arrow-icon">↓</span>' +
-                          '</button>' +
-                          '</div>';
                     loadMoreContainer.style.display = 'block';
-                    loadMoreContainer.innerHTML = btnHtml;
+                    loadMoreContainer.innerHTML = '<button type="button" class="tasty-load-more-btn" onclick="window.FOORES_CART.loadMoreDishes()">Charger Plus de Plats</button>';
                 } else {
-                    if (filtered.length > getInitialDishLimit()) {
+                    if (filtered.length > INITIAL_DISH_LIMIT) {
                         loadMoreContainer.style.display = 'block';
-                        loadMoreContainer.innerHTML = '<p class="text-muted small mt-2 fw-semibold text-center">✨ Tous les ' + filtered.length + ' plats de cette sélection sont affichés</p>';
+                        loadMoreContainer.innerHTML = '<p class="text-muted small mt-2 fw-semibold">✨ Tous les ' + filtered.length + ' plats de cette sélection sont affichés</p>';
                     } else {
                         loadMoreContainer.style.display = 'none';
                     }
