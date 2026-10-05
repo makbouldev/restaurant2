@@ -3623,3 +3623,208 @@ header.header ul#top_menu li a.cart_bt strong {
     transform: translateY(-50%) scale(1.03) !important;
     box-shadow: 0 6px 16px rgba(228, 93, 22, 0.45) !important;
 }
+
+/* ==========================================================================
+   SECTION 2.5: GOOGLE MAP & CREATIVE 2-PHOTO ATMOSPHERE SHOWCASE
+   ========================================================================== */
+.creative-location-section {
+    padding-top: 60px !important;
+    padding-bottom: 60px !important;
+}
+
+.creative-loc-subtag {
+    color: #E45D16 !important;
+    font-size: 12px !important;
+    font-weight: 800 !important;
+    letter-spacing: 1.5px !important;
+    text-transform: uppercase !important;
+    display: inline-block !important;
+}
+
+.creative-loc-title {
+    font-family: 'Playfair Display', 'Lora', serif !important;
+    font-size: 32px !important;
+    font-weight: 700 !important;
+    color: #0F172A !important;
+    line-height: 1.25 !important;
+}
+
+.creative-loc-desc {
+    font-size: 14.5px !important;
+    color: #64748B !important;
+    margin: 0 !important;
+}
+
+/* Map Card Styling */
+.map-floating-badge {
+    position: absolute !important;
+    top: 16px !important;
+    left: 16px !important;
+    background: rgba(15, 23, 42, 0.88) !important;
+    color: #ffffff !important;
+    font-size: 12.5px !important;
+    font-weight: 700 !important;
+    padding: 7px 16px !important;
+    border-radius: 30px !important;
+    backdrop-filter: blur(8px) !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
+    z-index: 5 !important;
+}
+
+.loc-icon-circle {
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 50% !important;
+    background: #FFF0EC !important;
+    color: #E45D16 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 18px !important;
+    flex-shrink: 0 !important;
+}
+
+.btn-map-direction {
+    background: #0F172A !important;
+    color: #ffffff !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    padding: 10px 20px !important;
+    border-radius: 25px !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease !important;
+    white-space: nowrap !important;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.2) !important;
+}
+
+.btn-map-direction:hover {
+    background: #E45D16 !important;
+    color: #ffffff !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 18px rgba(228, 93, 22, 0.35) !important;
+}
+
+/* 2-Photo Creative Staggered Layout */
+.creative-photos-layout {
+    min-height: 420px !important;
+}
+
+.photo-card-main {
+    width: 82% !important;
+    height: 320px !important;
+    border: 4px solid #ffffff !important;
+    box-shadow: 0 15px 35px rgba(15, 23, 42, 0.12) !important;
+    transition: transform 0.4s ease !important;
+}
+
+.main-restau-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    transition: transform 0.5s ease !important;
+}
+
+.photo-card-main:hover .main-restau-img {
+    transform: scale(1.05) !important;
+}
+
+.photo-card-secondary {
+    position: absolute !important;
+    bottom: -20px !important;
+    right: 0 !important;
+    width: 58% !important;
+    height: 240px !important;
+    border: 4px solid #ffffff !important;
+    z-index: 3 !important;
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.18) !important;
+    transition: transform 0.4s ease !important;
+}
+
+.second-restau-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    transition: transform 0.5s ease !important;
+}
+
+.photo-card-secondary:hover .second-restau-img {
+    transform: scale(1.05) !important;
+}
+
+.photo-overlay-gradient {
+    position: absolute !important;
+    inset: 0 !important;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.55) 100%) !important;
+    pointer-events: none !important;
+}
+
+.photo-badge-top-left {
+    position: absolute !important;
+    top: 14px !important;
+    left: 14px !important;
+    background: rgba(255, 255, 255, 0.92) !important;
+    color: #0F172A !important;
+    font-size: 11.5px !important;
+    font-weight: 700 !important;
+    padding: 5px 13px !important;
+    border-radius: 20px !important;
+    backdrop-filter: blur(6px) !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+}
+
+.photo-badge-bottom-right {
+    position: absolute !important;
+    bottom: 14px !important;
+    left: 14px !important;
+    background: rgba(15, 23, 42, 0.85) !important;
+    color: #ffffff !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    padding: 5px 12px !important;
+    border-radius: 20px !important;
+    backdrop-filter: blur(6px) !important;
+}
+
+.photos-rating-pill {
+    position: absolute !important;
+    top: 50% !important;
+    left: 35% !important;
+    transform: translate(-50%, -50%) !important;
+    background: #ffffff !important;
+    padding: 10px 20px !important;
+    border-radius: 40px !important;
+    z-index: 4 !important;
+    border: 1px solid rgba(228, 93, 22, 0.15) !important;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15) !important;
+}
+
+.lead-bold {
+    font-size: 15px !important;
+    color: #0F172A !important;
+    line-height: 1 !important;
+}
+
+.nano-label {
+    font-size: 10.5px !important;
+}
+
+@media (max-width: 991px) {
+    .photo-card-main {
+        width: 100% !important;
+        height: 280px !important;
+    }
+    .photo-card-secondary {
+        position: relative !important;
+        bottom: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        height: 240px !important;
+        margin-top: 16px !important;
+    }
+    .photos-rating-pill {
+        display: none !important;
+    }
+}

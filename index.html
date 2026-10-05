@@ -29,7 +29,7 @@
     <link href="css/wizard.css" rel="stylesheet">
 
     <!-- YOUR CUSTOM CSS -->
-    <link href="css/custom.css?v=82.0" rel="stylesheet">
+    <link href="css/custom.css?v=83.0" rel="stylesheet">
 
 </head>
 
@@ -396,6 +396,94 @@
 
 						</div>
 					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ==========================================================================
+		     SECTION 2.5: GOOGLE MAP & CREATIVE RESTAURANT ATMOSPHERE SHOWCASE
+		     ========================================================================== -->
+		<section class="creative-location-section py-5 position-relative overflow-hidden" style="background: linear-gradient(180deg, #FFFFFF 0%, #FFFDFB 100%);">
+			<div class="container py-4">
+				
+				<!-- Section Header -->
+				<div class="text-center max-width-700 mx-auto mb-5">
+					<span class="creative-loc-subtag"><i class="bi bi-geo-alt-fill me-1"></i> NOTRE LOCALISATION & ATMOSPHÈRE</span>
+					<h2 class="creative-loc-title mt-2">Venez Vivre Une Expérience Gastronomique Unique</h2>
+					<p class="creative-loc-desc">Découvrez notre cadre d'exception à Casablanca et plongez dans une ambiance chaleureuse, chic et raffinée.</p>
+				</div>
+
+				<div class="row g-4 align-items-center">
+					
+					<!-- Left Column: Interactive Google Map + Fast Info Card -->
+					<div class="col-lg-6">
+						<div class="map-card-wrapper position-relative">
+							<div class="map-container-box rounded-4 overflow-hidden shadow-lg border" style="height: 380px; position: relative;">
+								<iframe 
+									src="https://maps.google.com/maps?q=Boulevard%20d'Anfa%20Casablanca&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+									width="100%" 
+									height="100%" 
+									style="border:0; filter: contrast(1.05) saturate(1.1);" 
+									allowfullscreen="" 
+									loading="lazy" 
+									referrerpolicy="no-referrer-when-downgrade">
+								</iframe>
+								<!-- Floating Location Pin Badge -->
+								<div class="map-floating-badge">
+									<i class="bi bi-pin-map-fill me-1 text-orange"></i> Foores Casablanca
+								</div>
+							</div>
+
+							<!-- Map Footer Actions & Quick Details -->
+							<div class="map-info-footer-box mt-3 p-3 p-md-4 rounded-4 bg-white border shadow-sm d-flex flex-column flex-sm-row align-items-center justify-content-between gap-3">
+								<div class="d-flex align-items-center gap-3">
+									<div class="loc-icon-circle">
+										<i class="bi bi-geo-alt-fill"></i>
+									</div>
+									<div>
+										<strong class="d-block text-dark font-lora">123 Bd d'Anfa, Casablanca</strong>
+										<span class="small text-muted"><i class="bi bi-clock me-1"></i> Ouvert 7j/7 (12h00 - 23h00)</span>
+									</div>
+								</div>
+								<a href="https://maps.google.com/?q=Boulevard+d'Anfa+Casablanca" target="_blank" class="btn-map-direction">
+									<i class="bi bi-compass-fill me-1"></i> Itinéraire
+								</a>
+							</div>
+						</div>
+					</div>
+
+					<!-- Right Column: Staggered Creative 2-Photo Showcase -->
+					<div class="col-lg-6 mt-5 mt-lg-0">
+						<div class="creative-photos-layout position-relative px-2">
+							
+							<!-- Main Big Photo (Interior Salle Luxury) -->
+							<div class="photo-card-main rounded-4 overflow-hidden shadow-lg position-relative">
+								<img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80" alt="Salle de Restaurant Foores" class="img-fluid main-restau-img" onerror="this.onerror=null; this.src='img/home_1.jpg';">
+								<div class="photo-overlay-gradient"></div>
+								<span class="photo-badge-top-left"><i class="bi bi-stars me-1 text-warning"></i> Cadre Luxury & Intimiste</span>
+							</div>
+
+							<!-- Secondary Staggered Overlapping Photo (Terrace & Atmosphere) -->
+							<div class="photo-card-secondary rounded-4 overflow-hidden shadow-lg position-relative d-none d-sm-block">
+								<img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&auto=format&fit=crop&q=80" alt="Ambiance & Cuisine Foores" class="img-fluid second-restau-img" onerror="this.onerror=null; this.src='img/banner_1.jpg';">
+								<div class="photo-overlay-gradient"></div>
+								<span class="photo-badge-bottom-right"><i class="bi bi-cup-hot-fill me-1 text-orange"></i> Service Attentionné</span>
+							</div>
+
+							<!-- Center Rating Floating Pill -->
+							<div class="photos-rating-pill shadow-lg">
+								<div class="d-flex align-items-center gap-2">
+									<span class="rating-stars text-warning">★★★★★</span>
+									<div class="rating-text-box">
+										<strong class="d-block lead-bold">4.9 / 5.0</strong>
+										<span class="nano-label text-muted">500+ Avis Gourmands</span>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
 				</div>
 			</div>
 		</section>
