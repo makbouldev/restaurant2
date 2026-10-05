@@ -3427,6 +3427,75 @@ header.header ul#top_menu li a.cart_bt strong {
 }
 
 /* ==========================================================================
+   ULTRA-CREATIVE "VOIR TOUT LE MENU" CTA BUTTON
+   ========================================================================== */
+.creative-view-menu-wrapper {
+    position: relative !important;
+    z-index: 5 !important;
+}
+
+.creative-view-menu-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    background: linear-gradient(135deg, #E45D16 0%, #C74B0C 100%) !important;
+    color: #FFFFFF !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 13.5px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.8px !important;
+    text-transform: uppercase !important;
+    padding: 13px 32px !important;
+    border-radius: 50px !important;
+    text-decoration: none !important;
+    box-shadow: 0 10px 28px rgba(228, 93, 22, 0.38), 0 4px 10px rgba(0, 0, 0, 0.08) !important;
+    transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    position: relative !important;
+    overflow: hidden !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.25) !important;
+}
+
+.creative-view-menu-btn::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: -100% !important;
+    width: 60% !important;
+    height: 100% !important;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent) !important;
+    transition: left 0.7s ease !important;
+}
+
+.creative-view-menu-btn:hover::before {
+    left: 140% !important;
+}
+
+.creative-view-menu-btn:hover {
+    color: #FFFFFF !important;
+    transform: translateY(-4px) scale(1.03) !important;
+    box-shadow: 0 16px 36px rgba(228, 93, 22, 0.5) !important;
+    background: linear-gradient(135deg, #F0651E 0%, #D85210 100%) !important;
+}
+
+.creative-view-menu-btn .btn-arrow-icon {
+    width: 26px !important;
+    height: 26px !important;
+    border-radius: 50% !important;
+    background: rgba(255, 255, 255, 0.22) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 18px !important;
+    transition: transform 0.3s ease, background 0.3s ease !important;
+}
+
+.creative-view-menu-btn:hover .btn-arrow-icon {
+    transform: translateX(4px) !important;
+    background: rgba(255, 255, 255, 0.35) !important;
+}
+
+/* ==========================================================================
    CREATIVE MENU HEADER BANNER & EXPANDED SEARCH BAR
    ========================================================================== */
 .tasty-menu-header-card {
