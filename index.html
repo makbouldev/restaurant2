@@ -29,7 +29,7 @@
     <link href="css/wizard.css" rel="stylesheet">
 
     <!-- YOUR CUSTOM CSS -->
-    <link href="css/custom.css?v=96.0" rel="stylesheet">
+    <link href="css/custom.css?v=98.0" rel="stylesheet">
 
 </head>
 
@@ -825,8 +825,9 @@
                 });
             }
 
-            var list = (currentCategory === 'all') ? loadedDishes.slice(0, 8) : filtered;
-            if (!list || list.length === 0) list = loadedDishes.slice(0, 8);
+            var maxHomeCount = (window.innerWidth <= 767) ? 4 : 8;
+            var list = (currentCategory === 'all') ? loadedDishes.slice(0, maxHomeCount) : filtered.slice(0, maxHomeCount);
+            if (!list || list.length === 0) list = loadedDishes.slice(0, maxHomeCount);
             
             list.forEach(function(item) {
                 var col = document.createElement('div');

@@ -1548,8 +1548,9 @@
         // 2. Target homepage menu containers (.row.magnific-gallery.homepage)
         var homeGalleries = document.querySelectorAll('.row.magnific-gallery.homepage');
         homeGalleries.forEach(function(gallery) {
+            var maxHomeCount = (window.innerWidth <= 767) ? 4 : 8;
             var itemsHtml = '';
-            dishes.slice(0, 8).forEach(function(dish) {
+            dishes.slice(0, maxHomeCount).forEach(function(dish) {
                 var imgUrl = dish.image || 'img/menu_items/1.jpg';
                 var priceText = formatPrice(dish.price || 100);
                 var catBadgeText = CATEGORY_BADGES[dish.category] || dish.category;
