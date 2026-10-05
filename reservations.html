@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Foores - Single Restaurant Version">
-    <meta name="author" content="Ansonika">
-    <title>Foores - Single Restaurant Version</title>
+    <meta name="description" content="Foores - Réservez Votre Table d'Exception à Casablanca">
+    <meta name="author" content="Foores">
+    <title>Réserver une Table - Foores Restaurant Casablanca</title>
 
     <!-- Favicons-->
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
@@ -19,18 +19,14 @@
     <!-- GOOGLE WEB FONT -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital@1&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,400&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- BASE CSS -->
     <link href="css/vendors.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
-    <!-- SPECIFIC CSS -->
-    <link href="css/wizard.css" rel="stylesheet">
-
     <!-- YOUR CUSTOM CSS -->
-    <link href="css/custom.css?v=123.0" rel="stylesheet">
-
+    <link href="css/custom.css?v=124.0" rel="stylesheet">
 </head>
 
 <body>
@@ -39,10 +35,6 @@
         <div data-loader="circle-side"></div>
     </div><!-- /Page Preload -->
 
-	<div id="loader_form">
-		<div data-loader="circle-side-2"></div>
-	</div><!-- /loader_form -->
-				
 	<header class="header clearfix element_to_stick">
         <div class="layer"></div><!-- Opacity Mask Menu Mobile -->
 		<!-- Top Header Bar -->
@@ -106,7 +98,7 @@
 										<!-- Dynamically populated by js/cart.js -->
 									</ul>
 									<div class="total_drop">
-										<div class="clearfix add_bottom_15"><strong>Total</strong><span id="nav-cart-total">.00</span></div>
+										<div class="clearfix add_bottom_15"><strong>Total</strong><span id="nav-cart-total">.00 DH</span></div>
 										<a href="shop-cart.html" class="btn_1 outline">Voir Panier</a><a href="shop-checkout.html" class="btn_1">Commander</a>
 									</div>
 								</div>
@@ -129,150 +121,318 @@
 	</header>
 	<!-- /header -->
 	
-	<main class="pattern_2">
-        <div class="container margin_120_100 pb-0">
-            <div class="row justify-content-center">
-                <div class="col-lg-6 text-center d-none d-lg-block" data-cue="slideInUp">
-                    <img src="img/chef.png" width="400" height="733" alt="" class="img-fluid">
+	<main class="creative-res-section">
+        <div class="container">
+            <!-- Hero Header -->
+            <div class="creative-res-hero">
+                <span class="res-gold-badge"><i class="bi bi-stars"></i> RÉSERSATION EN LIGNE DE PRESTIGE</span>
+                <h1>Réservez Votre Table d'Exception</h1>
+                <p>Vivez une expérience gastronomique inoubliable au cœur de Casablanca. Sélectionnez votre ambiance, vos horaires et vos attentions particulières.</p>
+            </div>
+
+            <!-- Steps Progress Bar -->
+            <div class="res-steps-bar">
+                <div class="res-step-item active" id="step-btn-1" onclick="goToStep(1)">
+                    <div class="res-step-num">1</div>
+                    <div class="res-step-label">Ambiance & Zone</div>
                 </div>
-                <div class="col-lg-6 col-md-8" data-cue="slideInUp">
-                    <div class="main_title">
-                        <span><em></em></span>
-                        <h2>Réserver une Table</h2>
-                        <p>Ou appelez-nous directement au +212 522 22 33 44</p>
-                    </div>
-                    <div id="wizard_container">
-                        <form id="wrapped" method="POST">
-                            <input id="website" name="website" type="text" value="">
-                            <!-- Leave for security protection, read docs for details -->
-                            <div id="middle-wizard">
-                                <div class="step">
-                                    <h3 class="main_question"><strong>1/3</strong> Sélectionnez une date</h3>
-                                    <div class="form-group">
-                                        <input type="hidden" name="datepicker_field" id="datepicker_field" class="required">
-                                    </div>
-                                    <div id="DatePicker"></div>
-                                </div>
-                                <!-- /step-->
-                                <div class="step">
-                                    <h3 class="main_question"><strong>2/3</strong> Heure et Nombre de Personnes</h3>
-                                    <div class="step_wrapper">
-                                        <h4>Heure</h4>
-                                        <div class="radio_select add_bottom_15">
-                                            <ul>
-                                                <li>
-                                                    <input type="radio" id="time_1" name="time" value="12:00" class="required">
-                                                    <label for="time_1">12:00</label>
-                                                </li>
-                                                <li>
-                                                    <input type="radio" id="time_2" name="time" value="12:30" class="required">
-                                                    <label for="time_2">12:30</label>
-                                                </li>
-                                                <li>
-                                                    <input type="radio" id="time_3" name="time" value="13:00" class="required">
-                                                    <label for="time_3">13:00</label>
-                                                </li>
-                                                <li>
-                                                    <input type="radio" id="time_4" name="time" value="13:30" class="required">
-                                                    <label for="time_4">13:30</label>
-                                                </li>
-                                                <li>
-                                                    <input type="radio" id="time_5" name="time" value="20:00" class="required">
-                                                    <label for="time_5">20:00</label>
-                                                </li>
-                                                <li>
-                                                    <input type="radio" id="time_6" name="time" value="20:30" class="required">
-                                                    <label for="time_6">20:30</label>
-                                                </li>
-                                                <li>
-                                                    <input type="radio" id="time_7" name="time" value="21:00" class="required">
-                                                    <label for="time_7">21:00</label>
-                                                </li>
-                                                <li>
-                                                    <input type="radio" id="time_8" name="time" value="21:30" class="required">
-                                                    <label for="time_8">21:30</label>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <!-- /time_select -->
-                                    </div>
-                                    <!-- /step_wrapper -->
-                                    <div class="step_wrapper">
-                                        <h4>Combien de personnes ?</h4>
-                                        <div class="radio_select">
-                                            <ul>
-                                                <li>
-                                                    <input type="radio" id="people_1" name="people" value="1" class="required">
-                                                    <label for="people_1">1</label>
-                                                </li>
-                                                <li>
-                                                    <input type="radio" id="people_2" name="people" value="2" class="required">
-                                                    <label for="people_2">2</label>
-                                                </li>
-                                                <li>
-                                                    <input type="radio" id="people_3" name="people" value="3" class="required">
-                                                    <label for="people_3">3</label>
-                                                </li>
-                                                <li>
-                                                    <input type="radio" id="people_4" name="people" value="4" class="required">
-                                                    <label for="people_4">4</label>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <!-- /people_select -->
-                                    </div>
-                                    <!-- /step_wrapper -->
-                                </div>
-                                <!-- /step-->
-                                <div class="submit step">
-                                    <h3 class="main_question"><strong>3/3</strong> Vos Coordonnées</h3>
-                                    <div class="form-group">
-                                        <input type="text" name="name_reserve" class="form-control required" placeholder="Nom et Prénom">
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <input type="email" name="email_reserve" class="form-control required" placeholder="Votre E-mail">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <input type="text" name="telephone_reserve" class="form-control required" placeholder="Votre Téléphone (+212)">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <textarea class="form-control" name="opt_message_reserve" placeholder="Remarques particulières (facultatif)"></textarea>
-                                    </div>
-                                    <div class="form-group terms">
-                                        <label class="container_check">J'accepte les <a href="#" data-bs-toggle="modal" data-bs-target="#terms-txt">conditions générales</a>
-                                            <input type="checkbox" name="terms" value="Yes" class="required">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <!-- /step-->
-                            </div>
-                            <!-- /middle-wizard -->
-                            <div id="bottom-wizard">
-                                <button type="button" name="backward" class="backward">Précédent</button>
-                                <button type="button" name="forward" class="forward">Suivant</button>
-                                <button type="submit" name="process" class="submit">Confirmer la Réservation</button>
-                            </div>
-                            <!-- /bottom-wizard -->
-                        </form>
-                    </div>
-                    <!-- /Wizard container -->
+                <div class="res-step-item" id="step-btn-2" onclick="goToStep(2)">
+                    <div class="res-step-num">2</div>
+                    <div class="res-step-label">Date & Heure</div>
                 </div>
+                <div class="res-step-item" id="step-btn-3" onclick="goToStep(3)">
+                    <div class="res-step-num">3</div>
+                    <div class="res-step-label">Convives & Occasion</div>
+                </div>
+                <div class="res-step-item" id="step-btn-4" onclick="goToStep(4)">
+                    <div class="res-step-num">4</div>
+                    <div class="res-step-label">Coordonnées</div>
+                </div>
+            </div>
+
+            <!-- Main Wizard Grid -->
+            <div class="row g-4">
+                <!-- Left Column: Wizard Card Steps -->
+                <div class="col-lg-7 col-xl-8">
+                    <div class="res-glass-container">
+                        
+                        <!-- STEP 1: AMBIANCE & ZONE -->
+                        <div class="res-step-pane" id="step-pane-1">
+                            <div class="res-step-title">
+                                <i class="bi bi-geo-alt-fill"></i> Choisissez Votre Ambiance
+                            </div>
+                            <div class="zone-card-grid">
+                                <div class="zone-card selected" onclick="selectZone('Terrasse Panoramique 🌅', this)">
+                                    <div class="zone-check"><i class="bi bi-check-lg"></i></div>
+                                    <span class="zone-icon">🌅</span>
+                                    <h4 class="zone-title">Terrasse Panoramique</h4>
+                                    <p class="zone-desc">Vue imprenable sur la Corniche & Coucher de soleil casablancais. Cadre plein air raffiné.</p>
+                                </div>
+                                <div class="zone-card" onclick="selectZone('Salle Royale VIP 👑', this)">
+                                    <div class="zone-check"><i class="bi bi-check-lg"></i></div>
+                                    <span class="zone-icon">👑</span>
+                                    <h4 class="zone-title">Salle Royale VIP</h4>
+                                    <p class="zone-desc">Décoration somptueuse, salons feutrés, intimité totale & service majordome personnalisé.</p>
+                                </div>
+                                <div class="zone-card" onclick="selectZone('Salon Intimiste 🕯️', this)">
+                                    <div class="zone-check"><i class="bi bi-check-lg"></i></div>
+                                    <span class="zone-icon">🕯️</span>
+                                    <h4 class="zone-title">Salon Intimiste & Cozy</h4>
+                                    <p class="zone-desc">Lumière tamisée, musique d'ambiance douce. Parfait pour les dîners romantiques en duo.</p>
+                                </div>
+                                <div class="zone-card" onclick="selectZone('Jardin d\'Hiver 🌿', this)">
+                                    <div class="zone-check"><i class="bi bi-check-lg"></i></div>
+                                    <span class="zone-icon">🌿</span>
+                                    <h4 class="zone-title">Jardin d'Hiver & Patio</h4>
+                                    <p class="zone-desc">Atmosphère verdoyante sous une superbe verrière lumineuse. Un havre de tranquillité.</p>
+                                </div>
+                            </div>
+                            <div class="res-nav-buttons">
+                                <div></div>
+                                <button type="button" class="btn-res-nav btn-res-next" onclick="goToStep(2)">Suivant : Date & Heure <i class="bi bi-arrow-right"></i></button>
+                            </div>
+                        </div>
+
+                        <!-- STEP 2: DATE & HEURE -->
+                        <div class="res-step-pane" id="step-pane-2" style="display: none;">
+                            <div class="res-step-title">
+                                <i class="bi bi-calendar-event-fill"></i> Sélectionnez Date & Horaire
+                            </div>
+                            
+                            <!-- Date Chips -->
+                            <div class="date-chips-wrapper">
+                                <div class="date-chip selected" onclick="selectQuickDate('Aujourd\'hui', this)">
+                                    <span class="day-name">Aujourd'hui</span>
+                                    <span id="date-label-today">Maintenant</span>
+                                </div>
+                                <div class="date-chip" onclick="selectQuickDate('Demain', this)">
+                                    <span class="day-name">Demain</span>
+                                    <span id="date-label-tomorrow">Demain</span>
+                                </div>
+                                <div class="date-chip" onclick="selectQuickDate('Ce Weekend', this)">
+                                    <span class="day-name">Ce Weekend</span>
+                                    <span>Samedi</span>
+                                </div>
+                                <div class="custom-date-picker-box">
+                                    <i class="bi bi-calendar3"></i>
+                                    <input type="date" id="custom-res-date" onchange="selectCustomDate(this.value)">
+                                </div>
+                            </div>
+
+                            <!-- Session Switcher -->
+                            <div class="session-tabs">
+                                <button type="button" class="session-btn active" id="session-lunch" onclick="switchSession('lunch')">
+                                    <i class="bi bi-sun-fill"></i> Déjeuner (12h - 15h)
+                                </button>
+                                <button type="button" class="session-btn" id="session-dinner" onclick="switchSession('dinner')">
+                                    <i class="bi bi-moon-stars-fill"></i> Dîner (19h30 - 23h30)
+                                </button>
+                            </div>
+
+                            <!-- Time Slots Grid -->
+                            <div class="time-slots-grid" id="time-slots-container">
+                                <!-- Populated dynamically by JavaScript -->
+                            </div>
+
+                            <div class="res-nav-buttons">
+                                <button type="button" class="btn-res-nav btn-res-prev" onclick="goToStep(1)"><i class="bi bi-arrow-left"></i> Précédent</button>
+                                <button type="button" class="btn-res-nav btn-res-next" onclick="goToStep(3)">Suivant : Convives & Services <i class="bi bi-arrow-right"></i></button>
+                            </div>
+                        </div>
+
+                        <!-- STEP 3: CONVIVES & OCCASION -->
+                        <div class="res-step-pane" id="step-pane-3" style="display: none;">
+                            <div class="res-step-title">
+                                <i class="bi bi-people-fill"></i> Convives & Attentions Particulières
+                            </div>
+
+                            <!-- Guest Counter -->
+                            <div class="guest-stepper-box">
+                                <div class="guest-stepper-info">
+                                    <h5>Nombre de Personnes</h5>
+                                    <p id="guest-type-desc">Table Romantique en duo 🍷</p>
+                                </div>
+                                <div class="guest-stepper-controls">
+                                    <button type="button" class="btn-stepper" onclick="updateGuestCount(-1)">-</button>
+                                    <span class="guest-count-val" id="guest-count-num">2</span>
+                                    <button type="button" class="btn-stepper" onclick="updateGuestCount(1)">+</button>
+                                </div>
+                            </div>
+
+                            <!-- Occasion Badges -->
+                            <h5 class="text-white mb-3 font-lora">Occasion Spéciale</h5>
+                            <div class="occasion-grid">
+                                <div class="occasion-pill selected" onclick="selectOccasion('Dîner Romantique 💍', this)">💍 Dîner Romantique</div>
+                                <div class="occasion-pill" onclick="selectOccasion('Anniversaire 🎂', this)">🎂 Anniversaire</div>
+                                <div class="occasion-pill" onclick="selectOccasion('Repas d\'Affaires 💼', this)">💼 Repas d'Affaires</div>
+                                <div class="occasion-pill" onclick="selectOccasion('Sortie entre Amis 🎉', this)">🎉 Sortie entre Amis</div>
+                                <div class="occasion-pill" onclick="selectOccasion('Découverte Gastronomique 🍽️', this)">🍽️ Découverte Gastronomique</div>
+                            </div>
+
+                            <!-- Special Touches Checkboxes -->
+                            <h5 class="text-white mb-3 font-lora">Services & Petites Attentions</h5>
+                            <div class="special-touches-wrapper">
+                                <div class="special-touch-item">
+                                    <label class="special-touch-label" for="touch-wine">
+                                        <i class="bi bi-cup-straw"></i> Accord Mets & Vins par le Sommelier
+                                    </label>
+                                    <input type="checkbox" id="touch-wine" onchange="toggleTouch('Accord Mets & Vins', this.checked)">
+                                </div>
+                                <div class="special-touch-item">
+                                    <label class="special-touch-label" for="touch-cake">
+                                        <i class="bi bi-cake2"></i> Gâteau d'Anniversaire Personnalisé du Chef
+                                    </label>
+                                    <input type="checkbox" id="touch-cake" onchange="toggleTouch('Gâteau Personnalisé', this.checked)">
+                                </div>
+                                <div class="special-touch-item">
+                                    <label class="special-touch-label" for="touch-flowers">
+                                        <i class="bi bi-flower1"></i> Bouquet de Fleurs Fraîches sur Table
+                                    </label>
+                                    <input type="checkbox" id="touch-flowers" onchange="toggleTouch('Bouquet de Fleurs', this.checked)">
+                                </div>
+                                <div class="special-touch-item">
+                                    <label class="special-touch-label" for="touch-quiet">
+                                        <i class="bi bi-stars"></i> Table VIP près de la Baie Vitrée
+                                    </label>
+                                    <input type="checkbox" id="touch-quiet" onchange="toggleTouch('Table près de la vitrée', this.checked)">
+                                </div>
+                            </div>
+
+                            <div class="res-nav-buttons">
+                                <button type="button" class="btn-res-nav btn-res-prev" onclick="goToStep(2)"><i class="bi bi-arrow-left"></i> Précédent</button>
+                                <button type="button" class="btn-res-nav btn-res-next" onclick="goToStep(4)">Suivant : Coordonnées <i class="bi bi-arrow-right"></i></button>
+                            </div>
+                        </div>
+
+                        <!-- STEP 4: COORDONNÉES & VALIDER -->
+                        <div class="res-step-pane" id="step-pane-4" style="display: none;">
+                            <div class="res-step-title">
+                                <i class="bi bi-person-bounding-box"></i> Vos Coordonnées
+                            </div>
+                            
+                            <form id="creative-res-form" onsubmit="handleReservationSubmit(event)">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label class="text-white mb-2 font-poppins fs-14">Nom et Prénom *</label>
+                                            <input type="text" id="res-input-name" class="form-control form-control-dark" placeholder="Ex: Karim Benjelloun" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-3">
+                                            <label class="text-white mb-2 font-poppins fs-14">Téléphone WhatsApp (+212) *</label>
+                                            <input type="tel" id="res-input-phone" class="form-control form-control-dark" placeholder="Ex: +212 661 234 567" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group mb-3">
+                                            <label class="text-white mb-2 font-poppins fs-14">Adresse E-mail *</label>
+                                            <input type="email" id="res-input-email" class="form-control form-control-dark" placeholder="Ex: karim@example.com" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group mb-3">
+                                            <label class="text-white mb-2 font-poppins fs-14">Remarques ou Régimes Alimentaires (facultatif)</label>
+                                            <textarea id="res-input-notes" class="form-control form-control-dark" rows="3" placeholder="Allergies, allergies aux fruits de mer, préférences particulières..."></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="res-nav-buttons">
+                                    <button type="button" class="btn-res-nav btn-res-prev" onclick="goToStep(3)"><i class="bi bi-arrow-left"></i> Précédent</button>
+                                    <button type="submit" class="btn-creative-submit m-0">
+                                        <i class="bi bi-check-circle-fill"></i> Confirmer la Réservation
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Right Column: Live Booking Summary Receipt -->
+                <div class="col-lg-5 col-xl-4">
+                    <div class="res-summary-card">
+                        <h4>
+                            <span><i class="bi bi-receipt"></i> Votre Réservation</span>
+                            <span class="badge bg-gold fs-12">VIP</span>
+                        </h4>
+
+                        <div class="res-summary-row">
+                            <span class="res-summary-label"><i class="bi bi-geo-alt"></i> Ambiance</span>
+                            <span class="res-summary-value" id="summary-zone">Terrasse Panoramique 🌅</span>
+                        </div>
+                        <div class="res-summary-row">
+                            <span class="res-summary-label"><i class="bi bi-calendar3"></i> Date</span>
+                            <span class="res-summary-value" id="summary-date">Aujourd'hui</span>
+                        </div>
+                        <div class="res-summary-row">
+                            <span class="res-summary-label"><i class="bi bi-clock"></i> Heure</span>
+                            <span class="res-summary-value" id="summary-time">20:30</span>
+                        </div>
+                        <div class="res-summary-row">
+                            <span class="res-summary-label"><i class="bi bi-people"></i> Personnes</span>
+                            <span class="res-summary-value" id="summary-guests">2 Convives</span>
+                        </div>
+                        <div class="res-summary-row">
+                            <span class="res-summary-label"><i class="bi bi-heart"></i> Occasion</span>
+                            <span class="res-summary-value" id="summary-occasion">Dîner Romantique 💍</span>
+                        </div>
+                        <div class="res-summary-row">
+                            <span class="res-summary-label"><i class="bi bi-stars"></i> Attentions</span>
+                            <span class="res-summary-value" id="summary-touches">Aucune</span>
+                        </div>
+
+                        <div class="p-3 mt-4 rounded" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">
+                            <div class="d-flex align-items-center gap-2 text-white fs-13">
+                                <i class="bi bi-shield-check text-gold fs-18"></i>
+                                <span>Confirmation immédiate par WhatsApp & E-mail. Annulation gratuite.</span>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn-creative-submit" onclick="goToStep(4)">
+                            <i class="bi bi-send-fill"></i> Valider & Réserver
+                        </button>
+                    </div>
+                </div>
+
             </div>
             <!-- /row -->
         </div>
         <!-- /container -->
-    </div>
-    <!-- /pattern_2 -->
-
 	</main>
 	<!-- /main -->
+
+    <!-- SUCCESS CONFIRMATION MODAL -->
+    <div class="modal fade res-confirm-modal" id="resSuccessModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-center">
+                <div class="modal-body p-4">
+                    <div class="res-modal-icon">
+                        <i class="bi bi-check-lg"></i>
+                    </div>
+                    <h3 class="font-lora text-white mb-2">Réservation Confirmée !</h3>
+                    <p class="text-muted fs-14 mb-3">Nous avons bien enregistré votre réservation d'exception à Foores Casablanca.</p>
+                    
+                    <div>Reference de Réservation:</div>
+                    <div class="res-modal-code" id="modal-res-code">RES-CAS-8921</div>
+                    
+                    <div class="p-3 my-3 text-start rounded" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);">
+                        <div class="text-white fs-14 mb-1"><strong id="modal-res-name">Karim Benjelloun</strong></div>
+                        <div class="text-gold fs-13 mb-1"><i class="bi bi-geo-alt-fill"></i> <span id="modal-res-zone">Terrasse Panoramique</span></div>
+                        <div class="text-muted fs-13"><i class="bi bi-calendar-event"></i> <span id="modal-res-datetime">Samedi à 20:30 (2 Personnes)</span></div>
+                    </div>
+
+                    <div class="d-flex flex-column gap-2 mt-4">
+                        <a href="#0" id="btn-whatsapp-confirm" target="_blank" class="btn float-whatsapp py-3 rounded-pill fw-bold text-white text-decoration-none d-flex align-items-center justify-content-center gap-2">
+                            <i class="bi bi-whatsapp fs-20"></i> Envoyer Confirmation WhatsApp
+                        </a>
+                        <button type="button" class="btn btn-outline-light py-2 rounded-pill mt-1 fs-14" data-bs-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 	<footer>
         <div class="frame black"></div>
@@ -333,12 +493,11 @@
                     </div>
                 </div>
             </div>
-            <p class="text-center"></p>
         </div>
     </footer>
     <!--/footer-->
 
-		<!-- Fixed Floating Buttons (WhatsApp & Reservation) -->
+	<!-- Fixed Floating Buttons (WhatsApp & Reservation) -->
 	<div class="fixed-floating-buttons">
 	    <a href="https://wa.me/212522223344" target="_blank" class="float-btn float-whatsapp" title="WhatsApp">
 	        <i class="bi bi-whatsapp"></i> <span>WhatsApp</span>
@@ -347,26 +506,216 @@
 	        <i class="icon_calendar"></i> <span>Réservation</span>
 	    </a>
 	</div>
-<div id="toTop"></div><!-- Back to top button -->
+    <div id="toTop"></div><!-- Back to top button -->
 		
 	<!-- COMMON SCRIPTS -->
     <script src="js/common_scripts.min.js"></script>
     <script src="js/common_func.js"></script>
-    <script src="phpmailer/validate.js"></script>
 
-    <script src="js/wizard/wizard_scripts.min.js"></script>
-    <script src="js/wizard/wizard_func.js"></script>
+    <script src="js/navbar.js?v=124.0"></script>
+    <script src="js/cart.js?v=124.0"></script>
 
-    <script src="js/navbar.js?v=123.0"></script>
-    <script src="js/cart.js?v=123.0"></script>
+    <!-- CREATIVE RESERVATION INTERACTIVE ENGINE -->
+    <script>
+        let currentStep = 1;
+        let reservationData = {
+            zone: "Terrasse Panoramique 🌅",
+            date: "Aujourd'hui",
+            session: "dinner",
+            time: "20:30",
+            guests: 2,
+            occasion: "Dîner Romantique 💍",
+            touches: []
+        };
+
+        const lunchSlots = ["12:00", "12:30", "13:00", "13:30", "14:00", "14:30"];
+        const dinnerSlots = ["19:30", "20:00", "20:30", "21:00", "21:30", "22:00", "22:30"];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set Today / Tomorrow dates
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(today.getDate() + 1);
+            
+            const options = { day: 'numeric', month: 'short' };
+            document.getElementById('date-label-today').innerText = today.toLocaleDateString('fr-FR', options);
+            document.getElementById('date-label-tomorrow').innerText = tomorrow.toLocaleDateString('fr-FR', options);
+            
+            // Set min date for custom date picker
+            document.getElementById('custom-res-date').min = today.toISOString().split('T')[0];
+            
+            renderTimeSlots();
+            updateSummary();
+        });
+
+        function goToStep(stepNum) {
+            currentStep = stepNum;
+            for (let i = 1; i <= 4; i++) {
+                const pane = document.getElementById(`step-pane-${i}`);
+                const btn = document.getElementById(`step-btn-${i}`);
+                if (i === stepNum) {
+                    pane.style.display = 'block';
+                    btn.classList.add('active');
+                } else {
+                    pane.style.display = 'none';
+                    btn.classList.remove('active');
+                }
+                if (i < stepNum) {
+                    btn.classList.add('completed');
+                } else {
+                    btn.classList.remove('completed');
+                }
+            }
+            window.scrollTo({ top: 150, behavior: 'smooth' });
+        }
+
+        function selectZone(zoneName, cardEl) {
+            reservationData.zone = zoneName;
+            document.querySelectorAll('.zone-card').forEach(el => el.classList.remove('selected'));
+            cardEl.classList.add('selected');
+            updateSummary();
+        }
+
+        function selectQuickDate(dateLabel, chipEl) {
+            reservationData.date = dateLabel;
+            document.querySelectorAll('.date-chip').forEach(el => el.classList.remove('selected'));
+            chipEl.classList.add('selected');
+            updateSummary();
+        }
+
+        function selectCustomDate(dateVal) {
+            if (!dateVal) return;
+            const d = new Date(dateVal);
+            reservationData.date = d.toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric', month: 'short' });
+            document.querySelectorAll('.date-chip').forEach(el => el.classList.remove('selected'));
+            updateSummary();
+        }
+
+        function switchSession(sessionType) {
+            reservationData.session = sessionType;
+            document.getElementById('session-lunch').classList.toggle('active', sessionType === 'lunch');
+            document.getElementById('session-dinner').classList.toggle('active', sessionType === 'dinner');
+            renderTimeSlots();
+        }
+
+        function renderTimeSlots() {
+            const container = document.getElementById('time-slots-container');
+            container.innerHTML = '';
+            const slots = reservationData.session === 'lunch' ? lunchSlots : dinnerSlots;
+            
+            // Auto select first slot if current not in slots
+            if (!slots.includes(reservationData.time)) {
+                reservationData.time = slots[1] || slots[0];
+            }
+
+            slots.forEach(slot => {
+                const btn = document.createElement('div');
+                btn.className = `time-slot-btn ${slot === reservationData.time ? 'selected' : ''}`;
+                btn.innerText = slot;
+                btn.onclick = function() {
+                    reservationData.time = slot;
+                    document.querySelectorAll('.time-slot-btn').forEach(el => el.classList.remove('selected'));
+                    btn.classList.add('selected');
+                    updateSummary();
+                };
+                container.appendChild(btn);
+            });
+            updateSummary();
+        }
+
+        function updateGuestCount(delta) {
+            let count = reservationData.guests + delta;
+            if (count < 1) count = 1;
+            if (count > 20) count = 20;
+            reservationData.guests = count;
+            document.getElementById('guest-count-num').innerText = count;
+
+            let desc = "Table Romantique en duo 🍷";
+            if (count >= 3 && count <= 5) desc = "Table Conviviale en petit comité 🥂";
+            else if (count >= 6 && count <= 10) desc = "Grande Table de Groupe / Famille 🎉";
+            else if (count > 10) desc = "Privatisation / Événement spécial 👑";
+
+            document.getElementById('guest-type-desc').innerText = desc;
+            updateSummary();
+        }
+
+        function selectOccasion(occasionName, pillEl) {
+            reservationData.occasion = occasionName;
+            document.querySelectorAll('.occasion-pill').forEach(el => el.classList.remove('selected'));
+            pillEl.classList.add('selected');
+            updateSummary();
+        }
+
+        function toggleTouch(touchName, isChecked) {
+            if (isChecked) {
+                if (!reservationData.touches.includes(touchName)) {
+                    reservationData.touches.push(touchName);
+                }
+            } else {
+                reservationData.touches = reservationData.touches.filter(t => t !== touchName);
+            }
+            updateSummary();
+        }
+
+        function updateSummary() {
+            document.getElementById('summary-zone').innerText = reservationData.zone;
+            document.getElementById('summary-date').innerText = reservationData.date;
+            document.getElementById('summary-time').innerText = reservationData.time;
+            document.getElementById('summary-guests').innerText = `${reservationData.guests} Convive${reservationData.guests > 1 ? 's' : ''}`;
+            document.getElementById('summary-occasion').innerText = reservationData.occasion;
+            document.getElementById('summary-touches').innerText = reservationData.touches.length > 0 ? reservationData.touches.join(', ') : 'Aucune';
+        }
+
+        function handleReservationSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('res-input-name').value.trim();
+            const phone = document.getElementById('res-input-phone').value.trim();
+            const email = document.getElementById('res-input-email').value.trim();
+            const notes = document.getElementById('res-input-notes').value.trim();
+
+            if (!name || !phone || !email) {
+                alert("Veuillez remplir tous les champs obligatoires (*).");
+                return;
+            }
+
+            // Generate Reservation Code
+            const randomId = Math.floor(1000 + Math.random() * 9000);
+            const resCode = `RES-CAS-${randomId}`;
+
+            // Fill Modal Info
+            document.getElementById('modal-res-code').innerText = resCode;
+            document.getElementById('modal-res-name').innerText = name;
+            document.getElementById('modal-res-zone').innerText = reservationData.zone;
+            document.getElementById('modal-res-datetime').innerText = `${reservationData.date} à ${reservationData.time} (${reservationData.guests} Personnes)`;
+
+            // Build WhatsApp Link
+            let waMsg = `Bonjour Foores Casablanca, je souhaite confirmer ma réservation d'exception %0A%0A`;
+            waMsg += `📌 *Code*: ${resCode}%0A`;
+            waMsg += `👤 *Nom*: ${encodeURIComponent(name)}%0A`;
+            waMsg += `📞 *Tél*: ${encodeURIComponent(phone)}%0A`;
+            waMsg += `🌅 *Ambiance*: ${encodeURIComponent(reservationData.zone)}%0A`;
+            waMsg += `📅 *Date*: ${encodeURIComponent(reservationData.date)} à ${reservationData.time}%0A`;
+            waMsg += `👥 *Convives*: ${reservationData.guests} personne(s)%0A`;
+            waMsg += `💍 *Occasion*: ${encodeURIComponent(reservationData.occasion)}%0A`;
+            if (reservationData.touches.length > 0) {
+                waMsg += `✨ *Attentions*: ${encodeURIComponent(reservationData.touches.join(', '))}%0A`;
+            }
+            if (notes) {
+                waMsg += `📝 *Notes*: ${encodeURIComponent(notes)}%0A`;
+            }
+
+            const waUrl = `https://wa.me/212522223344?text=${waMsg}`;
+            document.getElementById('btn-whatsapp-confirm').href = waUrl;
+
+            // Trigger Bootstrap Modal
+            const modalEl = document.getElementById('resSuccessModal');
+            if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+                const bsModal = new bootstrap.Modal(modalEl);
+                bsModal.show();
+            } else {
+                $(modalEl).modal('show');
+            }
+        }
+    </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
