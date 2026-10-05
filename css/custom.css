@@ -3780,3 +3780,42 @@ header.header ul#top_menu li a.cart_bt strong {
         height: 200px !important;
     }
 }
+
+/* ==========================================================================
+   ABOUT US TITLE BLOCK - CLEAN NON-OVERLAPPING TYPOGRAPHY
+   ========================================================================== */
+.about-title-block {
+    position: relative !important;
+    text-align: left !important;
+    margin-bottom: 18px !important;
+}
+
+.about-title-block .sub-tag {
+    display: block !important;
+    position: static !important;
+    color: #E45D16 !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 12.5px !important;
+    font-weight: 800 !important;
+    letter-spacing: 1.5px !important;
+    text-transform: uppercase !important;
+    margin-bottom: 6px !important;
+}
+
+.about-title-block h2 {
+    font-family: 'Lora', Georgia, serif !important;
+    font-size: 34px !important;
+    font-weight: 700 !important;
+    color: #0F172A !important;
+    margin: 0 0 8px 0 !important;
+    line-height: 1.25 !important;
+    position: static !important;
+}
+
+.about-title-block p {
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 15px !important;
+    color: #64748B !important;
+    line-height: 1.55 !important;
+    margin: 0 !important;
+}
