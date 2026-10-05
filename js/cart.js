@@ -736,6 +736,8 @@
             return false;
         }
 
+        var fullAddress = address.toLowerCase().includes('casablanca') ? address : ('Casablanca, ' + address);
+
         var cmdNum = Math.floor(1000 + Math.random() * 9000);
         var order = {
             id: 'CMD-' + cmdNum,
@@ -747,7 +749,7 @@
             customer: {
                 name: name,
                 phone: phone,
-                address: address
+                address: fullAddress
             },
             items: cart,
             itemsSummary: cart.map(function (i) { return i.quantity + 'x ' + i.title; }).join(', '),

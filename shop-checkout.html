@@ -29,7 +29,7 @@
     <link href="css/order-food.css" rel="stylesheet">
 
     <!-- YOUR CUSTOM CSS -->
-    <link href="css/custom.css?v=114.0" rel="stylesheet">
+    <link href="css/custom.css?v=115.0" rel="stylesheet">
 
 </head>
 
@@ -117,13 +117,35 @@
 		        <div class="col-xl-6 col-lg-8">
 		        	<form id="checkout-form" onsubmit="return window.FOORES_CART.processCheckout(event);">
 					    <div class="box_booking_2 style_2">
-						    <div class="head">
+						    <div class="head d-flex justify-content-between align-items-center flex-wrap gap-2">
 						        <div class="title">
-						            <h3>Coordonnées du Client</h3>
+						            <h3 class="mb-0">Coordonnées du Client</h3>
 						        </div>
+						        <span class="casa-only-pill"><i class="bi bi-geo-alt-fill"></i> Casablanca Uniquement</span>
 						    </div>
 						    <!-- /head -->
 						    <div class="main">
+						        <!-- Zone de Livraison Casablanca -->
+						        <div class="casa-delivery-zone-box mb-4">
+						            <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+						                <div class="d-flex align-items-center gap-3">
+						                    <div class="casa-icon-wrapper">
+						                        <i class="bi bi-geo-alt-fill"></i>
+						                    </div>
+						                    <div>
+						                        <div class="casa-title">Ville de Livraison</div>
+						                        <div class="casa-city-name">
+						                            Casablanca 
+						                            <span class="casa-badge-verified"><i class="bi bi-patch-check-fill me-1"></i>Zone Active</span>
+						                        </div>
+						                    </div>
+						                </div>
+						                <div class="casa-express-tag">
+						                    <i class="bi bi-scooter me-1"></i> Livraison Express 🛵
+						                </div>
+						            </div>
+						        </div>
+
 						        <div class="form-group">
 						            <label>Nom et Prénom <span class="text-danger">*</span></label>
 						            <input id="cust-name" class="form-control" type="text" placeholder="Votre nom et prénom" required>
@@ -132,9 +154,18 @@
 						            <label>Téléphone <span class="text-danger">*</span></label>
 						            <input id="cust-phone" class="form-control" type="tel" placeholder="Votre numéro de téléphone (+212)" required>
 						        </div>
-						        <div class="form-group">
+						        <div class="form-group mb-2">
 						            <label>Adresse complète de livraison <span class="text-danger">*</span></label>
-						            <input id="cust-address" class="form-control" type="text" placeholder="Adresse complète (Quartier, Rue, N° Appartement...)" required>
+						            <div class="input-group">
+						                <span class="input-group-text bg-white fw-bold text-dark border-end-0" style="font-size: 13.5px; border-color: #ced4da;">
+						                    <i class="bi bi-geo-alt-fill text-danger me-1"></i> Casablanca,
+						                </span>
+						                <input id="cust-address" class="form-control border-start-0 ps-1" type="text" placeholder="Quartier, Rue, N° Appartement..." required>
+						            </div>
+						            <div class="casa-info-note">
+						                <i class="bi bi-info-circle-fill"></i> 
+						                <span>Service de livraison disponible <strong>exclusivement sur tout le grand Casablanca</strong>.</span>
+						            </div>
 						        </div>
 						    </div>
 						</div>
@@ -256,8 +287,8 @@
     <script src="js/sticky_sidebar.min.js"></script>
     <script src="js/shop_order_func.js"></script>
 
-    <script src="js/navbar.js?v=114.0"></script>
-    <script src="js/cart.js?v=114.0"></script>
+    <script src="js/navbar.js?v=115.0"></script>
+    <script src="js/cart.js?v=115.0"></script>
 </body>
 </html>
 
