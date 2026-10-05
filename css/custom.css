@@ -4212,3 +4212,94 @@ header.header ul#top_menu li a.cart_bt strong {
         padding: 9px 18px !important;
     }
 }
+
+/* ==========================================================================
+   ENHANCED & ENLARGED FLOATING BUTTONS (WhatsApp & Réservation) v101.0
+   ========================================================================== */
+.fixed-floating-buttons {
+    position: fixed !important;
+    bottom: 24px !important;
+    right: 24px !important;
+    z-index: 999999 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;
+    gap: 12px !important;
+    pointer-events: none !important;
+}
+
+.fixed-floating-buttons .float-btn {
+    pointer-events: auto !important;
+}
+
+.float-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 13px 24px !important;
+    border-radius: 50px !important;
+    color: #ffffff !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.3px !important;
+    text-decoration: none !important;
+    border: 2px solid rgba(255, 255, 255, 0.25) !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35), 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+    transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    white-space: nowrap !important;
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+}
+
+.float-btn i {
+    font-size: 20px !important;
+    margin-right: 10px !important;
+    transition: transform 0.3s ease !important;
+}
+
+.float-btn:hover i {
+    transform: scale(1.2) rotate(-8deg) !important;
+}
+
+.float-whatsapp {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%) !important;
+    box-shadow: 0 10px 25px rgba(37, 211, 102, 0.45), 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+.float-whatsapp:hover {
+    background: linear-gradient(135deg, #28E16D 0%, #107C70 100%) !important;
+    transform: translateY(-4px) scale(1.04) !important;
+    box-shadow: 0 14px 30px rgba(37, 211, 102, 0.6) !important;
+    color: #ffffff !important;
+}
+
+.float-reservation {
+    background: linear-gradient(135deg, #E45D16 0%, #C44702 100%) !important;
+    box-shadow: 0 10px 25px rgba(228, 93, 22, 0.45), 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+.float-reservation:hover {
+    background: linear-gradient(135deg, #F36920 0%, #B03C00 100%) !important;
+    transform: translateY(-4px) scale(1.04) !important;
+    box-shadow: 0 14px 30px rgba(228, 93, 22, 0.6) !important;
+    color: #ffffff !important;
+}
+
+@media (max-width: 576px) {
+    .fixed-floating-buttons {
+        bottom: 18px !important;
+        right: 16px !important;
+        gap: 10px !important;
+    }
+    .float-btn {
+        padding: 11px 20px !important;
+        font-size: 13.5px !important;
+        font-weight: 700 !important;
+    }
+    .float-btn i {
+        font-size: 18px !important;
+        margin-right: 8px !important;
+    }
+}
+
