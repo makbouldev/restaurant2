@@ -1790,22 +1790,43 @@ header.header ul#top_menu li a.cart_bt strong {
 
 
 /* ==========================================================================
-   CREATIVE HERO SECTION (100% MATCHING REFERENCE DEMO)
+   CREATIVE ULTRA-LUXURY GASTRONOMY HERO SECTION
    ========================================================================== */
 
 .creative-hero-section {
-    background: #ffffff;
-    background-image: radial-gradient(#e5e5e5 1px, transparent 1px);
-    background-size: 26px 26px;
-    height: calc(100vh - 85px) !important;
-    max-height: calc(100vh - 85px) !important;
-    min-height: 500px;
-    padding: 0 !important;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    box-sizing: border-box;
+    background: linear-gradient(135deg, #0b132b 0%, #070c1b 50%, #111a38 100%) !important;
+    position: relative !important;
+    overflow: hidden !important;
+    display: flex !important;
+    align-items: center !important;
+    box-sizing: border-box !important;
+    height: auto !important;
+    min-height: calc(100vh - 85px) !important;
+    padding: 70px 0 80px 0 !important;
+    color: #ffffff !important;
+}
+
+/* Radial Glow Orbs */
+.hero-ambient-glow-1 {
+    position: absolute !important;
+    top: -15% !important;
+    left: -10% !important;
+    width: 55% !important;
+    height: 120% !important;
+    background: radial-gradient(circle, rgba(228, 93, 22, 0.22) 0%, rgba(11, 19, 43, 0) 70%) !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
+}
+
+.hero-ambient-glow-2 {
+    position: absolute !important;
+    bottom: -20% !important;
+    right: -5% !important;
+    width: 60% !important;
+    height: 130% !important;
+    background: radial-gradient(circle, rgba(249, 115, 22, 0.18) 0%, rgba(11, 19, 43, 0) 70%) !important;
+    pointer-events: none !important;
+    z-index: 1 !important;
 }
 
 .creative-hero-section .container {
@@ -1820,161 +1841,244 @@ header.header ul#top_menu li a.cart_bt strong {
     min-height: auto;
 }
 
-.text-orange {
-    color: #e45d16 !important;
+.hero-badge-tag {
+    display: inline-block !important;
 }
 
 .hero-badge-tag span {
-    font-size: 12px;
-    letter-spacing: 2px;
-    font-weight: 700;
+    font-size: 11.5px !important;
+    letter-spacing: 1.8px !important;
+    font-weight: 800 !important;
+    background: rgba(228, 93, 22, 0.16) !important;
+    color: #f97316 !important;
+    border: 1px solid rgba(228, 93, 22, 0.35) !important;
+    padding: 6px 18px !important;
+    border-radius: 30px !important;
+    box-shadow: 0 4px 15px rgba(228, 93, 22, 0.15) !important;
 }
 
 .hero-main-title {
     font-family: 'Playfair Display', Georgia, serif !important;
-    font-size: 52px;
-    font-weight: 700;
-    line-height: 1.12;
-    color: #111111;
-    margin-bottom: 12px !important;
+    font-size: 50px !important;
+    font-weight: 800 !important;
+    line-height: 1.15 !important;
+    color: #ffffff !important;
+    margin-bottom: 16px !important;
+    letter-spacing: -0.5px !important;
 }
 
 .hero-main-title .cursive-accent {
     font-family: 'Dancing Script', cursive !important;
-    color: #e45d16;
-    font-size: 64px;
-    font-weight: 700;
-    display: inline-block;
-    margin-left: 6px;
+    color: #f97316 !important;
+    font-size: 62px !important;
+    font-weight: 700 !important;
+    display: inline-block !important;
+    margin-left: 4px !important;
+    text-shadow: 0 0 20px rgba(249, 115, 22, 0.4) !important;
 }
 
 .hero-description {
-    font-family: 'Poppins', sans-serif;
-    font-size: 14px;
-    line-height: 1.6;
-    color: #555555;
-    max-width: 470px;
-    margin-bottom: 24px !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 15px !important;
+    line-height: 1.7 !important;
+    color: rgba(255, 255, 255, 0.82) !important;
+    max-width: 480px !important;
+    margin-bottom: 28px !important;
 }
 
 /* Hero Action Buttons */
 .btn-hero-orange {
-    background: #e45d16;
+    background: linear-gradient(135deg, #e45d16 0%, #c44702 100%) !important;
     color: #ffffff !important;
-    padding: 13px 26px;
-    border-radius: 8px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
+    padding: 14px 30px !important;
+    border-radius: 30px !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 13.5px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.6px !important;
+    text-transform: uppercase !important;
     text-decoration: none !important;
-    box-shadow: 0 6px 20px rgba(228, 93, 22, 0.35);
-    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-    display: inline-flex;
-    align-items: center;
-    border: none;
+    box-shadow: 0 10px 28px rgba(228, 93, 22, 0.45) !important;
+    transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    border: none !important;
 }
 
 .btn-hero-orange:hover {
-    background: #c74b0c;
+    background: linear-gradient(135deg, #f97316 0%, #b03c00 100%) !important;
     color: #ffffff !important;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(228, 93, 22, 0.5);
+    transform: translateY(-3px) scale(1.02) !important;
+    box-shadow: 0 14px 35px rgba(228, 93, 22, 0.65) !important;
 }
 
 .btn-hero-outline {
-    background: #ffffff;
-    color: #e45d16 !important;
-    border: 1.5px solid #e45d16;
-    padding: 12px 26px;
-    border-radius: 8px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.07) !important;
+    color: #ffffff !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.25) !important;
+    padding: 13px 30px !important;
+    border-radius: 30px !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 13.5px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.6px !important;
+    text-transform: uppercase !important;
     text-decoration: none !important;
-    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-    display: inline-flex;
-    align-items: center;
+    transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    backdrop-filter: blur(8px) !important;
 }
 
 .btn-hero-outline:hover {
-    background: #e45d16;
-    color: #ffffff !important;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(228, 93, 22, 0.3);
+    background: #ffffff !important;
+    color: #0b132b !important;
+    border-color: #ffffff !important;
+    transform: translateY(-3px) !important;
+    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.25) !important;
 }
 
 /* Feature Badges */
+.feature-item {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    padding: 8px 16px !important;
+    border-radius: 30px !important;
+    backdrop-filter: blur(8px) !important;
+    transition: all 0.3s ease !important;
+}
+
+.feature-item:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-color: rgba(228, 93, 22, 0.4) !important;
+    transform: translateY(-2px) !important;
+}
+
 .feature-icon-circle {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    background: #ffffff;
-    border: 1px solid #eee;
-    color: #111111;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 50% !important;
+    background: rgba(228, 93, 22, 0.2) !important;
+    color: #f97316 !important;
+    border: 1px solid rgba(228, 93, 22, 0.35) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 15px !important;
 }
 
 .feature-text {
-    font-family: 'Poppins', sans-serif;
-    font-size: 12px;
-    line-height: 1.2;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 12px !important;
+    line-height: 1.2 !important;
 }
 
 .feature-text strong {
-    display: block;
-    color: #111111;
-    font-weight: 700;
+    display: block !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
 }
 
 .feature-text span {
-    color: #666666;
-    font-size: 11px;
+    color: rgba(255, 255, 255, 0.65) !important;
+    font-size: 11px !important;
 }
 
-/* Right Image Column & Floating Badge */
+/* Right Image Column & Floating Cards */
 .hero-image-wrapper {
-    position: relative;
-    display: inline-block;
-    padding: 10px;
+    position: relative !important;
+    display: inline-block !important;
+    padding: 15px !important;
 }
 
 .hero-dish-img {
-    border-radius: 50%;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
-    max-width: 520px;
-    max-height: calc(100vh - 140px);
-    width: 100%;
-    height: auto;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    transition: transform 0.5s ease;
+    border-radius: 50% !important;
+    border: 5px solid rgba(255, 255, 255, 0.15) !important;
+    box-shadow: 0 0 60px rgba(228, 93, 22, 0.3), 0 25px 60px rgba(0, 0, 0, 0.6) !important;
+    max-width: 480px !important;
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1 !important;
+    object-fit: cover !important;
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
 }
 
 .hero-dish-img:hover {
-    transform: scale(1.02);
+    transform: scale(1.03) rotate(1deg) !important;
+}
+
+/* Floating Glass Cards around Image */
+.hero-floating-card {
+    position: absolute !important;
+    background: rgba(11, 19, 43, 0.85) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    color: #ffffff !important;
+    border-radius: 18px !important;
+    padding: 10px 18px !important;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4) !important;
+    z-index: 10 !important;
+    text-align: left !important;
+}
+
+.hero-floating-card.card-rating {
+    top: 20px !important;
+    left: -10px !important;
+    animation: floatSlow 5s ease-in-out infinite !important;
+}
+
+.hero-floating-card.card-rating .stars {
+    color: #ffb800 !important;
+    font-size: 13px !important;
+    margin-bottom: 2px !important;
+}
+
+.hero-floating-card.card-rating .rating-info {
+    font-size: 12px !important;
+}
+
+.hero-floating-card.card-rating .rating-info strong {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+
+.hero-floating-card.card-rating .rating-info span {
+    color: rgba(255, 255, 255, 0.65) !important;
+}
+
+.hero-floating-card.card-special {
+    bottom: 25px !important;
+    left: -5px !important;
+    animation: floatSlow 6s ease-in-out infinite 1s !important;
+}
+
+.hero-floating-card.card-special .fire-icon {
+    font-weight: 800 !important;
+    font-size: 12px !important;
+    color: #f97316 !important;
+    display: block !important;
+}
+
+.hero-floating-card.card-special small {
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-size: 11px !important;
 }
 
 /* Floating Signature Badge */
 .floating-signature-badge {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    width: 105px;
-    height: 105px;
-    border-radius: 50%;
-    background: #ffffff;
-    border: 2px dashed #e45d16;
-    padding: 5px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
-    animation: floatBadge 4s ease-in-out infinite;
+    position: absolute !important;
+    top: 15px !important;
+    right: 5px !important;
+    width: 100px !important;
+    height: 100px !important;
+    border-radius: 50% !important;
+    background: #0b132b !important;
+    border: 2px dashed #f97316 !important;
+    padding: 4px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+    animation: floatBadge 4s ease-in-out infinite !important;
+    z-index: 10 !important;
 }
 
 @keyframes floatBadge {
@@ -1982,33 +2086,38 @@ header.header ul#top_menu li a.cart_bt strong {
     50% { transform: translateY(-8px) rotate(3deg); }
 }
 
+@keyframes floatSlow {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-6px); }
+}
+
 .floating-signature-badge .badge-inner {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background: #ffffff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 50% !important;
+    background: linear-gradient(135deg, #111a38 0%, #0b132b 100%) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
 }
 
 .floating-signature-badge .badge-number {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: 26px;
-    font-weight: 800;
-    color: #111111;
-    line-height: 1;
+    font-family: 'Playfair Display', Georgia, serif !important;
+    font-size: 24px !important;
+    font-weight: 800 !important;
+    color: #f97316 !important;
+    line-height: 1 !important;
 }
 
 .floating-signature-badge .badge-label {
-    font-family: 'Poppins', sans-serif;
-    font-size: 10px;
-    font-weight: 600;
-    color: #666666;
-    line-height: 1.25;
-    margin-top: 2px;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 9.5px !important;
+    font-weight: 600 !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+    line-height: 1.25 !important;
+    margin-top: 2px !important;
 }
 
 /* ==========================================================================
@@ -2259,13 +2368,12 @@ header.header ul#top_menu li a.cart_bt strong {
         white-space: nowrap !important;
     }
 
-    /* 2. Hero Section Mobile Responsiveness (Ultra Creative & Clean) */
+    /* 2. Hero Section Mobile Responsiveness (Ultra Creative Luxury) */
     .creative-hero-section {
         height: auto !important;
         max-height: none !important;
         min-height: auto !important;
-        padding: 35px 15px 70px 15px !important;
-        background-size: 22px 22px !important;
+        padding: 40px 15px 60px 15px !important;
         text-align: center !important;
     }
 
@@ -2274,70 +2382,67 @@ header.header ul#top_menu li a.cart_bt strong {
     }
 
     .hero-badge-tag {
-        display: inline-block;
+        display: inline-block !important;
         margin: 0 auto 10px auto !important;
     }
 
     .hero-badge-tag span {
-        font-size: 11px !important;
-        letter-spacing: 2px !important;
-        background: rgba(228, 93, 22, 0.08);
-        padding: 5px 14px;
-        border-radius: 20px;
-        color: #e45d16 !important;
+        font-size: 10.5px !important;
+        letter-spacing: 1.5px !important;
+        padding: 5px 14px !important;
     }
 
     .hero-main-title {
-        font-size: 34px !important;
+        font-size: 32px !important;
         line-height: 1.18 !important;
         margin-bottom: 12px !important;
         text-align: center !important;
     }
 
     .hero-main-title .cursive-accent {
-        font-size: 42px !important;
-        display: inline-block;
+        font-size: 40px !important;
+        display: inline-block !important;
     }
 
     .hero-description {
-        font-size: 13px !important;
+        font-size: 13.5px !important;
         line-height: 1.6 !important;
         margin: 0 auto 22px auto !important;
         max-width: 100% !important;
         text-align: center !important;
+        color: rgba(255, 255, 255, 0.85) !important;
     }
 
     /* Mobile CTA Buttons */
     .hero-buttons-wrapper {
         justify-content: center !important;
-        gap: 12px !important;
+        gap: 10px !important;
         margin-bottom: 25px !important;
     }
 
     .btn-hero-orange,
     .btn-hero-outline {
-        padding: 12px 22px !important;
+        padding: 12px 20px !important;
         font-size: 12px !important;
         border-radius: 30px !important;
         justify-content: center !important;
         flex: 1 1 auto !important;
-        max-width: 170px !important;
+        max-width: 165px !important;
     }
 
-    /* Mobile Feature Badges (3 items in a single neat row) */
+    /* Mobile Feature Badges */
     .hero-features-row {
         justify-content: center !important;
         flex-wrap: wrap !important;
         gap: 8px !important;
-        margin-bottom: 30px !important;
+        margin-bottom: 25px !important;
     }
 
     .feature-item {
-        background: #ffffff !important;
+        background: rgba(255, 255, 255, 0.07) !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
         padding: 6px 12px !important;
         border-radius: 30px !important;
-        border: 1px solid #eeeeee !important;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
         flex: 0 0 auto !important;
     }
 
@@ -2345,9 +2450,6 @@ header.header ul#top_menu li a.cart_bt strong {
         width: 30px !important;
         height: 30px !important;
         font-size: 13px !important;
-        background: rgba(228, 93, 22, 0.1) !important;
-        color: #e45d16 !important;
-        border: none !important;
     }
 
     .feature-text {
@@ -2358,49 +2460,72 @@ header.header ul#top_menu li a.cart_bt strong {
     .feature-text strong {
         font-size: 11px !important;
         line-height: 1.1 !important;
+        color: #ffffff !important;
     }
 
     .feature-text span {
         font-size: 10px !important;
         line-height: 1.1 !important;
+        color: rgba(255, 255, 255, 0.7) !important;
     }
 
-    /* Mobile Dish Image & Floating Badge */
+    /* Mobile Dish Image & Floating Cards */
     .hero-image-wrapper {
         margin: 10px auto 0 auto !important;
         display: inline-block !important;
         position: relative !important;
+        padding: 10px !important;
     }
 
     .hero-dish-img {
-        max-width: 280px !important;
-        max-height: 280px !important;
-        height: 280px !important;
-        width: 280px !important;
+        max-width: 270px !important;
+        max-height: 270px !important;
+        height: 270px !important;
+        width: 270px !important;
         border-radius: 50% !important;
-        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.12), 0 8px 25px rgba(228, 93, 22, 0.15) !important;
+        border: 4px solid rgba(255, 255, 255, 0.18) !important;
+        box-shadow: 0 0 45px rgba(228, 93, 22, 0.35), 0 15px 40px rgba(0, 0, 0, 0.6) !important;
+    }
+
+    .hero-floating-card.card-rating {
+        top: 0px !important;
+        left: -10px !important;
+        padding: 6px 12px !important;
+        border-radius: 14px !important;
+    }
+
+    .hero-floating-card.card-rating .stars {
+        font-size: 10px !important;
+    }
+
+    .hero-floating-card.card-rating .rating-info {
+        font-size: 10px !important;
+    }
+
+    .hero-floating-card.card-special {
+        display: none !important;
     }
 
     .floating-signature-badge {
-        width: 82px !important;
-        height: 82px !important;
-        top: -10px !important;
-        right: -5px !important;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12) !important;
+        width: 80px !important;
+        height: 80px !important;
+        top: -5px !important;
+        right: -8px !important;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5) !important;
     }
 
     .floating-signature-badge .badge-number {
-        font-size: 20px !important;
+        font-size: 19px !important;
     }
 
     .floating-signature-badge .badge-label {
-        font-size: 8.5px !important;
+        font-size: 8px !important;
     }
 }
 
 @media (max-width: 480px) {
     .hero-main-title {
-        font-size: 28px !important;
+        font-size: 27px !important;
     }
     .hero-main-title .cursive-accent {
         font-size: 34px !important;
