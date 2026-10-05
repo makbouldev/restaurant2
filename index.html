@@ -29,7 +29,7 @@
     <link href="css/wizard.css" rel="stylesheet">
 
     <!-- YOUR CUSTOM CSS -->
-    <link href="css/custom.css?v=84.0" rel="stylesheet">
+    <link href="css/custom.css?v=85.0" rel="stylesheet">
 
 </head>
 
@@ -402,7 +402,7 @@
 		<!-- ==========================================================================
 		     SECTION 2.5: GOOGLE MAP & CREATIVE RESTAURANT ATMOSPHERE SHOWCASE
 		     ========================================================================== -->
-		<section class="creative-location-section py-5 position-relative overflow-hidden" style="background: linear-gradient(180deg, #FFFFFF 0%, #FFFDFB 100%);">
+		<section class="creative-location-section py-5 position-relative overflow-hidden" style="background: linear-gradient(180deg, #FFFDFB 0%, #F8FAFC 100%);">
 			<div class="container py-4">
 				
 				<!-- Section Header -->
@@ -412,17 +412,17 @@
 					<p class="creative-loc-desc">Découvrez notre cadre d'exception à Casablanca et plongez dans une ambiance chaleureuse, chic et raffinée.</p>
 				</div>
 
-				<div class="row g-4 align-items-center">
+				<div class="row g-4 align-items-stretch">
 					
 					<!-- Left Column: Interactive Google Map + Fast Info Card -->
-					<div class="col-lg-6">
-						<div class="map-card-wrapper position-relative">
-							<div class="map-container-box rounded-4 overflow-hidden shadow-lg border" style="height: 380px; position: relative;">
+					<div class="col-lg-6 d-flex flex-column justify-content-between">
+						<div class="map-card-wrapper position-relative h-100 d-flex flex-column justify-content-between">
+							<div class="map-container-box rounded-4 overflow-hidden shadow-lg border flex-grow-1" style="min-height: 380px; position: relative;">
 								<iframe 
 									src="https://maps.google.com/maps?q=Boulevard%20d'Anfa%20Casablanca&t=&z=15&ie=UTF8&iwloc=&output=embed" 
 									width="100%" 
 									height="100%" 
-									style="border:0; filter: contrast(1.05) saturate(1.1);" 
+									style="border:0; filter: contrast(1.05) saturate(1.1); min-height: 380px;" 
 									allowfullscreen="" 
 									loading="lazy" 
 									referrerpolicy="no-referrer-when-downgrade">
@@ -451,33 +451,24 @@
 						</div>
 					</div>
 
-					<!-- Right Column: Staggered Creative 2-Photo Showcase -->
-					<div class="col-lg-6 mt-5 mt-lg-0">
-						<div class="creative-photos-layout position-relative px-2">
+					<!-- Right Column: 2 Photos Stacked Vertically (w7da ta7t w7da) -->
+					<div class="col-lg-6">
+						<div class="d-flex flex-column gap-3 creative-stacked-photos h-100 justify-content-between">
 							
-							<!-- Main Big Photo (Interior Salle Luxury) -->
-							<div class="photo-card-main rounded-4 overflow-hidden shadow-lg position-relative">
-								<img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80" alt="Salle de Restaurant Foores" class="img-fluid main-restau-img" onerror="this.onerror=null; this.src='img/home_1.jpg';">
+							<!-- Photo 1 (Top) -->
+							<div class="stacked-photo-card rounded-4 overflow-hidden shadow-lg position-relative">
+								<img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80" alt="Salle Gastronomique Foores" class="img-fluid stacked-img" onerror="this.onerror=null; this.src='img/home_1.jpg';">
 								<div class="photo-overlay-gradient"></div>
 								<span class="photo-badge-top-left"><i class="bi bi-stars me-1 text-warning"></i> Cadre Luxury & Intimiste</span>
+								<span class="photo-badge-bottom-right"><i class="bi bi-star-fill text-warning me-1"></i> 4.9/5 (500+ Avis)</span>
 							</div>
 
-							<!-- Secondary Staggered Overlapping Photo (Terrace & Atmosphere) -->
-							<div class="photo-card-secondary rounded-4 overflow-hidden shadow-lg position-relative d-none d-sm-block">
-								<img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&auto=format&fit=crop&q=80" alt="Ambiance & Cuisine Foores" class="img-fluid second-restau-img" onerror="this.onerror=null; this.src='img/banner_1.jpg';">
+							<!-- Photo 2 (Bottom - Directly Underneath) -->
+							<div class="stacked-photo-card rounded-4 overflow-hidden shadow-lg position-relative">
+								<img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&auto=format&fit=crop&q=80" alt="Ambiance & Terrasse Foores" class="img-fluid stacked-img" onerror="this.onerror=null; this.src='img/banner_1.jpg';">
 								<div class="photo-overlay-gradient"></div>
-								<span class="photo-badge-bottom-right"><i class="bi bi-cup-hot-fill me-1 text-orange"></i> Service Attentionné</span>
-							</div>
-
-							<!-- Center Rating Floating Pill -->
-							<div class="photos-rating-pill shadow-lg">
-								<div class="d-flex align-items-center gap-2">
-									<span class="rating-stars text-warning">★★★★★</span>
-									<div class="rating-text-box">
-										<strong class="d-block lead-bold">4.9 / 5.0</strong>
-										<span class="nano-label text-muted">500+ Avis Gourmands</span>
-									</div>
-								</div>
+								<span class="photo-badge-top-left"><i class="bi bi-cup-hot-fill me-1 text-orange"></i> Terrasse & Ambiance Chaleureuse</span>
+								<span class="photo-badge-bottom-right"><i class="bi bi-heart-fill text-danger me-1"></i> Service Attentionné</span>
 							</div>
 
 						</div>
