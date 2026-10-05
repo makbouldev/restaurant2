@@ -73,10 +73,10 @@
             '        </nav>' +
             '        <div class="header-right-actions d-flex align-items-center gap-3">' +
             '            <ul id="top_menu" class="m-0 p-0 d-flex align-items-center list-unstyled">' +
-            '                <li><a href="#0" class="search-overlay-menu-btn"></a></li>' +
+            '                <li><a href="#0" class="search-overlay-menu-btn" title="Rechercher"><i class="bi bi-search"></i></a></li>' +
             '                <li>' +
             '                    <div class="dropdown dropdown-cart">' +
-            '                        <a href="shop-cart.html" class="cart_bt"><strong id="cart-count">0</strong></a>' +
+            '                        <a href="shop-cart.html" class="cart_bt" title="Panier"><i class="bi bi-bag"></i><strong id="cart-count">0</strong></a>' +
             '                        <div class="dropdown-menu">' +
             '                            <ul id="nav-cart-items">' +
             '                            </ul>' +

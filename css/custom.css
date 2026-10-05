@@ -1713,12 +1713,10 @@ header.header ul#top_menu li a.search-overlay-menu-btn {
     display: inline-block !important;
 }
 
-header.header ul#top_menu li a.cart_bt:before,
-header.header ul#top_menu li a.search-overlay-menu-btn:before {
-    color: #222222 !important;
-    position: relative !important;
-    top: 0 !important;
-    left: 0 !important;
+header.header ul#top_menu li a.cart_bt::before,
+header.header ul#top_menu li a.search-overlay-menu-btn::before {
+    display: none !important;
+    content: none !important;
 }
 
 header.header ul#top_menu li a.cart_bt strong {
@@ -2343,25 +2341,28 @@ header.header ul#top_menu li a.cart_bt strong {
         float: none !important;
     }
 
-    /* Icon Pseudo-elements (::before) centering reset */
+    /* Suppress legacy pseudo-elements ::before */
     header #top_menu a.search-overlay-menu-btn::before,
     header #top_menu a.cart_bt::before,
     a.search-overlay-menu-btn::before,
     a.cart_bt::before {
-        position: absolute !important;
-        top: 50% !important;
-        left: 50% !important;
-        transform: translate(-50%, -50%) !important;
+        display: none !important;
+        content: none !important;
+    }
+
+    /* Direct Icon Element Centering */
+    header #top_menu a.search-overlay-menu-btn i,
+    header #top_menu a.cart_bt i,
+    a.search-overlay-menu-btn i,
+    a.cart_bt i {
+        font-size: 17px !important;
+        color: #222222 !important;
+        line-height: 1 !important;
         margin: 0 !important;
         padding: 0 !important;
-        line-height: 1 !important;
-        display: flex !important;
+        display: inline-flex !important;
         align-items: center !important;
         justify-content: center !important;
-        font-size: 17px !important;
-        width: auto !important;
-        height: auto !important;
-        color: #222222 !important;
     }
 
     /* Cart Count Red/Orange Badge */
