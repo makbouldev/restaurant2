@@ -3819,3 +3819,18 @@ header.header ul#top_menu li a.cart_bt strong {
     line-height: 1.55 !important;
     margin: 0 !important;
 }
+
+.home_intro_custom {
+    padding-left: 40px !important;
+    padding-right: 40px !important;
+    max-width: 1140px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+@media (max-width: 767px) {
+    .home_intro_custom {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+}
