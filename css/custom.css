@@ -3429,7 +3429,7 @@ header.header ul#top_menu li a.cart_bt strong {
     position: relative !important;
     background: linear-gradient(135deg, #FFFDFB 0%, #FFF5EF 50%, #FFFDFB 100%) !important;
     border-radius: 26px !important;
-    padding: 36px 24px 32px 24px !important;
+    padding: 24px 20px 22px 20px !important;
     border: 1px solid rgba(228, 93, 22, 0.14) !important;
     box-shadow: 0 12px 35px rgba(228, 93, 22, 0.05) !important;
     overflow: hidden !important;
