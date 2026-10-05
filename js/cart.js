@@ -1494,7 +1494,7 @@
                 '<i class="icon_search"></i> Chercher' +
                 '</button>' +
                 '</div>' +
-                '</div>'; +
+                '</div>' +
                 '<div class="creative-category-bar-box mb-4">' +
                 '<div class="d-flex align-items-center justify-content-start justify-content-md-center gap-3 gap-md-4 overflow-auto py-2 category-scroll-container">' +
                 '<div class="category-circle-item active" data-category="all" onclick="window.FOORES_CART.filterCategory(\'all\', this)" role="button" title="Tous les Plats">' +
