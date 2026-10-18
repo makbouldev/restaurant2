@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flavorist - Dark Culinary Admin Panel</title>
-    <!-- Google Fonts: Plus Jakarta Sans -->
+    <title>Foores Restaurant - Panneau d'Administration</title>
+    <!-- Google Fonts: Fraunces & Manrope -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="/admin/styles.css?v=40.0">
+    <link rel="stylesheet" href="/admin/styles.css?v=51.0">
 </head>
 <body>
     <div class="app-container">
@@ -21,28 +21,28 @@
             <div class="sidebar-top">
                 <div class="brand-logo">
                     <div class="logo-icon-box">
-                        <i class="fa-solid fa-kitchen-set"></i>
+                        <i class="fa-solid fa-utensils"></i>
                     </div>
-                    <span class="logo-title">Foores Admin</span>
+                    <span class="logo-title"><span class="brand-name">Foores</span> <span class="brand-admin">Admin</span></span>
                 </div>
                 <button class="mobile-close-btn" id="closeSidebarBtn">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
 
-            <div class="px-3 py-2 border-bottom border-secondary border-opacity-25 mb-2">
-                <a href="/index.html" target="_blank" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: rgba(155, 128, 78, 0.2); color: #D4AF37; padding: 8px 12px; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 600; border: 1px solid rgba(155, 128, 78, 0.4); transition: all 0.3s ease;">
-                    <i class="fa-solid fa-globe"></i> <span>Voir le Site Client</span>
+            <div class="sidebar-site-link-wrapper">
+                <a href="/index.html" target="_blank" class="sidebar-site-btn">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> <span>Voir le site client</span>
                 </a>
             </div>
 
             <nav class="sidebar-menu">
                 <div class="nav-section">
-                    <span class="nav-section-title">Menu Principal</span>
+                    <span class="nav-section-title">MENU PRINCIPAL</span>
                     <ul>
                         <li class="active" data-view="home">
                             <a href="#home">
-                                <i class="fa-solid fa-gauge-high"></i>
+                                <i class="fa-solid fa-table-cells-large"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
@@ -62,7 +62,7 @@
                 </div>
 
                 <div class="nav-section">
-                    <span class="nav-section-title">Gestion & Direct</span>
+                    <span class="nav-section-title">GESTION & DIRECT</span>
                     <ul>
                         <li data-view="orders">
                             <a href="#orders">
@@ -73,22 +73,21 @@
                         <li data-view="reservations">
                             <a href="#reservations">
                                 <i class="fa-solid fa-calendar-check"></i>
-                                <span>Réservations Site</span>
-                                <span class="badge badge-alert" id="sidebarResaBadge">6</span>
+                                <span>Réservations site</span>
+                                <span class="badge badge-alert" id="sidebarResaBadge">2</span>
                             </a>
                         </li>
                         <li data-view="offers">
                             <a href="#offers">
                                 <i class="fa-solid fa-tags"></i>
-                                <span>Offres & Promos</span>
+                                <span>Offres & promos</span>
                             </a>
                         </li>
-
                     </ul>
                 </div>
 
                 <div class="nav-section">
-                    <span class="nav-section-title">Configuration</span>
+                    <span class="nav-section-title">CONFIGURATION</span>
                     <ul>
                         <li data-view="settings">
                             <a href="#settings">
@@ -102,7 +101,7 @@
 
             <div class="sidebar-footer">
                 <div class="sidebar-user-card">
-                    <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=100&auto=format&fit=crop&q=80" alt="Emma Johnson" class="user-avatar">
+                    <div class="user-avatar-initials">EJ</div>
                     <div class="user-details">
                         <span class="user-name">Emma Johnson</span>
                         <span class="user-status">Chef / Admin</span>
@@ -122,12 +121,13 @@
                 <!-- Stat Bar Header with Date Filters -->
                 <div class="kpi-header-bar">
                     <div class="kpi-header-title">
-                        <h3><i class="fa-solid fa-chart-pie text-green"></i> Aperçu des Performances Restaurant</h3>
+                        <span class="kpi-header-date">Samedi 17 octobre</span>
+                        <h1 class="page-title">Aperçu des performances</h1>
                     </div>
                     <div class="date-filter-group kpi-date-filters">
                         <button class="date-filter-btn active" data-range="today">Aujourd'hui</button>
-                        <button class="date-filter-btn" data-range="this-week">Cette Semaine</button>
-                        <button class="date-filter-btn" data-range="this-month">Ce Mois</button>
+                        <button class="date-filter-btn" data-range="this-week">Cette semaine</button>
+                        <button class="date-filter-btn" data-range="this-month">Ce mois</button>
                         <button class="date-filter-btn icon-only" id="kpiDateBtn" title="Choisir une date">
                             <i class="fa-regular fa-calendar-days"></i>
                         </button>
@@ -136,60 +136,61 @@
 
                 <!-- 4 Restaurant KPI Stat Cards -->
                 <div class="stat-cards-grid">
-                    <div class="stat-card green-card" data-kpi-type="orders">
-                        <div class="stat-icon green">
-                            <i class="fa-solid fa-bag-shopping"></i>
+                    <div class="stat-card" data-kpi-type="orders">
+                        <div class="stat-card-header">
+                            <div class="stat-icon icon-olive">
+                                <i class="fa-solid fa-bag-shopping"></i>
+                            </div>
+                            <span class="stat-title">Total commandes</span>
                         </div>
                         <div class="stat-data">
-                            <span class="stat-title">Total Commandes</span>
                             <h3 class="stat-number" id="kpiOrders">142</h3>
-                            <span class="stat-badge positive"><i class="fa-solid fa-arrow-trend-up"></i> +18.4% aujourd'hui</span>
+                            <span class="stat-badge positive"><i class="fa-solid fa-arrow-up"></i> 18,4 % <span class="badge-sub">vs hier</span></span>
                         </div>
-                        <button class="kpi-info-btn" data-kpi="orders" title="Voir l'analyse détaillée des commandes">
-                            <i class="fa-solid fa-eye"></i>
-                        </button>
                     </div>
 
-                    <div class="stat-card orange-card" data-kpi-type="reservations">
-                        <div class="stat-icon orange">
-                            <i class="fa-solid fa-chair"></i>
+                    <div class="stat-card" data-kpi-type="reservations">
+                        <div class="stat-card-header">
+                            <div class="stat-icon icon-olive">
+                                <i class="fa-solid fa-chair"></i>
+                            </div>
+                            <span class="stat-title">Réservations tables</span>
                         </div>
                         <div class="stat-data">
-                            <span class="stat-title">Réservations Tables</span>
                             <h3 class="stat-number" id="kpiReservations">28</h3>
-                            <span class="stat-badge positive"><i class="fa-solid fa-user-check"></i> 85% Occupé</span>
+                            <div class="kpi-occupancy-row">
+                                <div class="occupancy-track">
+                                    <div class="occupancy-fill" style="width: 85%;"></div>
+                                </div>
+                                <span class="occupancy-label">85 % occupé</span>
+                            </div>
                         </div>
-                        <button class="kpi-info-btn" data-kpi="reservations" title="Voir les détails des réservations">
-                            <i class="fa-solid fa-eye"></i>
-                        </button>
                     </div>
 
-                    <div class="stat-card purple-card" data-kpi-type="revenue">
-                        <div class="stat-icon purple">
-                            <i class="fa-solid fa-vault"></i>
+                    <div class="stat-card" data-kpi-type="revenue">
+                        <div class="stat-card-header">
+                            <div class="stat-icon icon-saffron">
+                                <i class="fa-solid fa-credit-card"></i>
+                            </div>
+                            <span class="stat-title">Chiffre d'affaires</span>
                         </div>
                         <div class="stat-data">
-                            <span class="stat-title">Chiffre d'Affaires</span>
-                            <h3 class="stat-number" id="kpiRevenue">14 850 DH</h3>
-                            <span class="stat-badge positive"><i class="fa-solid fa-arrow-trend-up"></i> +12.6% ce mois</span>
+                            <h3 class="stat-number"><span id="kpiRevenue">14 850</span> <span class="unit-dh">DH</span></h3>
+                            <span class="stat-badge positive"><i class="fa-solid fa-arrow-up"></i> 12,6 % <span class="badge-sub">ce mois</span></span>
                         </div>
-                        <button class="kpi-info-btn" data-kpi="revenue" title="Voir l'analyse financière">
-                            <i class="fa-solid fa-eye"></i>
-                        </button>
                     </div>
 
-                    <div class="stat-card blue-card" data-kpi-type="avgTicket">
-                        <div class="stat-icon blue">
-                            <i class="fa-solid fa-receipt"></i>
+                    <div class="stat-card" data-kpi-type="avgTicket">
+                        <div class="stat-card-header">
+                            <div class="stat-icon icon-saffron">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+                            <span class="stat-title">Panier moyen</span>
                         </div>
                         <div class="stat-data">
-                            <span class="stat-title">Panier Moyen</span>
-                            <h3 class="stat-number" id="kpiAvgTicket">245 DH</h3>
-                            <span class="stat-badge positive">★ 3.2 couverts/table</span>
+                            <h3 class="stat-number"><span id="kpiAvgTicket">245</span> <span class="unit-dh">DH</span></h3>
+                            <span class="stat-meta-text">3.2 couverts / table</span>
                         </div>
-                        <button class="kpi-info-btn" data-kpi="avgTicket" title="Voir l'analyse du panier moyen">
-                            <i class="fa-solid fa-eye"></i>
-                        </button>
                     </div>
                 </div>
 
@@ -199,17 +200,14 @@
                     <div class="featured-stats-card">
                         <div class="stats-card-top-header">
                             <div class="header-titles">
-                                <span class="tag-label"><i class="fa-solid fa-chart-simple"></i> PERFORMANCE DES COMMANDES</span>
-                                <h2 class="stats-main-title" id="statsMainTitle">Statistiques des Commandes de la Semaine</h2>
-                                <p class="stats-subtitle">Résultats en direct du volume de commandes et du chiffre d'affaires</p>
+                                <span class="tag-label">PERFORMANCE DES COMMANDES</span>
+                                <h2 class="stats-main-title" id="statsMainTitle">Commandes de la semaine</h2>
+                                <p class="stats-subtitle">Volume de commandes et chiffre d'affaires, en direct</p>
                             </div>
                             <div class="date-filter-group">
                                 <button class="date-filter-btn" data-range="today">Aujourd'hui</button>
-                                <button class="date-filter-btn active" data-range="this-week">Cette Semaine</button>
-                                <button class="date-filter-btn" data-range="this-month">Ce Mois</button>
-                                <button class="date-filter-btn icon-only" id="customDateBtn" title="Plage de date personnalisée">
-                                    <i class="fa-regular fa-calendar-days"></i>
-                                </button>
+                                <button class="date-filter-btn active" data-range="this-week">Cette semaine</button>
+                                <button class="date-filter-btn" data-range="this-month">Ce mois</button>
                             </div>
                         </div>
 
@@ -222,169 +220,163 @@
                     <!-- Side Card: Top Selling Dishes Leaderboard -->
                     <div class="side-card top-dishes-card">
                         <div class="card-top-header">
-                            <h3><i class="fa-solid fa-trophy text-gold"></i> Plats les Plus Vendus</h3>
-                            <a href="#recipes" class="link-green nav-trigger" data-target="recipes">Voir Tout</a>
+                            <h2 class="card-title">Plats les plus vendus</h2>
+                            <a href="#recipes" class="link-olive nav-trigger" data-target="recipes">Voir tout</a>
                         </div>
 
                         <div class="top-dishes-leaderboard">
                             <!-- Rank 1 (Gold) -->
                             <div class="leaderboard-item rank-1">
-                                <span class="rank-badge gold">#1</span>
-                                <img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=120&auto=format&fit=crop&q=80" alt="Garlic Pasta" class="dish-thumb">
+                                <span class="rank-badge rank-gold">1</span>
+                                <div class="dish-avatar">G</div>
                                 <div class="dish-meta-info">
                                     <h4>Garlic Parmesan Pasta</h4>
                                     <span class="dish-sub">420 vendus • 35 700 DH</span>
                                 </div>
                                 <div class="sales-meter">
-                                    <div class="sales-progress gold-bar" style="width: 95%;"></div>
+                                    <div class="sales-progress" style="width: 95%;"></div>
                                 </div>
                             </div>
 
-                            <!-- Rank 2 (Silver) -->
+                            <!-- Rank 2 (Saffron) -->
                             <div class="leaderboard-item rank-2">
-                                <span class="rank-badge silver">#2</span>
-                                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=120&auto=format&fit=crop&q=80" alt="Burger" class="dish-thumb">
+                                <span class="rank-badge rank-saffron">2</span>
+                                <div class="dish-avatar">D</div>
                                 <div class="dish-meta-info">
                                     <h4>Double Cheeseburger</h4>
                                     <span class="dish-sub">380 vendus • 32 300 DH</span>
                                 </div>
                                 <div class="sales-meter">
-                                    <div class="sales-progress silver-bar" style="width: 82%;"></div>
+                                    <div class="sales-progress" style="width: 82%;"></div>
                                 </div>
                             </div>
 
-                            <!-- Rank 3 (Bronze) -->
+                            <!-- Rank 3 (Peach #F6D8B0) -->
                             <div class="leaderboard-item rank-3">
-                                <span class="rank-badge bronze">#3</span>
-                                <img src="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=120&auto=format&fit=crop&q=80" alt="Pizza" class="dish-thumb">
+                                <span class="rank-badge rank-peach">3</span>
+                                <div class="dish-avatar">P</div>
                                 <div class="dish-meta-info">
                                     <h4>Pizza Margherita</h4>
                                     <span class="dish-sub">295 vendus • 19 175 DH</span>
                                 </div>
                                 <div class="sales-meter">
-                                    <div class="sales-progress bronze-bar" style="width: 68%;"></div>
+                                    <div class="sales-progress" style="width: 68%;"></div>
                                 </div>
                             </div>
 
-                            <!-- Rank 4 -->
-                            <div class="leaderboard-item">
-                                <span class="rank-badge">#4</span>
-                                <img src="https://images.unsplash.com/photo-1625813506062-0aeb1d7a094b?w=120&auto=format&fit=crop&q=80" alt="Chicken" class="dish-thumb">
+                            <!-- Rank 4 (Track) -->
+                            <div class="leaderboard-item rank-4">
+                                <span class="rank-badge rank-track">4</span>
+                                <div class="dish-avatar">C</div>
                                 <div class="dish-meta-info">
-                                    <h4>Crispy Chicken Spicy</h4>
+                                    <h4>Crispy Chicken</h4>
                                     <span class="dish-sub">240 vendus • 16 800 DH</span>
                                 </div>
                                 <div class="sales-meter">
-                                    <div class="sales-progress green-bar" style="width: 54%;"></div>
+                                    <div class="sales-progress" style="width: 54%;"></div>
                                 </div>
                             </div>
 
-                            <!-- Rank 5 -->
-                            <div class="leaderboard-item">
-                                <span class="rank-badge">#5</span>
-                                <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=120&auto=format&fit=crop&q=80" alt="Mojito" class="dish-thumb">
+                            <!-- Rank 5 (Track) -->
+                            <div class="leaderboard-item rank-5">
+                                <span class="rank-badge rank-track">5</span>
+                                <div class="dish-avatar">M</div>
                                 <div class="dish-meta-info">
-                                    <h4>Mojito Passion Artisanal</h4>
+                                    <h4>Mojito Passion</h4>
                                     <span class="dish-sub">210 vendus • 7 350 DH</span>
                                 </div>
                                 <div class="sales-meter">
-                                    <div class="sales-progress green-bar" style="width: 45%;"></div>
+                                    <div class="sales-progress" style="width: 45%;"></div>
                                 </div>
                             </div>
 
-                            <!-- Rank 6 -->
-                            <div class="leaderboard-item">
-                                <span class="rank-badge">#6</span>
-                                <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=120&auto=format&fit=crop&q=80" alt="Salmon" class="dish-thumb">
+                            <!-- Rank 6 (Track) -->
+                            <div class="leaderboard-item rank-6">
+                                <span class="rank-badge rank-track">6</span>
+                                <div class="dish-avatar">P</div>
                                 <div class="dish-meta-info">
-                                    <h4>Pavé de Saumon Grillé</h4>
+                                    <h4>Pavé de saumon</h4>
                                     <span class="dish-sub">185 vendus • 22 200 DH</span>
                                 </div>
                                 <div class="sales-meter">
-                                    <div class="sales-progress blue-bar" style="width: 38%;"></div>
+                                    <div class="sales-progress" style="width: 38%;"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Bottom Row Grid (Left: Financial Accounting, Right: Reservations Chart) -->
+                <!-- Bottom Row Grid (Left: Sales Channels, Right: Reservations Chart) -->
                 <div class="home-bottom-grid">
                     <!-- LEFT: Channels & Services Breakdown Card -->
                     <div class="featured-stats-card finance-accounting-card">
                         <div class="stats-card-top-header">
                             <div class="header-titles">
-                                <span class="tag-label"><i class="fa-solid fa-chart-pie text-green"></i> CANAUX DE VENTE & SERVICES</span>
-                                <h2 class="stats-main-title">Sur Place, Livraison & Emporter</h2>
-                                <p class="stats-subtitle">Répartition du Chiffre d'Affaires selon le mode de service</p>
+                                <span class="tag-label">CANAUX DE VENTE</span>
+                                <h2 class="stats-main-title">Sur place, livraison &amp; à emporter</h2>
+                                <p class="stats-subtitle">Répartition du chiffre d'affaires par mode de service</p>
                             </div>
                             <div class="finance-total-badge">
-                                <span class="label">Total Ventes</span>
+                                <span class="label">Total ventes</span>
                                 <strong id="financeTotalAmount">48 250 DH</strong>
                             </div>
                         </div>
 
-                        <!-- Services Breakdown Grid -->
-                        <div class="finance-breakdown-grid">
+                        <!-- Multi-segment progress bar: olive 60%, saffron 25%, gold 15% -->
+                        <div class="channel-multi-bar">
+                            <div class="channel-bar-seg seg-olive" style="width: 60%;"></div>
+                            <div class="channel-bar-seg seg-saffron" style="width: 25%;"></div>
+                            <div class="channel-bar-seg seg-gold" style="width: 15%;"></div>
+                        </div>
+
+                        <!-- Services Breakdown List -->
+                        <div class="channels-breakdown-list">
                             <!-- Sur Place -->
-                            <div class="payment-method-box">
-                                <div class="pay-icon-title">
-                                    <div class="pay-icon credit-card"><i class="fa-solid fa-utensils"></i></div>
-                                    <div class="pay-meta">
-                                        <span class="pay-name">Commandes Sur Place</span>
-                                        <span class="pay-pct">60% des ventes (347 comm.)</span>
+                            <div class="channel-row">
+                                <div class="channel-info">
+                                    <span class="channel-dot dot-olive"></span>
+                                    <div>
+                                        <div class="channel-name">Sur place</div>
+                                        <div class="channel-sub">60 % • 347 commandes</div>
                                     </div>
                                 </div>
-                                <div class="pay-amount-bar">
-                                    <strong id="payCardAmount">28 950 DH</strong>
-                                    <div class="pay-progress-bg"><div class="pay-progress-bar card-bar" id="payCardBar" style="width: 60%;"></div></div>
-                                </div>
+                                <div class="channel-amount" id="payCardAmount">28 950 DH</div>
                             </div>
 
                             <!-- Livraison à Domicile -->
-                            <div class="payment-method-box">
-                                <div class="pay-icon-title">
-                                    <div class="pay-icon delivery"><i class="fa-solid fa-motorcycle"></i></div>
-                                    <div class="pay-meta">
-                                        <span class="pay-name">Livraison à Domicile</span>
-                                        <span class="pay-pct">25% des ventes (145 livr.)</span>
+                            <div class="channel-row">
+                                <div class="channel-info">
+                                    <span class="channel-dot dot-saffron"></span>
+                                    <div>
+                                        <div class="channel-name">Livraison à domicile</div>
+                                        <div class="channel-sub">25 % • 145 livraisons</div>
                                     </div>
                                 </div>
-                                <div class="pay-amount-bar">
-                                    <strong id="payCashAmount">12 060 DH</strong>
-                                    <div class="pay-progress-bg"><div class="pay-progress-bar delivery-bar" id="payCashBar" style="width: 25%;"></div></div>
-                                </div>
+                                <div class="channel-amount" id="payCashAmount">12 060 DH</div>
                             </div>
 
-                            <!-- À Emporter / Drive -->
-                            <div class="payment-method-box">
-                                <div class="pay-icon-title">
-                                    <div class="pay-icon cash"><i class="fa-solid fa-bag-shopping"></i></div>
-                                    <div class="pay-meta">
-                                        <span class="pay-name">Commandes À Emporter</span>
-                                        <span class="pay-pct">15% des ventes (87 emportés)</span>
+                            <!-- À Emporter -->
+                            <div class="channel-row">
+                                <div class="channel-info">
+                                    <span class="channel-dot dot-gold"></span>
+                                    <div>
+                                        <div class="channel-name">À emporter</div>
+                                        <div class="channel-sub">15 % • 87 commandes</div>
                                     </div>
                                 </div>
-                                <div class="pay-amount-bar">
-                                    <strong id="payDeliveryAmount">7 240 DH</strong>
-                                    <div class="pay-progress-bg"><div class="pay-progress-bar cash-bar" id="payDeliveryBar" style="width: 15%;"></div></div>
-                                </div>
+                                <div class="channel-amount" id="payDeliveryAmount">7 240 DH</div>
                             </div>
                         </div>
 
                         <!-- Service Summary Chips -->
-                        <div class="finance-summary-row">
-                            <div class="fin-chip">
-                                <span class="fin-chip-label">Moyenne Sur Place</span>
-                                <strong class="fin-chip-val text-green" id="finMarginVal">285 DH</strong>
+                        <div class="channels-summary-row">
+                            <div class="channel-stat-box">
+                                <span class="stat-box-label">Moyenne livraison</span>
+                                <strong class="stat-box-val" id="finFeesVal">195 DH</strong>
                             </div>
-                            <div class="fin-chip">
-                                <span class="fin-chip-label">Moyenne Livraison</span>
-                                <strong class="fin-chip-val text-orange" id="finFeesVal">195 DH</strong>
-                            </div>
-                            <div class="fin-chip">
-                                <span class="fin-chip-label">Temps Livr. Moyen</span>
-                                <strong class="fin-chip-val text-purple" id="finNetVal">24 min</strong>
+                            <div class="channel-stat-box">
+                                <span class="stat-box-label">Temps de livraison moyen</span>
+                                <strong class="stat-box-val" id="finNetVal">24 min</strong>
                             </div>
                         </div>
                     </div>
@@ -393,17 +385,14 @@
                     <div class="featured-stats-card reservations-chart-card">
                         <div class="stats-card-top-header">
                             <div class="header-titles">
-                                <span class="tag-label"><i class="fa-solid fa-chair text-orange"></i> SUIVI DES TABLES & RÉSAS</span>
-                                <h2 class="stats-main-title" id="resaMainTitle">Statistiques des Réservations de la Semaine</h2>
-                                <p class="stats-subtitle">Évolution du nombre de tables réservées</p>
+                                <span class="tag-label">TABLES &amp; RÉSERVATIONS</span>
+                                <h2 class="stats-main-title" id="resaMainTitle">Réservations de la semaine</h2>
+                                <p class="stats-subtitle">Nombre de tables réservées par jour</p>
                             </div>
                             <div class="date-filter-group">
-                                <button class="date-filter-btn" data-resa-range="today">Aujourd'hui</button>
-                                <button class="date-filter-btn active" data-resa-range="this-week">Cette Semaine</button>
-                                <button class="date-filter-btn" data-resa-range="this-month">Ce Mois</button>
-                                <button class="date-filter-btn icon-only" id="resaDateBtn" title="Plage de date personnalisée">
-                                    <i class="fa-regular fa-calendar-days"></i>
-                                </button>
+                                <button class="date-filter-btn" data-resa-range="today">Jour</button>
+                                <button class="date-filter-btn active" data-resa-range="this-week">Semaine</button>
+                                <button class="date-filter-btn" data-resa-range="this-month">Mois</button>
                             </div>
                         </div>
 
@@ -470,7 +459,7 @@
                 <div class="categories-showcase-grid" id="categoriesGridContainer">
                     <!-- Category Card 1 -->
                     <div class="cat-card-large" data-cat-id="1" data-category="pastas">
-                        <img src="https://images.unsplash.com/photo-1621996346565-e3d5d6281274?w=500&auto=format&fit=crop&q=80" alt="Pastas & Pâtes">
+                        <img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=500&auto=format&fit=crop&q=80" alt="Pastas & Pâtes">
                         <div class="cat-action-overlay">
                             <button class="cat-action-btn edit-cat-btn" data-id="1" title="Modifier la catégorie"><i class="fa-solid fa-pen-to-square"></i></button>
                             <button class="cat-action-btn delete-btn delete-cat-btn" data-id="1" title="Supprimer la catégorie"><i class="fa-solid fa-trash-can"></i></button>
@@ -478,7 +467,7 @@
                         <div class="cat-overlay">
                             <span class="cat-icon-badge">🍝</span>
                             <h3>Pastas & Pâtes</h3>
-                            <span>0 Plat Disponible</span>
+                            <span class="cat-count-badge">0 Plat Disponible</span>
                         </div>
                     </div>
 
@@ -492,7 +481,7 @@
                         <div class="cat-overlay">
                             <span class="cat-icon-badge">🍔</span>
                             <h3>Burgers Gourmet</h3>
-                            <span>0 Plat Disponible</span>
+                            <span class="cat-count-badge">0 Plat Disponible</span>
                         </div>
                     </div>
 
@@ -506,7 +495,7 @@
                         <div class="cat-overlay">
                             <span class="cat-icon-badge">🍕</span>
                             <h3>Pizzas Italiennes</h3>
-                            <span>0 Plat Disponible</span>
+                            <span class="cat-count-badge">0 Plat Disponible</span>
                         </div>
                     </div>
 
@@ -520,7 +509,7 @@
                         <div class="cat-overlay">
                             <span class="cat-icon-badge">🥩</span>
                             <h3>Grillades & Viandes</h3>
-                            <span>0 Plat Disponible</span>
+                            <span class="cat-count-badge">0 Plat Disponible</span>
                         </div>
                     </div>
 
@@ -534,7 +523,7 @@
                         <div class="cat-overlay">
                             <span class="cat-icon-badge">🥗</span>
                             <h3>Salades Fraîches</h3>
-                            <span>0 Plat Disponible</span>
+                            <span class="cat-count-badge">0 Plat Disponible</span>
                         </div>
                     </div>
 
@@ -548,7 +537,7 @@
                         <div class="cat-overlay">
                             <span class="cat-icon-badge">🍹</span>
                             <h3>Boissons & Cocktails</h3>
-                            <span>0 Plat Disponible</span>
+                            <span class="cat-count-badge">0 Plat Disponible</span>
                         </div>
                     </div>
 
@@ -562,7 +551,7 @@
                         <div class="cat-overlay">
                             <span class="cat-icon-badge">🍰</span>
                             <h3>Desserts Gourmands</h3>
-                            <span>0 Plat Disponible</span>
+                            <span class="cat-count-badge">0 Plat Disponible</span>
                         </div>
                     </div>
 
@@ -576,7 +565,7 @@
                         <div class="cat-overlay">
                             <span class="cat-icon-badge">🍳</span>
                             <h3>Petit-déjeuner & Brunch</h3>
-                            <span>0 Plat Disponible</span>
+                            <span class="cat-count-badge">0 Plat Disponible</span>
                         </div>
                     </div>
                 </div>
@@ -635,7 +624,7 @@
                     </div>
 
                     <div class="creative-date-filter">
-                        <i class="fa-regular fa-calendar-check date-icon text-green"></i>
+                        <i class="fa-regular fa-calendar-check date-icon"></i>
                         <select id="orderDateSelect" class="creative-date-select">
                             <option value="today" selected>Aujourd'hui</option>
                             <option value="all">Toutes les dates</option>
@@ -653,9 +642,9 @@
                 <div class="orders-filter-action-bar">
                     <div class="category-pills-scroll">
                         <button class="order-pill-btn active" data-status="all">Toutes (142)</button>
-                        <button class="order-pill-btn" data-status="pending">⏳ En Attente (3)</button>
-                        <button class="order-pill-btn" data-status="cooking">🔥 En Cuisine (8)</button>
-                        <button class="order-pill-btn" data-status="completed">✅ Terminé (125)</button>
+                        <button class="order-pill-btn" data-status="pending">En Attente (3)</button>
+                        <button class="order-pill-btn" data-status="cooking">En Cuisine (8)</button>
+                        <button class="order-pill-btn" data-status="completed">Terminé (125)</button>
                     </div>
                     <button class="glow-btn-sm" id="addNewOrderBtn" onclick="openAddOrderModal()" title="Créer une nouvelle commande POS">
                         <i class="fa-solid fa-plus"></i> Commande
@@ -893,7 +882,7 @@
                     </div>
 
                     <div class="creative-date-filter">
-                        <i class="fa-regular fa-calendar-check date-icon text-green"></i>
+                        <i class="fa-regular fa-calendar-check date-icon"></i>
                         <select id="resaDateSelect" class="creative-date-select">
                             <option value="today" selected>Aujourd'hui</option>
                             <option value="all">Toutes les dates</option>
@@ -911,10 +900,10 @@
                 <div class="orders-filter-action-bar">
                     <div class="category-pills-scroll">
                         <button class="order-pill-btn resa-pill-btn active" data-resa-status="all">Toutes (28)</button>
-                        <button class="order-pill-btn resa-pill-btn" data-resa-status="pending">⏳ En Attente (6)</button>
-                        <button class="order-pill-btn resa-pill-btn" data-resa-status="confirmed">✅ Confirmées (14)</button>
-                        <button class="order-pill-btn resa-pill-btn" data-resa-status="seated">🍷 Installés (5)</button>
-                        <button class="order-pill-btn resa-pill-btn" data-resa-status="cancelled">❌ Annulées (3)</button>
+                        <button class="order-pill-btn resa-pill-btn" data-resa-status="pending">En Attente (6)</button>
+                        <button class="order-pill-btn resa-pill-btn" data-resa-status="confirmed">Confirmées (14)</button>
+                        <button class="order-pill-btn resa-pill-btn" data-resa-status="seated">Installés (5)</button>
+                        <button class="order-pill-btn resa-pill-btn" data-resa-status="cancelled">Annulées (3)</button>
                     </div>
                     <button class="glow-btn-sm" id="addNewResaBtn" title="Créer une nouvelle réservation">
                         <i class="fa-solid fa-plus"></i> Réservation
@@ -1530,7 +1519,7 @@
                             <span class="role-badge"><i class="fa-solid fa-shield-halved"></i> Super Administrateur</span>
                             <span class="status-pill-online"><i class="fa-solid fa-circle-check"></i> 2FA Actif</span>
                         </div>
-                        <p class="admin-hero-email"><i class="fa-solid fa-envelope text-green"></i> <span id="adminHeroEmailDisplay">emma.johnson@flavorist.ma</span> • <i class="fa-solid fa-phone text-blue"></i> <span id="adminHeroPhoneDisplay">+212 661-998877</span></p>
+                        <p class="admin-hero-email"><i class="fa-solid fa-envelope"></i> <span id="adminHeroEmailDisplay">emma.johnson@flavorist.ma</span> <span class="email-sep">•</span> <i class="fa-solid fa-phone"></i> <span id="adminHeroPhoneDisplay">+212 661-998877</span></p>
                         <div class="admin-meta-tags">
                             <span class="meta-tag"><i class="fa-solid fa-clock"></i> Dernière Connexion : Aujourd'hui à 10:45</span>
                             <span class="meta-tag"><i class="fa-solid fa-laptop-code"></i> IP : 197.230.112.44</span>
@@ -1545,7 +1534,9 @@
                     <!-- Card 1: Identités Admin -->
                     <div class="settings-card-dark">
                         <div class="settings-card-header">
-                            <i class="fa-solid fa-id-card text-green"></i>
+                            <div class="settings-header-icon-box">
+                                <i class="fa-solid fa-id-card"></i>
+                            </div>
                             <div>
                                 <h3>Informations Personnelles Admin</h3>
                                 <p>Identité et coordonnées du compte administrateur</p>
@@ -1553,20 +1544,20 @@
                         </div>
                         <div class="settings-card-body">
                             <div class="form-group-dark">
-                                <label><i class="fa-solid fa-user text-green"></i> Nom & Prénom Administrateur <span class="text-green">*</span></label>
+                                <label for="adminNameInput"><i class="fa-solid fa-user"></i> Nom &amp; Prénom Administrateur *</label>
                                 <input type="text" id="adminNameInput" value="Emma Johnson" placeholder="ex: Emma Johnson">
                             </div>
                             <div class="form-group-dark">
-                                <label><i class="fa-solid fa-award text-blue"></i> Titre / Rôle Professionnel</label>
-                                <input type="text" id="adminRoleInput" value="Chef Exécutif & Admin Système" placeholder="ex: Chef / Propriétaire">
+                                <label for="adminRoleInput"><i class="fa-solid fa-award"></i> Titre / Rôle Professionnel</label>
+                                <input type="text" id="adminRoleInput" value="Chef Exécutif &amp; Admin Système" placeholder="ex: Chef / Propriétaire">
                             </div>
                             <div class="form-group-dark">
-                                <label><i class="fa-solid fa-phone text-orange"></i> Numéro WhatsApp Direct</label>
+                                <label for="adminPhoneInput"><i class="fa-solid fa-phone"></i> Numéro WhatsApp Direct</label>
                                 <input type="text" id="adminPhoneInput" value="+212 661-998877" placeholder="ex: +212 661-998877">
                             </div>
                             <div class="form-group-dark">
-                                <label><i class="fa-solid fa-signature text-purple"></i> Bio / Note de Signature</label>
-                                <textarea id="adminBioInput" rows="2" placeholder="Chef de Cuisine & Gestionnaire Général de Flavorist.">Chef de Cuisine & Gestionnaire Général de Flavorist Restaurant.</textarea>
+                                <label for="adminBioInput"><i class="fa-solid fa-signature"></i> Bio / Note de Signature</label>
+                                <textarea id="adminBioInput" rows="2" placeholder="Chef de Cuisine &amp; Gestionnaire Général de Flavorist.">Chef de Cuisine &amp; Gestionnaire Général de Flavorist Restaurant.</textarea>
                             </div>
                         </div>
                     </div>
@@ -1574,19 +1565,21 @@
                     <!-- Card 2: Sécurité (Email & Mot de passe) -->
                     <div class="settings-card-dark">
                         <div class="settings-card-header">
-                            <i class="fa-solid fa-lock text-purple"></i>
+                            <div class="settings-header-icon-box saffron-theme">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
                             <div>
-                                <h3>Sécurité & Identifiants de Connexion</h3>
+                                <h3>Sécurité &amp; Identifiants de Connexion</h3>
                                 <p>Modifier votre adresse email et votre mot de passe d'accès</p>
                             </div>
                         </div>
                         <div class="settings-card-body">
                             <div class="form-group-dark">
-                                <label><i class="fa-solid fa-envelope text-purple"></i> Adresse Email Administrateur <span class="text-green">*</span></label>
+                                <label for="adminEmailInput"><i class="fa-solid fa-envelope"></i> Adresse Email Administrateur *</label>
                                 <input type="email" id="adminEmailInput" value="emma.johnson@flavorist.ma" placeholder="admin@flavorist.ma">
                             </div>
                             <div class="form-group-dark">
-                                <label><i class="fa-solid fa-key text-yellow"></i> Mot de Passe Actuel</label>
+                                <label for="adminCurrentPassInput"><i class="fa-solid fa-key"></i> Mot de Passe Actuel</label>
                                 <div class="password-input-wrapper">
                                     <input type="password" id="adminCurrentPassInput" value="Flavorist2026@Pass">
                                     <button type="button" class="toggle-pass-btn" onclick="togglePassVisibility('adminCurrentPassInput', this)"><i class="fa-solid fa-eye"></i></button>
@@ -1594,14 +1587,14 @@
                             </div>
                             <div class="date-picker-row">
                                 <div class="form-group-dark">
-                                    <label><i class="fa-solid fa-shield-halved text-green"></i> Nouveau Mot de Passe</label>
+                                    <label for="adminNewPassInput"><i class="fa-solid fa-lock"></i> Nouveau Mot de Passe</label>
                                     <div class="password-input-wrapper">
                                         <input type="password" id="adminNewPassInput" placeholder="Nouveau mot de passe">
                                         <button type="button" class="toggle-pass-btn" onclick="togglePassVisibility('adminNewPassInput', this)"><i class="fa-solid fa-eye"></i></button>
                                     </div>
                                 </div>
                                 <div class="form-group-dark">
-                                    <label><i class="fa-solid fa-check-double text-blue"></i> Confirmer Mot de Passe</label>
+                                    <label for="adminConfirmPassInput"><i class="fa-solid fa-check-double"></i> Confirmer Mot de Passe</label>
                                     <div class="password-input-wrapper">
                                         <input type="password" id="adminConfirmPassInput" placeholder="Répéter mot de passe">
                                         <button type="button" class="toggle-pass-btn" onclick="togglePassVisibility('adminConfirmPassInput', this)"><i class="fa-solid fa-eye"></i></button>
@@ -1638,43 +1631,69 @@
                     <!-- Card 3: Réseaux Sociaux & Liens Officiels -->
                     <div class="settings-card-dark">
                         <div class="settings-card-header">
-                            <i class="fa-solid fa-share-nodes text-blue"></i>
+                            <div class="settings-header-icon-box">
+                                <i class="fa-solid fa-share-nodes"></i>
+                            </div>
                             <div>
-                                <h3>Réseaux Sociaux & Liens Officiels</h3>
+                                <h3>Réseaux Sociaux &amp; Liens Officiels</h3>
                                 <p>URLs officielles du restaurant sur les réseaux sociaux et le web</p>
                             </div>
                         </div>
                         <div class="settings-card-body">
                             <div class="date-picker-row">
                                 <div class="form-group-dark">
-                                    <label><i class="fa-brands fa-instagram text-purple"></i> Instagram Officiel</label>
-                                    <input type="url" id="adminInstagramInput" value="https://instagram.com/flavorist.maroc" placeholder="https://instagram.com/...">
+                                    <label for="adminInstagramInput">Instagram Officiel</label>
+                                    <div class="social-input-wrapper">
+                                        <span class="social-input-icon"><i class="fa-brands fa-instagram"></i></span>
+                                        <input type="url" class="social-field" id="adminInstagramInput" value="https://instagram.com/flavorist.maroc" placeholder="https://instagram.com/...">
+                                        <a href="https://instagram.com/flavorist.maroc" target="_blank" class="social-test-btn" title="Ouvrir le lien"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                                    </div>
                                 </div>
                                 <div class="form-group-dark">
-                                    <label><i class="fa-brands fa-facebook text-blue"></i> Facebook Page</label>
-                                    <input type="url" id="adminFacebookInput" value="https://facebook.com/flavorist.official" placeholder="https://facebook.com/...">
-                                </div>
-                            </div>
-
-                            <div class="date-picker-row">
-                                <div class="form-group-dark">
-                                    <label><i class="fa-brands fa-tiktok text-green"></i> TikTok Officiel</label>
-                                    <input type="url" id="adminTiktokInput" value="https://tiktok.com/@flavorist_maroc" placeholder="https://tiktok.com/@...">
-                                </div>
-                                <div class="form-group-dark">
-                                    <label><i class="fa-brands fa-whatsapp text-green"></i> Lien WhatsApp Direct</label>
-                                    <input type="text" id="adminWhatsappLinkInput" value="https://wa.me/212661998877" placeholder="https://wa.me/212661998877">
+                                    <label for="adminFacebookInput">Facebook Page</label>
+                                    <div class="social-input-wrapper">
+                                        <span class="social-input-icon"><i class="fa-brands fa-facebook-f"></i></span>
+                                        <input type="url" class="social-field" id="adminFacebookInput" value="https://facebook.com/flavorist.official" placeholder="https://facebook.com/...">
+                                        <a href="https://facebook.com/flavorist.official" target="_blank" class="social-test-btn" title="Ouvrir le lien"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="date-picker-row">
                                 <div class="form-group-dark">
-                                    <label><i class="fa-solid fa-globe text-blue"></i> Site Web Officiel</label>
-                                    <input type="url" id="adminWebsiteInput" value="https://flavorist.ma" placeholder="https://flavorist.ma">
+                                    <label for="adminTiktokInput">TikTok Officiel</label>
+                                    <div class="social-input-wrapper">
+                                        <span class="social-input-icon"><i class="fa-brands fa-tiktok"></i></span>
+                                        <input type="url" class="social-field" id="adminTiktokInput" value="https://tiktok.com/@flavorist_maroc" placeholder="https://tiktok.com/@...">
+                                        <a href="https://tiktok.com/@flavorist_maroc" target="_blank" class="social-test-btn" title="Ouvrir le lien"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                                    </div>
                                 </div>
                                 <div class="form-group-dark">
-                                    <label><i class="fa-solid fa-location-dot text-orange"></i> Lien Google Maps / Localisation</label>
-                                    <input type="url" id="adminMapsInput" value="https://maps.google.com/?q=flavorist+rabat" placeholder="https://maps.google.com/...">
+                                    <label for="adminWhatsappLinkInput">Lien WhatsApp Direct</label>
+                                    <div class="social-input-wrapper">
+                                        <span class="social-input-icon"><i class="fa-brands fa-whatsapp"></i></span>
+                                        <input type="text" class="social-field" id="adminWhatsappLinkInput" value="https://wa.me/212661998877" placeholder="https://wa.me/212661998877">
+                                        <a href="https://wa.me/212661998877" target="_blank" class="social-test-btn" title="Ouvrir le lien"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="date-picker-row">
+                                <div class="form-group-dark">
+                                    <label for="adminWebsiteInput">Site Web Officiel</label>
+                                    <div class="social-input-wrapper">
+                                        <span class="social-input-icon"><i class="fa-solid fa-globe"></i></span>
+                                        <input type="url" class="social-field" id="adminWebsiteInput" value="https://flavorist.ma" placeholder="https://flavorist.ma">
+                                        <a href="https://flavorist.ma" target="_blank" class="social-test-btn" title="Ouvrir le lien"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                                    </div>
+                                </div>
+                                <div class="form-group-dark">
+                                    <label for="adminMapsInput">Lien Google Maps / Localisation</label>
+                                    <div class="social-input-wrapper">
+                                        <span class="social-input-icon"><i class="fa-solid fa-location-dot"></i></span>
+                                        <input type="url" class="social-field" id="adminMapsInput" value="https://maps.google.com/?q=flavorist+rabat" placeholder="https://maps.google.com/...">
+                                        <a href="https://maps.google.com/?q=flavorist+rabat" target="_blank" class="social-test-btn" title="Ouvrir le lien"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1754,17 +1773,17 @@
     <!-- Automatic Live Notification Popup (Order / Reservation ticker popup) -->
     <div class="live-popup-notif" id="liveNotifPopup">
         <div class="popup-icon-box" id="liveNotifIcon">
-            <i class="fa-solid fa-cart-shopping"></i>
+            <i class="fa-solid fa-receipt"></i>
         </div>
         <div class="popup-content-box">
             <div class="popup-top-line">
-                <span class="popup-title" id="liveNotifTitle">Nouvelle Commande !</span>
+                <span class="popup-title" id="liveNotifTitle"><span class="order-dot"></span> NOUVELLE COMMANDE</span>
                 <span class="popup-time" id="liveNotifTime">À l'instant</span>
             </div>
-            <p class="popup-message" id="liveNotifMsg"><strong>Sami B.</strong> vient de commander <em>Garlic Parmesan Pasta</em></p>
+            <p class="popup-message" id="liveNotifMsg"><strong>Sami Benani</strong> (en ligne) a commandé Penne Arrabbiata &amp; Salade Caesar</p>
             <div class="popup-action-row">
                 <button type="button" class="notif-confirm-btn" id="notifConfirmBtn">
-                    <i class="fa-solid fa-fire-flame-curved"></i> Confirmer & Passer en Cuisine
+                    Confirmer &amp; passer en cuisine
                 </button>
             </div>
         </div>
@@ -2219,7 +2238,7 @@
     </div>
 
     <script src="/js/dishes_data.js"></script>
-    <script src="/admin/script.js?v=40.0"></script>
+    <script src="/admin/script.js?v=45.0"></script>
 </body>
 </html>
 

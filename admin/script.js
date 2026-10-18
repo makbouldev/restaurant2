@@ -199,9 +199,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (resaCanvas && typeof Chart !== 'undefined') {
         try {
             const resaCtx = resaCanvas.getContext('2d');
-            const orangeBarGradient = resaCtx.createLinearGradient(0, 0, 0, 200);
-            orangeBarGradient.addColorStop(0, 'rgba(249, 115, 22, 0.9)');
-            orangeBarGradient.addColorStop(1, 'rgba(249, 115, 22, 0.2)');
 
             reservationsChart = new Chart(resaCtx, {
                 type: 'bar',
@@ -212,19 +209,44 @@ document.addEventListener('DOMContentLoaded', () => {
                             type: 'bar',
                             label: 'Tables Réservées',
                             data: resaDataMap['this-week'].tables,
-                            backgroundColor: orangeBarGradient,
+                            backgroundColor: '#F1A344',
                             borderRadius: 6,
-                            barThickness: 22
+                            borderSkipped: 'bottom',
+                            barThickness: 22,
+                            maxBarThickness: 26
                         }
                     ]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: { legend: { position: 'top', align: 'end', labels: { usePointStyle: true, color: '#94A3B8' } } },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#1F2A1C',
+                            titleColor: '#FFFFFF',
+                            bodyColor: '#FFFFFF',
+                            padding: 10,
+                            cornerRadius: 8
+                        }
+                    },
                     scales: {
-                        x: { type: 'category', grid: { display: false }, ticks: { color: '#64748B' } },
-                        y: { type: 'linear', grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#64748B' } }
+                        x: {
+                            type: 'category',
+                            grid: { display: false },
+                            ticks: {
+                                color: '#6B7065',
+                                font: { family: 'Manrope', size: 12, weight: '500' }
+                            }
+                        },
+                        y: {
+                            type: 'linear',
+                            grid: { color: '#ECE8DF', drawBorder: false },
+                            ticks: {
+                                color: '#6B7065',
+                                font: { family: 'Manrope', size: 11 }
+                            }
+                        }
                     }
                 }
             });
@@ -270,9 +292,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (ordersCanvas && typeof Chart !== 'undefined') {
         try {
             const ordersCtx = ordersCanvas.getContext('2d');
-            const greenBarGradient = ordersCtx.createLinearGradient(0, 0, 0, 200);
-            greenBarGradient.addColorStop(0, 'rgba(16, 185, 129, 0.9)');
-            greenBarGradient.addColorStop(1, 'rgba(16, 185, 129, 0.2)');
 
             weeklyOrdersChart = new Chart(ordersCtx, {
                 type: 'bar',
@@ -283,32 +302,88 @@ document.addEventListener('DOMContentLoaded', () => {
                             type: 'line',
                             label: 'Recettes (DH)',
                             data: masterData['this-week'].chart.revenue,
-                            borderColor: '#F97316',
+                            borderColor: '#F1A344',
                             borderWidth: 3,
-                            pointRadius: 4,
-                            pointBackgroundColor: '#F97316',
-                            tension: 0.4,
-                            yAxisID: 'y1'
+                            pointRadius: 4.5,
+                            pointHoverRadius: 6,
+                            pointBackgroundColor: '#FFFFFF',
+                            pointBorderColor: '#F1A344',
+                            pointBorderWidth: 2.5,
+                            tension: 0.35,
+                            yAxisID: 'y1',
+                            order: 1
                         },
                         {
                             type: 'bar',
                             label: 'Commandes',
                             data: masterData['this-week'].chart.orders,
-                            backgroundColor: greenBarGradient,
+                            backgroundColor: '#557945',
                             borderRadius: 6,
-                            barThickness: 22,
-                            yAxisID: 'y'
+                            borderSkipped: 'bottom',
+                            barThickness: 16,
+                            maxBarThickness: 18,
+                            yAxisID: 'y',
+                            order: 2
                         }
                     ]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: { legend: { position: 'top', align: 'end', labels: { usePointStyle: true, color: '#94A3B8' } } },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            align: 'start',
+                            labels: {
+                                usePointStyle: true,
+                                boxWidth: 8,
+                                boxHeight: 8,
+                                color: '#6B7065',
+                                font: { family: 'Manrope', size: 12, weight: '500' },
+                                padding: 16
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: '#1F2A1C',
+                            titleColor: '#FFFFFF',
+                            bodyColor: '#FFFFFF',
+                            padding: 10,
+                            cornerRadius: 8
+                        }
+                    },
                     scales: {
-                        x: { type: 'category', grid: { display: false }, ticks: { color: '#64748B' } },
-                        y: { type: 'linear', display: true, position: 'left', grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#64748B' } },
-                        y1: { type: 'linear', display: true, position: 'right', grid: { display: false }, ticks: { color: '#F97316' } }
+                        x: {
+                            type: 'category',
+                            grid: { display: false },
+                            ticks: {
+                                color: '#6B7065',
+                                font: { family: 'Manrope', size: 12, weight: '500' }
+                            }
+                        },
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            grid: { color: '#ECE8DF', drawBorder: false },
+                            ticks: {
+                                color: '#6B7065',
+                                font: { family: 'Manrope', size: 11 },
+                                stepSize: 30
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            grid: { display: false },
+                            ticks: {
+                                color: '#6B7065',
+                                font: { family: 'Manrope', size: 11 },
+                                callback: function(val) {
+                                    return val >= 1000 ? (val / 1000) + 'k' : val;
+                                }
+                            }
+                        }
                     }
                 }
             });
@@ -580,19 +655,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const liveNotificationsList = [
         {
-            title: 'Nouvelle Commande POS !',
-            icon: 'fa-cash-register',
-            theme: 'green-theme',
-            msg: '<strong>Sur Place (Table #04)</strong> a commandé <em>🍔 Double Cheeseburger & 🍹 Mojito</em>',
+            title: 'NOUVELLE COMMANDE',
+            icon: 'fa-receipt',
+            theme: '',
+            msg: '<strong>Sur Place (Table #04)</strong> a commandé <em>Double Cheeseburger & Mojito</em>',
             channel: 'sur-place',
             items: '1x Double Cheeseburger, 1x Mojito Passion',
             total: '120 DH'
         },
         {
-            title: 'Nouvelle Commande En Ligne !',
+            title: 'NOUVELLE COMMANDE',
             icon: 'fa-globe',
-            theme: 'purple-theme',
-            msg: '<strong>Sami Benani (Internet)</strong> a commandé <em>🍝 Penne Arrabbiata & 🥗 Salade Caesar</em>',
+            theme: '',
+            msg: '<strong>Sami Benani (En ligne)</strong> a commandé <em>Penne Arrabbiata & Salade Caesar</em>',
             channel: 'online',
             items: '1x Penne Arrabbiata, 1x Salade Caesar',
             total: '140 DH',
@@ -601,28 +676,28 @@ document.addEventListener('DOMContentLoaded', () => {
             address: 'Agdal, Avenue de France, Rabat'
         },
         {
-            title: 'Nouvelle Commande À Emporter !',
+            title: 'NOUVELLE COMMANDE',
             icon: 'fa-bag-shopping',
-            theme: 'orange-theme',
-            msg: '<strong>À Emporter (Comptoir)</strong> : <em>🍕 Pizza Pepperoni Truffée & 🍰 Tiramisu</em>',
+            theme: '',
+            msg: '<strong>À Emporter (Comptoir)</strong> a commandé <em>Pizza Pepperoni Truffée & Tiramisu</em>',
             channel: 'takeaway',
             items: '1x Pizza Pepperoni Truffée, 1x Tiramisu Classique',
             total: '135 DH'
         },
         {
-            title: 'Nouvelle Commande POS !',
+            title: 'NOUVELLE COMMANDE',
             icon: 'fa-utensils',
-            theme: 'green-theme',
-            msg: '<strong>Sur Place (Table #12)</strong> a commandé <em>🥩 Côte de Bœuf Grillée</em>',
+            theme: '',
+            msg: '<strong>Sur Place (Table #12)</strong> a commandé <em>Côte de Bœuf Grillée</em>',
             channel: 'sur-place',
             items: '1x Côte de Bœuf Grillée',
             total: '180 DH'
         },
         {
-            title: 'Nouvelle Commande En Ligne !',
+            title: 'NOUVELLE COMMANDE',
             icon: 'fa-globe',
-            theme: 'purple-theme',
-            msg: '<strong>Laila Benani (Internet)</strong> a commandé <em>🍝 Tagliatelle aux Truffes & 🍊 Jus d\'Orange</em>',
+            theme: '',
+            msg: '<strong>Laila Benani (En ligne)</strong> a commandé <em>Tagliatelle aux Truffes & Jus d\'Orange</em>',
             channel: 'online',
             items: '1x Tagliatelle aux Truffes, 1x Jus d\'Orange',
             total: '135 DH',
@@ -631,10 +706,10 @@ document.addEventListener('DOMContentLoaded', () => {
             address: 'Hay Riad, Villa #14, Rabat'
         },
         {
-            title: 'Nouvelle Commande À Emporter !',
+            title: 'NOUVELLE COMMANDE',
             icon: 'fa-bag-shopping',
-            theme: 'orange-theme',
-            msg: '<strong>Omar Tazi (Comptoir)</strong> a commandé <em>🍔 2x Crispy Chicken Spicy Burger</em>',
+            theme: '',
+            msg: '<strong>Omar Tazi (Comptoir)</strong> a commandé <em>2x Crispy Chicken Spicy Burger</em>',
             channel: 'takeaway',
             items: '2x Crispy Chicken Spicy Burger',
             total: '140 DH'
@@ -654,11 +729,11 @@ document.addEventListener('DOMContentLoaded', () => {
         notifIndex = (notifIndex + 1) % liveNotificationsList.length;
 
         if (liveNotifIcon) {
-            liveNotifIcon.className = `popup-icon-box ${currentNotif.theme}`;
+            liveNotifIcon.className = 'popup-icon-box';
             liveNotifIcon.innerHTML = `<i class="fa-solid ${currentNotif.icon}"></i>`;
         }
 
-        if (liveNotifTitle) liveNotifTitle.textContent = currentNotif.title;
+        if (liveNotifTitle) liveNotifTitle.innerHTML = `<span class="order-dot"></span> ${currentNotif.title}`;
         if (liveNotifTime) liveNotifTime.textContent = "À l'instant";
         if (liveNotifMsg) liveNotifMsg.innerHTML = currentNotif.msg;
 
@@ -782,12 +857,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     if (typeof updateOrderKpis === 'function') updateOrderKpis();
                     if (typeof filterOrders === 'function') filterOrders();
-                    showToast(`Commande #${lastLiveOrderCmdId} confirmée et envoyée en Cuisine 🔥`);
+                    showToast(`Commande #${lastLiveOrderCmdId} confirmée et envoyée en cuisine`);
                 } else {
                     showToast(`Commande #${lastLiveOrderCmdId} déjà envoyée en cuisine !`);
                 }
             } else {
-                showToast('Commande confirmée avec succès ! 🔥');
+                showToast('Commande confirmée avec succès !');
             }
 
             if (liveNotifPopup) liveNotifPopup.classList.remove('active');
@@ -1484,7 +1559,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const catCards = document.querySelectorAll('.cat-card-large');
         catCards.forEach(card => {
             const catKey = card.getAttribute('data-category');
-            const countSpan = card.querySelector('.cat-overlay span');
+            const countSpan = card.querySelector('.cat-count-badge') || card.querySelector('.cat-overlay span:last-child');
             if (countSpan && catKey) {
                 const count = categoryCounts[catKey] || 0;
                 countSpan.textContent = `${count} ${count === 1 ? 'Plat Disponible' : 'Plats Disponibles'}`;
@@ -1617,7 +1692,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             catCards.forEach(card => {
                 const title = card.querySelector('h3').textContent.toLowerCase();
-                const sub = card.querySelector('.cat-overlay span').textContent.toLowerCase();
+                const countSpan = card.querySelector('.cat-count-badge') || card.querySelector('.cat-overlay span:last-child');
+                const sub = countSpan ? countSpan.textContent.toLowerCase() : '';
                 if (!query || title.includes(query) || sub.includes(query)) {
                     card.style.display = 'block';
                 } else {
@@ -1754,8 +1830,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function openEditCategoryModal(card) {
         const catId = card.getAttribute('data-cat-id');
         const title = card.querySelector('h3').textContent;
-        const icon = card.querySelector('.cat-icon-badge').textContent.trim();
-        const sub = card.querySelector('.cat-overlay span').textContent;
+        const icon = card.querySelector('.cat-icon-badge') ? card.querySelector('.cat-icon-badge').textContent.trim() : '🍽️';
+        const countSpan = card.querySelector('.cat-count-badge') || card.querySelector('.cat-overlay span:last-child');
+        const sub = countSpan ? countSpan.textContent : '';
         const imgUrl = card.querySelector('img').src;
 
         if (catModalFormTitle) catModalFormTitle.innerHTML = '<i class="fa-solid fa-pen-to-square text-green"></i> Modifier la Catégorie';
@@ -1801,9 +1878,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (card) {
                     card.querySelector('img').src = imgUrl;
                     card.querySelector('img').alt = title;
-                    card.querySelector('.cat-icon-badge').textContent = icon;
+                    if (card.querySelector('.cat-icon-badge')) {
+                        card.querySelector('.cat-icon-badge').textContent = icon;
+                    }
                     card.querySelector('h3').textContent = title;
-                    card.querySelector('.cat-overlay span').textContent = sub;
+                    const countEl = card.querySelector('.cat-count-badge') || card.querySelector('.cat-overlay span:last-child');
+                    if (countEl) countEl.textContent = sub;
 
                     showToast(`La catégorie "${title}" a été mise à jour !`);
                 }
@@ -1823,7 +1903,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="cat-overlay">
                         <span class="cat-icon-badge">${icon}</span>
                         <h3>${title}</h3>
-                        <span>${sub}</span>
+                        <span class="cat-count-badge">${sub}</span>
                     </div>
                 `;
 
@@ -3605,16 +3685,36 @@ document.addEventListener('DOMContentLoaded', () => {
         const phoneInput = document.getElementById('adminPhoneInput');
         const newPass = document.getElementById('adminNewPassInput');
         const confirmPass = document.getElementById('adminConfirmPassInput');
-        const currencyInput = document.getElementById('currencyInput');
+
+        // Social Media inputs
+        const instagramInput = document.getElementById('adminInstagramInput');
+        const facebookInput = document.getElementById('adminFacebookInput');
+        const tiktokInput = document.getElementById('adminTiktokInput');
+        const whatsappInput = document.getElementById('adminWhatsappLinkInput');
+        const websiteInput = document.getElementById('adminWebsiteInput');
+        const mapsInput = document.getElementById('adminMapsInput');
 
         if (newPass && newPass.value && confirmPass && newPass.value !== confirmPass.value) {
-            showToast("⚠️ Les nouveaux mots de passe ne correspondent pas !");
+            showToast("Les nouveaux mots de passe ne correspondent pas !");
             return;
         }
 
         const nameVal = nameInput ? nameInput.value.trim() : 'Emma Johnson';
         const emailVal = emailInput ? emailInput.value.trim() : 'emma.johnson@flavorist.ma';
         const phoneVal = phoneInput ? phoneInput.value.trim() : '+212 661-998877';
+
+        // Save socials to localStorage
+        const socials = {
+            instagram: instagramInput ? instagramInput.value.trim() : '',
+            facebook: facebookInput ? facebookInput.value.trim() : '',
+            tiktok: tiktokInput ? tiktokInput.value.trim() : '',
+            whatsapp: whatsappInput ? whatsappInput.value.trim() : '',
+            website: websiteInput ? websiteInput.value.trim() : '',
+            maps: mapsInput ? mapsInput.value.trim() : ''
+        };
+        try {
+            localStorage.setItem('restaurant_socials', JSON.stringify(socials));
+        } catch(err) {}
 
         // Update displays
         const heroName = document.getElementById('adminHeroName');
@@ -3630,9 +3730,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (newPass && newPass.value) {
             newPass.value = '';
             if (confirmPass) confirmPass.value = '';
-            showToast("🔑 Mot de passe administrateur et paramètres mis à jour avec succès !");
+            showToast("Mot de passe et paramètres mis à jour avec succès !");
         } else {
-            showToast("✅ Paramètres Admin enregistrés avec succès !");
+            showToast("Paramètres et réseaux sociaux enregistrés avec succès !");
         }
     };
 
@@ -3643,7 +3743,73 @@ document.addEventListener('DOMContentLoaded', () => {
         if (nameInput) nameInput.value = 'Emma Johnson';
         if (emailInput) emailInput.value = 'emma.johnson@flavorist.ma';
         if (phoneInput) phoneInput.value = '+212 661-998877';
+
+        const defaults = {
+            instagram: 'https://instagram.com/flavorist.maroc',
+            facebook: 'https://facebook.com/flavorist.official',
+            tiktok: 'https://tiktok.com/@flavorist_maroc',
+            whatsapp: 'https://wa.me/212661998877',
+            website: 'https://flavorist.ma',
+            maps: 'https://maps.google.com/?q=flavorist+rabat'
+        };
+        const instagramInput = document.getElementById('adminInstagramInput');
+        const facebookInput = document.getElementById('adminFacebookInput');
+        const tiktokInput = document.getElementById('adminTiktokInput');
+        const whatsappInput = document.getElementById('adminWhatsappLinkInput');
+        const websiteInput = document.getElementById('adminWebsiteInput');
+        const mapsInput = document.getElementById('adminMapsInput');
+
+        if (instagramInput) instagramInput.value = defaults.instagram;
+        if (facebookInput) facebookInput.value = defaults.facebook;
+        if (tiktokInput) tiktokInput.value = defaults.tiktok;
+        if (whatsappInput) whatsappInput.value = defaults.whatsapp;
+        if (websiteInput) websiteInput.value = defaults.website;
+        if (mapsInput) mapsInput.value = defaults.maps;
+
+        document.querySelectorAll('.social-input-wrapper').forEach(wrapper => {
+            const input = wrapper.querySelector('input');
+            const link = wrapper.querySelector('.social-test-btn');
+            if (input && link) link.href = input.value || '#0';
+        });
+
+        try {
+            localStorage.setItem('restaurant_socials', JSON.stringify(defaults));
+        } catch(err) {}
+
         showToast("Paramètres réinitialisés aux valeurs par défaut.");
     };
+
+    // Load saved social media links & live test button sync
+    (function initSocialMediaInputs() {
+        try {
+            const saved = localStorage.getItem('restaurant_socials');
+            if (saved) {
+                const s = JSON.parse(saved);
+                const ig = document.getElementById('adminInstagramInput');
+                const fb = document.getElementById('adminFacebookInput');
+                const tk = document.getElementById('adminTiktokInput');
+                const wa = document.getElementById('adminWhatsappLinkInput');
+                const web = document.getElementById('adminWebsiteInput');
+                const mp = document.getElementById('adminMapsInput');
+                if (ig && s.instagram) ig.value = s.instagram;
+                if (fb && s.facebook) fb.value = s.facebook;
+                if (tk && s.tiktok) tk.value = s.tiktok;
+                if (wa && s.whatsapp) wa.value = s.whatsapp;
+                if (web && s.website) web.value = s.website;
+                if (mp && s.maps) mp.value = s.maps;
+            }
+        } catch(e) {}
+
+        document.querySelectorAll('.social-input-wrapper').forEach(wrapper => {
+            const input = wrapper.querySelector('input');
+            const link = wrapper.querySelector('.social-test-btn');
+            if (input && link) {
+                link.href = input.value || '#0';
+                input.addEventListener('input', () => {
+                    link.href = input.value || '#0';
+                });
+            }
+        });
+    })();
 });
 
