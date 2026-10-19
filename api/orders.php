@@ -8,13 +8,13 @@ $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 switch ($method) {
     case 'GET':
         try {
-            $stmt = $pdo->query("SELECT * FROM `orders` ORDER BY `id` DESC");
+            $stmt = $pdo->query("SELECT * FROM orders ORDER BY id DESC");
             $orders = $stmt->fetchAll();
 
             $formattedOrders = array_map(function($o) {
                 $items = [];
                 if (!empty($o['items_json'])) {
-                    $decoded = json_decode($o['items_json'], true);
+                    $decoded = is_string($o['items_json']) ? json_decode($o['items_json'], true) : $o['items_json'];
                     if (is_array($decoded)) $items = $decoded;
                 }
 
@@ -71,17 +71,31 @@ switch ($method) {
         $itemsJson = is_string($items) ? $items : json_encode($items, JSON_UNESCAPED_UNICODE);
 
         try {
-            $stmt = $pdo->prepare("INSERT INTO `orders` 
-                (`cmd_id`, `date_str`, `time_str`, `customer_name`, `customer_phone`, `customer_address`, `items_json`, `total_price`, `payment_method`, `status`, `channel`, `created_at`)
-                VALUES (:cmd_id, :date_str, :time_str, :customer_name, :customer_phone, :customer_address, :items_json, :total_price, :payment_method, :status, :channel, :created_at)
-                ON DUPLICATE KEY UPDATE
-                `customer_name` = VALUES(`customer_name`),
-                `customer_phone` = VALUES(`customer_phone`),
-                `customer_address` = VALUES(`customer_address`),
-                `items_json` = VALUES(`items_json`),
-                `total_price` = VALUES(`total_price`),
-                `status` = VALUES(`status`)");
+            if ($db_driver === 'pgsql') {
+                $sql = "INSERT INTO orders 
+                    (cmd_id, date_str, time_str, customer_name, customer_phone, customer_address, items_json, total_price, payment_method, status, channel, created_at)
+                    VALUES (:cmd_id, :date_str, :time_str, :customer_name, :customer_phone, :customer_address, :items_json, :total_price, :payment_method, :status, :channel, :created_at)
+                    ON CONFLICT (cmd_id) DO UPDATE SET
+                    customer_name = EXCLUDED.customer_name,
+                    customer_phone = EXCLUDED.customer_phone,
+                    customer_address = EXCLUDED.customer_address,
+                    items_json = EXCLUDED.items_json,
+                    total_price = EXCLUDED.total_price,
+                    status = EXCLUDED.status";
+            } else {
+                $sql = "INSERT INTO orders 
+                    (cmd_id, date_str, time_str, customer_name, customer_phone, customer_address, items_json, total_price, payment_method, status, channel, created_at)
+                    VALUES (:cmd_id, :date_str, :time_str, :customer_name, :customer_phone, :customer_address, :items_json, :total_price, :payment_method, :status, :channel, :created_at)
+                    ON DUPLICATE KEY UPDATE
+                    customer_name = VALUES(customer_name),
+                    customer_phone = VALUES(customer_phone),
+                    customer_address = VALUES(customer_address),
+                    items_json = VALUES(items_json),
+                    total_price = VALUES(total_price),
+                    status = VALUES(status)";
+            }
 
+            $stmt = $pdo->prepare($sql);
             $stmt->execute([
                 'cmd_id' => $cmdId,
                 'date_str' => $dateStr,
@@ -99,7 +113,7 @@ switch ($method) {
 
             echo json_encode([
                 'status' => 'success',
-                'message' => 'Commande enregistrée dans MySQL avec succès !',
+                'message' => 'Commande enregistrée dans Neon Cloud avec succès !',
                 'cmdId' => $cmdId
             ], JSON_UNESCAPED_UNICODE);
         } catch (Exception $e) {
@@ -121,7 +135,7 @@ switch ($method) {
         }
 
         try {
-            $stmt = $pdo->prepare("UPDATE `orders` SET `status` = :status WHERE `cmd_id` = :cmd_id");
+            $stmt = $pdo->prepare("UPDATE orders SET status = :status WHERE cmd_id = :cmd_id");
             $stmt->execute(['status' => $newStatus, 'cmd_id' => $cmdId]);
 
             echo json_encode(['status' => 'success', 'message' => 'Statut commande mis à jour !']);
@@ -145,7 +159,7 @@ switch ($method) {
         }
 
         try {
-            $stmt = $pdo->prepare("DELETE FROM `orders` WHERE `cmd_id` = :cmd_id");
+            $stmt = $pdo->prepare("DELETE FROM orders WHERE cmd_id = :cmd_id");
             $stmt->execute(['cmd_id' => $cmdId]);
 
             echo json_encode(['status' => 'success', 'message' => 'Commande supprimée avec succès']);

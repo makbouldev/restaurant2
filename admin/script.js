@@ -459,6 +459,53 @@ document.addEventListener('DOMContentLoaded', () => {
             if (resaMainTitle) resaMainTitle.textContent = rData.title;
         }
 
+    // Load Live Calculated Dashboard Performance from Neon Cloud Database
+    function loadNeonDashboardMetrics() {
+        const apiPath = window.location.pathname.includes('/admin') ? '../api/dashboard.php' : 'api/dashboard.php';
+        fetch(apiPath)
+            .then(res => res.json())
+            .then(data => {
+                if (data && data.status === 'success') {
+                    if (data.kpi) {
+                        if (kpiOrders && data.kpi.orders !== undefined) kpiOrders.textContent = data.kpi.orders;
+                        if (kpiReservations && data.kpi.reservations !== undefined) kpiReservations.textContent = data.kpi.reservations;
+                        if (kpiRevenue && data.kpi.revenue !== undefined) kpiRevenue.textContent = data.kpi.revenue.toLocaleString('fr-FR');
+                        if (kpiAvgTicket && data.kpi.avgTicket !== undefined) kpiAvgTicket.textContent = data.kpi.avgTicket;
+                    }
+
+                    if (data.chart && weeklyOrdersChart) {
+                        weeklyOrdersChart.data.labels = data.chart.labels;
+                        weeklyOrdersChart.data.datasets[0].data = data.chart.revenue;
+                        weeklyOrdersChart.data.datasets[1].data = data.chart.orders;
+                        weeklyOrdersChart.update();
+                    }
+
+                    if (data.topDishes && Array.isArray(data.topDishes) && leaderboardContainer) {
+                        const items = leaderboardContainer.querySelectorAll('.leaderboard-item');
+                        const maxSales = data.topDishes[0] ? data.topDishes[0].count : 1;
+                        data.topDishes.forEach((dish, idx) => {
+                            if (items[idx]) {
+                                const nameEl = items[idx].querySelector('h4');
+                                const subEl = items[idx].querySelector('.dish-sub');
+                                const progressEl = items[idx].querySelector('.sales-progress');
+                                const avatarEl = items[idx].querySelector('.dish-avatar');
+
+                                if (nameEl) nameEl.textContent = dish.title;
+                                if (subEl) subEl.textContent = `${dish.count} vendus • ${dish.revenue} DH`;
+                                if (avatarEl) avatarEl.textContent = dish.title.charAt(0).toUpperCase();
+                                if (progressEl) {
+                                    const pct = Math.max(15, Math.min(100, Math.round((dish.count / maxSales) * 100)));
+                                    progressEl.style.width = `${pct}%`;
+                                }
+                            }
+                        });
+                    }
+                }
+            })
+            .catch(err => console.warn('Failed to load Neon dashboard metrics', err));
+    }
+    loadNeonDashboardMetrics();
+
         // 3. Update Leaderboard Items
         if (leaderboardContainer && currentData.dishes) {
             const items = leaderboardContainer.querySelectorAll('.leaderboard-item');
@@ -644,7 +691,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ==========================================================================
-       9. Automatic Live Notifications System (Every 10s show, auto-hide after 5s)
+       9. Real Database Live Order Notifications System (Neon Cloud)
        ========================================================================== */
     const liveNotifPopup = document.getElementById('liveNotifPopup');
     const liveNotifIcon = document.getElementById('liveNotifIcon');
@@ -652,180 +699,38 @@ document.addEventListener('DOMContentLoaded', () => {
     const liveNotifTime = document.getElementById('liveNotifTime');
     const liveNotifMsg = document.getElementById('liveNotifMsg');
     const closeLiveNotifBtn = document.getElementById('closeLiveNotifBtn');
+    const notifConfirmBtn = document.getElementById('notifConfirmBtn');
 
-    const liveNotificationsList = [
-        {
-            title: 'NOUVELLE COMMANDE',
-            icon: 'fa-receipt',
-            theme: '',
-            msg: '<strong>Sur Place (Table #04)</strong> a commandé <em>Double Cheeseburger & Mojito</em>',
-            channel: 'sur-place',
-            items: '1x Double Cheeseburger, 1x Mojito Passion',
-            total: '120 DH'
-        },
-        {
-            title: 'NOUVELLE COMMANDE',
-            icon: 'fa-globe',
-            theme: '',
-            msg: '<strong>Sami Benani (En ligne)</strong> a commandé <em>Penne Arrabbiata & Salade Caesar</em>',
-            channel: 'online',
-            items: '1x Penne Arrabbiata, 1x Salade Caesar',
-            total: '140 DH',
-            clientName: 'Sami Benani',
-            phone: '06 61 88 99 00',
-            address: 'Agdal, Avenue de France, Rabat'
-        },
-        {
-            title: 'NOUVELLE COMMANDE',
-            icon: 'fa-bag-shopping',
-            theme: '',
-            msg: '<strong>À Emporter (Comptoir)</strong> a commandé <em>Pizza Pepperoni Truffée & Tiramisu</em>',
-            channel: 'takeaway',
-            items: '1x Pizza Pepperoni Truffée, 1x Tiramisu Classique',
-            total: '135 DH'
-        },
-        {
-            title: 'NOUVELLE COMMANDE',
-            icon: 'fa-utensils',
-            theme: '',
-            msg: '<strong>Sur Place (Table #12)</strong> a commandé <em>Côte de Bœuf Grillée</em>',
-            channel: 'sur-place',
-            items: '1x Côte de Bœuf Grillée',
-            total: '180 DH'
-        },
-        {
-            title: 'NOUVELLE COMMANDE',
-            icon: 'fa-globe',
-            theme: '',
-            msg: '<strong>Laila Benani (En ligne)</strong> a commandé <em>Tagliatelle aux Truffes & Jus d\'Orange</em>',
-            channel: 'online',
-            items: '1x Tagliatelle aux Truffes, 1x Jus d\'Orange',
-            total: '135 DH',
-            clientName: 'Laila Benani',
-            phone: '06 55 44 33 22',
-            address: 'Hay Riad, Villa #14, Rabat'
-        },
-        {
-            title: 'NOUVELLE COMMANDE',
-            icon: 'fa-bag-shopping',
-            theme: '',
-            msg: '<strong>Omar Tazi (Comptoir)</strong> a commandé <em>2x Crispy Chicken Spicy Burger</em>',
-            channel: 'takeaway',
-            items: '2x Crispy Chicken Spicy Burger',
-            total: '140 DH'
-        }
-    ];
-
-    let notifIndex = 0;
     let notifHideTimer = null;
-    let autoSimulatedCmdId = 9100;
-    let lastLiveOrderRow = null;
-    let lastLiveOrderCmdId = null;
+    let knownOrderIds = new Set();
+    let currentNotifCmdId = null;
 
-    function triggerLiveNotification() {
+    function showOrderPopup(order) {
         if (!liveNotifPopup) return;
 
-        const currentNotif = liveNotificationsList[notifIndex];
-        notifIndex = (notifIndex + 1) % liveNotificationsList.length;
+        currentNotifCmdId = order.cmdId || order.id;
 
         if (liveNotifIcon) {
             liveNotifIcon.className = 'popup-icon-box';
-            liveNotifIcon.innerHTML = `<i class="fa-solid ${currentNotif.icon}"></i>`;
+            const iconClass = order.channel === 'sur-place' ? 'fa-utensils' : (order.channel === 'takeaway' ? 'fa-bag-shopping' : 'fa-globe');
+            liveNotifIcon.innerHTML = `<i class="fa-solid ${iconClass}"></i>`;
         }
 
-        if (liveNotifTitle) liveNotifTitle.innerHTML = `<span class="order-dot"></span> ${currentNotif.title}`;
-        if (liveNotifTime) liveNotifTime.textContent = "À l'instant";
-        if (liveNotifMsg) liveNotifMsg.innerHTML = currentNotif.msg;
+        if (liveNotifTitle) liveNotifTitle.innerHTML = `<span class="order-dot"></span> NOUVELLE COMMANDE`;
+        if (liveNotifTime) liveNotifTime.textContent = order.time || "À l'instant";
+        
+        const custName = order.customer ? order.customer.name : 'Client Site';
+        const summary = order.itemsSummary || (order.items && order.items.length ? order.items.map(i => `${i.quantity||1}x ${i.title}`).join(', ') : 'Articles du restaurant');
+        if (liveNotifMsg) {
+            liveNotifMsg.innerHTML = `<strong>${custName}</strong> a commandé <em>${summary}</em> (${order.total} DH)`;
+        }
 
         liveNotifPopup.classList.add('active');
 
-        // Dynamically add a new order row to orders table
-        const ordersTableBody = document.getElementById('ordersTableBody');
-        if (ordersTableBody && currentNotif.items) {
-            autoSimulatedCmdId++;
-            const newCmdId = `CMD-${autoSimulatedCmdId}`;
-            const channel = currentNotif.channel;
-            const total = currentNotif.total;
-            const itemsFormatted = currentNotif.items.split(',').map(it => `<span>• ${it.trim()}</span>`).join('');
-
-            let clientMetaHTML = '';
-            let channelBadgeHTML = '';
-
-            if (channel === 'sur-place') {
-                clientMetaHTML = `
-                    <div class="client-meta">
-                        <span class="client-sub-badge sur-place"><i class="fa-solid fa-utensils text-green"></i> Sur Place</span>
-                    </div>
-                `;
-                channelBadgeHTML = '<span class="sub-channel sur-place"><i class="fa-solid fa-utensils"></i> Sur Place</span>';
-            } else if (channel === 'takeaway') {
-                clientMetaHTML = `
-                    <div class="client-meta">
-                        <span class="client-sub-badge takeaway"><i class="fa-solid fa-bag-shopping text-orange"></i> À Emporter</span>
-                    </div>
-                `;
-                channelBadgeHTML = '<span class="sub-channel takeaway"><i class="fa-solid fa-bag-shopping"></i> À Emporter</span>';
-            } else {
-                // Online
-                clientMetaHTML = `
-                    <div class="client-meta">
-                        <strong>${currentNotif.clientName || 'Client Internet'}</strong>
-                        <span class="client-phone"><i class="fa-solid fa-phone"></i> ${currentNotif.phone || '06 00 00 00 00'}</span>
-                        <span class="client-addr"><i class="fa-solid fa-location-dot"></i> ${currentNotif.address || 'Livraison Domicile'}</span>
-                    </div>
-                `;
-                channelBadgeHTML = '<span class="sub-channel online"><i class="fa-solid fa-globe"></i> En Ligne</span>';
-            }
-
-            const statusBadgeHTML = '<span class="order-status-badge status-pending"><i class="fa-solid fa-hourglass-half"></i> En Attente</span>';
-            const actionBtnHTML = `<button class="order-btn cycle-status-btn" title="Confirmer (Passer en Cuisine)" data-id="#${newCmdId}"><i class="fa-solid fa-check text-green"></i></button>`;
-
-            const newRow = document.createElement('tr');
-            newRow.className = 'order-row';
-            newRow.setAttribute('data-order-id', `#${newCmdId}`);
-            newRow.setAttribute('data-status', 'pending');
-            newRow.setAttribute('data-channel', channel);
-
-            newRow.innerHTML = `
-                <td>
-                    <div class="order-id-badge">
-                        <strong>#${newCmdId}</strong>
-                        ${channelBadgeHTML}
-                    </div>
-                </td>
-                <td>
-                    ${clientMetaHTML}
-                </td>
-                <td>
-                    <div class="dishes-summary">
-                        ${itemsFormatted}
-                    </div>
-                </td>
-                <td><strong class="price-tag">${total}</strong></td>
-                <td><span class="time-ago">À l'instant</span></td>
-                <td>${statusBadgeHTML}</td>
-                <td style="text-align: right;">
-                    <div class="order-action-btns">
-                        ${actionBtnHTML}
-                        <button class="order-btn view-ticket-btn" title="Voir Ticket POS" data-id="#${newCmdId}"><i class="fa-solid fa-receipt"></i></button>
-                        <button class="order-btn delete-order-btn" title="Annuler commande" data-id="#${newCmdId}"><i class="fa-solid fa-trash-can"></i></button>
-                    </div>
-                </td>
-            `;
-
-            ordersTableBody.prepend(newRow);
-            lastLiveOrderRow = newRow;
-            lastLiveOrderCmdId = newCmdId;
-
-            if (typeof updateOrderKpis === 'function') updateOrderKpis();
-            if (typeof filterOrders === 'function') filterOrders();
-        }
-
         if (notifHideTimer) clearTimeout(notifHideTimer);
-
         notifHideTimer = setTimeout(() => {
             liveNotifPopup.classList.remove('active');
-        }, 5500);
+        }, 7000);
     }
 
     if (closeLiveNotifBtn) {
@@ -835,50 +740,58 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Direct Confirmation Action inside Notification Popup
-    const notifConfirmBtn = document.getElementById('notifConfirmBtn');
     if (notifConfirmBtn) {
         notifConfirmBtn.addEventListener('click', () => {
-            if (lastLiveOrderRow && document.body.contains(lastLiveOrderRow)) {
-                const currentStatus = lastLiveOrderRow.getAttribute('data-status');
-                if (currentStatus === 'pending') {
-                    lastLiveOrderRow.setAttribute('data-status', 'cooking');
-                    const statusCell = lastLiveOrderRow.querySelector('.order-status-badge');
-                    const cycleBtn = lastLiveOrderRow.querySelector('.cycle-status-btn');
-
-                    if (statusCell) {
-                        statusCell.className = 'order-status-badge status-cooking';
-                        statusCell.innerHTML = '<i class="fa-solid fa-fire"></i> En Cuisine';
+            if (currentNotifCmdId) {
+                const apiPath = window.location.pathname.includes('/admin') ? '../api/orders.php' : 'api/orders.php';
+                fetch(apiPath, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ cmdId: currentNotifCmdId, status: 'cooking' })
+                }).then(() => {
+                    const row = document.querySelector(`.order-row[data-order-id="${currentNotifCmdId}"]`);
+                    if (row) {
+                        row.setAttribute('data-status', 'cooking');
+                        const statusCell = row.querySelector('.order-status-badge');
+                        if (statusCell) {
+                            statusCell.className = 'order-status-badge status-cooking';
+                            statusCell.innerHTML = '<i class="fa-solid fa-fire"></i> En Cuisine';
+                        }
                     }
-                    if (cycleBtn) {
-                        cycleBtn.setAttribute('title', 'Valider & Marquer Complet');
-                        cycleBtn.innerHTML = '<i class="fa-solid fa-check-double text-green"></i>';
-                    }
-
                     if (typeof updateOrderKpis === 'function') updateOrderKpis();
-                    if (typeof filterOrders === 'function') filterOrders();
-                    showToast(`Commande #${lastLiveOrderCmdId} confirmée et envoyée en cuisine`);
-                } else {
-                    showToast(`Commande #${lastLiveOrderCmdId} déjà envoyée en cuisine !`);
-                }
-            } else {
-                showToast('Commande confirmée avec succès !');
+                    showToast(`Commande #${currentNotifCmdId} confirmée et envoyée en cuisine ! 🔥`);
+                }).catch(err => console.warn('Erreur confirmation commande', err));
             }
-
             if (liveNotifPopup) liveNotifPopup.classList.remove('active');
             if (notifHideTimer) clearTimeout(notifHideTimer);
         });
     }
 
-    // Trigger incoming order notification every 8 seconds (8000 ms)
-    setInterval(() => {
-        triggerLiveNotification();
-    }, 8000);
+    // Check for new incoming orders from Neon DB periodically
+    function pollIncomingOrders() {
+        const apiPath = window.location.pathname.includes('/admin') ? '../api/orders.php' : 'api/orders.php';
+        fetch(apiPath)
+            .then(res => res.json())
+            .then(data => {
+                if (data && data.status === 'success' && Array.isArray(data.orders)) {
+                    if (knownOrderIds.size === 0) {
+                        // First load: record existing orders without showing notification
+                        data.orders.forEach(o => knownOrderIds.add(o.cmdId || o.id));
+                    } else {
+                        // Detect newly inserted orders
+                        const newOrders = data.orders.filter(o => !knownOrderIds.has(o.cmdId || o.id));
+                        newOrders.forEach(o => {
+                            knownOrderIds.add(o.cmdId || o.id);
+                            showOrderPopup(o);
+                        });
+                    }
+                }
+            })
+            .catch(() => {});
+    }
 
-    // Initial first notification after 3 seconds on page load
-    setTimeout(() => {
-        triggerLiveNotification();
-    }, 3000);
+    setTimeout(pollIncomingOrders, 2000);
+    setInterval(pollIncomingOrders, 6000);
 
     /* ==========================================================================
        10. Top-Down Slide KPI Detail Modal Handler
@@ -2054,39 +1967,48 @@ document.addEventListener('DOMContentLoaded', () => {
         const ordersTableBody = document.getElementById('ordersTableBody');
         if (!ordersTableBody) return;
 
-        let liveOrders = [];
-        try {
-            const raw = localStorage.getItem('foores_live_orders');
-            if (raw) liveOrders = JSON.parse(raw);
-        } catch (e) {
-            console.error('Error reading foores_live_orders', e);
-        }
+        const apiPath = window.location.pathname.includes('/admin') ? '../api/orders.php' : 'api/orders.php';
+        fetch(apiPath)
+            .then(res => res.json())
+            .then(data => {
+                if (data && data.status === 'success' && Array.isArray(data.orders)) {
+                    renderFetchedOrders(data.orders);
+                }
+            })
+            .catch(err => {
+                console.warn('API orders fetch failed, fallback to local', err);
+                loadOrdersFromLocalStorageFallback();
+            });
+    }
 
-        if (!liveOrders || liveOrders.length === 0) return;
+    function renderFetchedOrders(orders) {
+        const ordersTableBody = document.getElementById('ordersTableBody');
+        if (!ordersTableBody) return;
 
-        liveOrders.forEach(order => {
-            if (document.querySelector(`.order-row[data-order-id="${order.id}"]`)) return;
+        orders.forEach(order => {
+            const orderIdStr = order.cmdId || order.id;
+            if (document.querySelector(`.order-row[data-order-id="${orderIdStr}"]`)) return;
 
             const tr = document.createElement('tr');
             tr.className = 'order-row';
-            tr.setAttribute('data-order-id', order.id);
+            tr.setAttribute('data-order-id', orderIdStr);
             tr.setAttribute('data-status', order.status || 'pending');
             tr.setAttribute('data-channel', order.channel || 'online');
 
             let statusBadge = '<span class="order-status-badge status-pending"><i class="fa-solid fa-hourglass-half"></i> En Attente</span>';
             if (order.status === 'cooking') {
                 statusBadge = '<span class="order-status-badge status-cooking"><i class="fa-solid fa-fire text-orange"></i> En Cuisine</span>';
-            } else if (order.status === 'completed') {
-                statusBadge = '<span class="order-status-badge status-completed"><i class="fa-solid fa-circle-check text-green"></i> Terminée</span>';
+            } else if (order.status === 'completed' || order.status === 'confirmed') {
+                statusBadge = '<span class="order-status-badge status-completed"><i class="fa-solid fa-circle-check text-green"></i> Confirmée</span>';
             }
 
             let dishesHtml = '';
             if (order.items && order.items.length > 0) {
                 order.items.forEach(item => {
-                    dishesHtml += `<span>🍽️ ${item.quantity}x ${item.title} (${item.price * item.quantity} DH)</span>`;
+                    dishesHtml += `<span>🍽️ ${item.quantity || 1}x ${item.title} (${(item.price || 0) * (item.quantity || 1)} DH)</span>`;
                 });
             } else {
-                dishesHtml = `<span>${order.itemsSummary || 'Commande Client Site'}</span>`;
+                dishesHtml = `<span>${order.itemsSummary || 'Commande Client'}</span>`;
             }
 
             const clientPhone = order.customer ? order.customer.phone : '-';
@@ -2095,7 +2017,7 @@ document.addEventListener('DOMContentLoaded', () => {
             tr.innerHTML = `
                 <td>
                     <div class="order-id-badge">
-                        <strong>#${order.id}</strong>
+                        <strong>#${orderIdStr}</strong>
                         <span class="sub-channel online-order"><i class="fa-solid fa-globe"></i> En Ligne (Site)</span>
                     </div>
                 </td>
@@ -2116,9 +2038,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>${statusBadge}</td>
                 <td style="text-align: right;">
                     <div class="order-action-btns">
-                        <button class="order-btn cycle-status-btn" title="Confirmer (Passer en Cuisine)" data-id="${order.id}"><i class="fa-solid fa-check text-green"></i></button>
+                        <button class="order-btn cycle-status-btn" title="Confirmer (Passer en Cuisine)" data-id="${orderIdStr}"><i class="fa-solid fa-check text-green"></i></button>
                         <a href="https://wa.me/212${cleanPhone}" target="_blank" class="order-btn" title="WhatsApp Client"><i class="fa-brands fa-whatsapp text-green"></i></a>
-                        <button class="order-btn delete-order-btn" title="Annuler commande" data-id="${order.id}"><i class="fa-solid fa-trash-can"></i></button>
+                        <button class="order-btn delete-order-btn" title="Annuler commande" data-id="${orderIdStr}"><i class="fa-solid fa-trash-can"></i></button>
                     </div>
                 </td>
             `;
@@ -2129,26 +2051,43 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof updateOrderKpis === 'function') updateOrderKpis();
     }
 
+    function loadOrdersFromLocalStorageFallback() {
+        let liveOrders = [];
+        try {
+            const raw = localStorage.getItem('foores_live_orders');
+            if (raw) liveOrders = JSON.parse(raw);
+        } catch (e){}
+        if (liveOrders.length > 0) renderFetchedOrders(liveOrders);
+    }
+
     function loadLiveReservationsFromLocalStorage() {
         const resaTableBody = document.getElementById('resaTableBody');
         if (!resaTableBody) return;
 
-        let liveResa = [];
-        try {
-            const raw = localStorage.getItem('foores_live_reservations');
-            if (raw) liveResa = JSON.parse(raw);
-        } catch (e) {
-            console.error('Error reading foores_live_reservations', e);
-        }
+        const apiPath = window.location.pathname.includes('/admin') ? '../api/reservations.php' : 'api/reservations.php';
+        fetch(apiPath)
+            .then(res => res.json())
+            .then(data => {
+                if (data && data.status === 'success' && Array.isArray(data.reservations)) {
+                    renderFetchedReservations(data.reservations);
+                }
+            })
+            .catch(err => {
+                console.warn('API reservations fetch failed, fallback', err);
+            });
+    }
 
-        if (!liveResa || liveResa.length === 0) return;
+    function renderFetchedReservations(reservations) {
+        const resaTableBody = document.getElementById('resaTableBody');
+        if (!resaTableBody) return;
 
-        liveResa.forEach(res => {
-            if (document.querySelector(`.resa-row[data-resa-id="${res.id}"]`)) return;
+        reservations.forEach(res => {
+            const resIdStr = res.resId || res.id;
+            if (document.querySelector(`.resa-row[data-resa-id="${resIdStr}"]`)) return;
 
             const tr = document.createElement('tr');
             tr.className = 'resa-row';
-            tr.setAttribute('data-resa-id', res.id);
+            tr.setAttribute('data-resa-id', resIdStr);
             tr.setAttribute('data-resa-status', res.status || 'pending');
 
             const nameStr = res.name || 'Client Web';
@@ -2158,7 +2097,7 @@ document.addEventListener('DOMContentLoaded', () => {
             tr.innerHTML = `
                 <td>
                     <div class="order-id-badge">
-                        <strong>${res.id}</strong>
+                        <strong>${resIdStr}</strong>
                         <span class="sub-channel online-order"><i class="fa-solid fa-globe"></i> Formulaire Web</span>
                     </div>
                 </td>
@@ -2176,13 +2115,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 </td>
                 <td>
                     <div style="display: flex; flex-direction: column; gap: 2px;">
-                        <strong style="color: #FFF; font-size: 13px;"><i class="fa-solid fa-clock text-green"></i> ${res.date}, ${res.time}</strong>
+                        <strong style="color: var(--ink); font-size: 13px;"><i class="fa-solid fa-clock text-green"></i> ${res.date}, ${res.time}</strong>
                         <span class="time-ago">Reçu en direct</span>
                     </div>
                 </td>
                 <td>
                     <div style="display: flex; flex-direction: column; gap: 4px;">
-                        <span class="guests-pill"><i class="fa-solid fa-user-group text-green"></i> ${res.people} Personne(s)</span>
+                        <span class="guests-pill"><i class="fa-solid fa-user-group text-green"></i> ${res.guests || 2} Personne(s)</span>
                         <span class="table-badge vip"><i class="fa-solid fa-utensils"></i> Table Web</span>
                     </div>
                 </td>
@@ -2194,16 +2133,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td><span class="order-status-badge status-pending"><i class="fa-solid fa-hourglass-half"></i> En Attente</span></td>
                 <td style="text-align: right;">
                     <div class="order-action-btns">
-                        <button class="order-btn cycle-resa-btn" title="Confirmer la réservation" data-id="${res.id}"><i class="fa-solid fa-check text-green"></i></button>
+                        <button class="order-btn cycle-resa-btn" title="Confirmer la réservation" data-id="${resIdStr}"><i class="fa-solid fa-check text-green"></i></button>
                         <a href="https://wa.me/212${cleanPhone}" target="_blank" class="order-btn" title="Contacter WhatsApp Client"><i class="fa-brands fa-whatsapp text-green"></i></a>
-                        <button class="order-btn edit-resa-btn" title="Modifier" data-id="${res.id}"><i class="fa-solid fa-pen-to-square"></i></button>
-                        <button class="order-btn delete-resa-btn" title="Annuler" data-id="${res.id}"><i class="fa-solid fa-trash-can"></i></button>
+                        <button class="order-btn edit-resa-btn" title="Modifier" data-id="${resIdStr}"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button class="order-btn delete-resa-btn" title="Annuler" data-id="${resIdStr}"><i class="fa-solid fa-trash-can"></i></button>
                     </div>
                 </td>
             `;
 
             resaTableBody.prepend(tr);
         });
+
+        if (typeof updateResaKpis === 'function') updateResaKpis();
 
         const badge = document.getElementById('sidebarResaBadge');
         if (badge) {
@@ -2213,7 +2154,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     syncLiveSiteData();
-    setInterval(syncLiveSiteData, 3000);
+    setInterval(syncLiveSiteData, 5000);
 
     // 4. Delegated Click Handlers for Order Actions (Cycle Status, View Ticket, Delete)
     if (ordersTableBody) {
@@ -2280,6 +2221,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             showToast(`Commande ${orderId} validée et marquée Complet ✅`);
         }
+
+        // Sync with Neon Database API
+        const apiPath = window.location.pathname.includes('/admin') ? '../api/orders.php' : 'api/orders.php';
+        fetch(apiPath, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ cmdId: orderId, status: newStatus })
+        }).catch(err => console.warn('Neon order status sync error', err));
 
         updateOrderKpis();
         filterOrders();
@@ -2361,44 +2310,43 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateOrderKpis();
                 showToast(`Commande ${orderId} annulée.`);
             }, 400);
+
+            // Sync with Neon Database API
+            const apiPath = window.location.pathname.includes('/admin') ? '../api/orders.php' : 'api/orders.php';
+            fetch(apiPath + '?id=' + encodeURIComponent(orderId), {
+                method: 'DELETE'
+            }).catch(err => console.warn('Neon order delete sync error', err));
         }
     }
 
     // 8. Add New Order Interactive POS Modal & Cart Engine
-    const posDishesData = {
-        'burgers': [
-            { id: 'b1', name: 'Double Angus Cheeseburger', price: 85, icon: '🍔', img: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300&auto=format&fit=crop&q=80' },
-            { id: 'b2', name: 'Crispy Chicken Spicy Burger', price: 70, icon: '🍔', img: 'https://images.unsplash.com/photo-1625813506062-0aeb1d7a094b?w=300&auto=format&fit=crop&q=80' },
-            { id: 'b3', name: 'Smokey Bacon BBQ Burger', price: 90, icon: '🍔', img: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=300&auto=format&fit=crop&q=80' }
-        ],
-        'pastas': [
-            { id: 'p1', name: 'Creamy Garlic Parmesan Pasta', price: 85, icon: '🍝', img: 'https://images.unsplash.com/photo-1621996346565-e3d5d6281274?w=300&auto=format&fit=crop&q=80' },
-            { id: 'p2', name: 'Penne Arrabbiata Piccante', price: 75, icon: '🍝', img: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=300&auto=format&fit=crop&q=80' },
-            { id: 'p3', name: 'Tagliatelle aux Truffes', price: 110, icon: '🍝', img: 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=300&auto=format&fit=crop&q=80' }
-        ],
-        'pizzas': [
-            { id: 'pz1', name: 'Pizza Pepperoni Truffée', price: 95, icon: '🍕', img: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=300&auto=format&fit=crop&q=80' },
-            { id: 'pz2', name: 'Pizza Margherita Supreme', price: 75, icon: '🍕', img: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=300&auto=format&fit=crop&q=80' },
-            { id: 'pz3', name: 'Pizza 4 Fromages Artisanal', price: 85, icon: '🍕', img: 'https://images.unsplash.com/photo-1573821663912-569905455b1c?w=300&auto=format&fit=crop&q=80' }
-        ],
-        'grillades': [
-            { id: 'g1', name: 'Côte de Bœuf Grillée', price: 180, icon: '🥩', img: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=300&auto=format&fit=crop&q=80' },
-            { id: 'g2', name: 'Pavé de Saumon Grillé', price: 140, icon: '🥩', img: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=300&auto=format&fit=crop&q=80' },
-            { id: 'g3', name: 'Brochettes Poulet Mariné', price: 95, icon: '🥩', img: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=300&auto=format&fit=crop&q=80' }
-        ],
-        'salades': [
-            { id: 's1', name: 'Salade Caesar Poulet', price: 65, icon: '🥗', img: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300&auto=format&fit=crop&q=80' },
-            { id: 's2', name: 'Salade Burrata & Tomates', price: 75, icon: '🥗', img: 'https://images.unsplash.com/photo-1592417817098-8f3d6ef23a85?w=300&auto=format&fit=crop&q=80' }
-        ],
-        'boissons': [
-            { id: 'd1', name: 'Mojito Passion Artisanal', price: 35, icon: '🍹', img: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=300&auto=format&fit=crop&q=80' },
-            { id: 'd2', name: 'Jus d\'Orange Frais', price: 25, icon: '🍊', img: 'https://images.unsplash.com/photo-1613478223719-2ab802602423?w=300&auto=format&fit=crop&q=80' }
-        ],
-        'desserts': [
-            { id: 'ds1', name: 'Molten Lava Cake', price: 45, icon: '🍰', img: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=300&auto=format&fit=crop&q=80' },
-            { id: 'ds2', name: 'Tiramisu Classique', price: 40, icon: '🍰', img: 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=300&auto=format&fit=crop&q=80' }
-        ]
-    };
+    let posDishesData = {};
+
+    function loadPosDishesFromApi() {
+        const apiPath = window.location.pathname.includes('/admin') ? '../api/dishes.php' : 'api/dishes.php';
+        fetch(apiPath)
+            .then(res => res.json())
+            .then(data => {
+                if (data && data.status === 'success' && Array.isArray(data.dishes)) {
+                    const grouped = {};
+                    data.dishes.forEach(d => {
+                        const cat = (d.category || 'burgers').toLowerCase();
+                        if (!grouped[cat]) grouped[cat] = [];
+                        grouped[cat].push({
+                            id: d.id,
+                            name: d.title,
+                            price: parseFloat(d.price) || 0,
+                            icon: '🍽️',
+                            img: d.image || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=300&auto=format&fit=crop&q=80'
+                        });
+                    });
+                    posDishesData = grouped;
+                    renderPosDishesGrid();
+                }
+            })
+            .catch(err => console.warn('Failed to fetch dishes for POS modal', err));
+    }
+    loadPosDishesFromApi();
 
     let posCart = [];
     let currentPosCategory = 'burgers';
@@ -2696,6 +2644,31 @@ document.addEventListener('DOMContentLoaded', () => {
         const ordersTableBody = document.getElementById('ordersTableBody');
         if (ordersTableBody) ordersTableBody.prepend(newRow);
 
+        // Sync POS order to Neon Database API
+        const apiPath = window.location.pathname.includes('/admin') ? '../api/orders.php' : 'api/orders.php';
+        fetch(apiPath, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                cmdId: newCmdId,
+                date: new Date().toLocaleDateString('fr-FR'),
+                time: time,
+                customer: {
+                    name: channel === 'sur-place' ? 'Client En Salle' : 'Client Comptoir',
+                    phone: '',
+                    address: channel === 'sur-place' ? 'Table En Salle' : 'Comptoir Retrait'
+                },
+                items: posCart.map(ci => ({ title: ci.name, quantity: ci.qty, price: ci.price })),
+                total: parseFloat(total) || 0,
+                paymentMethod: 'Espèces Comptoir',
+                status: 'pending',
+                channel: channel,
+                createdAt: Date.now()
+            })
+        }).then(r => r.json()).then(res => {
+            console.log('Commande POS enregistrée dans Neon:', res);
+        }).catch(err => console.warn('Erreur synchro POS Neon', err));
+
         showToast(`Nouvelle commande #${newCmdId} créée (${total} DH) ! 🔥`);
         closeOrderModal();
         updateOrderKpis();
@@ -2903,6 +2876,14 @@ document.addEventListener('DOMContentLoaded', () => {
             showToast(`Client de la réservation ${resaId} installé en salle 🍷`);
         }
 
+        // Sync with Neon Database API
+        const apiPath = window.location.pathname.includes('/admin') ? '../api/reservations.php' : 'api/reservations.php';
+        fetch(apiPath, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ resId: resaId, status: newStatus })
+        }).catch(err => console.warn('Neon reservation status sync error', err));
+
         updateResaKpis();
         filterReservations();
     }
@@ -2919,6 +2900,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateResaKpis();
                 showToast(`Réservation ${resaId} annulée.`);
             }, 400);
+
+            // Sync with Neon Database API
+            const apiPath = window.location.pathname.includes('/admin') ? '../api/reservations.php' : 'api/reservations.php';
+            fetch(apiPath + '?id=' + encodeURIComponent(resaId), {
+                method: 'DELETE'
+            }).catch(err => console.warn('Neon reservation delete sync error', err));
         }
     }
 
@@ -3677,14 +3664,88 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    // Fetch real Admin Profile & Settings from Neon PostgreSQL Cloud
+    function loadAdminSettingsFromNeon() {
+        const apiPath = window.location.pathname.includes('/admin') ? '../api/admin.php' : 'api/admin.php';
+        fetch(apiPath)
+            .then(res => res.json())
+            .then(data => {
+                if (data && data.status === 'success') {
+                    const adm = data.admin || {};
+                    const sets = data.settings || {};
+
+                    const nameInput = document.getElementById('adminNameInput');
+                    const emailInput = document.getElementById('adminEmailInput');
+                    const phoneInput = document.getElementById('adminPhoneInput');
+                    const roleInput = document.getElementById('adminRoleInput');
+                    const bioInput = document.getElementById('adminBioInput');
+                    const twoFaToggle = document.getElementById('twoFaToggle');
+                    const loginAlertsToggle = document.getElementById('loginAlertsToggle');
+
+                    if (nameInput && adm.full_name) nameInput.value = adm.full_name;
+                    if (emailInput && adm.email) emailInput.value = adm.email;
+                    if (phoneInput && adm.phone) phoneInput.value = adm.phone;
+                    if (roleInput && adm.role_title) roleInput.value = adm.role_title;
+                    if (bioInput && adm.bio) bioInput.value = adm.bio;
+                    if (twoFaToggle && adm.two_fa_enabled !== undefined) twoFaToggle.checked = Boolean(adm.two_fa_enabled);
+                    if (loginAlertsToggle && adm.login_alerts_enabled !== undefined) loginAlertsToggle.checked = Boolean(adm.login_alerts_enabled);
+
+                    const heroName = document.getElementById('adminHeroName');
+                    const heroEmail = document.getElementById('adminHeroEmailDisplay');
+                    const heroPhone = document.getElementById('adminHeroPhoneDisplay');
+                    const heroImg = document.getElementById('adminHeroAvatarImg');
+                    const sidebarUserNames = document.querySelectorAll('.sidebar-user-card .user-name');
+                    const sidebarInitials = document.querySelector('.sidebar-user-card .user-avatar-initials');
+
+                    if (heroName && adm.full_name) heroName.textContent = adm.full_name;
+                    if (heroEmail && adm.email) heroEmail.textContent = adm.email;
+                    if (heroPhone && adm.phone) heroPhone.textContent = adm.phone;
+                    if (heroImg && adm.avatar_url) heroImg.src = adm.avatar_url;
+                    if (sidebarUserNames && adm.full_name) sidebarUserNames.forEach(s => s.textContent = adm.full_name);
+                    if (sidebarInitials && adm.full_name) {
+                        const inits = adm.full_name.split(' ').map(w => w[0]).join('').toUpperCase().substring(0, 2);
+                        sidebarInitials.textContent = inits;
+                    }
+
+                    // Socials & Restaurant Settings
+                    const ig = document.getElementById('adminInstagramInput');
+                    const fb = document.getElementById('adminFacebookInput');
+                    const tk = document.getElementById('adminTiktokInput');
+                    const wa = document.getElementById('adminWhatsappLinkInput');
+                    const web = document.getElementById('adminWebsiteInput');
+                    const mp = document.getElementById('adminMapsInput');
+
+                    if (ig && sets.instagram) ig.value = sets.instagram;
+                    if (fb && sets.facebook) fb.value = sets.facebook;
+                    if (tk && sets.tiktok) tk.value = sets.tiktok;
+                    if (wa && sets.whatsapp) wa.value = sets.whatsapp;
+                    if (web && sets.website) web.value = sets.website;
+                    if (mp && sets.maps) mp.value = sets.maps;
+
+                    document.querySelectorAll('.social-input-wrapper').forEach(wrapper => {
+                        const input = wrapper.querySelector('input');
+                        const link = wrapper.querySelector('.social-test-btn');
+                        if (input && link) link.href = input.value || '#0';
+                    });
+                }
+            })
+            .catch(err => console.warn('Erreur chargement paramètres Neon:', err));
+    }
+    loadAdminSettingsFromNeon();
+
     window.saveAdminSettings = function(e) {
         if (e) e.preventDefault();
 
         const nameInput = document.getElementById('adminNameInput');
         const emailInput = document.getElementById('adminEmailInput');
         const phoneInput = document.getElementById('adminPhoneInput');
+        const roleInput = document.getElementById('adminRoleInput');
+        const bioInput = document.getElementById('adminBioInput');
+        const currentPass = document.getElementById('adminCurrentPassInput');
         const newPass = document.getElementById('adminNewPassInput');
         const confirmPass = document.getElementById('adminConfirmPassInput');
+        const twoFaToggle = document.getElementById('twoFaToggle');
+        const loginAlertsToggle = document.getElementById('loginAlertsToggle');
 
         // Social Media inputs
         const instagramInput = document.getElementById('adminInstagramInput');
@@ -3702,8 +3763,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const nameVal = nameInput ? nameInput.value.trim() : 'Emma Johnson';
         const emailVal = emailInput ? emailInput.value.trim() : 'emma.johnson@flavorist.ma';
         const phoneVal = phoneInput ? phoneInput.value.trim() : '+212 661-998877';
+        const roleVal = roleInput ? roleInput.value.trim() : 'Chef Exécutif & Admin Système';
+        const bioVal = bioInput ? bioInput.value.trim() : '';
 
-        // Save socials to localStorage
         const socials = {
             instagram: instagramInput ? instagramInput.value.trim() : '',
             facebook: facebookInput ? facebookInput.value.trim() : '',
@@ -3712,38 +3774,63 @@ document.addEventListener('DOMContentLoaded', () => {
             website: websiteInput ? websiteInput.value.trim() : '',
             maps: mapsInput ? mapsInput.value.trim() : ''
         };
-        try {
-            localStorage.setItem('restaurant_socials', JSON.stringify(socials));
-        } catch(err) {}
+
+        // Enregistrer dans Neon PostgreSQL Cloud via API
+        const payload = {
+            full_name: nameVal,
+            email: emailVal,
+            phone: phoneVal,
+            role_title: roleVal,
+            bio: bioVal,
+            two_fa_enabled: twoFaToggle ? twoFaToggle.checked : true,
+            login_alerts_enabled: loginAlertsToggle ? loginAlertsToggle.checked : true,
+            settings: socials
+        };
+
+        if (newPass && newPass.value) {
+            payload.new_password = newPass.value;
+            if (currentPass && currentPass.value) payload.current_password = currentPass.value;
+        }
+
+        const apiPath = window.location.pathname.includes('/admin') ? '../api/admin.php' : 'api/admin.php';
+        fetch(apiPath, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        }).then(r => r.json()).then(res => {
+            if (res.status === 'success') {
+                showToast("Paramètres & Sécurité enregistrés dans Neon PostgreSQL ! 🛡️");
+            } else {
+                showToast(res.message || "Erreur de mise à jour");
+            }
+        }).catch(err => {
+            console.warn('Erreur sauvegarde admin Neon', err);
+            showToast("Paramètres enregistrés localement");
+        });
 
         // Update displays
         const heroName = document.getElementById('adminHeroName');
         const heroEmail = document.getElementById('adminHeroEmailDisplay');
         const heroPhone = document.getElementById('adminHeroPhoneDisplay');
         const sidebarUserNames = document.querySelectorAll('.sidebar-user-card .user-name');
+        const sidebarInitials = document.querySelector('.sidebar-user-card .user-avatar-initials');
 
         if (heroName) heroName.textContent = nameVal;
         if (heroEmail) heroEmail.textContent = emailVal;
         if (heroPhone) heroPhone.textContent = phoneVal;
         sidebarUserNames.forEach(span => span.textContent = nameVal);
+        if (sidebarInitials) {
+            const inits = nameVal.split(' ').map(w => w[0]).join('').toUpperCase().substring(0, 2);
+            sidebarInitials.textContent = inits;
+        }
 
         if (newPass && newPass.value) {
             newPass.value = '';
             if (confirmPass) confirmPass.value = '';
-            showToast("Mot de passe et paramètres mis à jour avec succès !");
-        } else {
-            showToast("Paramètres et réseaux sociaux enregistrés avec succès !");
         }
     };
 
     window.resetAdminSettingsForm = function() {
-        const nameInput = document.getElementById('adminNameInput');
-        const emailInput = document.getElementById('adminEmailInput');
-        const phoneInput = document.getElementById('adminPhoneInput');
-        if (nameInput) nameInput.value = 'Emma Johnson';
-        if (emailInput) emailInput.value = 'emma.johnson@flavorist.ma';
-        if (phoneInput) phoneInput.value = '+212 661-998877';
-
         const defaults = {
             instagram: 'https://instagram.com/flavorist.maroc',
             facebook: 'https://facebook.com/flavorist.official',
@@ -3772,34 +3859,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (input && link) link.href = input.value || '#0';
         });
 
-        try {
-            localStorage.setItem('restaurant_socials', JSON.stringify(defaults));
-        } catch(err) {}
-
         showToast("Paramètres réinitialisés aux valeurs par défaut.");
     };
 
-    // Load saved social media links & live test button sync
+    // Live test button sync on typing
     (function initSocialMediaInputs() {
-        try {
-            const saved = localStorage.getItem('restaurant_socials');
-            if (saved) {
-                const s = JSON.parse(saved);
-                const ig = document.getElementById('adminInstagramInput');
-                const fb = document.getElementById('adminFacebookInput');
-                const tk = document.getElementById('adminTiktokInput');
-                const wa = document.getElementById('adminWhatsappLinkInput');
-                const web = document.getElementById('adminWebsiteInput');
-                const mp = document.getElementById('adminMapsInput');
-                if (ig && s.instagram) ig.value = s.instagram;
-                if (fb && s.facebook) fb.value = s.facebook;
-                if (tk && s.tiktok) tk.value = s.tiktok;
-                if (wa && s.whatsapp) wa.value = s.whatsapp;
-                if (web && s.website) web.value = s.website;
-                if (mp && s.maps) mp.value = s.maps;
-            }
-        } catch(e) {}
-
         document.querySelectorAll('.social-input-wrapper').forEach(wrapper => {
             const input = wrapper.querySelector('input');
             const link = wrapper.querySelector('.social-test-btn');

@@ -5753,3 +5753,36 @@ textarea::placeholder {
     min-width: 0 !important;
     overflow: hidden !important;
 }
+
+/* ==========================================================================
+   Dish Card Action Buttons (Edit / Delete) - Foores Elegant Light Style
+   ========================================================================== */
+.dish-action-btn {
+    width: 34px !important;
+    height: 34px !important;
+    border-radius: 50% !important;
+    background: rgba(255, 255, 255, 0.92) !important;
+    backdrop-filter: blur(8px) !important;
+    border: 1px solid var(--border) !important;
+    color: var(--ink-2) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 13px !important;
+    cursor: pointer !important;
+    box-shadow: 0 4px 12px rgba(31, 42, 28, 0.15) !important;
+    transition: var(--transition) !important;
+}
+
+.dish-action-btn:hover {
+    background: var(--olive) !important;
+    border-color: var(--olive) !important;
+    color: #FFFFFF !important;
+    transform: scale(1.1) !important;
+}
+
+.dish-action-btn.delete-btn:hover {
+    background: #D94444 !important;
+    border-color: #D94444 !important;
+    color: #FFFFFF !important;
+}

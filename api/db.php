@@ -1,4 +1,5 @@
 <?php
+// Unified Database Connection: Neon PostgreSQL (Cloud) with Local MySQL fallback
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization');
@@ -8,28 +9,44 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'OPTIONS
     exit();
 }
 
-$db_host = 'localhost';
-$db_user = 'root';
-$db_pass = '';
-$db_name = 'restaurant_menu';
+$pdo = null;
+$db_driver = 'pgsql'; // 'pgsql' or 'mysql'
+
+// Neon PostgreSQL Cloud Credentials
+$neon_host = 'ep-wandering-hall-baveek4a.c-8.eu-central-1.aws.neon.tech';
+$neon_user = 'neondb_owner';
+$neon_pass = 'npg_rMZSmVv9TKt1';
+$neon_name = 'neondb';
+$neon_endpoint = 'ep-wandering-hall-baveek4a';
 
 try {
-    $pdo = new PDO("mysql:host=$db_host;dbname=$db_name;charset=utf8mb4", $db_user, $db_pass, [
+    // 1. Try Neon Cloud Database First
+    $dsn = "pgsql:host=$neon_host;port=5432;dbname=$neon_name;sslmode=require;options='endpoint=$neon_endpoint'";
+    $pdo = new PDO($dsn, $neon_user, $neon_pass, [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        PDO::ATTR_EMULATE_PREPARES => false,
+        PDO::ATTR_TIMEOUT => 5
     ]);
-} catch (PDOException $e) {
-    // If database doesn't exist yet, connect to MySQL server without dbname to create it
+    $db_driver = 'pgsql';
+} catch (Exception $e) {
+    // 2. Fallback to Local MySQL if offline
     try {
-        $pdo = new PDO("mysql:host=$db_host;charset=utf8mb4", $db_user, $db_pass);
-        $pdo->exec("CREATE DATABASE IF NOT EXISTS `$db_name` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
-        $pdo->exec("USE `$db_name`");
-    } catch (PDOException $ex) {
+        $mysql_host = 'localhost';
+        $mysql_user = 'root';
+        $mysql_pass = '';
+        $mysql_name = 'restaurant_menu';
+        
+        $pdo = new PDO("mysql:host=$mysql_host;dbname=$mysql_name;charset=utf8mb4", $mysql_user, $mysql_pass, [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::ATTR_EMULATE_PREPARES => false,
+        ]);
+        $db_driver = 'mysql';
+    } catch (Exception $ex) {
         http_response_code(500);
         echo json_encode([
             'status' => 'error',
-            'message' => 'Erreur de connexion MySQL : ' . $ex->getMessage()
+            'message' => 'Erreur de connexion aux bases de données : ' . $e->getMessage() . ' / ' . $ex->getMessage()
         ]);
         exit();
     }

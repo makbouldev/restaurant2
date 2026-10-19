@@ -338,6 +338,21 @@
                 </div>
             `;
 
+            // Enregistrer dans Neon PostgreSQL Cloud
+            fetch('api/messages.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    msgId: '#MSG-' + Math.floor(100 + Math.random() * 900),
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    subject: 'Message depuis le site web',
+                    message: msg,
+                    createdAt: Date.now()
+                })
+            }).catch(err => console.warn('Erreur envoi message API:', err));
+
             document.getElementById('contactform').reset();
         }
 

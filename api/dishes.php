@@ -9,16 +9,16 @@ switch ($method) {
     case 'GET':
         try {
             $stmt = $pdo->query("SELECT d.*, c.id AS cat_db_id, c.name AS category_name, c.icon AS category_icon, c.image AS category_image 
-                                 FROM `dishes` d 
-                                 LEFT JOIN `categories` c ON (d.category_id = c.id OR d.category = c.slug) 
-                                 WHERE d.`is_available` = 1 
-                                 ORDER BY d.`id` ASC");
+                                 FROM dishes d 
+                                 LEFT JOIN categories c ON (d.category_id = c.id OR d.category = c.slug) 
+                                 WHERE d.is_available IS TRUE 
+                                 ORDER BY d.id ASC");
             $dishes = $stmt->fetchAll();
 
             $formattedDishes = array_map(function($d) {
                 $opts = [];
                 if (!empty($d['options'])) {
-                    $decoded = json_decode($d['options'], true);
+                    $decoded = is_string($d['options']) ? json_decode($d['options'], true) : $d['options'];
                     if (is_array($decoded)) {
                         $opts = $decoded;
                     }
@@ -69,7 +69,7 @@ switch ($method) {
 
         // If category_id not passed, find it from categories table
         if ($categoryId <= 0) {
-            $stmtFindCat = $pdo->prepare("SELECT id FROM `categories` WHERE slug = :slug LIMIT 1");
+            $stmtFindCat = $pdo->prepare("SELECT id FROM categories WHERE slug = :slug LIMIT 1");
             $stmtFindCat->execute(['slug' => $category]);
             $catRow = $stmtFindCat->fetch();
             if ($catRow) {
@@ -84,18 +84,34 @@ switch ($method) {
         $optionsJson = is_string($options) ? $options : json_encode($options, JSON_UNESCAPED_UNICODE);
 
         try {
-            $stmt = $pdo->prepare("INSERT INTO `dishes` (`item_id`, `category_id`, `title`, `category`, `description`, `price`, `image`, `options`, `is_available`)
-                VALUES (:item_id, :category_id, :title, :category, :description, :price, :image, :options, 1)
-                ON DUPLICATE KEY UPDATE
-                `category_id` = VALUES(`category_id`),
-                `title` = VALUES(`title`),
-                `category` = VALUES(`category`),
-                `description` = VALUES(`description`),
-                `price` = VALUES(`price`),
-                `image` = VALUES(`image`),
-                `options` = VALUES(`options`),
-                `is_available` = 1");
+            if ($db_driver === 'pgsql') {
+                $sql = "INSERT INTO dishes (item_id, category_id, title, category, description, price, image, options, is_available)
+                        VALUES (:item_id, :category_id, :title, :category, :description, :price, :image, :options, TRUE)
+                        ON CONFLICT (item_id) DO UPDATE SET
+                        category_id = EXCLUDED.category_id,
+                        title = EXCLUDED.title,
+                        category = EXCLUDED.category,
+                        description = EXCLUDED.description,
+                        price = EXCLUDED.price,
+                        image = EXCLUDED.image,
+                        options = EXCLUDED.options,
+                        is_available = TRUE,
+                        updated_at = CURRENT_TIMESTAMP";
+            } else {
+                $sql = "INSERT INTO dishes (item_id, category_id, title, category, description, price, image, options, is_available)
+                        VALUES (:item_id, :category_id, :title, :category, :description, :price, :image, :options, 1)
+                        ON DUPLICATE KEY UPDATE
+                        category_id = VALUES(category_id),
+                        title = VALUES(title),
+                        category = VALUES(category),
+                        description = VALUES(description),
+                        price = VALUES(price),
+                        image = VALUES(image),
+                        options = VALUES(options),
+                        is_available = 1";
+            }
 
+            $stmt = $pdo->prepare($sql);
             $stmt->execute([
                 'item_id' => $itemId,
                 'category_id' => $categoryId,
@@ -132,7 +148,7 @@ switch ($method) {
         }
 
         try {
-            $stmt = $pdo->prepare("DELETE FROM `dishes` WHERE `item_id` = :id OR `id` = :id_num");
+            $stmt = $pdo->prepare("DELETE FROM dishes WHERE item_id = :id OR id = :id_num");
             $stmt->execute(['id' => $id, 'id_num' => intval($id)]);
 
             echo json_encode(['status' => 'success', 'message' => 'Plat supprimé avec succès']);

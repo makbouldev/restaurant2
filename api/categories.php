@@ -8,11 +8,11 @@ $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 if ($method === 'GET') {
     try {
         // Fetch categories
-        $stmtCat = $pdo->query("SELECT * FROM `categories` ORDER BY `id` ASC");
+        $stmtCat = $pdo->query("SELECT * FROM categories ORDER BY id ASC");
         $categories = $stmtCat->fetchAll();
 
         // Fetch all dishes
-        $stmtDishes = $pdo->query("SELECT * FROM `dishes` WHERE `is_available` = 1 ORDER BY `id` ASC");
+        $stmtDishes = $pdo->query("SELECT * FROM dishes WHERE is_available IS TRUE ORDER BY id ASC");
         $dishes = $stmtDishes->fetchAll();
 
         // Group dishes by category_id or category slug
