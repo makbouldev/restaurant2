@@ -19,6 +19,21 @@ $neon_pass = 'npg_rMZSmVv9TKt1';
 $neon_name = 'neondb';
 $neon_endpoint = 'ep-wandering-hall-baveek4a';
 
+$env_db_url = getenv('DATABASE_URL') ?: getenv('DATABASE_URL_POOLED');
+if (!empty($env_db_url)) {
+    $parsed = parse_url($env_db_url);
+    if (!empty($parsed['host'])) {
+        $neon_host = $parsed['host'];
+        $host_parts = explode('.', $parsed['host']);
+        if (!empty($host_parts[0])) {
+            $neon_endpoint = str_replace('-pooler', '', $host_parts[0]);
+        }
+    }
+    if (!empty($parsed['user'])) $neon_user = $parsed['user'];
+    if (!empty($parsed['pass'])) $neon_pass = $parsed['pass'];
+    if (!empty($parsed['path'])) $neon_name = ltrim($parsed['path'], '/');
+}
+
 try {
     // 1. Try Neon Cloud Database First
     $dsn = "pgsql:host=$neon_host;port=5432;dbname=$neon_name;sslmode=require;options='endpoint=$neon_endpoint'";
