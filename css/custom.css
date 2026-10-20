@@ -6036,3 +6036,458 @@ textarea.classic-form-control {
     background: #25D366;
     border-color: #25D366;
 }
+
+
+/* ==========================================================================
+   FOORES CLIENT - LUXURY RESTAURANT DESIGN SYSTEM (MATCHING ADMIN PANEL)
+   Exact Colors: Olive Green (#557945), Warm Saffron (#F1A344), Forest Dark (#0D150E)
+   Exact Fonts: Fraunces (Headings) & Manrope (Body/UI)
+   ========================================================================== */
+
+:root {
+    --olive:        #557945;   /* Primary luxury olive */
+    --olive-dark:   #3E5A32;   /* Hover olive */
+    --olive-light:  #60894E;   /* Light olive accent */
+    --olive-soft:   #EEF2EA;   /* Soft mint/olive tint */
+    --olive-deep:   #162418;   /* Deep olive card */
+    --saffron:      #F1A344;   /* Warm saffron gold */
+    --saffron-soft: #FDF1E2;   /* Saffron light tint */
+    --saffron-dark: #B86E1A;   /* Saffron text */
+    --gold:         #FFCB3D;   /* Highlights */
+
+    --forest-night: #090E0A;
+    --forest-dark:  #0D150E;   /* Dark header / footer */
+    --forest-card:  #141E15;   /* Dark glass cards */
+    
+    --bg-cream:     #F7F5EF;   /* Admin soft cream bg */
+    --surface:      #FFFFFF;
+    --border:       #ECE8DF;
+    --track:        #F2F0E8;
+    
+    --ink:          #1F2A1C;   /* Deep ink text */
+    --ink-2:        #4A5045;   /* Secondary body text */
+    --muted:        #6B7065;   /* Muted captions */
+    
+    --font-heading: 'Fraunces', Georgia, serif;
+    --font-body:    'Manrope', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+    --radius-full: 9999px;
+    --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Global Font Overrides */
+html, body {
+    font-family: var(--font-body) !important;
+    color: var(--ink) !important;
+}
+
+p, span, li, a, label, input, select, textarea, button, .btn {
+    font-family: var(--font-body) !important;
+}
+
+h1, h2, h3, h4, h5, h6,
+.main_title h2,
+.main_title_2 h2,
+.hero-main-title,
+.popular-title,
+.luxury-title,
+.cursive-accent,
+.banner h3,
+.item_title,
+.tasty-card-title,
+.footer_title,
+.footer h3, .footer h4 {
+    font-family: var(--font-heading) !important;
+    letter-spacing: -0.015em !important;
+}
+
+/* ==========================================================================
+   HERO SECTION - LUXURY OLIVE & FOREST REDESIGN (MATCHING ADMIN)
+   ========================================================================== */
+.creative-hero-section {
+    background: linear-gradient(135deg, #0e1710 0%, #080d09 50%, #152217 100%) !important;
+}
+
+.hero-ambient-glow-1 {
+    background: radial-gradient(circle, rgba(85, 121, 69, 0.28) 0%, rgba(14, 23, 16, 0) 70%) !important;
+}
+
+.hero-ambient-glow-2 {
+    background: radial-gradient(circle, rgba(241, 163, 68, 0.18) 0%, rgba(14, 23, 16, 0) 70%) !important;
+}
+
+.hero-badge-tag span {
+    background: rgba(85, 121, 69, 0.2) !important;
+    color: #60894E !important;
+    border: 1px solid rgba(85, 121, 69, 0.45) !important;
+    box-shadow: 0 4px 15px rgba(85, 121, 69, 0.2) !important;
+}
+
+.hero-main-title {
+    font-family: var(--font-heading) !important;
+    color: #FFFFFF !important;
+}
+
+.hero-main-title .cursive-accent {
+    font-family: var(--font-heading) !important;
+    font-style: italic !important;
+    color: var(--saffron) !important;
+    text-shadow: 0 0 25px rgba(241, 163, 68, 0.45) !important;
+}
+
+.hero-description {
+    color: #CBD5E1 !important;
+    font-family: var(--font-body) !important;
+}
+
+/* Hero Action Buttons */
+.btn-hero-orange {
+    background: linear-gradient(135deg, #557945 0%, #3e5932 100%) !important;
+    box-shadow: 0 10px 28px rgba(85, 121, 69, 0.45) !important;
+    border-radius: 50px !important;
+    color: #FFFFFF !important;
+    font-family: var(--font-body) !important;
+    font-weight: 700 !important;
+}
+
+.btn-hero-orange:hover {
+    background: linear-gradient(135deg, #60894e 0%, #466738 100%) !important;
+    box-shadow: 0 14px 34px rgba(85, 121, 69, 0.6) !important;
+    transform: translateY(-2px) scale(1.02) !important;
+    color: #FFFFFF !important;
+}
+
+.btn-hero-outline {
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 1.5px solid rgba(85, 121, 69, 0.5) !important;
+    border-radius: 50px !important;
+    color: #FFFFFF !important;
+    font-family: var(--font-body) !important;
+    font-weight: 700 !important;
+}
+
+.btn-hero-outline:hover {
+    background: var(--olive) !important;
+    border-color: var(--olive) !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 8px 24px rgba(85, 121, 69, 0.4) !important;
+}
+
+/* Hero Feature Circles */
+.feature-icon-circle {
+    background: rgba(85, 121, 69, 0.22) !important;
+    border: 1px solid rgba(85, 121, 69, 0.45) !important;
+    color: #60894E !important;
+}
+
+.feature-text strong {
+    color: #FFFFFF !important;
+    font-family: var(--font-heading) !important;
+}
+
+.feature-text span {
+    color: #94A3B8 !important;
+}
+
+/* Floating Glass Cards */
+.hero-floating-card {
+    background: rgba(20, 30, 21, 0.88) !important;
+    backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(85, 121, 69, 0.4) !important;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55), 0 0 30px rgba(85, 121, 69, 0.2) !important;
+}
+
+.hero-floating-card .stars i {
+    color: var(--saffron) !important;
+}
+
+.card-special .fire-icon {
+    color: var(--saffron) !important;
+}
+
+.floating-signature-badge .badge-inner {
+    background: linear-gradient(135deg, #557945 0%, #3e5932 100%) !important;
+    box-shadow: 0 8px 24px rgba(85, 121, 69, 0.45) !important;
+}
+
+.floating-signature-badge .badge-number {
+    color: var(--gold) !important;
+    font-family: var(--font-heading) !important;
+}
+
+/* ==========================================================================
+   NAVIGATION, TOP BAR & BUTTONS
+   ========================================================================== */
+.top-header-bar {
+    background: #0D150E !important;
+    border-bottom: 1px solid rgba(85, 121, 69, 0.25) !important;
+    color: #94A3B8 !important;
+}
+
+.top-header-bar .top-info-item i {
+    color: var(--olive) !important;
+}
+
+.top-header-bar a:hover {
+    color: var(--saffron) !important;
+}
+
+.social-icon-circle {
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(85, 121, 69, 0.3) !important;
+    color: #CBD5E1 !important;
+}
+
+.social-icon-circle:hover {
+    background: var(--olive) !important;
+    border-color: var(--olive) !important;
+    color: #FFFFFF !important;
+}
+
+.btn_book_table_pill {
+    background: linear-gradient(135deg, #557945 0%, #3e5932 100%) !important;
+    color: #FFFFFF !important;
+    border-radius: 50px !important;
+    font-family: var(--font-body) !important;
+    font-weight: 700 !important;
+    box-shadow: 0 4px 16px rgba(85, 121, 69, 0.35) !important;
+    transition: var(--transition) !important;
+}
+
+.btn_book_table_pill:hover {
+    background: var(--saffron) !important;
+    color: #1F2A1C !important;
+    box-shadow: 0 6px 20px rgba(241, 163, 68, 0.45) !important;
+    transform: translateY(-1px);
+}
+
+.main-menu > ul > li.active > a,
+.main-menu > ul > li > a:hover {
+    color: var(--olive) !important;
+}
+
+/* Primary Buttons */
+.btn_1, a.btn_1 {
+    background: linear-gradient(135deg, #557945 0%, #3e5932 100%) !important;
+    color: #FFFFFF !important;
+    font-family: var(--font-body) !important;
+    font-weight: 700 !important;
+    border-radius: 8px !important;
+    border: none !important;
+    box-shadow: 0 4px 14px rgba(85, 121, 69, 0.35) !important;
+    transition: var(--transition) !important;
+}
+
+.btn_1:hover, a.btn_1:hover {
+    background: linear-gradient(135deg, #60894e 0%, #466738 100%) !important;
+    box-shadow: 0 6px 20px rgba(85, 121, 69, 0.5) !important;
+    color: #FFFFFF !important;
+    transform: translateY(-1px);
+}
+
+.btn_1.outline, a.btn_1.outline {
+    background: transparent !important;
+    border: 2px solid var(--olive) !important;
+    color: var(--olive) !important;
+    box-shadow: none !important;
+}
+
+.btn_1.outline:hover, a.btn_1.outline:hover {
+    background: var(--olive) !important;
+    color: #FFFFFF !important;
+}
+
+/* Cart Button & Count */
+.cart_bt strong, #cart-count {
+    background: var(--saffron) !important;
+    color: #1F2A1C !important;
+    font-weight: 800 !important;
+}
+
+.fixed-floating-buttons .float-btn {
+    background: linear-gradient(135deg, #557945 0%, #3e5932 100%) !important;
+    box-shadow: 0 8px 24px rgba(85, 121, 69, 0.45) !important;
+    border-radius: 50px !important;
+    color: #FFFFFF !important;
+}
+
+.fixed-floating-buttons .float-btn:hover {
+    background: linear-gradient(135deg, #60894e 0%, #466738 100%) !important;
+    box-shadow: 0 10px 30px rgba(85, 121, 69, 0.6) !important;
+}
+
+/* ==========================================================================
+   POPULAR DISHES & MENU SECTION
+   ========================================================================== */
+.popular-subtag {
+    color: var(--saffron) !important;
+    font-family: var(--font-body) !important;
+    font-weight: 800 !important;
+    letter-spacing: 2px !important;
+}
+
+.popular-title {
+    font-family: var(--font-heading) !important;
+    color: var(--ink) !important;
+    font-weight: 600 !important;
+}
+
+.popular-view-all-link {
+    color: var(--olive) !important;
+    font-family: var(--font-body) !important;
+    font-weight: 700 !important;
+}
+
+.popular-view-all-link:hover {
+    color: var(--olive-dark) !important;
+}
+
+/* Category Circles */
+.category-circle-item.active .circle-img-box {
+    border-color: var(--olive) !important;
+    box-shadow: 0 0 0 3px rgba(85, 121, 69, 0.35) !important;
+}
+
+.category-circle-item.active .category-circle-label {
+    color: var(--olive) !important;
+    font-weight: 700 !important;
+}
+
+.category-circle-item .circle-badge {
+    background: var(--saffron) !important;
+    color: #1F2A1C !important;
+}
+
+/* Dish Cards */
+.tasty-card {
+    border-radius: 16px !important;
+    border: 1px solid var(--border) !important;
+    transition: var(--transition) !important;
+}
+
+.tasty-card:hover {
+    border-color: rgba(85, 121, 69, 0.45) !important;
+    box-shadow: 0 12px 30px rgba(85, 121, 69, 0.12) !important;
+    transform: translateY(-3px) !important;
+}
+
+.tasty-card-title {
+    font-family: var(--font-heading) !important;
+    font-weight: 600 !important;
+    color: var(--ink) !important;
+}
+
+.tasty-card-price {
+    font-family: var(--font-heading) !important;
+    color: var(--olive) !important;
+    font-weight: 700 !important;
+}
+
+.tasty-card-btn {
+    background: var(--olive) !important;
+    color: #FFFFFF !important;
+}
+
+.tasty-card-btn:hover {
+    background: var(--saffron) !important;
+    color: #1F2A1C !important;
+}
+
+/* Big CTA Button */
+.creative-view-menu-btn {
+    background: linear-gradient(135deg, #557945 0%, #3e5932 100%) !important;
+    box-shadow: 0 10px 28px rgba(85, 121, 69, 0.4) !important;
+    color: #FFFFFF !important;
+    border-radius: 50px !important;
+    font-family: var(--font-body) !important;
+    font-weight: 700 !important;
+}
+
+.creative-view-menu-btn:hover {
+    background: linear-gradient(135deg, #60894e 0%, #466738 100%) !important;
+    box-shadow: 0 14px 34px rgba(85, 121, 69, 0.55) !important;
+    color: #FFFFFF !important;
+}
+
+/* ==========================================================================
+   RESERVATION BANNER & EXPERIENCE
+   ========================================================================== */
+.luxury-banner-wrapper {
+    border-radius: 20px !important;
+    border: 1px solid rgba(85, 121, 69, 0.35) !important;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25) !important;
+}
+
+.luxury-banner-overlay {
+    background: linear-gradient(135deg, rgba(14, 23, 16, 0.94) 0%, rgba(10, 16, 11, 0.96) 100%) !important;
+}
+
+.luxury-subtag {
+    color: var(--saffron) !important;
+    font-family: var(--font-body) !important;
+    font-weight: 800 !important;
+    letter-spacing: 2px !important;
+}
+
+.luxury-title {
+    font-family: var(--font-heading) !important;
+    color: #FFFFFF !important;
+    font-weight: 600 !important;
+}
+
+.luxury-feature-badge {
+    background: rgba(85, 121, 69, 0.18) !important;
+    border: 1px solid rgba(85, 121, 69, 0.35) !important;
+    color: #CBD5E1 !important;
+}
+
+.luxury-feature-badge i {
+    color: var(--saffron) !important;
+}
+
+.luxury-form-card {
+    background: rgba(22, 33, 23, 0.95) !important;
+    border: 1px solid rgba(85, 121, 69, 0.4) !important;
+    border-radius: 16px !important;
+}
+
+/* ==========================================================================
+   FOOTER SECTION (MATCHING ADMIN DARK FOREST)
+   ========================================================================== */
+footer, .footer {
+    background: #0D150E !important;
+    color: #CBD5E1 !important;
+    border-top: 1px solid rgba(85, 121, 69, 0.25) !important;
+}
+
+footer h3, footer h4, .footer h3, .footer h4 {
+    color: #FFFFFF !important;
+    font-family: var(--font-heading) !important;
+}
+
+footer p, .footer p {
+    color: #94A3B8 !important;
+}
+
+footer a, .footer a {
+    color: #94A3B8 !important;
+}
+
+footer a:hover, .footer a:hover {
+    color: var(--saffron) !important;
+}
+
+footer .follow_us ul li a {
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(85, 121, 69, 0.3) !important;
+    color: #CBD5E1 !important;
+}
+
+footer .follow_us ul li a:hover {
+    background: var(--olive) !important;
+    border-color: var(--olive) !important;
+    color: #FFFFFF !important;
+}
