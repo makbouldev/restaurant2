@@ -640,30 +640,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Check for new incoming orders from Neon DB periodically
+    let hasInitializedPolling = false;
+
     function pollIncomingOrders() {
         const apiPath = window.location.pathname.includes('/admin') ? '../api/orders.php' : 'api/orders.php';
         fetch(apiPath)
             .then(res => res.json())
             .then(data => {
                 if (data && data.status === 'success' && Array.isArray(data.orders)) {
-                    if (knownOrderIds.size === 0) {
-                        // First load: record existing orders without showing notification
-                        data.orders.forEach(o => knownOrderIds.add(o.cmdId || o.id));
+                    if (!hasInitializedPolling) {
+                        hasInitializedPolling = true;
+                        data.orders.forEach(o => knownOrderIds.add(String(o.cmdId || o.id)));
                     } else {
                         // Detect newly inserted orders
-                        const newOrders = data.orders.filter(o => !knownOrderIds.has(o.cmdId || o.id));
+                        const newOrders = data.orders.filter(o => !knownOrderIds.has(String(o.cmdId || o.id)));
                         newOrders.forEach(o => {
-                            knownOrderIds.add(o.cmdId || o.id);
+                            knownOrderIds.add(String(o.cmdId || o.id));
                             showOrderPopup(o);
                         });
+                        if (newOrders.length > 0 && typeof loadNeonDashboardMetrics === 'function') {
+                            loadNeonDashboardMetrics();
+                        }
+                    }
+                    if (typeof renderFetchedOrders === 'function') {
+                        renderFetchedOrders(data.orders);
                     }
                 }
             })
             .catch(() => {});
     }
 
-    setTimeout(pollIncomingOrders, 2000);
-    setInterval(pollIncomingOrders, 6000);
+    setTimeout(pollIncomingOrders, 1000);
+    setInterval(pollIncomingOrders, 3500);
 
     /* ==========================================================================
        10. Top-Down Slide KPI Detail Modal Handler
@@ -2036,50 +2044,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 </td>
                 <td>
                     <span class="guest-count-pill"><i class="fa-solid fa-users"></i> ${res.guests} Personnes</span>
-                </td>
-                <td>
-                    <div class="resa-notes-box">
-                        <i class="fa-solid fa-comment-dots text-orange"></i> <span>${res.notes || 'Aucune remarque'}</span>
-                    </div>
-                </td>
-                <td><span class="order-status-badge status-pending"><i class="fa-solid fa-hourglass-half"></i> En Attente</span></td>
-                <td style="text-align: right;">
-                    <div class="order-action-btns">
-                        <button class="order-btn cycle-resa-btn" title="Confirmer la réservation" data-id="${resIdStr}"><i class="fa-solid fa-check text-green"></i></button>
-                        <a href="https://wa.me/212${cleanPhone}" target="_blank" class="order-btn" title="Contacter WhatsApp Client"><i class="fa-brands fa-whatsapp text-green"></i></a>
-                        <button class="order-btn edit-resa-btn" title="Modifier" data-id="${resIdStr}"><i class="fa-solid fa-pen-to-square"></i></button>
-                        <button class="order-btn delete-resa-btn" title="Annuler" data-id="${resIdStr}"><i class="fa-solid fa-trash-can"></i></button>
-                    </div>
-                </td>
-            `;
-
-            resaTableBody.prepend(tr);
-        });
-
-        if (typeof updateResaKpis === 'function') updateResaKpis();
-
-        const badge = document.getElementById('sidebarResaBadge');
-        if (badge) {
-            const totalRes = document.querySelectorAll('#resaTableBody .resa-row').length;
-            badge.textContent = totalRes;
-        }
-    }
-                                <span class="client-addr"><i class="fa-solid fa-envelope text-blue"></i> ${res.email || 'Non renseigné'}</span>
-                            </div>
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <div style="display: flex; flex-direction: column; gap: 2px;">
-                        <strong style="color: var(--ink); font-size: 13px;"><i class="fa-solid fa-clock text-green"></i> ${res.date}, ${res.time}</strong>
-                        <span class="time-ago">Reçu en direct</span>
-                    </div>
-                </td>
-                <td>
-                    <div style="display: flex; flex-direction: column; gap: 4px;">
-                        <span class="guests-pill"><i class="fa-solid fa-user-group text-green"></i> ${res.guests || 2} Personne(s)</span>
-                        <span class="table-badge vip"><i class="fa-solid fa-utensils"></i> Table Web</span>
-                    </div>
                 </td>
                 <td>
                     <div class="resa-notes-box">

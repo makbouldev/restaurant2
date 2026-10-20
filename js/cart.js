@@ -871,21 +871,43 @@
             existingOrders.unshift(order);
             localStorage.setItem('foores_live_orders', JSON.stringify(existingOrders));
 
-            // Sync to MySQL API
-            fetch('api/orders.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(order)
-            }).catch(function(err) {});
         } catch (err) {
             console.error('Error saving order', err);
         }
 
-        // Clear active cart after saving order
-        clearCart();
+        var submitBtn = document.querySelector('button[form="checkout-form"]') || document.querySelector('#checkout-form button[type="submit"]');
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Transmission de la commande...';
+        }
 
-        // Redirect to confirm.html
-        window.location.href = 'confirm.html';
+        var isRedirected = false;
+        function finishAndRedirect() {
+            if (isRedirected) return;
+            isRedirected = true;
+            clearCart();
+            window.location.href = 'confirm.html';
+        }
+
+        setTimeout(finishAndRedirect, 3500);
+
+        var apiPath = window.location.pathname.includes('/admin') ? '../api/orders.php' : 'api/orders.php';
+        fetch(apiPath, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(order),
+            keepalive: true
+        })
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+            console.log('Order saved in Neon Cloud:', data);
+            finishAndRedirect();
+        })
+        .catch(function(err) {
+            console.warn('API sync warning:', err);
+            finishAndRedirect();
+        });
+
         return false;
     }
 
