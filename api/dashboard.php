@@ -75,30 +75,25 @@ try {
     });
     $topDishes = array_slice($dishSalesCount, 0, 5);
 
-    // 4. Si la base est encore nouvelle (peu ou pas de commandes), fournir des données réalistes basées sur la base
-    if ($totalOrders === 0) {
-        // Obtenir des plats réels de la table dishes pour le leaderboard
+    // 4. Si aucune commande n'a encore été enregistrée, afficher les plats du menu avec 0 ventes
+    if (empty($topDishes)) {
         $sampleDishes = $pdo->query("SELECT title, price FROM dishes ORDER BY id ASC LIMIT 5")->fetchAll();
-        $fallbackTop = [];
-        $rankCounts = [420, 380, 290, 210, 160];
-        foreach ($sampleDishes as $idx => $sd) {
-            $c = $rankCounts[$idx] ?? 100;
-            $fallbackTop[] = [
+        foreach ($sampleDishes as $sd) {
+            $topDishes[] = [
                 'title' => $sd['title'],
-                'count' => $c,
-                'revenue' => round($c * (float)$sd['price'], 2)
+                'count' => 0,
+                'revenue' => 0
             ];
         }
-        $topDishes = $fallbackTop;
     }
 
     echo json_encode([
         'status' => 'success',
         'kpi' => [
-            'orders' => $totalOrders > 0 ? $totalOrders : 142,
-            'reservations' => $totalReservations > 0 ? $totalReservations : 28,
-            'revenue' => $totalRevenue > 0 ? $totalRevenue : 14850,
-            'avgTicket' => $avgTicket > 0 ? $avgTicket : 245,
+            'orders' => $totalOrders,
+            'reservations' => $totalReservations,
+            'revenue' => $totalRevenue,
+            'avgTicket' => $avgTicket,
             'pendingOrders' => $pendingOrders,
             'cookingOrders' => $cookingOrders,
             'completedOrders' => $completedOrders,
@@ -106,8 +101,8 @@ try {
         ],
         'chart' => [
             'labels' => $daysOfWeek,
-            'orders' => ($totalOrders > 0 && array_sum($ordersPerDay) > 0) ? $ordersPerDay : [12, 19, 25, 22, 38, 45, 30],
-            'revenue' => ($totalRevenue > 0 && array_sum($revenuePerDay) > 0) ? $revenuePerDay : [1200, 2100, 3200, 2800, 4900, 6100, 4200]
+            'orders' => $ordersPerDay,
+            'revenue' => $revenuePerDay
         ],
         'topDishes' => $topDishes
     ], JSON_UNESCAPED_UNICODE);

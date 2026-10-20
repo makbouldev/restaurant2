@@ -1985,6 +1985,27 @@ document.addEventListener('DOMContentLoaded', () => {
         const ordersTableBody = document.getElementById('ordersTableBody');
         if (!ordersTableBody) return;
 
+        // Synchronize DOM with DB: remove rows that were deleted from the database
+        const fetchedIds = new Set((orders || []).map(o => String(o.cmdId || o.id)));
+        document.querySelectorAll('#ordersTableBody .order-row').forEach(row => {
+            const rowId = String(row.getAttribute('data-order-id'));
+            if (!fetchedIds.has(rowId)) {
+                row.remove();
+            }
+        });
+
+        if (!orders || orders.length === 0) {
+            ordersTableBody.innerHTML = `<tr><td colspan="7" style="text-align: center; padding: 48px 16px; color: var(--text-muted);"><i class="fa-solid fa-receipt" style="font-size: 2.2rem; margin-bottom: 12px; display: block; opacity: 0.35;"></i><strong>Aucune commande enregistrée</strong><p style="margin: 4px 0 0; font-size: 0.85rem; opacity: 0.7;">Les nouvelles commandes du site ou du TPV s'afficheront ici en temps réel.</p></td></tr>`;
+            if (typeof updateOrderKpis === 'function') updateOrderKpis();
+            return;
+        }
+
+        // Remove empty state placeholder if present
+        const placeholder = ordersTableBody.querySelector('td[colspan="7"]');
+        if (placeholder && placeholder.closest('tr')) {
+            placeholder.closest('tr').remove();
+        }
+
         orders.forEach(order => {
             const orderIdStr = order.cmdId || order.id;
             if (document.querySelector(`.order-row[data-order-id="${orderIdStr}"]`)) return;
@@ -2081,6 +2102,29 @@ document.addEventListener('DOMContentLoaded', () => {
         const resaTableBody = document.getElementById('resaTableBody');
         if (!resaTableBody) return;
 
+        // Synchronize DOM with DB: remove reservations that were deleted from the database
+        const fetchedResaIds = new Set((reservations || []).map(r => String(r.resId || r.id)));
+        document.querySelectorAll('#resaTableBody .resa-row').forEach(row => {
+            const rowId = String(row.getAttribute('data-resa-id'));
+            if (!fetchedResaIds.has(rowId)) {
+                row.remove();
+            }
+        });
+
+        if (!reservations || reservations.length === 0) {
+            resaTableBody.innerHTML = `<tr><td colspan="7" style="text-align: center; padding: 48px 16px; color: var(--text-muted);"><i class="fa-solid fa-calendar-xmark" style="font-size: 2.2rem; margin-bottom: 12px; display: block; opacity: 0.35;"></i><strong>Aucune réservation enregistrée</strong><p style="margin: 4px 0 0; font-size: 0.85rem; opacity: 0.7;">Les réservations de tables effectuées sur le site s'afficheront ici en direct.</p></td></tr>`;
+            if (typeof updateResaKpis === 'function') updateResaKpis();
+            const badge = document.getElementById('sidebarResaBadge');
+            if (badge) badge.textContent = '0';
+            return;
+        }
+
+        // Remove empty state placeholder if present
+        const placeholder = resaTableBody.querySelector('td[colspan="7"]');
+        if (placeholder && placeholder.closest('tr')) {
+            placeholder.closest('tr').remove();
+        }
+
         reservations.forEach(res => {
             const resIdStr = res.resId || res.id;
             if (document.querySelector(`.resa-row[data-resa-id="${resIdStr}"]`)) return;
@@ -2108,6 +2152,46 @@ document.addEventListener('DOMContentLoaded', () => {
                             <div>
                                 <strong>${nameStr}</strong>
                                 <span class="client-phone"><i class="fa-solid fa-phone text-green"></i> ${res.phone}</span>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="resa-date-meta">
+                        <span class="resa-date"><i class="fa-solid fa-calendar-day text-orange"></i> ${res.date}</span>
+                        <span class="resa-time"><i class="fa-solid fa-clock text-green"></i> ${res.time}</span>
+                    </div>
+                </td>
+                <td>
+                    <span class="guest-count-pill"><i class="fa-solid fa-users"></i> ${res.guests} Personnes</span>
+                </td>
+                <td>
+                    <div class="resa-notes-box">
+                        <i class="fa-solid fa-comment-dots text-orange"></i> <span>${res.notes || 'Aucune remarque'}</span>
+                    </div>
+                </td>
+                <td><span class="order-status-badge status-pending"><i class="fa-solid fa-hourglass-half"></i> En Attente</span></td>
+                <td style="text-align: right;">
+                    <div class="order-action-btns">
+                        <button class="order-btn cycle-resa-btn" title="Confirmer la réservation" data-id="${resIdStr}"><i class="fa-solid fa-check text-green"></i></button>
+                        <a href="https://wa.me/212${cleanPhone}" target="_blank" class="order-btn" title="Contacter WhatsApp Client"><i class="fa-brands fa-whatsapp text-green"></i></a>
+                        <button class="order-btn edit-resa-btn" title="Modifier" data-id="${resIdStr}"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button class="order-btn delete-resa-btn" title="Annuler" data-id="${resIdStr}"><i class="fa-solid fa-trash-can"></i></button>
+                    </div>
+                </td>
+            `;
+
+            resaTableBody.prepend(tr);
+        });
+
+        if (typeof updateResaKpis === 'function') updateResaKpis();
+
+        const badge = document.getElementById('sidebarResaBadge');
+        if (badge) {
+            const totalRes = document.querySelectorAll('#resaTableBody .resa-row').length;
+            badge.textContent = totalRes;
+        }
+    }
                                 <span class="client-addr"><i class="fa-solid fa-envelope text-blue"></i> ${res.email || 'Non renseigné'}</span>
                             </div>
                         </div>
