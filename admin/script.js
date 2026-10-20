@@ -104,111 +104,31 @@ document.addEventListener('DOMContentLoaded', () => {
     initRouteFromHash();
 
     /* ==========================================================================
-       2. Real Master Date Filter System (Synchronizes Cards, Chart & Leaderboard)
-       ========================================================================== */
-    const masterData = {
-        'today': {
-            label: "Aujourd'hui",
-            title: "Statistiques des Commandes d'Aujourd'hui",
-            kpi: { orders: '142', res: '28', rev: '14 850 DH', ticket: '245 DH' },
-            finance: { total: '14 850 DH', card: '8 910 DH', cash: '3 710 DH', delivery: '2 230 DH', margin: '275 DH', fees: '185 DH', net: '22 min' },
-            chart: {
-                labels: ['08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00'],
-                orders: [5, 12, 28, 35, 14, 18, 22, 8],
-                revenue: [450, 1200, 2900, 3700, 1500, 1900, 2400, 800]
-            },
-            dishes: [
-                { name: 'Double Cheeseburger', sales: '42 vendus', rev: '3 570 DH', pct: '92%', class: 'gold-bar' },
-                { name: 'Garlic Parmesan Pasta', sales: '38 vendus', rev: '3 230 DH', pct: '84%', class: 'silver-bar' },
-                { name: 'Pizza Margherita', sales: '25 vendus', rev: '1 625 DH', pct: '65%', class: 'bronze-bar' },
-                { name: 'Crispy Chicken Spicy', sales: '18 vendus', rev: '1 260 DH', pct: '48%', class: 'green-bar' },
-                { name: 'Mojito Passion', sales: '14 vendus', rev: '490 DH', pct: '38%', class: 'green-bar' },
-                { name: 'Saumon Grillé', sales: '10 vendus', rev: '1 200 DH', pct: '28%', class: 'blue-bar' }
-            ]
-        },
-        'this-week': {
-            label: "Cette Semaine",
-            title: "Statistiques des Commandes de la Semaine",
-            kpi: { orders: '579', res: '89', rev: '48 250 DH', ticket: '255 DH' },
-            finance: { total: '48 250 DH', card: '28 950 DH', cash: '12 060 DH', delivery: '7 240 DH', margin: '285 DH', fees: '195 DH', net: '24 min' },
-            chart: {
-                labels: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
-                orders: [52, 68, 74, 85, 98, 112, 90],
-                revenue: [4300, 5800, 6200, 7100, 8300, 9500, 7050]
-            },
-            dishes: [
-                { name: 'Garlic Parmesan Pasta', sales: '420 vendus', rev: '35 700 DH', pct: '95%', class: 'gold-bar' },
-                { name: 'Double Cheeseburger', sales: '380 vendus', rev: '32 300 DH', pct: '82%', class: 'silver-bar' },
-                { name: 'Pizza Margherita', sales: '295 vendus', rev: '19 175 DH', pct: '68%', class: 'bronze-bar' },
-                { name: 'Crispy Chicken Spicy', sales: '240 vendus', rev: '16 800 DH', pct: '54%', class: 'green-bar' },
-                { name: 'Mojito Passion Artisanal', sales: '210 vendus', rev: '7 350 DH', pct: '45%', class: 'green-bar' },
-                { name: 'Pavé de Saumon Grillé', sales: '185 vendus', rev: '22 200 DH', pct: '38%', class: 'blue-bar' }
-            ]
-        },
-        'this-month': {
-            label: "Ce Mois",
-            title: "Statistiques des Commandes du Mois",
-            kpi: { orders: '2 324', res: '340', rev: '195 450 DH', ticket: '260 DH' },
-            finance: { total: '195 450 DH', card: '117 270 DH', cash: '48 860 DH', delivery: '29 320 DH', margin: '290 DH', fees: '200 DH', net: '25 min' },
-            chart: {
-                labels: ['Semaine 1', 'Semaine 2', 'Semaine 3', 'Semaine 4'],
-                orders: [495, 579, 610, 640],
-                revenue: [41900, 48250, 51200, 54100]
-            },
-            dishes: [
-                { name: 'Garlic Parmesan Pasta', sales: '1 680 vendus', rev: '142 800 DH', pct: '98%', class: 'gold-bar' },
-                { name: 'Double Cheeseburger', sales: '1 520 vendus', rev: '129 200 DH', pct: '88%', class: 'silver-bar' },
-                { name: 'Pizza Margherita', sales: '1 180 vendus', rev: '76 700 DH', pct: '72%', class: 'bronze-bar' },
-                { name: 'Crispy Chicken Spicy', sales: '960 vendus', rev: '67 200 DH', pct: '58%', class: 'green-bar' },
-                { name: 'Mojito Passion Artisanal', sales: '840 vendus', rev: '29 400 DH', pct: '48%', class: 'green-bar' },
-                { name: 'Pavé de Saumon Grillé', sales: '740 vendus', rev: '88 800 DH', pct: '42%', class: 'blue-bar' }
-            ]
-        }
-    };
-
-    /* ==========================================================================
-       2.5 Table Reservations Chart System (Chart.js Bar + Line Combo)
+       2. Real-Time Dashboard System (100% Dynamic from Neon PostgreSQL Cloud)
        ========================================================================== */
     const resaCanvas = document.getElementById('reservationsChart');
     const resaMainTitle = document.getElementById('resaMainTitle');
+    const ordersCanvas = document.getElementById('weeklyOrdersChart');
+    const statsMainTitle = document.getElementById('statsMainTitle');
+    const kpiOrders = document.getElementById('kpiOrders');
+    const kpiReservations = document.getElementById('kpiReservations');
+    const kpiRevenue = document.getElementById('kpiRevenue');
+    const kpiAvgTicket = document.getElementById('kpiAvgTicket');
+    const leaderboardContainer = document.querySelector('.top-dishes-leaderboard');
 
-    const resaDataMap = {
-        'today': {
-            label: "Aujourd'hui",
-            title: "Statistiques des Réservations d'Aujourd'hui",
-            labels: ['12:00', '14:00', '19:00', '20:00', '21:00', '22:00'],
-            tables: [4, 6, 8, 12, 10, 4],
-            occupancy: [40, 65, 75, 92, 85, 50]
-        },
-        'this-week': {
-            label: "Cette Semaine",
-            title: "Statistiques des Réservations de la Semaine",
-            labels: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
-            tables: [12, 18, 22, 28, 35, 42, 38],
-            occupancy: [55, 68, 74, 82, 92, 98, 88]
-        },
-        'this-month': {
-            label: "Ce Mois",
-            title: "Statistiques des Réservations du Mois",
-            labels: ['Semaine 1', 'Semaine 2', 'Semaine 3', 'Semaine 4'],
-            tables: [85, 92, 105, 118],
-            occupancy: [78, 84, 89, 95]
-        }
-    };
-
+    // 1. Initialize Reservations Chart.js with dynamic schema
     if (resaCanvas && typeof Chart !== 'undefined') {
         try {
             const resaCtx = resaCanvas.getContext('2d');
-
             reservationsChart = new Chart(resaCtx, {
                 type: 'bar',
                 data: {
-                    labels: resaDataMap['this-week'].labels,
+                    labels: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
                     datasets: [
                         {
                             type: 'bar',
                             label: 'Tables Réservées',
-                            data: resaDataMap['this-week'].tables,
+                            data: [0, 0, 0, 0, 0, 0, 0],
                             backgroundColor: '#F1A344',
                             borderRadius: 6,
                             borderSkipped: 'bottom',
@@ -241,10 +161,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         },
                         y: {
                             type: 'linear',
+                            beginAtZero: true,
                             grid: { color: '#ECE8DF', drawBorder: false },
                             ticks: {
                                 color: '#6B7065',
-                                font: { family: 'Manrope', size: 11 }
+                                font: { family: 'Manrope', size: 11 },
+                                precision: 0
                             }
                         }
                     }
@@ -255,53 +177,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Reservation Chart Date Filter Handler
-    const resaFilterBtns = document.querySelectorAll('.date-filter-btn[data-resa-range]');
-    resaFilterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            resaFilterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            const range = btn.getAttribute('data-resa-range');
-            if (resaDataMap[range] && reservationsChart) {
-                const data = resaDataMap[range];
-                reservationsChart.data.labels = data.labels;
-                reservationsChart.data.datasets[0].data = data.tables;
-                reservationsChart.update();
-
-                if (resaMainTitle) resaMainTitle.textContent = data.title;
-                showToast(`Réservations filtrées : ${data.label}`);
-            }
-        });
-    });
-
-    const resaDateBtn = document.getElementById('resaDateBtn');
-    if (resaDateBtn) {
-        resaDateBtn.addEventListener('click', openCustomDateModal);
-    }
-
-    const ordersCanvas = document.getElementById('weeklyOrdersChart');
-    const statsMainTitle = document.getElementById('statsMainTitle');
-    const kpiOrders = document.getElementById('kpiOrders');
-    const kpiReservations = document.getElementById('kpiReservations');
-    const kpiRevenue = document.getElementById('kpiRevenue');
-    const kpiAvgTicket = document.getElementById('kpiAvgTicket');
-    const leaderboardContainer = document.querySelector('.top-dishes-leaderboard');
-
-    // Initialize Weekly Orders Chart.js
+    // 2. Initialize Weekly Orders Chart.js
     if (ordersCanvas && typeof Chart !== 'undefined') {
         try {
             const ordersCtx = ordersCanvas.getContext('2d');
-
             weeklyOrdersChart = new Chart(ordersCtx, {
                 type: 'bar',
                 data: {
-                    labels: masterData['this-week'].chart.labels,
+                    labels: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
                     datasets: [
                         {
                             type: 'line',
                             label: 'Recettes (DH)',
-                            data: masterData['this-week'].chart.revenue,
+                            data: [0, 0, 0, 0, 0, 0, 0],
                             borderColor: '#F1A344',
                             borderWidth: 3,
                             pointRadius: 4.5,
@@ -316,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         {
                             type: 'bar',
                             label: 'Commandes',
-                            data: masterData['this-week'].chart.orders,
+                            data: [0, 0, 0, 0, 0, 0, 0],
                             backgroundColor: '#557945',
                             borderRadius: 6,
                             borderSkipped: 'bottom',
@@ -362,17 +250,19 @@ document.addEventListener('DOMContentLoaded', () => {
                         },
                         y: {
                             type: 'linear',
+                            beginAtZero: true,
                             display: true,
                             position: 'left',
                             grid: { color: '#ECE8DF', drawBorder: false },
                             ticks: {
                                 color: '#6B7065',
                                 font: { family: 'Manrope', size: 11 },
-                                stepSize: 30
+                                precision: 0
                             }
                         },
                         y1: {
                             type: 'linear',
+                            beginAtZero: true,
                             display: true,
                             position: 'right',
                             grid: { display: false },
@@ -392,160 +282,142 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Function to apply master filter
-    function applyMasterDateFilter(filterKey, customFrom = null, customTo = null) {
-        let currentData = masterData[filterKey];
+    // 3. Dynamic Metrics Loader (Fetches directly from Neon Cloud Database)
+    let currentDashboardRange = 'this-week';
 
-        if (!currentData && customFrom && customTo) {
-            // Build custom filter payload
-            currentData = {
-                label: `Du ${customFrom} au ${customTo}`,
-                title: `Statistiques des Commandes du ${customFrom} au ${customTo}`,
-                kpi: { orders: '382', res: '54', rev: '31 400 DH', ticket: '250 DH' },
-                chart: {
-                    labels: ['Période 1', 'Période 2', 'Période 3', 'Période 4', 'Période 5'],
-                    orders: [68, 85, 92, 74, 63],
-                    revenue: [5600, 7100, 7800, 6200, 4700]
-                },
-                dishes: masterData['this-week'].dishes
-            };
-        }
-
-        if (!currentData) return;
-
-        // 0. Update Main Chart Section Title
-        if (statsMainTitle && currentData.title) {
-            statsMainTitle.textContent = currentData.title;
-        }
-
-        // 1. Update KPI Stat Cards
-        if (kpiOrders) kpiOrders.textContent = currentData.kpi.orders;
-        if (kpiReservations) kpiReservations.textContent = currentData.kpi.res;
-        if (kpiRevenue) kpiRevenue.textContent = currentData.kpi.rev;
-        if (kpiAvgTicket) kpiAvgTicket.textContent = currentData.kpi.ticket;
-
-        // 1.5 Update Financial Accounting Card
-        if (currentData.finance) {
-            const financeTotal = document.getElementById('financeTotalAmount');
-            const payCard = document.getElementById('payCardAmount');
-            const payCash = document.getElementById('payCashAmount');
-            const payDelivery = document.getElementById('payDeliveryAmount');
-            const finMargin = document.getElementById('finMarginVal');
-            const finFees = document.getElementById('finFeesVal');
-            const finNet = document.getElementById('finNetVal');
-
-            if (financeTotal) financeTotal.textContent = currentData.finance.total;
-            if (payCard) payCard.textContent = currentData.finance.card;
-            if (payCash) payCash.textContent = currentData.finance.cash;
-            if (payDelivery) payDelivery.textContent = currentData.finance.delivery;
-            if (finMargin) finMargin.textContent = currentData.finance.margin;
-            if (finFees) finFees.textContent = currentData.finance.fees;
-            if (finNet) finNet.textContent = currentData.finance.net;
-        }
-
-        // 2. Update Chart.js (Orders Chart & Reservations Chart)
-        if (weeklyOrdersChart) {
-            weeklyOrdersChart.data.labels = currentData.chart.labels;
-            weeklyOrdersChart.data.datasets[0].data = currentData.chart.revenue;
-            weeklyOrdersChart.data.datasets[1].data = currentData.chart.orders;
-            weeklyOrdersChart.update();
-        }
-
-        if (reservationsChart && resaDataMap[filterKey]) {
-            const rData = resaDataMap[filterKey];
-            reservationsChart.data.labels = rData.labels;
-            reservationsChart.data.datasets[0].data = rData.tables;
-            reservationsChart.update();
-            if (resaMainTitle) resaMainTitle.textContent = rData.title;
-        }
-
-    // Load Live Calculated Dashboard Performance from Neon Cloud Database
-    function loadNeonDashboardMetrics() {
+    function loadNeonDashboardMetrics(range = currentDashboardRange) {
+        currentDashboardRange = range;
         const apiPath = window.location.pathname.includes('/admin') ? '../api/dashboard.php' : 'api/dashboard.php';
-        fetch(apiPath)
+
+        fetch(`${apiPath}?range=${encodeURIComponent(range)}`)
             .then(res => res.json())
             .then(data => {
-                if (data && data.status === 'success') {
-                    if (data.kpi) {
-                        if (kpiOrders && data.kpi.orders !== undefined) kpiOrders.textContent = data.kpi.orders;
-                        if (kpiReservations && data.kpi.reservations !== undefined) kpiReservations.textContent = data.kpi.reservations;
-                        if (kpiRevenue && data.kpi.revenue !== undefined) kpiRevenue.textContent = data.kpi.revenue.toLocaleString('fr-FR');
-                        if (kpiAvgTicket && data.kpi.avgTicket !== undefined) kpiAvgTicket.textContent = data.kpi.avgTicket;
-                    }
+                if (!data || data.status !== 'success') return;
 
-                    if (data.chart && weeklyOrdersChart) {
-                        weeklyOrdersChart.data.labels = data.chart.labels;
-                        weeklyOrdersChart.data.datasets[0].data = data.chart.revenue;
-                        weeklyOrdersChart.data.datasets[1].data = data.chart.orders;
-                        weeklyOrdersChart.update();
-                    }
+                // Header Dynamic Live Date
+                const kpiHeaderDate = document.getElementById('kpiHeaderDate');
+                if (kpiHeaderDate) {
+                    const now = new Date();
+                    const formatted = now.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+                    kpiHeaderDate.textContent = formatted.charAt(0).toUpperCase() + formatted.slice(1);
+                }
 
-                    if (data.topDishes && Array.isArray(data.topDishes) && leaderboardContainer) {
-                        const items = leaderboardContainer.querySelectorAll('.leaderboard-item');
-                        const maxSales = data.topDishes[0] ? data.topDishes[0].count : 1;
-                        data.topDishes.forEach((dish, idx) => {
-                            if (items[idx]) {
-                                const nameEl = items[idx].querySelector('h4');
-                                const subEl = items[idx].querySelector('.dish-sub');
-                                const progressEl = items[idx].querySelector('.sales-progress');
-                                const avatarEl = items[idx].querySelector('.dish-avatar');
+                // Titles synchronization
+                if (statsMainTitle) {
+                    if (range === 'today') statsMainTitle.textContent = "Commandes d'Aujourd'hui";
+                    else if (range === 'this-month') statsMainTitle.textContent = "Commandes du Mois";
+                    else statsMainTitle.textContent = "Commandes de la Semaine";
+                }
+                if (resaMainTitle) {
+                    if (range === 'today') resaMainTitle.textContent = "Réservations d'Aujourd'hui";
+                    else if (range === 'this-month') resaMainTitle.textContent = "Réservations du Mois";
+                    else resaMainTitle.textContent = "Réservations de la Semaine";
+                }
 
-                                if (nameEl) nameEl.textContent = dish.title;
-                                if (subEl) subEl.textContent = `${dish.count} vendus • ${dish.revenue} DH`;
-                                if (avatarEl) avatarEl.textContent = dish.title.charAt(0).toUpperCase();
-                                if (progressEl) {
-                                    const pct = Math.max(15, Math.min(100, Math.round((dish.count / maxSales) * 100)));
-                                    progressEl.style.width = `${pct}%`;
-                                }
+                // Top 4 KPI Cards
+                if (data.kpi) {
+                    if (kpiOrders) kpiOrders.textContent = data.kpi.orders;
+                    if (kpiReservations) kpiReservations.textContent = data.kpi.reservations;
+                    if (kpiRevenue) kpiRevenue.textContent = Number(data.kpi.revenue || 0).toLocaleString('fr-FR');
+                    if (kpiAvgTicket) kpiAvgTicket.textContent = Number(data.kpi.avgTicket || 0).toLocaleString('fr-FR');
+
+                    const occFill = document.getElementById('occupancyFill');
+                    const occLabel = document.getElementById('occupancyLabel');
+                    if (occFill) occFill.style.width = `${data.kpi.occupancyRate || 0}%`;
+                    if (occLabel) occLabel.textContent = `${data.kpi.occupancyRate || 0} % occupé`;
+                }
+
+                // Weekly Orders Chart
+                if (weeklyOrdersChart && data.chart) {
+                    weeklyOrdersChart.data.labels = data.chart.labels;
+                    weeklyOrdersChart.data.datasets[0].data = data.chart.revenue;
+                    weeklyOrdersChart.data.datasets[1].data = data.chart.orders;
+                    weeklyOrdersChart.update();
+                }
+
+                // Reservations Chart
+                if (reservationsChart && data.reservationsChart) {
+                    reservationsChart.data.labels = data.reservationsChart.labels;
+                    reservationsChart.data.datasets[0].data = data.reservationsChart.tables;
+                    reservationsChart.update();
+                }
+
+                // Sales Channels Breakdown
+                if (data.channels) {
+                    const finTotal = document.getElementById('financeTotalAmount');
+                    const payCard = document.getElementById('payCardAmount');
+                    const payCash = document.getElementById('payCashAmount');
+                    const payDelivery = document.getElementById('payDeliveryAmount');
+                    const segOlive = document.getElementById('channelSegOlive');
+                    const segSaffron = document.getElementById('channelSegSaffron');
+                    const segGold = document.getElementById('channelSegGold');
+                    const subSurPlace = document.getElementById('channelSubSurPlace');
+                    const subLivraison = document.getElementById('channelSubLivraison');
+                    const subTakeaway = document.getElementById('channelSubTakeaway');
+                    const finFees = document.getElementById('finFeesVal');
+                    const finNet = document.getElementById('finNetVal');
+
+                    if (finTotal) finTotal.textContent = `${Number(data.channels.totalRevenue || 0).toLocaleString('fr-FR')} DH`;
+                    if (payCard) payCard.textContent = `${Number(data.channels.surPlace.revenue || 0).toLocaleString('fr-FR')} DH`;
+                    if (payCash) payCash.textContent = `${Number(data.channels.online.revenue || 0).toLocaleString('fr-FR')} DH`;
+                    if (payDelivery) payDelivery.textContent = `${Number(data.channels.takeaway.revenue || 0).toLocaleString('fr-FR')} DH`;
+
+                    if (segOlive) segOlive.style.width = `${data.channels.surPlace.pct}%`;
+                    if (segSaffron) segSaffron.style.width = `${data.channels.online.pct}%`;
+                    if (segGold) segGold.style.width = `${data.channels.takeaway.pct}%`;
+
+                    if (subSurPlace) subSurPlace.textContent = `${data.channels.surPlace.pct} % • ${data.channels.surPlace.count} commandes`;
+                    if (subLivraison) subLivraison.textContent = `${data.channels.online.pct} % • ${data.channels.online.count} livraisons`;
+                    if (subTakeaway) subTakeaway.textContent = `${data.channels.takeaway.pct} % • ${data.channels.takeaway.count} commandes`;
+
+                    if (finFees) finFees.textContent = `${data.channels.avgDeliveryTicket} DH`;
+                    if (finNet) finNet.textContent = `${data.channels.avgDeliveryTime}`;
+                }
+
+                // Top Selling Dishes Leaderboard (Dynamic Real Dishes from Neon)
+                if (data.topDishes && Array.isArray(data.topDishes) && leaderboardContainer) {
+                    const items = leaderboardContainer.querySelectorAll('.leaderboard-item');
+                    const maxSales = (data.topDishes[0] && data.topDishes[0].count > 0) ? data.topDishes[0].count : 1;
+                    data.topDishes.forEach((dish, idx) => {
+                        if (items[idx]) {
+                            const nameEl = items[idx].querySelector('h4');
+                            const subEl = items[idx].querySelector('.dish-sub');
+                            const progressEl = items[idx].querySelector('.sales-progress');
+                            const avatarEl = items[idx].querySelector('.dish-avatar');
+
+                            if (nameEl) nameEl.textContent = dish.title;
+                            if (subEl) subEl.textContent = `${dish.count} vendu${dish.count > 1 ? 's' : ''} • ${Number(dish.revenue || 0).toLocaleString('fr-FR')} DH`;
+                            if (avatarEl) avatarEl.textContent = dish.title.charAt(0).toUpperCase();
+                            if (progressEl) {
+                                const pct = dish.count > 0 ? Math.max(15, Math.min(100, Math.round((dish.count / maxSales) * 100))) : 0;
+                                progressEl.style.width = `${pct}%`;
                             }
-                        });
-                    }
+                        }
+                    });
                 }
+
+                // Synchronize Active States on Buttons
+                document.querySelectorAll('.date-filter-btn').forEach(btn => {
+                    const r = btn.getAttribute('data-kpi-range') || btn.getAttribute('data-range') || btn.getAttribute('data-resa-range');
+                    if (r === range) btn.classList.add('active');
+                    else if (r) btn.classList.remove('active');
+                });
             })
-            .catch(err => console.warn('Failed to load Neon dashboard metrics', err));
-    }
-    loadNeonDashboardMetrics();
-
-        // 3. Update Leaderboard Items
-        if (leaderboardContainer && currentData.dishes) {
-            const items = leaderboardContainer.querySelectorAll('.leaderboard-item');
-            items.forEach((item, index) => {
-                if (currentData.dishes[index]) {
-                    const dish = currentData.dishes[index];
-                    const nameEl = item.querySelector('h4');
-                    const subEl = item.querySelector('.dish-sub');
-                    const progressEl = item.querySelector('.sales-progress');
-
-                    if (nameEl) nameEl.textContent = dish.name;
-                    if (subEl) subEl.textContent = `${dish.sales} • ${dish.rev}`;
-                    if (progressEl) {
-                        progressEl.style.width = dish.pct;
-                        progressEl.className = `sales-progress ${dish.class}`;
-                    }
-                }
-            });
-        }
-
-        // 4. Synchronize Active State across ALL filter buttons
-        document.querySelectorAll('.date-filter-btn').forEach(btn => {
-            const btnRange = btn.getAttribute('data-kpi-range') || btn.getAttribute('data-range');
-            if (btnRange === filterKey || (filterKey === 'custom' && btn.classList.contains('icon-only'))) {
-                btn.classList.add('active');
-            } else {
-                btn.classList.remove('active');
-            }
-        });
-
-        // 5. Trigger Toast Feedback
-        showToast(`Filtre activé : ${currentData.label}`);
+            .catch(err => console.warn('Erreur chargement metrics Neon', err));
     }
 
-    // Attach Listeners to ALL Date Filter Buttons (KPI bar & Chart header bar)
+    // Initial Load & Real-Time Auto-Refresh every 8 seconds
+    loadNeonDashboardMetrics('this-week');
+    setInterval(() => loadNeonDashboardMetrics(currentDashboardRange), 8000);
+
+    // Date Filter Click Handlers (KPI header, Orders Chart header & Reservations header)
     document.querySelectorAll('.date-filter-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-            const range = btn.getAttribute('data-kpi-range') || btn.getAttribute('data-range');
+            const range = btn.getAttribute('data-kpi-range') || btn.getAttribute('data-range') || btn.getAttribute('data-resa-range');
             if (range) {
-                applyMasterDateFilter(range);
+                loadNeonDashboardMetrics(range);
+                const labelMap = { 'today': "Aujourd'hui", 'this-week': 'Cette semaine', 'this-month': 'Ce mois' };
+                showToast(`Filtre activé : ${labelMap[range] || range}`);
             }
         });
     });

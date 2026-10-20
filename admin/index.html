@@ -121,12 +121,12 @@
                 <!-- Stat Bar Header with Date Filters -->
                 <div class="kpi-header-bar">
                     <div class="kpi-header-title">
-                        <span class="kpi-header-date">Samedi 17 octobre</span>
+                        <span class="kpi-header-date" id="kpiHeaderDate">Aujourd'hui</span>
                         <h1 class="page-title">Aperçu des performances</h1>
                     </div>
                     <div class="date-filter-group kpi-date-filters">
-                        <button class="date-filter-btn active" data-range="today">Aujourd'hui</button>
-                        <button class="date-filter-btn" data-range="this-week">Cette semaine</button>
+                        <button class="date-filter-btn" data-range="today">Aujourd'hui</button>
+                        <button class="date-filter-btn active" data-range="this-week">Cette semaine</button>
                         <button class="date-filter-btn" data-range="this-month">Ce mois</button>
                         <button class="date-filter-btn icon-only" id="kpiDateBtn" title="Choisir une date">
                             <i class="fa-regular fa-calendar-days"></i>
@@ -144,8 +144,8 @@
                             <span class="stat-title">Total commandes</span>
                         </div>
                         <div class="stat-data">
-                            <h3 class="stat-number" id="kpiOrders">142</h3>
-                            <span class="stat-badge positive"><i class="fa-solid fa-arrow-up"></i> 18,4 % <span class="badge-sub">vs hier</span></span>
+                            <h3 class="stat-number" id="kpiOrders">0</h3>
+                            <span class="stat-badge" id="kpiOrdersBadge"><i class="fa-solid fa-clock"></i> <span class="badge-sub">en direct</span></span>
                         </div>
                     </div>
 
@@ -157,12 +157,12 @@
                             <span class="stat-title">Réservations tables</span>
                         </div>
                         <div class="stat-data">
-                            <h3 class="stat-number" id="kpiReservations">28</h3>
+                            <h3 class="stat-number" id="kpiReservations">0</h3>
                             <div class="kpi-occupancy-row">
                                 <div class="occupancy-track">
-                                    <div class="occupancy-fill" style="width: 85%;"></div>
+                                    <div class="occupancy-fill" id="occupancyFill" style="width: 0%;"></div>
                                 </div>
-                                <span class="occupancy-label">85 % occupé</span>
+                                <span class="occupancy-label" id="occupancyLabel">0 % occupé</span>
                             </div>
                         </div>
                     </div>
@@ -175,8 +175,8 @@
                             <span class="stat-title">Chiffre d'affaires</span>
                         </div>
                         <div class="stat-data">
-                            <h3 class="stat-number"><span id="kpiRevenue">14 850</span> <span class="unit-dh">DH</span></h3>
-                            <span class="stat-badge positive"><i class="fa-solid fa-arrow-up"></i> 12,6 % <span class="badge-sub">ce mois</span></span>
+                            <h3 class="stat-number"><span id="kpiRevenue">0</span> <span class="unit-dh">DH</span></h3>
+                            <span class="stat-badge" id="kpiRevenueBadge"><i class="fa-solid fa-coins"></i> <span class="badge-sub">ventes réelles</span></span>
                         </div>
                     </div>
 
@@ -188,8 +188,8 @@
                             <span class="stat-title">Panier moyen</span>
                         </div>
                         <div class="stat-data">
-                            <h3 class="stat-number"><span id="kpiAvgTicket">245</span> <span class="unit-dh">DH</span></h3>
-                            <span class="stat-meta-text">3.2 couverts / table</span>
+                            <h3 class="stat-number"><span id="kpiAvgTicket">0</span> <span class="unit-dh">DH</span></h3>
+                            <span class="stat-meta-text" id="kpiAvgTicketMeta">par commande</span>
                         </div>
                     </div>
                 </div>
@@ -318,15 +318,15 @@
                             </div>
                             <div class="finance-total-badge">
                                 <span class="label">Total ventes</span>
-                                <strong id="financeTotalAmount">48 250 DH</strong>
+                                <strong id="financeTotalAmount">0 DH</strong>
                             </div>
                         </div>
 
-                        <!-- Multi-segment progress bar: olive 60%, saffron 25%, gold 15% -->
+                        <!-- Multi-segment progress bar -->
                         <div class="channel-multi-bar">
-                            <div class="channel-bar-seg seg-olive" style="width: 60%;"></div>
-                            <div class="channel-bar-seg seg-saffron" style="width: 25%;"></div>
-                            <div class="channel-bar-seg seg-gold" style="width: 15%;"></div>
+                            <div class="channel-bar-seg seg-olive" id="channelSegOlive" style="width: 0%;"></div>
+                            <div class="channel-bar-seg seg-saffron" id="channelSegSaffron" style="width: 0%;"></div>
+                            <div class="channel-bar-seg seg-gold" id="channelSegGold" style="width: 0%;"></div>
                         </div>
 
                         <!-- Services Breakdown List -->
@@ -337,10 +337,10 @@
                                     <span class="channel-dot dot-olive"></span>
                                     <div>
                                         <div class="channel-name">Sur place</div>
-                                        <div class="channel-sub">60 % • 347 commandes</div>
+                                        <div class="channel-sub" id="channelSubSurPlace">0 % • 0 commandes</div>
                                     </div>
                                 </div>
-                                <div class="channel-amount" id="payCardAmount">28 950 DH</div>
+                                <div class="channel-amount" id="payCardAmount">0 DH</div>
                             </div>
 
                             <!-- Livraison à Domicile -->
@@ -349,10 +349,10 @@
                                     <span class="channel-dot dot-saffron"></span>
                                     <div>
                                         <div class="channel-name">Livraison à domicile</div>
-                                        <div class="channel-sub">25 % • 145 livraisons</div>
+                                        <div class="channel-sub" id="channelSubLivraison">0 % • 0 livraisons</div>
                                     </div>
                                 </div>
-                                <div class="channel-amount" id="payCashAmount">12 060 DH</div>
+                                <div class="channel-amount" id="payCashAmount">0 DH</div>
                             </div>
 
                             <!-- À Emporter -->
@@ -361,10 +361,10 @@
                                     <span class="channel-dot dot-gold"></span>
                                     <div>
                                         <div class="channel-name">À emporter</div>
-                                        <div class="channel-sub">15 % • 87 commandes</div>
+                                        <div class="channel-sub" id="channelSubTakeaway">0 % • 0 commandes</div>
                                     </div>
                                 </div>
-                                <div class="channel-amount" id="payDeliveryAmount">7 240 DH</div>
+                                <div class="channel-amount" id="payDeliveryAmount">0 DH</div>
                             </div>
                         </div>
 
@@ -372,11 +372,11 @@
                         <div class="channels-summary-row">
                             <div class="channel-stat-box">
                                 <span class="stat-box-label">Moyenne livraison</span>
-                                <strong class="stat-box-val" id="finFeesVal">195 DH</strong>
+                                <strong class="stat-box-val" id="finFeesVal">0 DH</strong>
                             </div>
                             <div class="channel-stat-box">
                                 <span class="stat-box-label">Temps de livraison moyen</span>
-                                <strong class="stat-box-val" id="finNetVal">24 min</strong>
+                                <strong class="stat-box-val" id="finNetVal">-</strong>
                             </div>
                         </div>
                     </div>
@@ -1795,7 +1795,7 @@
     </div>
 
     <script src="/js/dishes_data.js"></script>
-    <script src="/admin/script.js?v=51.0"></script>
+    <script src="/admin/script.js?v=52.0"></script>
 </body>
 </html>
 
