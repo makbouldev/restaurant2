@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="/admin/styles.css?v=55.0">
+    <link rel="stylesheet" href="/admin/styles.css?v=56.0">
 </head>
 <body>
     <div class="app-container">
@@ -1383,7 +1383,7 @@
     </div>
 
     <script src="/js/dishes_data.js"></script>
-    <script src="/admin/script.js?v=55.0"></script>
+    <script src="/admin/script.js?v=56.0"></script>
 
     <!-- ================= ADMIN AUTH LOGIN GATE MODAL ================= -->
     <div id="adminLoginGate" class="admin-login-overlay" style="display: none;">
@@ -1406,7 +1406,7 @@
                 <div class="form-group-login">
                     <label for="adminLoginUser"><i class="fa-solid fa-user"></i> Identifiant ou Email</label>
                     <div class="input-icon-wrap">
-                        <input type="text" id="adminLoginUser" name="username" placeholder="admin ou emma.johnson@flavorist.ma" required autocomplete="username" autofocus>
+                        <input type="text" id="adminLoginUser" name="username" placeholder="Entrez votre identifiant ou email" required autocomplete="off" autofocus>
                         <i class="fa-regular fa-envelope input-suffix-icon"></i>
                     </div>
                 </div>
@@ -1414,7 +1414,7 @@
                 <div class="form-group-login">
                     <label for="adminLoginPass"><i class="fa-solid fa-lock"></i> Mot de passe</label>
                     <div class="input-icon-wrap">
-                        <input type="password" id="adminLoginPass" name="password" placeholder="••••••••" required autocomplete="current-password">
+                        <input type="password" id="adminLoginPass" name="password" placeholder="Entrez votre mot de passe" required autocomplete="off">
                         <button type="button" class="btn-toggle-pass" id="btnToggleLoginPass" onclick="togglePasswordVisibility()" title="Afficher/Masquer">
                             <i class="fa-regular fa-eye" id="togglePassIcon"></i>
                         </button>

@@ -85,15 +85,10 @@ switch ($method) {
         break;
 
     case 'GET':
-        // Check current admin details
-        try {
-            $admin = $pdo->query("SELECT id, username, email, full_name, role_title, avatar_url, last_login FROM admins ORDER BY id ASC LIMIT 1")->fetch();
-            echo json_encode(['status' => 'success', 'admin' => $admin]);
-        } catch (Exception $e) {
-            http_response_code(500);
-            echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
-        }
-        break;
+        // Protected endpoint: do not expose admin credentials or emails publicly
+        http_response_code(403);
+        echo json_encode(['status' => 'error', 'message' => 'Accès refusé.']);
+        exit();
 
     default:
         http_response_code(405);
