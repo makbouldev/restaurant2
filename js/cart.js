@@ -153,113 +153,8 @@
     }
 
     function openOptionsModal(item, onConfirm, preSelected) {
-        if (!item || !item.options || !Array.isArray(item.options) || item.options.length === 0) {
-            if (typeof onConfirm === 'function') onConfirm(null);
-            return;
-        }
-
-        var modal = document.getElementById('creativeDishOptionsModal');
-        if (!modal) {
-            modal = document.createElement('div');
-            modal.id = 'creativeDishOptionsModal';
-            modal.className = 'creative-options-overlay';
-            modal.innerHTML = 
-                '<div class="options-backdrop-close" onclick="window.FOORES_CART.closeOptionsModal()"></div>' +
-                '<div class="options-card-wrapper">' +
-                '   <button class="options-close-btn" onclick="window.FOORES_CART.closeOptionsModal()" title="Fermer">✕</button>' +
-                '   <div class="options-header-split">' +
-                '       <img id="optModalImage" src="" alt="Plat" class="opt-modal-img" onerror="this.onerror=null; this.src=\'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&auto=format&fit=crop&q=80\';">' +
-                '       <div>' +
-                '           <span class="opt-modal-badge" id="optModalCategory">✨ Gourmand</span>' +
-                '           <h3 id="optModalTitle" class="opt-modal-title"></h3>' +
-                '           <span id="optModalPrice" class="opt-modal-price"></span>' +
-                '       </div>' +
-                '   </div>' +
-                '   <div class="options-body-content" id="optModalOptionsList"></div>' +
-                '   <div class="options-footer-actions mt-3">' +
-                '       <button type="button" class="btn-confirm-options" id="optModalConfirmBtn"><i class="bi bi-cart-plus-fill me-1"></i> Ajouter au Panier</button>' +
-                '   </div>' +
-                '</div>';
-            document.body.appendChild(modal);
-
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') closeOptionsModal();
-            });
-        }
-
-        document.getElementById('optModalImage').src = item.image || 'img/menu_items/1.jpg';
-        document.getElementById('optModalTitle').textContent = item.title || 'Plat';
-        document.getElementById('optModalCategory').textContent = item.category ? (CATEGORY_BADGES[item.category] || item.category) : '✨ Spécialité';
-        document.getElementById('optModalPrice').textContent = formatPrice(item.price || 100);
-
-        var confirmBtn = document.getElementById('optModalConfirmBtn');
-        if (preSelected) {
-            confirmBtn.innerHTML = '<i class="bi bi-check2-circle me-1"></i> Enregistrer les modifications';
-        } else {
-            confirmBtn.innerHTML = '<i class="bi bi-cart-plus-fill me-1"></i> Ajouter au Panier';
-        }
-
-        var listContainer = document.getElementById('optModalOptionsList');
-        listContainer.innerHTML = '';
-
-        var currentSelected = {};
-
-        item.options.forEach(function(optGroup) {
-            var groupDiv = document.createElement('div');
-            groupDiv.className = 'opt-group-wrapper';
-            
-            var label = document.createElement('label');
-            label.className = 'opt-group-title';
-            
-            var groupIcon = '✨';
-            var nameLower = (optGroup.name || '').toLowerCase();
-            if (nameLower.includes('taille') || nameLower.includes('format') || nameLower.includes('portion')) groupIcon = '📐';
-            else if (nameLower.includes('sauce de base') || nameLower.includes('sauce / crème') || nameLower.includes('sauce au choix')) groupIcon = '🥫';
-            else if (nameLower.includes('piment') || nameLower.includes('harissa') || nameLower.includes('piquante')) groupIcon = '🌶️';
-            else if (nameLower.includes('cuisson')) groupIcon = '🔥';
-            else if (nameLower.includes('fromage') || nameLower.includes('extra')) groupIcon = '🧀';
-            else if (nameLower.includes('boisson') || nameLower.includes('glace')) groupIcon = '🥤';
-            else if (nameLower.includes('accompagnement') || nameLower.includes('garniture') || nameLower.includes('frites')) groupIcon = '🍟';
-            else if (nameLower.includes('topping') || nameLower.includes('nappage') || nameLower.includes('parfum')) groupIcon = '🍨';
-
-            label.innerHTML = '<span>' + groupIcon + '</span> <strong>' + optGroup.name + '</strong>';
-            groupDiv.appendChild(label);
-
-            var pillsRow = document.createElement('div');
-            pillsRow.className = 'opt-pills-row';
-
-            var values = optGroup.values || [];
-            var currentlyChosen = (preSelected && preSelected[optGroup.name]) ? preSelected[optGroup.name] : values[0];
-
-            if (values.length > 0) {
-                currentSelected[optGroup.name] = currentlyChosen;
-            }
-
-            values.forEach(function(val) {
-                var btn = document.createElement('button');
-                btn.type = 'button';
-                btn.className = 'opt-pill-btn' + (val === currentlyChosen ? ' active' : '');
-                btn.textContent = val;
-                btn.onclick = function() {
-                    pillsRow.querySelectorAll('.opt-pill-btn').forEach(function(b) { b.classList.remove('active'); });
-                    btn.classList.add('active');
-                    currentSelected[optGroup.name] = val;
-                };
-                pillsRow.appendChild(btn);
-            });
-
-            groupDiv.appendChild(pillsRow);
-            listContainer.appendChild(groupDiv);
-        });
-
-        confirmBtn.onclick = function() {
-            closeOptionsModal();
-            if (typeof onConfirm === 'function') {
-                onConfirm(currentSelected);
-            }
-        };
-
-        modal.classList.add('active');
+        if (typeof onConfirm === 'function') onConfirm(null);
+        return;
     }
 
     function editCartItemOptions(cartItemId) {
@@ -400,28 +295,13 @@
                 categoryGuess = matchingDish.category;
             }
 
-            var dishOptions = (matchingDish && matchingDish.options && Array.isArray(matchingDish.options) && matchingDish.options.length > 0) 
-                ? matchingDish.options 
-                : getDishOptionsForCategory(categoryGuess || title);
-
-            var targetDishForModal = {
-                id: matchingDish ? matchingDish.id : ('dish_' + Date.now()),
+            addToCart({
+                dishId: matchingDish ? matchingDish.id : ('dish_' + Date.now()),
                 title: matchingDish ? matchingDish.title : title,
                 price: matchingDish ? matchingDish.price : price,
                 image: matchingDish ? matchingDish.image : image,
-                category: categoryGuess || 'gourmand',
-                options: dishOptions
-            };
-
-            openOptionsModal(targetDishForModal, function(selectedOptions) {
-                addToCart({
-                    dishId: targetDishForModal.id,
-                    title: targetDishForModal.title,
-                    price: targetDishForModal.price || price,
-                    image: targetDishForModal.image || image,
-                    quantity: 1,
-                    selectedOptions: selectedOptions
-                });
+                quantity: 1,
+                selectedOptions: null
             });
             return;
         }
@@ -1486,51 +1366,7 @@
     }
 
     function getDishOptionsForCategory(category) {
-        var cat = (category || '').toLowerCase();
-        if (cat.includes('burger')) {
-            return [
-                { name: "Taille / Format", values: ["Normal", "Double (+20 DH)", "Menu Frites & Boisson (+25 DH)"] },
-                { name: "Sauce au choix", values: ["Sauce Algérienne", "Sauce Blanche", "Sauce BBQ Fumé", "Sauce Mayo-Piquante", "Sauce Biggy"] },
-                { name: "Extra / Fromage", values: ["Sans Extra", "Double Cheddar (+8 DH)", "Bacon de Bœuf (+12 DH)", "Œuf au Plat (+6 DH)"] }
-            ];
-        } else if (cat.includes('pizza')) {
-            return [
-                { name: "Taille / Portion", values: ["Moyenne (30cm)", "Grande (40cm) (+25 DH)", "Familiale (50cm) (+45 DH)"] },
-                { name: "Pâte / Croûte", values: ["Pâte Napolitaine", "Pâte Fine Croustillante", "Croûte Fourrée Fromage (+15 DH)"] },
-                { name: "Extra Topping", values: ["Sans Extra", "Extra Mozzarella (+10 DH)", "Extra Champignons (+8 DH)", "Jalapeños Piquants (+6 DH)"] }
-            ];
-        } else if (cat.includes('pasta') || cat.includes('pâte')) {
-            return [
-                { name: "Type de Pâtes", values: ["Penne Rigate", "Spaghetti", "Tagliatelle Fraîches (+10 DH)", "Rigatoni"] },
-                { name: "Sauce / Crème", values: ["Sauce Tomate Basilic", "Crème Parme & Parmesan", "Sauce Arrabiata Piquante", "Crème Truffes (+20 DH)"] },
-                { name: "Extra Fromage", values: ["Parmesan Râpé", "Burrata Entière 125g (+25 DH)", "Mozzarella Gratinée (+12 DH)"] }
-            ];
-        } else if (cat.includes('grill') || cat.includes('viande')) {
-            return [
-                { name: "Cuisson de la Viande", values: ["Saignant 🥩", "À Point 🔥", "Bien Cuit 🍖"] },
-                { name: "Sauce d'accompagnement", values: ["Sauce Poivre Vert", "Sauce Champignons", "Sauce Béarnaise", "Beurre Maître d'Hôtel"] },
-                { name: "Accompagnement", values: ["Frites Maison", "Riz Parfumé aux Herbes", "Purée Maison", "Légumes Rôtis"] }
-            ];
-        } else if (cat.includes('salade')) {
-            return [
-                { name: "Vinaigrette / Sauce", values: ["Balsamique Honey", "Sauce César Maison", "Huile Olive & Citron", "Moutarde à l'Ancienne"] },
-                { name: "Extra Protéine", values: ["Sans Extra", "Poulet Grillé (+15 DH)", "Crevettes Sautées (+25 DH)", "Chèvre Chaud (+18 DH)"] }
-            ];
-        } else if (cat.includes('boisson') || cat.includes('drink')) {
-            return [
-                { name: "Taille / Format", values: ["Canette 33cl", "Bouteille 50cl (+5 DH)", "Grand Format 1L (+12 DH)"] },
-                { name: "Glaçons & Citron", values: ["Avec Glaçons & Citron 🧊🍋", "Sans Glaçons"] }
-            ];
-        } else if (cat.includes('dessert') || cat.includes('glace')) {
-            return [
-                { name: "Nappage / Sauce", values: ["Chocolat Fondu Valrhona", "Caramel Beurre Salé", "Coulis Fruits Rouges", "Miel & Noix"] },
-                { name: "Boule de Glace", values: ["Sans Extra", "Boule Vanille Bourbon (+10 DH)", "Boule Chocolat Noir (+10 DH)"] }
-            ];
-        }
-        return [
-            { name: "Format / Portion", values: ["Portion Normale", "Grande Portion (+15 DH)"] },
-            { name: "Sauce / Accompagnement", values: ["Sauce Maison", "Sauce Piquante", "Sans Sauce"] }
-        ];
+        return [];
     }
 
     function getCustomMenu() {
