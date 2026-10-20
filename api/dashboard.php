@@ -20,6 +20,16 @@ try {
         $minTs = $startOfMonth * 1000;
     }
 
+    // 0. Pre-load dish metadata (images and prices) from Neon dishes table
+    $allDishesQuery = $pdo->query("SELECT title, price, image FROM dishes ORDER BY id ASC")->fetchAll();
+    $dishMetaMap = [];
+    foreach ($allDishesQuery as $d) {
+        $dishMetaMap[$d['title']] = [
+            'price' => (float)$d['price'],
+            'image' => $d['image'] ?: 'img/menu_items/1.jpg'
+        ];
+    }
+
     // 1. Fetch Orders
     if ($minTs > 0) {
         $ordersStmt = $pdo->prepare("SELECT * FROM orders WHERE created_at >= :minTs ORDER BY id DESC");
@@ -88,9 +98,17 @@ try {
         foreach ($items as $it) {
             $title = $it['title'] ?? 'Plat';
             $qty = (int)($it['quantity'] ?? 1);
-            $itPrice = (float)($it['price'] ?? 0);
+            $itPrice = (float)($it['price'] ?? ($dishMetaMap[$title]['price'] ?? 0));
+            $itImg = $dishMetaMap[$title]['image'] ?? ($it['image'] ?? 'img/menu_items/1.jpg');
+
             if (!isset($dishSalesCount[$title])) {
-                $dishSalesCount[$title] = ['title' => $title, 'count' => 0, 'revenue' => 0];
+                $dishSalesCount[$title] = [
+                    'title' => $title,
+                    'count' => 0,
+                    'revenue' => 0,
+                    'image' => $itImg,
+                    'price' => $itPrice
+                ];
             }
             $dishSalesCount[$title]['count'] += $qty;
             $dishSalesCount[$title]['revenue'] += ($qty * $itPrice);
@@ -174,17 +192,21 @@ try {
     usort($dishSalesCount, function($a, $b) {
         return $b['count'] - $a['count'];
     });
-    $topDishes = array_slice($dishSalesCount, 0, 6);
+    $topDishes = array_slice(array_values($dishSalesCount), 0, 6);
 
-    // If no dish sales yet, list dishes from menu with 0 sales
-    if (empty($topDishes)) {
-        $sampleDishes = $pdo->query("SELECT title, price FROM dishes ORDER BY id ASC LIMIT 6")->fetchAll();
-        foreach ($sampleDishes as $sd) {
+    // If fewer than 6 dishes sold, complete with menu dishes from database with 0 sales
+    $soldTitles = array_column($topDishes, 'title');
+    foreach ($allDishesQuery as $sd) {
+        if (count($topDishes) >= 6) break;
+        if (!in_array($sd['title'], $soldTitles)) {
             $topDishes[] = [
                 'title' => $sd['title'],
                 'count' => 0,
-                'revenue' => 0
+                'revenue' => 0,
+                'image' => $sd['image'] ?: 'img/menu_items/1.jpg',
+                'price' => (float)$sd['price']
             ];
+            $soldTitles[] = $sd['title'];
         }
     }
 

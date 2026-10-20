@@ -1,4 +1,166 @@
 document.addEventListener('DOMContentLoaded', () => {
+    /* ==========================================================================
+       0. ADMIN AUTHENTICATION GATE & SESSION CONTROLLER
+       ========================================================================== */
+    const ADMIN_STORAGE_KEY = 'foores_admin_token';
+    const ADMIN_USER_KEY = 'foores_admin_user';
+
+    function checkAdminAuth() {
+        const token = localStorage.getItem(ADMIN_STORAGE_KEY) || sessionStorage.getItem(ADMIN_STORAGE_KEY);
+        const gate = document.getElementById('adminLoginGate');
+        const app = document.querySelector('.app-container');
+
+        if (!token) {
+            if (gate) gate.style.display = 'flex';
+            if (app) {
+                app.style.filter = 'blur(10px) brightness(0.35)';
+                app.style.pointerEvents = 'none';
+                app.style.userSelect = 'none';
+            }
+            return false;
+        } else {
+            if (gate) gate.style.display = 'none';
+            if (app) {
+                app.style.filter = 'none';
+                app.style.pointerEvents = 'auto';
+                app.style.userSelect = 'auto';
+            }
+            syncAdminProfile();
+            return true;
+        }
+    }
+
+    function syncAdminProfile() {
+        try {
+            const raw = localStorage.getItem(ADMIN_USER_KEY) || sessionStorage.getItem(ADMIN_USER_KEY);
+            if (raw) {
+                const admin = JSON.parse(raw);
+                const nameEl = document.getElementById('sidebarUserName');
+                const roleEl = document.getElementById('sidebarUserRole');
+                const avatarEl = document.getElementById('sidebarUserAvatar');
+                if (nameEl && admin.full_name) nameEl.textContent = admin.full_name;
+                if (roleEl && admin.role_title) roleEl.textContent = admin.role_title;
+                if (avatarEl && admin.full_name) {
+                    const parts = admin.full_name.trim().split(' ');
+                    const initials = parts.length > 1 ? (parts[0][0] + parts[1][0]).toUpperCase() : parts[0].slice(0, 2).toUpperCase();
+                    avatarEl.textContent = initials;
+                }
+            }
+        } catch (e) {}
+    }
+
+    window.togglePasswordVisibility = function() {
+        const passInput = document.getElementById('adminLoginPass');
+        const icon = document.getElementById('togglePassIcon');
+        if (!passInput) return;
+        if (passInput.type === 'password') {
+            passInput.type = 'text';
+            if (icon) {
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            }
+        } else {
+            passInput.type = 'password';
+            if (icon) {
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+    };
+
+    window.handleAdminLogin = async function(e) {
+        if (e && e.preventDefault) e.preventDefault();
+        const userEl = document.getElementById('adminLoginUser');
+        const passEl = document.getElementById('adminLoginPass');
+        const remEl = document.getElementById('adminRememberMe');
+        const alertBox = document.getElementById('loginAlertBox');
+        const alertMsg = document.getElementById('loginAlertMsg');
+        const submitBtn = document.getElementById('adminLoginSubmitBtn');
+
+        const username = (userEl ? userEl.value : '').trim();
+        const password = (passEl ? passEl.value : '').trim();
+        const remember = remEl ? remEl.checked : true;
+
+        if (!username || !password) {
+            if (alertBox) alertBox.style.display = 'flex';
+            if (alertMsg) alertMsg.textContent = 'Veuillez saisir votre identifiant et mot de passe.';
+            return;
+        }
+
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            const btnText = submitBtn.querySelector('.btn-text');
+            const btnSpinner = submitBtn.querySelector('.btn-spinner');
+            if (btnText) btnText.style.display = 'none';
+            if (btnSpinner) btnSpinner.style.display = 'inline-flex';
+        }
+        if (alertBox) alertBox.style.display = 'none';
+
+        try {
+            const res = await fetch('/api/auth.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: 'login', username, password })
+            });
+            const data = await res.json();
+
+            if (res.ok && data.status === 'success' && data.token) {
+                const storage = remember ? localStorage : sessionStorage;
+                storage.setItem(ADMIN_STORAGE_KEY, data.token);
+                if (data.admin) {
+                    storage.setItem(ADMIN_USER_KEY, JSON.stringify(data.admin));
+                }
+
+                const gate = document.getElementById('adminLoginGate');
+                const app = document.querySelector('.app-container');
+                if (gate) gate.style.display = 'none';
+                if (app) {
+                    app.style.filter = 'none';
+                    app.style.pointerEvents = 'auto';
+                    app.style.userSelect = 'auto';
+                }
+
+                syncAdminProfile();
+                showToast('Connexion réussie ! Bienvenue ' + (data.admin?.full_name || 'Chef'));
+                
+                // Refresh dashboard immediately
+                if (typeof loadNeonDashboardMetrics === 'function') {
+                    loadNeonDashboardMetrics('this-week');
+                }
+            } else {
+                if (alertBox) alertBox.style.display = 'flex';
+                if (alertMsg) alertMsg.textContent = data.message || 'Identifiant ou mot de passe incorrect.';
+            }
+        } catch (err) {
+            if (alertBox) alertBox.style.display = 'flex';
+            if (alertMsg) alertMsg.textContent = 'Erreur réseau ou serveur. Veuillez réessayer.';
+        } finally {
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                const btnText = submitBtn.querySelector('.btn-text');
+                const btnSpinner = submitBtn.querySelector('.btn-spinner');
+                if (btnText) btnText.style.display = 'inline-flex';
+                if (btnSpinner) btnSpinner.style.display = 'none';
+            }
+        }
+    };
+
+    window.logoutAdmin = function() {
+        localStorage.removeItem(ADMIN_STORAGE_KEY);
+        sessionStorage.removeItem(ADMIN_STORAGE_KEY);
+        localStorage.removeItem(ADMIN_USER_KEY);
+        sessionStorage.removeItem(ADMIN_USER_KEY);
+        
+        try {
+            fetch('/api/auth.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'logout' }) });
+        } catch (e) {}
+
+        window.location.reload();
+    };
+
+    // Immediate initial auth check
+    checkAdminAuth();
+
 
     let weeklyOrdersChart = null;
     let reservationsChart = null;
@@ -374,26 +536,41 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (finNet) finNet.textContent = `${data.channels.avgDeliveryTime}`;
                 }
 
-                // Top Selling Dishes Leaderboard (Dynamic Real Dishes from Neon)
+                // Top Selling Dishes Leaderboard (Dynamic Real Dishes from Neon with Real Images)
                 if (data.topDishes && Array.isArray(data.topDishes) && leaderboardContainer) {
-                    const items = leaderboardContainer.querySelectorAll('.leaderboard-item');
-                    const maxSales = (data.topDishes[0] && data.topDishes[0].count > 0) ? data.topDishes[0].count : 1;
-                    data.topDishes.forEach((dish, idx) => {
-                        if (items[idx]) {
-                            const nameEl = items[idx].querySelector('h4');
-                            const subEl = items[idx].querySelector('.dish-sub');
-                            const progressEl = items[idx].querySelector('.sales-progress');
-                            const avatarEl = items[idx].querySelector('.dish-avatar');
+                    if (data.topDishes.length === 0) {
+                        leaderboardContainer.innerHTML = `
+                            <div style="padding: 32px 16px; text-align: center; color: var(--text-muted, #718096); font-size: 0.88rem;">
+                                <i class="fa-solid fa-utensils" style="font-size: 1.6rem; opacity: 0.35; margin-bottom: 8px; display: block;"></i>
+                                Aucun plat vendu pour cette période.
+                            </div>`;
+                    } else {
+                        const maxSales = (data.topDishes[0] && data.topDishes[0].count > 0) ? data.topDishes[0].count : 1;
+                        const rankColors = ['rank-gold', 'rank-saffron', 'rank-peach', 'rank-track', 'rank-track', 'rank-track'];
+                        leaderboardContainer.innerHTML = data.topDishes.slice(0, 6).map((dish, idx) => {
+                            const rank = idx + 1;
+                            const rankColor = rankColors[idx] || 'rank-track';
+                            const pct = dish.count > 0 ? Math.max(12, Math.min(100, Math.round((dish.count / maxSales) * 100))) : 0;
+                            const countText = dish.count > 0 
+                                ? `${dish.count} vendu${dish.count > 1 ? 's' : ''} • ${Number(dish.revenue || 0).toLocaleString('fr-FR')} DH`
+                                : `${Number(dish.price || 0).toLocaleString('fr-FR')} DH • 0 vente`;
+                            let imgUrl = dish.image || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=100&auto=format&fit=crop&q=80';
+                            if (imgUrl.startsWith('img/')) imgUrl = '/' + imgUrl;
 
-                            if (nameEl) nameEl.textContent = dish.title;
-                            if (subEl) subEl.textContent = `${dish.count} vendu${dish.count > 1 ? 's' : ''} • ${Number(dish.revenue || 0).toLocaleString('fr-FR')} DH`;
-                            if (avatarEl) avatarEl.textContent = dish.title.charAt(0).toUpperCase();
-                            if (progressEl) {
-                                const pct = dish.count > 0 ? Math.max(15, Math.min(100, Math.round((dish.count / maxSales) * 100))) : 0;
-                                progressEl.style.width = `${pct}%`;
-                            }
-                        }
-                    });
+                            return `
+                                <div class="leaderboard-item rank-${rank}">
+                                    <span class="rank-badge ${rankColor}">${rank}</span>
+                                    <img src="${imgUrl}" alt="${dish.title}" class="dish-thumb" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=100&auto=format&fit=crop&q=80';">
+                                    <div class="dish-meta-info">
+                                        <h4>${dish.title}</h4>
+                                        <span class="dish-sub">${countText}</span>
+                                    </div>
+                                    <div class="sales-meter">
+                                        <div class="sales-progress" style="width: ${pct}%;"></div>
+                                    </div>
+                                </div>`;
+                        }).join('');
+                    }
                 }
 
                 // Synchronize Active States on Buttons

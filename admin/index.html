@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="/admin/styles.css?v=52.0">
+    <link rel="stylesheet" href="/admin/styles.css?v=55.0">
 </head>
 <body>
     <div class="app-container">
@@ -94,13 +94,15 @@
             </nav>
 
             <div class="sidebar-footer">
-                <div class="sidebar-user-card">
-                    <div class="user-avatar-initials">EJ</div>
+                <div class="sidebar-user-card" id="adminUserDropdownTrigger">
+                    <div class="user-avatar-initials" id="sidebarUserAvatar">EJ</div>
                     <div class="user-details">
-                        <span class="user-name">Emma Johnson</span>
-                        <span class="user-status">Chef / Admin</span>
+                        <span class="user-name" id="sidebarUserName">Emma Johnson</span>
+                        <span class="user-status" id="sidebarUserRole">Chef / Admin</span>
                     </div>
-                    <i class="fa-solid fa-chevron-down user-more-icon"></i>
+                    <button type="button" class="logout-btn-sidebar" id="adminLogoutBtn" title="Se déconnecter" onclick="logoutAdmin()">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    </button>
                 </div>
             </div>
         </aside>
@@ -218,83 +220,9 @@
                             <a href="#recipes" class="link-olive nav-trigger" data-target="recipes">Voir tout</a>
                         </div>
 
-                        <div class="top-dishes-leaderboard">
-                            <!-- Rank 1 (Gold) -->
-                            <div class="leaderboard-item rank-1">
-                                <span class="rank-badge rank-gold">1</span>
-                                <div class="dish-avatar">G</div>
-                                <div class="dish-meta-info">
-                                    <h4>Garlic Parmesan Pasta</h4>
-                                    <span class="dish-sub">420 vendus • 35 700 DH</span>
-                                </div>
-                                <div class="sales-meter">
-                                    <div class="sales-progress" style="width: 95%;"></div>
-                                </div>
-                            </div>
-
-                            <!-- Rank 2 (Saffron) -->
-                            <div class="leaderboard-item rank-2">
-                                <span class="rank-badge rank-saffron">2</span>
-                                <div class="dish-avatar">D</div>
-                                <div class="dish-meta-info">
-                                    <h4>Double Cheeseburger</h4>
-                                    <span class="dish-sub">380 vendus • 32 300 DH</span>
-                                </div>
-                                <div class="sales-meter">
-                                    <div class="sales-progress" style="width: 82%;"></div>
-                                </div>
-                            </div>
-
-                            <!-- Rank 3 (Peach #F6D8B0) -->
-                            <div class="leaderboard-item rank-3">
-                                <span class="rank-badge rank-peach">3</span>
-                                <div class="dish-avatar">P</div>
-                                <div class="dish-meta-info">
-                                    <h4>Pizza Margherita</h4>
-                                    <span class="dish-sub">295 vendus • 19 175 DH</span>
-                                </div>
-                                <div class="sales-meter">
-                                    <div class="sales-progress" style="width: 68%;"></div>
-                                </div>
-                            </div>
-
-                            <!-- Rank 4 (Track) -->
-                            <div class="leaderboard-item rank-4">
-                                <span class="rank-badge rank-track">4</span>
-                                <div class="dish-avatar">C</div>
-                                <div class="dish-meta-info">
-                                    <h4>Crispy Chicken</h4>
-                                    <span class="dish-sub">240 vendus • 16 800 DH</span>
-                                </div>
-                                <div class="sales-meter">
-                                    <div class="sales-progress" style="width: 54%;"></div>
-                                </div>
-                            </div>
-
-                            <!-- Rank 5 (Track) -->
-                            <div class="leaderboard-item rank-5">
-                                <span class="rank-badge rank-track">5</span>
-                                <div class="dish-avatar">M</div>
-                                <div class="dish-meta-info">
-                                    <h4>Mojito Passion</h4>
-                                    <span class="dish-sub">210 vendus • 7 350 DH</span>
-                                </div>
-                                <div class="sales-meter">
-                                    <div class="sales-progress" style="width: 45%;"></div>
-                                </div>
-                            </div>
-
-                            <!-- Rank 6 (Track) -->
-                            <div class="leaderboard-item rank-6">
-                                <span class="rank-badge rank-track">6</span>
-                                <div class="dish-avatar">P</div>
-                                <div class="dish-meta-info">
-                                    <h4>Pavé de saumon</h4>
-                                    <span class="dish-sub">185 vendus • 22 200 DH</span>
-                                </div>
-                                <div class="sales-meter">
-                                    <div class="sales-progress" style="width: 38%;"></div>
-                                </div>
+                        <div class="top-dishes-leaderboard" id="topDishesLeaderboard">
+                            <div class="leaderboard-loading" style="padding: 24px; text-align: center; color: var(--ink-3, #718096); font-size: 0.88rem;">
+                                <i class="fa-solid fa-spinner fa-spin" style="margin-right: 8px; color: var(--olive);"></i> Chargement des plats en temps réel...
                             </div>
                         </div>
                     </div>
@@ -1455,7 +1383,63 @@
     </div>
 
     <script src="/js/dishes_data.js"></script>
-    <script src="/admin/script.js?v=54.0"></script>
+    <script src="/admin/script.js?v=55.0"></script>
+
+    <!-- ================= ADMIN AUTH LOGIN GATE MODAL ================= -->
+    <div id="adminLoginGate" class="admin-login-overlay" style="display: none;">
+        <div class="admin-login-card">
+            <div class="login-brand-header">
+                <div class="login-logo-badge">
+                    <i class="fa-solid fa-utensils"></i>
+                </div>
+                <h2>Foores <span>Admin</span></h2>
+                <p class="login-sub">Accès sécurisé au tableau de bord du restaurant</p>
+                <div class="login-security-tag"><i class="fa-solid fa-shield-halved"></i> Connexion Protégée</div>
+            </div>
+
+            <div id="loginAlertBox" class="login-alert-box" style="display: none;">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <span id="loginAlertMsg">Identifiant ou mot de passe incorrect.</span>
+            </div>
+
+            <form id="adminLoginForm" onsubmit="handleAdminLogin(event)" autocomplete="on">
+                <div class="form-group-login">
+                    <label for="adminLoginUser"><i class="fa-solid fa-user"></i> Identifiant ou Email</label>
+                    <div class="input-icon-wrap">
+                        <input type="text" id="adminLoginUser" name="username" placeholder="admin ou emma.johnson@flavorist.ma" required autocomplete="username" autofocus>
+                        <i class="fa-regular fa-envelope input-suffix-icon"></i>
+                    </div>
+                </div>
+
+                <div class="form-group-login">
+                    <label for="adminLoginPass"><i class="fa-solid fa-lock"></i> Mot de passe</label>
+                    <div class="input-icon-wrap">
+                        <input type="password" id="adminLoginPass" name="password" placeholder="••••••••" required autocomplete="current-password">
+                        <button type="button" class="btn-toggle-pass" id="btnToggleLoginPass" onclick="togglePasswordVisibility()" title="Afficher/Masquer">
+                            <i class="fa-regular fa-eye" id="togglePassIcon"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="login-options-row">
+                    <label class="remember-label">
+                        <input type="checkbox" id="adminRememberMe" checked>
+                        <span>Se souvenir de moi</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-login-submit" id="adminLoginSubmitBtn">
+                    <span class="btn-text"><i class="fa-solid fa-arrow-right-to-bracket"></i> Se connecter</span>
+                    <span class="btn-spinner" style="display: none;"><i class="fa-solid fa-circle-notch fa-spin"></i> Connexion...</span>
+                </button>
+            </form>
+
+            <div class="login-footer-info">
+                <span>Foores Culinary Management &copy; 2026</span>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
 
