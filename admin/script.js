@@ -291,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             type: 'bar',
                             label: 'Tables Réservées',
                             data: [0, 0, 0, 0, 0, 0, 0],
-                            backgroundColor: '#F1A344',
+                            backgroundColor: '#B5482A',
                             borderRadius: 6,
                             borderSkipped: 'bottom',
                             barThickness: 22,
@@ -305,9 +305,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     plugins: {
                         legend: { display: false },
                         tooltip: {
-                            backgroundColor: '#1F2A1C',
-                            titleColor: '#FFFFFF',
-                            bodyColor: '#FFFFFF',
+                            backgroundColor: '#1A1714',
+                            titleColor: '#F5EFE4',
+                            bodyColor: '#F5EFE4',
                             padding: 10,
                             cornerRadius: 8
                         }
@@ -317,17 +317,17 @@ document.addEventListener('DOMContentLoaded', () => {
                             type: 'category',
                             grid: { display: false },
                             ticks: {
-                                color: '#6B7065',
-                                font: { family: 'Manrope', size: 12, weight: '500' }
+                                color: '#6E6A64',
+                                font: { family: 'Archivo', size: 12, weight: '500' }
                             }
                         },
                         y: {
                             type: 'linear',
                             beginAtZero: true,
-                            grid: { color: '#ECE8DF', drawBorder: false },
+                            grid: { color: '#E3DCCB', drawBorder: false },
                             ticks: {
-                                color: '#6B7065',
-                                font: { family: 'Manrope', size: 11 },
+                                color: '#6E6A64',
+                                font: { family: 'Archivo', size: 11 },
                                 precision: 0
                             }
                         }
@@ -352,12 +352,12 @@ document.addEventListener('DOMContentLoaded', () => {
                             type: 'line',
                             label: 'Recettes (DH)',
                             data: [0, 0, 0, 0, 0, 0, 0],
-                            borderColor: '#F1A344',
+                            borderColor: '#B5482A',
                             borderWidth: 3,
                             pointRadius: 4.5,
                             pointHoverRadius: 6,
-                            pointBackgroundColor: '#FFFFFF',
-                            pointBorderColor: '#F1A344',
+                            pointBackgroundColor: '#F5EFE4',
+                            pointBorderColor: '#B5482A',
                             pointBorderWidth: 2.5,
                             tension: 0.35,
                             yAxisID: 'y1',
@@ -367,7 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             type: 'bar',
                             label: 'Commandes',
                             data: [0, 0, 0, 0, 0, 0, 0],
-                            backgroundColor: '#557945',
+                            backgroundColor: '#B5482A',
                             borderRadius: 6,
                             borderSkipped: 'bottom',
                             barThickness: 16,
@@ -388,15 +388,15 @@ document.addEventListener('DOMContentLoaded', () => {
                                 usePointStyle: true,
                                 boxWidth: 8,
                                 boxHeight: 8,
-                                color: '#6B7065',
-                                font: { family: 'Manrope', size: 12, weight: '500' },
+                                color: '#6E6A64',
+                                font: { family: 'Archivo', size: 12, weight: '500' },
                                 padding: 16
                             }
                         },
                         tooltip: {
-                            backgroundColor: '#1F2A1C',
-                            titleColor: '#FFFFFF',
-                            bodyColor: '#FFFFFF',
+                            backgroundColor: '#1A1714',
+                            titleColor: '#F5EFE4',
+                            bodyColor: '#F5EFE4',
                             padding: 10,
                             cornerRadius: 8
                         }
@@ -406,8 +406,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             type: 'category',
                             grid: { display: false },
                             ticks: {
-                                color: '#6B7065',
-                                font: { family: 'Manrope', size: 12, weight: '500' }
+                                color: '#6E6A64',
+                                font: { family: 'Archivo', size: 12, weight: '500' }
                             }
                         },
                         y: {
@@ -415,10 +415,10 @@ document.addEventListener('DOMContentLoaded', () => {
                             beginAtZero: true,
                             display: true,
                             position: 'left',
-                            grid: { color: '#ECE8DF', drawBorder: false },
+                            grid: { color: '#E3DCCB', drawBorder: false },
                             ticks: {
-                                color: '#6B7065',
-                                font: { family: 'Manrope', size: 11 },
+                                color: '#6E6A64',
+                                font: { family: 'Archivo', size: 11 },
                                 precision: 0
                             }
                         },
@@ -429,8 +429,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             position: 'right',
                             grid: { display: false },
                             ticks: {
-                                color: '#6B7065',
-                                font: { family: 'Manrope', size: 11 },
+                                color: '#6E6A64',
+                                font: { family: 'Archivo', size: 11 },
                                 callback: function(val) {
                                     return val >= 1000 ? (val / 1000) + 'k' : val;
                                 }
@@ -540,7 +540,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (data.topDishes && Array.isArray(data.topDishes) && leaderboardContainer) {
                     if (data.topDishes.length === 0) {
                         leaderboardContainer.innerHTML = `
-                            <div style="padding: 32px 16px; text-align: center; color: var(--text-muted, #718096); font-size: 0.88rem;">
+                            <div style="padding: 32px 16px; text-align: center; color: var(--text-muted, #6E6A64); font-size: 0.88rem;">
                                 <i class="fa-solid fa-utensils" style="font-size: 1.6rem; opacity: 0.35; margin-bottom: 8px; display: block;"></i>
                                 Aucun plat vendu pour cette période.
                             </div>`;
@@ -1204,8 +1204,8 @@ document.addEventListener('DOMContentLoaded', () => {
         div.style.background = 'rgba(0,0,0,0.25)';
         div.style.border = '1px solid rgba(255,255,255,0.1)';
         div.innerHTML = `
-            <input type="text" class="form-control form-control-sm opt-name-input" placeholder="Attribut (Ex: Sauce)" value="${optName}" style="max-width: 130px; background: rgba(0,0,0,0.4); color: #fff; border-color: rgba(255,255,255,0.15);">
-            <input type="text" class="form-control form-control-sm opt-values-input flex-grow-1" placeholder="Options (Ex: Piquante 🌶️, Douce 🍯, Mix 🔥)" value="${optValuesStr}" style="background: rgba(0,0,0,0.4); color: #fff; border-color: rgba(255,255,255,0.15);">
+            <input type="text" class="form-control form-control-sm opt-name-input" placeholder="Attribut (Ex: Sauce)" value="${optName}" style="max-width: 130px; background: rgba(0,0,0,0.4); color: #F5EFE4; border-color: rgba(255,255,255,0.15);">
+            <input type="text" class="form-control form-control-sm opt-values-input flex-grow-1" placeholder="Options (Ex: Piquante 🌶️, Douce 🍯, Mix 🔥)" value="${optValuesStr}" style="background: rgba(0,0,0,0.4); color: #F5EFE4; border-color: rgba(255,255,255,0.15);">
             <button type="button" class="btn btn-sm btn-outline-danger remove-opt-btn" title="Supprimer"><i class="fa-solid fa-trash"></i></button>
         `;
         div.querySelector('.remove-opt-btn').addEventListener('click', () => div.remove());
@@ -2363,11 +2363,11 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="ticket-info-row"><span>HEURE :</span><strong>${time}</strong></div>
             <div style="border-top: 1px dashed rgba(255,255,255,0.2); margin: 8px 0;"></div>
             <div style="margin: 8px 0;">
-                <strong style="color: #10B981; display: block; margin-bottom: 4px;">ARTICLES COMMANDÉS :</strong>
+                <strong style="color: #B5482A; display: block; margin-bottom: 4px;">ARTICLES COMMANDÉS :</strong>
                 ${dishes}
             </div>
             <div style="border-top: 1px dashed rgba(255,255,255,0.2); margin: 8px 0;"></div>
-            <div class="ticket-info-row" style="font-size: 15px;"><span>TOTAL RÈGLÉ :</span><strong style="color: #10B981;">${price}</strong></div>
+            <div class="ticket-info-row" style="font-size: 15px;"><span>TOTAL RÈGLÉ :</span><strong style="color: #B5482A;">${price}</strong></div>
         `;
 
         ticketModal.classList.add('active');
@@ -2549,7 +2549,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span class="pos-cart-item-name">${item.icon} ${item.name}</span>
                     <div class="pos-qty-controls">
                         <button type="button" class="pos-qty-btn qty-minus" data-id="${item.id}">-</button>
-                        <strong style="color: #FFF; font-size: 11px;">${item.qty}</strong>
+                        <strong style="color: #F5EFE4; font-size: 11px;">${item.qty}</strong>
                         <button type="button" class="pos-qty-btn qty-plus" data-id="${item.id}">+</button>
                     </div>
                     <span class="pos-cart-item-price">${itemTotal} DH</span>
@@ -3107,7 +3107,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </td>
                     <td>
                         <div style="display: flex; flex-direction: column; gap: 2px;">
-                            <strong style="color: #FFF; font-size: 13px;"><i class="fa-solid fa-clock text-green"></i> ${date}, ${time}</strong>
+                            <strong style="color: #F5EFE4; font-size: 13px;"><i class="fa-solid fa-clock text-green"></i> ${date}, ${time}</strong>
                             <span class="time-ago">Nouveau</span>
                         </div>
                     </td>
@@ -3278,7 +3278,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 12px;">
                 <div>
                     <span style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">EXPÉDITEUR</span>
-                    <h4 style="color: #FFF; font-size: 16px; margin: 2px 0;">${clientName}</h4>
+                    <h4 style="color: #F5EFE4; font-size: 16px; margin: 2px 0;">${clientName}</h4>
                 </div>
                 <div>${subjectBadge}</div>
             </div>
@@ -3290,7 +3290,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
             <div class="msg-body-preview" style="margin-top: 10px;">
                 <strong style="color: var(--primary-green); display: block; margin-bottom: 6px;"><i class="fa-solid fa-message"></i> Contenu du Message :</strong>
-                <p style="color: #FFF; margin: 0; line-height: 1.5; font-size: 13px;">"${messageText}"</p>
+                <p style="color: #F5EFE4; margin: 0; line-height: 1.5; font-size: 13px;">"${messageText}"</p>
             </div>
         `;
 
