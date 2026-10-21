@@ -2286,7 +2286,7 @@ button {
 }
 
 .preview-box-wrapper::after {
-    content: "📁 Cliquer pour choisir une photo locale";
+    content: "Cliquer pour choisir une photo locale";
     position: absolute;
     inset: 0;
     background: rgba(181, 72, 42, 0.75);

@@ -686,7 +686,7 @@ document.addEventListener('DOMContentLoaded', () => {
         themeToggleBtn.addEventListener('click', () => {
             isCyberMode = !isCyberMode;
             document.body.classList.toggle('cyber-theme', isCyberMode);
-            showToast(isCyberMode ? 'Thème : Cyber Neon ✨' : 'Thème : Dark Obsidian 🌌');
+            showToast(isCyberMode ? 'Thème : Cyber Neon ' : 'Thème : Dark Obsidian ');
         });
     }
 
@@ -808,7 +808,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     }
                     if (typeof updateOrderKpis === 'function') updateOrderKpis();
-                    showToast(`Commande #${currentNotifCmdId} confirmée et envoyée en cuisine ! 🔥`);
+                    showToast(`Commande #${currentNotifCmdId} confirmée et envoyée en cuisine ! `);
                 }).catch(err => console.warn('Erreur confirmation commande', err));
             }
             if (liveNotifPopup) liveNotifPopup.classList.remove('active');
@@ -1082,20 +1082,20 @@ document.addEventListener('DOMContentLoaded', () => {
     let activeCategory = 'all';
 
     const catIconsMap = {
-        'pastas': { icon: '🍝', name: 'Pastas & Pâtes' },
-        'burgers': { icon: '🍔', name: 'Burgers Gourmet' },
-        'pizzas': { icon: '🍕', name: 'Pizzas Italiennes' },
-        'grillades': { icon: '🥩', name: 'Grillades & Viandes' },
-        'salades': { icon: '🥗', name: 'Salades Fraîches' },
-        'boissons': { icon: '🍹', name: 'Boissons & Cocktails' },
-        'desserts': { icon: '🍰', name: 'Desserts Gourmands' }
+        'pastas': { icon: '', name: 'Pastas & Pâtes' },
+        'burgers': { icon: '', name: 'Burgers Gourmet' },
+        'pizzas': { icon: '', name: 'Pizzas Italiennes' },
+        'grillades': { icon: '', name: 'Grillades & Viandes' },
+        'salades': { icon: '', name: 'Salades Fraîches' },
+        'boissons': { icon: '', name: 'Boissons & Cocktails' },
+        'desserts': { icon: '', name: 'Desserts Gourmands' }
     };
 
     function updateDishLivePreviewBadge() {
         const badgeIcon = document.getElementById('dishLivePreviewBadgeIcon');
         const badgeTitle = document.getElementById('dishLivePreviewBadgeTitle');
         const selectedCat = dishCategoryInput ? dishCategoryInput.value : 'pastas';
-        const info = catIconsMap[selectedCat] || { icon: '🍽️', name: 'Plat Gourmet' };
+        const info = catIconsMap[selectedCat] || { icon: '', name: 'Plat Gourmet' };
 
         if (badgeIcon) badgeIcon.textContent = info.icon;
         if (badgeTitle) badgeTitle.textContent = info.name;
@@ -1205,7 +1205,7 @@ document.addEventListener('DOMContentLoaded', () => {
         div.style.border = '1px solid rgba(255,255,255,0.1)';
         div.innerHTML = `
             <input type="text" class="form-control form-control-sm opt-name-input" placeholder="Attribut (Ex: Sauce)" value="${optName}" style="max-width: 130px; background: rgba(0,0,0,0.4); color: #F5EFE4; border-color: rgba(255,255,255,0.15);">
-            <input type="text" class="form-control form-control-sm opt-values-input flex-grow-1" placeholder="Options (Ex: Piquante 🌶️, Douce 🍯, Mix 🔥)" value="${optValuesStr}" style="background: rgba(0,0,0,0.4); color: #F5EFE4; border-color: rgba(255,255,255,0.15);">
+            <input type="text" class="form-control form-control-sm opt-values-input flex-grow-1" placeholder="Options (Ex: Piquante , Douce , Mix )" value="${optValuesStr}" style="background: rgba(0,0,0,0.4); color: #F5EFE4; border-color: rgba(255,255,255,0.15);">
             <button type="button" class="btn btn-sm btn-outline-danger remove-opt-btn" title="Supprimer"><i class="fa-solid fa-trash"></i></button>
         `;
         div.querySelector('.remove-opt-btn').addEventListener('click', () => div.remove());
@@ -1220,7 +1220,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (addQuickSauceBtn) {
         addQuickSauceBtn.addEventListener('click', () => {
-            if (dishOptionsContainer) dishOptionsContainer.appendChild(createOptionRow('Sauce', 'Piquante 🌶️, Douce 🍯, Mix 🔥'));
+            if (dishOptionsContainer) dishOptionsContainer.appendChild(createOptionRow('Sauce', 'Piquante , Douce , Mix '));
         });
     }
 
@@ -1384,13 +1384,13 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             const catLabelMap = {
-                'pastas': '🍝 Pastas',
-                'burgers': '🍔 Burgers',
-                'pizzas': '🍕 Pizzas',
-                'grillades': '🥩 Grillades',
-                'salades': '🥗 Salades',
-                'boissons': '🍹 Boissons',
-                'desserts': '🍰 Desserts'
+                'pastas': 'Pastas',
+                'burgers': 'Burgers',
+                'pizzas': 'Pizzas',
+                'grillades': 'Grillades',
+                'salades': 'Salades',
+                'boissons': 'Boissons',
+                'desserts': 'Desserts'
             };
 
             const catBadgeText = catLabelMap[category] || category;
@@ -1541,13 +1541,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (allPill) allPill.textContent = `Tous (${allCount})`;
 
         const pillMap = {
-            'pastas': '🍝 Pastas',
-            'burgers': '🍔 Burgers',
-            'pizzas': '🍕 Pizzas',
-            'grillades': '🥩 Grillades',
-            'salades': '🥗 Salades',
-            'boissons': '🍹 Boissons',
-            'desserts': '🍰 Desserts'
+            'pastas': 'Pastas',
+            'burgers': 'Burgers',
+            'pizzas': 'Pizzas',
+            'grillades': 'Grillades',
+            'salades': 'Salades',
+            'boissons': 'Boissons',
+            'desserts': 'Desserts'
         };
 
         Object.keys(pillMap).forEach(catKey => {
@@ -1564,13 +1564,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!recipesGridContainer) return;
         recipesGridContainer.innerHTML = '';
         const catLabelMap = {
-            'pastas': '🍝 Pâtes',
-            'burgers': '🍔 Burgers',
-            'pizzas': '🍕 Pizzas',
-            'grillades': '🥩 Grillades',
-            'salades': '🥗 Salades',
-            'boissons': '🍹 Boissons',
-            'desserts': '🍰 Desserts'
+            'pastas': 'Pâtes',
+            'burgers': 'Burgers',
+            'pizzas': 'Pizzas',
+            'grillades': 'Grillades',
+            'salades': 'Salades',
+            'boissons': 'Boissons',
+            'desserts': 'Desserts'
         };
 
         savedDishes.forEach(dish => {
@@ -1678,7 +1678,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const badgeTitle = document.getElementById('catLivePreviewBadgeTitle');
 
         if (badgeIcon && categoryIconInput) {
-            badgeIcon.textContent = categoryIconInput.value.trim() || '🍽️';
+            badgeIcon.textContent = categoryIconInput.value.trim() || '';
         }
         if (badgeTitle && categoryTitleInput) {
             badgeTitle.textContent = categoryTitleInput.value.trim() || 'Nouvelle Catégorie';
@@ -1742,7 +1742,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const defaultImg = 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&auto=format&fit=crop&q=80';
         if (categoryImageInput) categoryImageInput.value = defaultImg;
         if (categoryTitleInput) categoryTitleInput.value = '';
-        if (categoryIconInput) categoryIconInput.value = '🍽️';
+        if (categoryIconInput) categoryIconInput.value = '';
         if (categorySubtitleInput) categorySubtitleInput.value = '100 Recettes Curées';
         if (catLivePreviewImg) catLivePreviewImg.src = defaultImg;
         updateCatLivePreviewBadge();
@@ -1800,7 +1800,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function openEditCategoryModal(card) {
         const catId = card.getAttribute('data-cat-id');
         const title = card.querySelector('h3').textContent;
-        const icon = card.querySelector('.cat-icon-badge') ? card.querySelector('.cat-icon-badge').textContent.trim() : '🍽️';
+        const icon = card.querySelector('.cat-icon-badge') ? card.querySelector('.cat-icon-badge').textContent.trim() : '';
         const countSpan = card.querySelector('.cat-count-badge') || card.querySelector('.cat-overlay span:last-child');
         const sub = countSpan ? countSpan.textContent : '';
         const imgUrl = card.querySelector('img').src;
@@ -1838,7 +1838,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const isEdit = !!categoryEditId.value;
             const title = categoryTitleInput.value.trim();
-            const icon = categoryIconInput.value.trim() || '🍽️';
+            const icon = categoryIconInput.value.trim() || '';
             const sub = categorySubtitleInput.value.trim();
             const imgUrl = categoryImageInput.value.trim() || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&auto=format&fit=crop&q=80';
 
@@ -2005,8 +2005,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (pillAll) pillAll.textContent = `Toutes (${total})`;
         if (pillPending) pillPending.textContent = `⏳ En Attente (${pending})`;
-        if (pillCooking) pillCooking.textContent = `🔥 En Cuisine (${cooking})`;
-        if (pillCompleted) pillCompleted.textContent = `✅ Complet (${completed})`;
+        if (pillCooking) pillCooking.textContent = `En Cuisine (${cooking})`;
+        if (pillCompleted) pillCompleted.textContent = `Complet (${completed})`;
     }
 
     // Call updateOrderKpis initially so top cards & pills immediately display real counts!
@@ -2083,7 +2083,7 @@ document.addEventListener('DOMContentLoaded', () => {
             let dishesHtml = '';
             if (order.items && order.items.length > 0) {
                 order.items.forEach(item => {
-                    dishesHtml += `<span>🍽️ ${item.quantity || 1}x ${item.title} (${(item.price || 0) * (item.quantity || 1)} DH)</span>`;
+                    dishesHtml += `<span>${item.quantity || 1}x ${item.title} (${(item.price || 0) * (item.quantity || 1)} DH)</span>`;
                 });
             } else {
                 dishesHtml = `<span>${order.itemsSummary || 'Commande Client'}</span>`;
@@ -2306,7 +2306,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 cycleBtn.setAttribute('title', 'Valider & Marquer Complet');
                 cycleBtn.innerHTML = '<i class="fa-solid fa-check-double text-green"></i>';
             }
-            showToast(`Commande ${orderId} confirmée et envoyée en Cuisine 🔥`);
+            showToast(`Commande ${orderId} confirmée et envoyée en Cuisine `);
         } else if (newStatus === 'completed') {
             if (statusCell) {
                 statusCell.className = 'order-status-badge status-completed';
@@ -2316,7 +2316,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 cycleBtn.setAttribute('title', 'Remettre en Attente');
                 cycleBtn.innerHTML = '<i class="fa-solid fa-rotate-left"></i>';
             }
-            showToast(`Commande ${orderId} validée et marquée Complet ✅`);
+            showToast(`Commande ${orderId} validée et marquée Complet `);
         }
 
         // Sync with Neon Database API
@@ -2433,7 +2433,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             id: d.id,
                             name: d.title,
                             price: parseFloat(d.price) || 0,
-                            icon: '🍽️',
+                            icon: '',
                             img: d.image || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=300&auto=format&fit=crop&q=80'
                         });
                     });
@@ -2766,7 +2766,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Commande POS enregistrée dans Neon:', res);
         }).catch(err => console.warn('Erreur synchro POS Neon', err));
 
-        showToast(`Nouvelle commande #${newCmdId} créée (${total} DH) ! 🔥`);
+        showToast(`Nouvelle commande #${newCmdId} créée (${total} DH) ! `);
         closeOrderModal();
         updateOrderKpis();
         filterOrders();
@@ -2900,9 +2900,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (pAll) pAll.textContent = `Toutes (${total})`;
         if (pPending) pPending.textContent = `⏳ En Attente (${pending})`;
-        if (pConfirmed) pConfirmed.textContent = `✅ Confirmées (${confirmed})`;
-        if (pSeated) pSeated.textContent = `🍷 Installés (${seated})`;
-        if (pCancelled) pCancelled.textContent = `❌ Annulées (${cancelled})`;
+        if (pConfirmed) pConfirmed.textContent = `Confirmées (${confirmed})`;
+        if (pSeated) pSeated.textContent = `Installés (${seated})`;
+        if (pCancelled) pCancelled.textContent = `Annulées (${cancelled})`;
     }
 
     updateResaKpis();
@@ -2960,7 +2960,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 cycleBtn.setAttribute('title', 'Marquer Client Installé En Salle');
                 cycleBtn.innerHTML = '<i class="fa-solid fa-wine-glass text-purple"></i>';
             }
-            showToast(`Réservation ${resaId} confirmée ✅`);
+            showToast(`Réservation ${resaId} confirmée `);
         } else if (newStatus === 'seated') {
             if (statusBadge) {
                 statusBadge.className = 'order-status-badge status-seated';
@@ -2970,7 +2970,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 cycleBtn.setAttribute('title', 'Remettre en Attente');
                 cycleBtn.innerHTML = '<i class="fa-solid fa-rotate-left"></i>';
             }
-            showToast(`Client de la réservation ${resaId} installé en salle 🍷`);
+            showToast(`Client de la réservation ${resaId} installé en salle `);
         }
 
         // Sync with Neon Database API
@@ -3237,8 +3237,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const pRead = document.querySelector('.msg-pill-btn[data-msg-status="read"]');
 
         if (pAll) pAll.textContent = `Tous les Messages (${total})`;
-        if (pUnread) pUnread.textContent = `🔴 Non Lus (${unread})`;
-        if (pRead) pRead.textContent = `🟢 Traités / Répondus (${read})`;
+        if (pUnread) pUnread.textContent = `Non Lus (${unread})`;
+        if (pRead) pRead.textContent = `Traités / Répondus (${read})`;
     }
 
     updateMsgKpis();
@@ -3353,7 +3353,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 cycleBtn.setAttribute('title', 'Remettre en Non Lu');
                 cycleBtn.innerHTML = '<i class="fa-solid fa-rotate-left"></i>';
             }
-            showToast(`Message ${msgId} marqué comme Traité ✅`);
+            showToast(`Message ${msgId} marqué comme Traité `);
         } else {
             if (statusBadge) {
                 statusBadge.className = 'order-status-badge status-pending';
@@ -3363,7 +3363,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 cycleBtn.setAttribute('title', 'Marquer comme Traité');
                 cycleBtn.innerHTML = '<i class="fa-solid fa-check text-green"></i>';
             }
-            showToast(`Message ${msgId} remis en Non Lu 📩`);
+            showToast(`Message ${msgId} remis en Non Lu `);
         }
 
         updateMsgKpis();
@@ -3398,7 +3398,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const sidebarAvatars = document.querySelectorAll('.user-avatar');
                     if (heroImg) heroImg.src = event.target.result;
                     sidebarAvatars.forEach(img => img.src = event.target.result);
-                    showToast("Photo de profil mise à jour avec succès ! 📷");
+                    showToast("Photo de profil mise à jour avec succès ! ");
                 };
                 reader.readAsDataURL(file);
             }
@@ -3557,7 +3557,7 @@ document.addEventListener('DOMContentLoaded', () => {
             body: JSON.stringify(payload)
         }).then(r => r.json()).then(res => {
             if (res.status === 'success') {
-                showToast("Paramètres & Sécurité enregistrés dans Neon PostgreSQL ! 🛡️");
+                showToast("Paramètres & Sécurité enregistrés dans Neon PostgreSQL ! ");
             } else {
                 showToast(res.message || "Erreur de mise à jour");
             }

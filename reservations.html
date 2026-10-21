@@ -30,7 +30,7 @@
  <!-- YOUR CUSTOM CSS -->
  <link href="css/custom.css?v=301.0" rel="stylesheet">
  <link href="css/bs-icon-font/bootstrap-icons.min.css" rel="stylesheet">
- <link href="css/theme.css?v=11" rel="stylesheet">
+ <link href="css/theme.css?v=15" rel="stylesheet">
 </head>
 
 <body>
@@ -230,7 +230,7 @@
  </div>
  <div class="info-item-row">
  <i class="bi bi-clock-fill"></i>
- <span>Service continu : 12h00 – 23h30</span>
+ <span>Service continu : 12h00 - 23h00</span>
  </div>
  <div class="info-item-row">
  <i class="bi bi-telephone-fill"></i>
@@ -397,16 +397,35 @@
             if (!container) return;
             container.innerHTML = '';
 
+            const groups = { 'Déjeuner': [], 'Dîner': [] };
             availableTimeSlots.forEach(slot => {
-                const chip = document.createElement('div');
-                chip.className = `time-chip-btn ${slot === classicData.time ? 'active' : ''}`;
-                chip.innerText = slot;
-                chip.onclick = function() {
-                    classicData.time = slot;
-                    document.querySelectorAll('.time-chip-btn').forEach(c => c.classList.remove('active'));
-                    chip.classList.add('active');
-                };
-                container.appendChild(chip);
+                const h = parseInt(slot.split(':')[0], 10);
+                (h < 16 ? groups['Déjeuner'] : groups['Dîner']).push(slot);
+            });
+
+            Object.keys(groups).forEach(label => {
+                if (!groups[label].length) return;
+                const group = document.createElement('div');
+                group.className = 'time-group';
+                const lab = document.createElement('div');
+                lab.className = 'time-group-label';
+                lab.innerText = label;
+                group.appendChild(lab);
+                const row = document.createElement('div');
+                row.className = 'time-chips-grid';
+                groups[label].forEach(slot => {
+                    const chip = document.createElement('div');
+                    chip.className = `time-chip-btn ${slot === classicData.time ? 'active' : ''}`;
+                    chip.innerText = slot;
+                    chip.onclick = function() {
+                        classicData.time = slot;
+                        document.querySelectorAll('.time-chip-btn').forEach(c => c.classList.remove('active'));
+                        chip.classList.add('active');
+                    };
+                    row.appendChild(chip);
+                });
+                group.appendChild(row);
+                container.appendChild(group);
             });
         }
 

@@ -524,7 +524,7 @@
         var total = customOrder ? customOrder.total : getTotals().total;
         if (!cart || cart.length === 0) return '#';
 
-        var msg = "Bonjour Foores Restaurant! 🍽️\nJe souhaite passer une commande :\n\n";
+        var msg = "Bonjour Foores Restaurant! \nJe souhaite passer une commande :\n\n";
         cart.forEach(function (item) {
             var optText = formatOptionsText(item.selectedOptions);
             msg += "• " + item.quantity + "x " + item.title + (optText ? " [" + optText + "]" : "") + " (" + formatPrice(item.price * item.quantity) + ")\n";
@@ -554,7 +554,7 @@
         var totals = getTotals();
 
         if (cart.length === 0) {
-            cartTableBody.innerHTML = '<tr><td colspan="5" class="text-center py-5"><h4>Votre panier est actuellement vide 🛒</h4><p class="text-muted">Découvrez nos délicieuses spécialités et ajoutez-les à votre commande.</p><a href="menu-2.html" class="btn_1 mt-3">Découvrir le Menu</a></td></tr>';
+            cartTableBody.innerHTML = '<tr><td colspan="5" class="text-center py-5"><h4>Votre panier est actuellement vide </h4><p class="text-muted">Découvrez nos délicieuses spécialités et ajoutez-les à votre commande.</p><a href="menu-2.html" class="btn_1 mt-3">Découvrir le Menu</a></td></tr>';
             if (cartSubtotal) cartSubtotal.textContent = '0 DH';
             if (cartTotal) cartTotal.textContent = '0 DH';
             if (waBtn) waBtn.style.display = 'none';
@@ -872,7 +872,7 @@
 
             var floatBadge = document.createElement('span');
             floatBadge.className = 'cart-float-badge';
-            floatBadge.innerHTML = '+1 🛒';
+            floatBadge.innerHTML = '+1 ';
             btn.appendChild(floatBadge);
 
             setTimeout(function() {
@@ -903,9 +903,9 @@
             price: 110,
             image: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=500&auto=format&fit=crop&q=80",
             options: [
-                { name: "Format Portion", values: ["Portion Normale (350g) 🍝", "Grande Portion Gourmet (500g) 🍝"] },
-                { name: "Sauce / Crème", values: ["Crème Truffe Noire 🍄", "Tomate San Marzano 🍅", "Pesto Basilic 🌿"] },
-                { name: "Extra Fromage", values: ["Parmesan Affiné 🧀", "Burrata Crémeuse 🧀", "Sans Fromage 🛑"] }
+                { name: "Format Portion", values: ["Portion Normale (350g) ", "Grande Portion Gourmet (500g) "] },
+                { name: "Sauce / Crème", values: ["Crème Truffe Noire ", "Tomate San Marzano ", "Pesto Basilic "] },
+                { name: "Extra Fromage", values: ["Parmesan Affiné ", "Burrata Crémeuse ", "Sans Fromage "] }
             ]
         },
         {
@@ -916,9 +916,9 @@
             price: 85,
             image: "https://images.unsplash.com/photo-1621996346565-e3d5d6281274?w=500&auto=format&fit=crop&q=80",
             options: [
-                { name: "Format Portion", values: ["Portion Normale (350g) 🍝", "Grande Portion Gourmet (500g) 🍝"] },
-                { name: "Sauce", values: ["Crème Ail & Parmesan 🧄", "Crème Truffe 🍄", "Tomate Basilic 🍅"] },
-                { name: "Extra Fromage", values: ["Parmesan Affiné 🧀", "Sans Fromage 🛑"] }
+                { name: "Format Portion", values: ["Portion Normale (350g) ", "Grande Portion Gourmet (500g) "] },
+                { name: "Sauce", values: ["Crème Ail & Parmesan ", "Crème Truffe ", "Tomate Basilic "] },
+                { name: "Extra Fromage", values: ["Parmesan Affiné ", "Sans Fromage "] }
             ]
         },
         {
@@ -929,9 +929,9 @@
             price: 90,
             image: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=500&auto=format&fit=crop&q=80",
             options: [
-                { name: "Niveau de Piment", values: ["Piquant Moyen 🌶️", "Très Piquant 🔥", "Doux Sans Piment 🛑"] },
-                { name: "Format Portion", values: ["Portion Normale (350g) 🍝", "Grande Portion Gourmet (500g) 🍝"] },
-                { name: "Fromage Extra", values: ["Burrata Crémeuse 🧀", "Parmesan 🧀"] }
+                { name: "Niveau de Piment", values: ["Piquant Moyen ", "Très Piquant ", "Doux Sans Piment "] },
+                { name: "Format Portion", values: ["Portion Normale (350g) ", "Grande Portion Gourmet (500g) "] },
+                { name: "Fromage Extra", values: ["Burrata Crémeuse ", "Parmesan "] }
             ]
         },
         {
@@ -942,8 +942,8 @@
             price: 95,
             image: "https://images.unsplash.com/photo-1612874742237-6526221588e3?w=500&auto=format&fit=crop&q=80",
             options: [
-                { name: "Format Portion", values: ["Portion Normale (350g) 🍝", "Grande Portion Gourmet (500g) 🍝"] },
-                { name: "Fromage", values: ["Pecorino Romano 🧀", "Parmesan Affiné 🧀"] }
+                { name: "Format Portion", values: ["Portion Normale (350g) ", "Grande Portion Gourmet (500g) "] },
+                { name: "Fromage", values: ["Pecorino Romano ", "Parmesan Affiné "] }
             ]
         },
         {
@@ -954,8 +954,8 @@
             price: 130,
             image: "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=500&auto=format&fit=crop&q=80",
             options: [
-                { name: "Sauce de cuisson", values: ["Sauce Vin Blanc & Ail 🍷", "Sauce Tomate San Marzano 🍅"] },
-                { name: "Niveau Piment", values: ["Légèrement Piquant 🌶️", "Doux 🛑"] }
+                { name: "Sauce de cuisson", values: ["Sauce Vin Blanc & Ail ", "Sauce Tomate San Marzano "] },
+                { name: "Niveau Piment", values: ["Légèrement Piquant ", "Doux "] }
             ]
         },
 
@@ -968,9 +968,9 @@
             price: 95,
             image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500&auto=format&fit=crop&q=80",
             options: [
-                { name: "Sauce au choix", values: ["Sauce Algérienne 🌶️", "Sauce Biggy Burger 🍯", "Sauce Blanche Ail 🥣", "Sauce BBQ Fumé 🔥"] },
-                { name: "Cuisson Viande", values: ["À point 🥩", "Bien cuit 🔥", "Saignant 🔴"] },
-                { name: "Formule Menu", values: ["Seul 🍔", "Formule Menu (+Frites & Boisson) 🍟🥤"] }
+                { name: "Sauce au choix", values: ["Sauce Algérienne ", "Sauce Biggy Burger ", "Sauce Blanche Ail ", "Sauce BBQ Fumé "] },
+                { name: "Cuisson Viande", values: ["À point ", "Bien cuit ", "Saignant "] },
+                { name: "Formule Menu", values: ["Seul ", "Formule Menu (+Frites & Boisson) "] }
             ]
         },
         {
@@ -981,8 +981,8 @@
             price: 75,
             image: "https://images.unsplash.com/photo-1625813506062-0aeb1d7a094b?w=500&auto=format&fit=crop&q=80",
             options: [
-                { name: "Niveau Piment", values: ["Sauce Sriracha Mayo 🌶️", "Sauce Blanche Douce 🥣", "Sauce Algérienne 🔥"] },
-                { name: "Formule Menu", values: ["Seul 🍔", "Formule Menu (+Frites & Boisson) 🍟🥤"] }
+                { name: "Niveau Piment", values: ["Sauce Sriracha Mayo ", "Sauce Blanche Douce ", "Sauce Algérienne "] },
+                { name: "Formule Menu", values: ["Seul ", "Formule Menu (+Frites & Boisson) "] }
             ]
         },
         {
@@ -993,9 +993,9 @@
             price: 90,
             image: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=500&auto=format&fit=crop&q=80",
             options: [
-                { name: "Sauce", values: ["Sauce BBQ Fumé 🔥", "Sauce Biggy Burger 🍯", "Sauce Algérienne 🌶️"] },
-                { name: "Cuisson Viande", values: ["À point 🥩", "Bien cuit 🔥", "Saignant 🔴"] },
-                { name: "Formule Menu", values: ["Seul 🍔", "Formule Menu (+Frites & Boisson) 🍟🥤"] }
+                { name: "Sauce", values: ["Sauce BBQ Fumé ", "Sauce Biggy Burger ", "Sauce Algérienne "] },
+                { name: "Cuisson Viande", values: ["À point ", "Bien cuit ", "Saignant "] },
+                { name: "Formule Menu", values: ["Seul ", "Formule Menu (+Frites & Boisson) "] }
             ]
         },
         {
@@ -1006,9 +1006,9 @@
             price: 105,
             image: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=500&auto=format&fit=crop&q=80",
             options: [
-                { name: "Sauce / Émulsion", values: ["Émulsion à la Truffe 🍄", "Sauce Blanche Ail 🥣"] },
-                { name: "Cuisson Viande", values: ["À point 🥩", "Bien cuit 🔥", "Saignant 🔴"] },
-                { name: "Formule Menu", values: ["Seul 🍔", "Formule Menu (+Frites & Boisson) 🍟🥤"] }
+                { name: "Sauce / Émulsion", values: ["Émulsion à la Truffe ", "Sauce Blanche Ail "] },
+                { name: "Cuisson Viande", values: ["À point ", "Bien cuit ", "Saignant "] },
+                { name: "Formule Menu", values: ["Seul ", "Formule Menu (+Frites & Boisson) "] }
             ]
         },
         {
@@ -1019,8 +1019,8 @@
             price: 70,
             image: "https://images.unsplash.com/photo-1525059696034-4967a8e1dca2?w=500&auto=format&fit=crop&q=80",
             options: [
-                { name: "Sauce", values: ["Guacamole Maison 🥑", "Sauce Blanche Ail 🥣", "Sauce Pesto 🌿"] },
-                { name: "Formule Menu", values: ["Seul 🍔", "Formule Menu (+Frites & Boisson) 🍟🥤"] }
+                { name: "Sauce", values: ["Guacamole Maison ", "Sauce Blanche Ail ", "Sauce Pesto "] },
+                { name: "Formule Menu", values: ["Seul ", "Formule Menu (+Frites & Boisson) "] }
             ]
         },
 
@@ -1033,9 +1033,9 @@
             price: 65,
             image: "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500&auto=format&fit=crop&q=80",
             options: [
-                { name: "Taille / Format", values: ["Grande 🍕", "Moyenne 🍕", "Petite 🍕"] },
-                { name: "Sauce de Base", values: ["Sauce Tomate San Marzano 🍅", "Crème Fraîche Onctueuse 🥛"] },
-                { name: "Sauce Piquante", values: ["Sauce Harissa Maison 🌶️", "Huile Pimentée 🫒", "Sans Piment 🛑"] }
+                { name: "Taille / Format", values: ["Grande ", "Moyenne ", "Petite "] },
+                { name: "Sauce de Base", values: ["Sauce Tomate San Marzano ", "Crème Fraîche Onctueuse "] },
+                { name: "Sauce Piquante", values: ["Sauce Harissa Maison ", "Huile Pimentée ", "Sans Piment "] }
             ]
         },
         {
@@ -1046,9 +1046,9 @@
             price: 85,
             image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500&auto=format&fit=crop&q=80",
             options: [
-                { name: "Taille / Format", values: ["Grande 🍕", "Moyenne 🍕", "Petite 🍕"] },
-                { name: "Sauce de Base", values: ["Crème Fraîche Onctueuse 🥛", "Sauce Tomate San Marzano 🍅"] },
-                { name: "Finition Miel", values: ["Avec Filet de Miel 🍯", "Sans Miel 🛑"] }
+                { name: "Taille / Format", values: ["Grande ", "Moyenne ", "Petite "] },
+                { name: "Sauce de Base", values: ["Crème Fraîche Onctueuse ", "Sauce Tomate San Marzano "] },
+                { name: "Finition Miel", values: ["Avec Filet de Miel ", "Sans Miel "] }
             ]
         },
         {
@@ -1059,9 +1059,9 @@
             price: 80,
             image: "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=500&auto=format&fit=crop&q=80",
             options: [
-                { name: "Taille / Format", values: ["Grande 🍕", "Moyenne 🍕", "Petite 🍕"] },
-                { name: "Piment", values: ["Avec Jalapeños 🌶️", "Très Piquant 🔥", "Doux 🛑"] },
-                { name: "Sauce de Base", values: ["Sauce Tomate Piquante 🍅", "Crème Fraîche 🥛"] }
+                { name: "Taille / Format", values: ["Grande ", "Moyenne ", "Petite "] },
+                { name: "Piment", values: ["Avec Jalapeños ", "Très Piquant ", "Doux "] },
+                { name: "Sauce de Base", values: ["Sauce Tomate Piquante ", "Crème Fraîche "] }
             ]
         },
         {
@@ -1072,8 +1072,8 @@
             price: 110,
             image: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=500&auto=format&fit=crop&q=80",
             options: [
-                { name: "Taille / Format", values: ["Grande 🍕", "Moyenne 🍕", "Petite 🍕"] },
-                { name: "Sauce de Base", values: ["Crème de Truffe 🍄", "Sauce Tomate 🍅"] }
+                { name: "Taille / Format", values: ["Grande ", "Moyenne ", "Petite "] },
+                { name: "Sauce de Base", values: ["Crème de Truffe ", "Sauce Tomate "] }
             ]
         },
         {
@@ -1084,9 +1084,9 @@
             price: 120,
             image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500&auto=format&fit=crop&q=80",
             options: [
-                { name: "Taille / Format", values: ["Grande 🍕", "Moyenne 🍕", "Petite 🍕"] },
-                { name: "Sauce de Base", values: ["Sauce Tomate Basilic 🍅", "Crème Fraîche 🥛"] },
-                { name: "Sauce Piquante", values: ["Huile Pimentée 🫒", "Harissa Maison 🌶️", "Sans Piment 🛑"] }
+                { name: "Taille / Format", values: ["Grande ", "Moyenne ", "Petite "] },
+                { name: "Sauce de Base", values: ["Sauce Tomate Basilic ", "Crème Fraîche "] },
+                { name: "Sauce Piquante", values: ["Huile Pimentée ", "Harissa Maison ", "Sans Piment "] }
             ]
         },
 
@@ -1099,9 +1099,9 @@
             price: 160,
             image: "https://images.unsplash.com/photo-1544025162-d76694265947?w=500&auto=format&fit=crop&q=80",
             options: [
-                { name: "Cuisson Viande", values: ["À point 🥩", "Bien cuit 🔥", "Saignant 🔴"] },
-                { name: "Sauce au choix", values: ["Sauce Poivre Vert 🫛", "Sauce Champignons Truffée 🍄", "Sauce Béarnaise 🥣"] },
-                { name: "Accompagnement", values: ["Frites Maison 🍟", "Riz Basmati Parfumé 🍚", "Légumes Grillés 🥦"] }
+                { name: "Cuisson Viande", values: ["À point ", "Bien cuit ", "Saignant "] },
+                { name: "Sauce au choix", values: ["Sauce Poivre Vert ", "Sauce Champignons Truffée ", "Sauce Béarnaise "] },
+                { name: "Accompagnement", values: ["Frites Maison ", "Riz Basmati Parfumé ", "Légumes Grillés "] }
             ]
         },
         {
@@ -1112,8 +1112,8 @@
             price: 140,
             image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=500&auto=format&fit=crop&q=80",
             options: [
-                { name: "Sauce au choix", values: ["Sauce Citron & Aneth 🍋", "Sauce Béarnaise 🥣", "Beurre Blanc 🧈"] },
-                { name: "Accompagnement", values: ["Légumes Grillés 🥦", "Riz Basmati Parfumé 🍚", "Frites Maison 🍟"] }
+                { name: "Sauce au choix", values: ["Sauce Citron & Aneth ", "Sauce Béarnaise ", "Beurre Blanc "] },
+                { name: "Accompagnement", values: ["Légumes Grillés ", "Riz Basmati Parfumé ", "Frites Maison "] }
             ]
         },
         {
@@ -1124,9 +1124,9 @@
             price: 130,
             image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=500&auto=format&fit=crop&q=80",
             options: [
-                { name: "Cuisson Viande", values: ["À point 🥩", "Bien cuit 🔥", "Saignant 🔴"] },
-                { name: "Sauce au choix", values: ["Harissa Maison 🌶️", "Sauce Blanche Ail 🥣", "Sauce BBQ Fumé 🔥"] },
-                { name: "Accompagnement", values: ["Frites Maison 🍟", "Riz Basmati Parfumé 🍚", "Légumes Grillés 🥦"] }
+                { name: "Cuisson Viande", values: ["À point ", "Bien cuit ", "Saignant "] },
+                { name: "Sauce au choix", values: ["Harissa Maison ", "Sauce Blanche Ail ", "Sauce BBQ Fumé "] },
+                { name: "Accompagnement", values: ["Frites Maison ", "Riz Basmati Parfumé ", "Légumes Grillés "] }
             ]
         },
         {
@@ -1137,8 +1137,8 @@
             price: 95,
             image: "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?w=500&auto=format&fit=crop&q=80",
             options: [
-                { name: "Sauce au choix", values: ["Sauce Citron Confit 🍋", "Sauce BBQ Fumé 🔥", "Sauce Algérienne 🌶️"] },
-                { name: "Accompagnement", values: ["Frites Maison 🍟", "Riz Basmati Parfumé 🍚", "Légumes Grillés 🥦"] }
+                { name: "Sauce au choix", values: ["Sauce Citron Confit ", "Sauce BBQ Fumé ", "Sauce Algérienne "] },
+                { name: "Accompagnement", values: ["Frites Maison ", "Riz Basmati Parfumé ", "Légumes Grillés "] }
             ]
         },
         {
@@ -1149,9 +1149,9 @@
             price: 220,
             image: "https://images.unsplash.com/photo-1558030006-450675393462?w=500&auto=format&fit=crop&q=80",
             options: [
-                { name: "Cuisson Viande", values: ["À point 🥩", "Bien cuit 🔥", "Saignant 🔴"] },
-                { name: "Sauce au choix", values: ["Sauce Poivre Vert 🫛", "Sauce Champignons Truffée 🍄", "Beurre Maître d'Hôtel 🧈"] },
-                { name: "Accompagnement", values: ["Frites Maison 🍟", "Riz Basmati Parfumé 🍚", "Légumes Grillés 🥦"] }
+                { name: "Cuisson Viande", values: ["À point ", "Bien cuit ", "Saignant "] },
+                { name: "Sauce au choix", values: ["Sauce Poivre Vert ", "Sauce Champignons Truffée ", "Beurre Maître d'Hôtel "] },
+                { name: "Accompagnement", values: ["Frites Maison ", "Riz Basmati Parfumé ", "Légumes Grillés "] }
             ]
         },
 
@@ -1164,8 +1164,8 @@
             price: 65,
             image: "https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=500&auto=format&fit=crop&q=80",
             options: [
-                { name: "Sauce Vinaigrette", values: ["Sauce César Artisanale 🥗", "Vinaigrette Agrumes 🍋", "Pesto Basilic 🌿"] },
-                { name: "Toasts Extra", values: ["Pain Aillé Croustillant 🍞", "Sans Toasts 🛑"] }
+                { name: "Sauce Vinaigrette", values: ["Sauce César Artisanale ", "Vinaigrette Agrumes ", "Pesto Basilic "] },
+                { name: "Toasts Extra", values: ["Pain Aillé Croustillant ", "Sans Toasts "] }
             ]
         },
         {
@@ -1176,8 +1176,8 @@
             price: 85,
             image: "https://images.unsplash.com/photo-1592417817098-8f3d6ef23a85?w=500&auto=format&fit=crop&q=80",
             options: [
-                { name: "Sauce Vinaigrette", values: ["Pesto de Basilic 🌿", "Vinaigrette Balsamique 🍇", "Huile d'Olive Extra 🫒"] },
-                { name: "Toasts Extra", values: ["Gressins Italiens 🥨", "Pain Aillé 🍞", "Sans Pain 🛑"] }
+                { name: "Sauce Vinaigrette", values: ["Pesto de Basilic ", "Vinaigrette Balsamique ", "Huile d'Olive Extra "] },
+                { name: "Toasts Extra", values: ["Gressins Italiens ", "Pain Aillé ", "Sans Pain "] }
             ]
         },
         {
@@ -1188,7 +1188,7 @@
             price: 90,
             image: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=500&auto=format&fit=crop&q=80",
             options: [
-                { name: "Sauce Vinaigrette", values: ["Vinaigrette Agrumes & Citron 🍋", "Pesto Basilic 🌿"] }
+                { name: "Sauce Vinaigrette", values: ["Vinaigrette Agrumes & Citron ", "Pesto Basilic "] }
             ]
         },
         {
@@ -1199,7 +1199,7 @@
             price: 60,
             image: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=500&auto=format&fit=crop&q=80",
             options: [
-                { name: "Sauce Vinaigrette", values: ["Huile d'Olive & Citron 🫒", "Vinaigrette Balsamique 🍇"] }
+                { name: "Sauce Vinaigrette", values: ["Huile d'Olive & Citron ", "Vinaigrette Balsamique "] }
             ]
         },
         {
@@ -1210,7 +1210,7 @@
             price: 75,
             image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500&auto=format&fit=crop&q=80",
             options: [
-                { name: "Sauce Vinaigrette", values: ["Miel & Balsamique 🍯", "Vinaigrette Agrumes 🍋"] }
+                { name: "Sauce Vinaigrette", values: ["Miel & Balsamique ", "Vinaigrette Agrumes "] }
             ]
         },
 
@@ -1223,8 +1223,8 @@
             price: 15,
             image: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=500&auto=format&fit=crop&q=80",
             options: [
-                { name: "Service & Température", values: ["Très Glacée avec Glaçons 🧊", "Température Ambiante 🧊"] },
-                { name: "Citron", values: ["Tranche de Citron Vert 🍋", "Nature 🛑"] }
+                { name: "Service & Température", values: ["Très Glacée avec Glaçons ", "Température Ambiante "] },
+                { name: "Citron", values: ["Tranche de Citron Vert ", "Nature "] }
             ]
         },
         {
@@ -1235,7 +1235,7 @@
             price: 15,
             image: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=500&auto=format&fit=crop&q=80",
             options: [
-                { name: "Service & Température", values: ["Très Glacée avec Glaçons 🧊", "Température Ambiante 🧊"] }
+                { name: "Service & Température", values: ["Très Glacée avec Glaçons ", "Température Ambiante "] }
             ]
         },
         {
@@ -1246,7 +1246,7 @@
             price: 15,
             image: "https://images.unsplash.com/photo-1543253687-c931c8e01820?w=500&auto=format&fit=crop&q=80",
             options: [
-                { name: "Service & Température", values: ["Très Glacée avec Glaçons 🧊", "Température Ambiante 🧊"] }
+                { name: "Service & Température", values: ["Très Glacée avec Glaçons ", "Température Ambiante "] }
             ]
         },
         {
@@ -1257,7 +1257,7 @@
             price: 25,
             image: "https://images.unsplash.com/photo-1613478223719-2ab802602423?w=500&auto=format&fit=crop&q=80",
             options: [
-                { name: "Service", values: ["Glacé avec Glaçons 🧊", "Sans Glaçons 🍹"] }
+                { name: "Service", values: ["Glacé avec Glaçons ", "Sans Glaçons "] }
             ]
         },
         {
@@ -1268,8 +1268,8 @@
             price: 35,
             image: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=500&auto=format&fit=crop&q=80",
             options: [
-                { name: "Sucre", values: ["Niveau Sucre Normal 🌿", "Moins Sucré 🍋", "Très Sucré 🍯"] },
-                { name: "Glaçons", values: ["Glaçons Pilés 🧊", "Sans Glaçons 🍹"] }
+                { name: "Sucre", values: ["Niveau Sucre Normal ", "Moins Sucré ", "Très Sucré "] },
+                { name: "Glaçons", values: ["Glaçons Pilés ", "Sans Glaçons "] }
             ]
         },
         {
@@ -1280,7 +1280,7 @@
             price: 10,
             image: "https://images.unsplash.com/photo-1560023907-5f313d8750b7?w=500&auto=format&fit=crop&q=80",
             options: [
-                { name: "Service & Température", values: ["Très Glacée 🧊", "Température Ambiante 🧊"] }
+                { name: "Service & Température", values: ["Très Glacée ", "Température Ambiante "] }
             ]
         },
 
@@ -1293,8 +1293,8 @@
             price: 50,
             image: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=500&auto=format&fit=crop&q=80",
             options: [
-                { name: "Glace Extra", values: ["Une Boule Vanille Bourbon 🍨", "Une Boule Chocolat 🍨", "Sans Glace 🛑"] },
-                { name: "Nappage", values: ["Chocolat Noir Fondu 🍫", "Caramel Beurre Salé 🍯"] }
+                { name: "Glace Extra", values: ["Une Boule Vanille Bourbon ", "Une Boule Chocolat ", "Sans Glace "] },
+                { name: "Nappage", values: ["Chocolat Noir Fondu ", "Caramel Beurre Salé "] }
             ]
         },
         {
@@ -1305,7 +1305,7 @@
             price: 45,
             image: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=500&auto=format&fit=crop&q=80",
             options: [
-                { name: "Finition Cacao", values: ["Saupoudré de Cacao Amer 🍫", "Avec Pépites de Chocolat 🍫"] }
+                { name: "Finition Cacao", values: ["Saupoudré de Cacao Amer ", "Avec Pépites de Chocolat "] }
             ]
         },
         {
@@ -1316,7 +1316,7 @@
             price: 55,
             image: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=500&auto=format&fit=crop&q=80",
             options: [
-                { name: "Coulis au choix", values: ["Coulis Framboises Fraîches 🍓", "Coulis Fruits de la Passion 🥭", "Chocolat Chaud 🍫"] }
+                { name: "Coulis au choix", values: ["Coulis Framboises Fraîches ", "Coulis Fruits de la Passion ", "Chocolat Chaud "] }
             ]
         },
         {
@@ -1327,7 +1327,7 @@
             price: 45,
             image: "https://images.unsplash.com/photo-1470124182917-cc6e71b22ecc?w=500&auto=format&fit=crop&q=80",
             options: [
-                { name: "Parfum Crème", values: ["Vanille Bourbon 🌾", "Fleur d'Oranger 🍊"] }
+                { name: "Parfum Crème", values: ["Vanille Bourbon ", "Fleur d'Oranger "] }
             ]
         },
         {
@@ -1338,8 +1338,8 @@
             price: 50,
             image: "https://images.unsplash.com/photo-1568571780765-9276ac8b75a2?w=500&auto=format&fit=crop&q=80",
             options: [
-                { name: "Glace Extra", values: ["Une Boule Vanille Bourbon 🍨", "Une Boule Caramel 🍨", "Sans Glace 🛑"] },
-                { name: "Nappage", values: ["Caramel Beurre Salé 🍯", "Sauce Cannelle Miel 🍯"] }
+                { name: "Glace Extra", values: ["Une Boule Vanille Bourbon ", "Une Boule Caramel ", "Sans Glace "] },
+                { name: "Nappage", values: ["Caramel Beurre Salé ", "Sauce Cannelle Miel "] }
             ]
         }
     ];
@@ -1383,23 +1383,23 @@
     }
 
     var CATEGORY_TITLES = {
-        'pastas': '🍝 Pastas & Pâtes Gourmet',
-        'burgers': '🍔 Burgers Gourmet',
-        'pizzas': '🍕 Pizzas Italiennes',
-        'grillades': '🥩 Grillades & Viandes',
-        'salades': '🥗 Salades Fraîches',
-        'boissons': '🍹 Boissons & Cocktails',
-        'desserts': '🍰 Desserts Gourmands'
+        'pastas': 'Pastas & Pâtes Gourmet',
+        'burgers': 'Burgers Gourmet',
+        'pizzas': 'Pizzas Italiennes',
+        'grillades': 'Grillades & Viandes',
+        'salades': 'Salades Fraîches',
+        'boissons': 'Boissons & Cocktails',
+        'desserts': 'Desserts Gourmands'
     };
 
     var CATEGORY_BADGES = {
-        'pastas': '🍝 Pastas',
-        'burgers': '🍔 Burgers',
-        'pizzas': '🍕 Pizzas',
-        'grillades': '🥩 Grillades',
-        'salades': '🥗 Salades',
-        'boissons': '🍹 Boissons',
-        'desserts': '🍰 Desserts'
+        'pastas': 'Pastas',
+        'burgers': 'Burgers',
+        'pizzas': 'Pizzas',
+        'grillades': 'Grillades',
+        'salades': 'Salades',
+        'boissons': 'Boissons',
+        'desserts': 'Desserts'
     };
 
     var currentActiveCat = 'all';
@@ -1467,13 +1467,13 @@
             if (loadMoreContainer) loadMoreContainer.style.display = 'none';
         } else {
             var APPETIZING_BADGES = {
-                'burgers': '🔥 POPULAIRE',
-                'pizzas': '🔥 POPULAIRE',
-                'pastas': '🔥 POPULAIRE',
-                'grillades': '🔥 SPÉCIAL CHEF',
-                'salades': '🔥 POPULAIRE',
-                'boissons': '🔥 SIGNATURE',
-                'desserts': '🔥 GOURMAND'
+                'burgers': 'POPULAIRE',
+                'pizzas': 'POPULAIRE',
+                'pastas': 'POPULAIRE',
+                'grillades': 'SPÉCIAL CHEF',
+                'salades': 'POPULAIRE',
+                'boissons': 'SIGNATURE',
+                'desserts': 'GOURMAND'
             };
 
             var visibleDishes = filtered.slice(0, currentVisibleLimit);
@@ -1484,7 +1484,7 @@
                 var catBadgeText = CATEGORY_BADGES[dish.category] || dish.category;
                 var cleanTitle = dish.title || 'Plat Délicieux';
                 var cleanDesc = dish.description || 'Ingrédients frais préparés à la commande par notre chef.';
-                var dishBadge = APPETIZING_BADGES[(dish.category || '').toLowerCase()] || '🔥 POPULAIRE';
+                var dishBadge = APPETIZING_BADGES[(dish.category || '').toLowerCase()] || 'POPULAIRE';
 
                 var escapedTitle = cleanTitle.replace(/'/g, "\\'");
                 var escapedCat = catBadgeText.replace(/'/g, "\\'");
@@ -1524,7 +1524,7 @@
                 } else {
                     if (filtered.length > INITIAL_DISH_LIMIT) {
                         loadMoreContainer.style.display = 'block';
-                        loadMoreContainer.innerHTML = '<p class="text-muted small mt-2 fw-semibold">✨ Tous les ' + filtered.length + ' plats de cette sélection sont affichés</p>';
+                        loadMoreContainer.innerHTML = '<p class="text-muted small mt-2 fw-semibold">Tous les ' + filtered.length + ' plats de cette sélection sont affichés</p>';
                     } else {
                         loadMoreContainer.style.display = 'none';
                     }
@@ -1547,7 +1547,7 @@
         if (liveMenuContainer) {
             var html = '<div class="tasty-menu-header-card mb-4 text-center">' +
                 '<div class="tasty-header-glow"></div>' +
-                '<span class="tasty-header-tag">✨ SÉLECTION GASTRONOMIQUE DE CASABLANCA</span>' +
+                '<span class="tasty-header-tag">SÉLECTION GASTRONOMIQUE DE CASABLANCA</span>' +
                 '<h2 class="tasty-menu-title">Notre Carte <span>Gourmande</span></h2>' +
                 '<p class="tasty-menu-subtitle">Découvrez notre sélection artisanale préparée à la commande avec des ingrédients frais par notre chef</p>' +
                 '<div class="search-filter-wrapper mx-auto mt-4">' +
@@ -1561,35 +1561,35 @@
                 '<div class="creative-category-bar-box mb-4">' +
                 '<div class="d-flex align-items-center justify-content-start justify-content-md-center gap-3 gap-md-4 overflow-auto py-2 category-scroll-container">' +
                 '<div class="category-circle-item active" data-category="all" onclick="window.FOORES_CART.filterCategory(\'all\', this)" role="button" title="Tous les Plats">' +
-                '<div class="circle-img-box"><img src="img/menu_items/1.jpg" alt="Tous" class="cat-circle-img"><span class="circle-badge">✨</span></div>' +
+                '<div class="circle-img-box"><img src="img/menu_items/1.jpg" alt="Tous" class="cat-circle-img"><span class="circle-badge"></span></div>' +
                 '<span class="category-circle-label">Tous</span>' +
                 '</div>' +
                 '<div class="category-circle-item" data-category="burgers" onclick="window.FOORES_CART.filterCategory(\'burgers\', this)" role="button" title="Burgers">' +
-                '<div class="circle-img-box"><img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300&auto=format&fit=crop&q=80" alt="Burgers" class="cat-circle-img"><span class="circle-badge">🍔</span></div>' +
+                '<div class="circle-img-box"><img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300&auto=format&fit=crop&q=80" alt="Burgers" class="cat-circle-img"><span class="circle-badge"></span></div>' +
                 '<span class="category-circle-label">Burgers</span>' +
                 '</div>' +
                 '<div class="category-circle-item" data-category="pizzas" onclick="window.FOORES_CART.filterCategory(\'pizzas\', this)" role="button" title="Pizzas">' +
-                '<div class="circle-img-box"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=300&auto=format&fit=crop&q=80" alt="Pizzas" class="cat-circle-img"><span class="circle-badge">🍕</span></div>' +
+                '<div class="circle-img-box"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=300&auto=format&fit=crop&q=80" alt="Pizzas" class="cat-circle-img"><span class="circle-badge"></span></div>' +
                 '<span class="category-circle-label">Pizzas</span>' +
                 '</div>' +
                 '<div class="category-circle-item" data-category="pastas" onclick="window.FOORES_CART.filterCategory(\'pastas\', this)" role="button" title="Pâtes">' +
-                '<div class="circle-img-box"><img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=300&auto=format&fit=crop&q=80" alt="Pâtes" class="cat-circle-img"><span class="circle-badge">🍝</span></div>' +
+                '<div class="circle-img-box"><img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=300&auto=format&fit=crop&q=80" alt="Pâtes" class="cat-circle-img"><span class="circle-badge"></span></div>' +
                 '<span class="category-circle-label">Pâtes</span>' +
                 '</div>' +
                 '<div class="category-circle-item" data-category="grillades" onclick="window.FOORES_CART.filterCategory(\'grillades\', this)" role="button" title="Grillades">' +
-                '<div class="circle-img-box"><img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=300&auto=format&fit=crop&q=80" alt="Grillades" class="cat-circle-img"><span class="circle-badge">🥩</span></div>' +
+                '<div class="circle-img-box"><img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=300&auto=format&fit=crop&q=80" alt="Grillades" class="cat-circle-img"><span class="circle-badge"></span></div>' +
                 '<span class="category-circle-label">Grillades</span>' +
                 '</div>' +
                 '<div class="category-circle-item" data-category="salades" onclick="window.FOORES_CART.filterCategory(\'salades\', this)" role="button" title="Salades">' +
-                '<div class="circle-img-box"><img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300&auto=format&fit=crop&q=80" alt="Salades" class="cat-circle-img"><span class="circle-badge">🥗</span></div>' +
+                '<div class="circle-img-box"><img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300&auto=format&fit=crop&q=80" alt="Salades" class="cat-circle-img"><span class="circle-badge"></span></div>' +
                 '<span class="category-circle-label">Salades</span>' +
                 '</div>' +
                 '<div class="category-circle-item" data-category="boissons" onclick="window.FOORES_CART.filterCategory(\'boissons\', this)" role="button" title="Boissons">' +
-                '<div class="circle-img-box"><img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=300&auto=format&fit=crop&q=80" alt="Boissons" class="cat-circle-img"><span class="circle-badge">🍹</span></div>' +
+                '<div class="circle-img-box"><img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=300&auto=format&fit=crop&q=80" alt="Boissons" class="cat-circle-img"><span class="circle-badge"></span></div>' +
                 '<span class="category-circle-label">Boissons</span>' +
                 '</div>' +
                 '<div class="category-circle-item" data-category="desserts" onclick="window.FOORES_CART.filterCategory(\'desserts\', this)" role="button" title="Desserts">' +
-                '<div class="circle-img-box"><img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=300&auto=format&fit=crop&q=80" alt="Desserts" class="cat-circle-img"><span class="circle-badge">🍰</span></div>' +
+                '<div class="circle-img-box"><img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=300&auto=format&fit=crop&q=80" alt="Desserts" class="cat-circle-img"><span class="circle-badge"></span></div>' +
                 '<span class="category-circle-label">Desserts</span>' +
                 '</div>' +
                 '</div>' +
@@ -1633,7 +1633,7 @@
                 itemsHtml += '<div class="col-xl-3 col-lg-4 col-md-6 col-12 tasty-card-col mb-4" style="opacity: 1 !important; visibility: visible !important;">' +
                     '<div class="tasty-food-card" data-dish-id="' + dish.id + '">' +
                     '<div class="tasty-card-img-container" onclick="window.FOORES_CART.openImageLightbox(\'' + escapedImg + '\', \'' + escapedTitle + '\', \'' + escapedCat + '\', \'' + escapedPrice + '\', \'' + escapedDesc + '\', \'' + dish.id + '\')">' +
-                    '<span class="tasty-card-badge">🔥 POPULAIRE</span>' +
+                    '<span class="tasty-card-badge">POPULAIRE</span>' +
                     '<span class="tasty-card-rating-badge">4.9</span>' +
                     '<img src="' + imgUrl + '" alt="' + cleanTitle + '" onerror="this.onerror=null; this.src=\'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&auto=format&fit=crop&q=80\';">' +
                     '</div>' +
@@ -1755,7 +1755,7 @@
 
                 var container = form.closest('#wizard_container') || form.parentElement;
                 if (container) {
-                    var waMsg = "Bonjour Foores Restaurant! 🍽️\nJe souhaite réserver une table :\n\n" +
+                    var waMsg = "Bonjour Foores Restaurant! \nJe souhaite réserver une table :\n\n" +
                         "• Nom : " + name + "\n" +
                         "• Tél : " + phone + "\n" +
                         "• Date : " + date + "\n" +
@@ -1886,7 +1886,7 @@
                 var title = card.querySelector('h3, h4') ? card.querySelector('h3, h4').textContent.trim() : 'Plat';
                 var price = card.querySelector('em, strong, .dish-sub') ? card.querySelector('em, strong, .dish-sub').textContent.trim() : '';
                 var desc = card.querySelector('p') ? card.querySelector('p').textContent.trim() : 'Spécialité culinaire préparée avec des ingrédients frais.';
-                var badge = card.querySelector('.cat-badge') ? card.querySelector('.cat-badge').textContent.trim() : '✨ Gourmet';
+                var badge = card.querySelector('.cat-badge') ? card.querySelector('.cat-badge').textContent.trim() : 'Gourmet';
                 var imgSrc = img ? img.src : '';
 
                 if (imgSrc) {
