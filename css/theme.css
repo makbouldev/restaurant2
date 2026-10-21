@@ -399,3 +399,126 @@ iframe[src*="google.com/maps"],iframe[src*="maps.google"],.map-embed iframe,
   }
   .tasty-food-card:hover img,.menu_item:hover img,.card:hover img{ transform:none !important; }
 }
+
+/* ===========================================================================
+   USER-REQUESTED SECTION FIXES (round 2) — readability & simplification
+   =========================================================================== */
+:root{ --star:#E4A135; }  /* standard gold rating stars (user request) */
+
+/* 1. Gold rating stars site-wide (hero, review cards, badges) */
+.stars,.stars i,.rating i,.card-rating .stars,.hero-floating-card .stars,
+.bi-star-fill,.bi-star,.bi-stars,.bi-star-half,
+.text-warning,[class*="star-fill"]{ color:var(--star) !important; }
+.tile-badge.text-warning,.luxury-info-tile .text-warning{ color:var(--light) !important; }
+
+/* 2. Dish card: remove the divider line + hover underline under the title */
+.tasty-card-divider{ display:none !important; }
+.tasty-card-title::after,.card-title::after,.product-title::after{ display:none !important; }
+
+/* 3. "Voir tout le menu" button — flat, square, no shadow / offset / glow */
+.creative-view-menu-btn{
+  background:var(--accent) !important; background-image:none !important; color:var(--light) !important;
+  border:1.5px solid var(--accent) !important; border-radius:0 !important; box-shadow:none !important;
+  padding:.9em 1.7em !important; transform:none !important; letter-spacing:.12em !important;
+}
+.creative-view-menu-btn:hover{
+  transform:none !important; box-shadow:none !important; background:var(--dark) !important;
+  border-color:var(--dark) !important; color:var(--light) !important;
+}
+.creative-view-menu-btn::before{ display:none !important; }
+.creative-view-menu-btn .btn-arrow-icon{
+  background:transparent !important; border:none !important; border-radius:0 !important;
+  width:auto !important; height:auto !important; box-shadow:none !important;
+}
+.creative-view-menu-btn:hover .btn-arrow-icon{ background:transparent !important; transform:none !important; }
+
+/* 4. Reservation banner (terracotta overlay) — cream text, flat chips */
+.luxury-banner-overlay .luxury-subtag,.luxury-banner-overlay .luxury-title,
+.luxury-banner-wrapper .text-white{ color:var(--light) !important; }
+.luxury-banner-overlay .luxury-desc{ color:var(--light-70) !important; }
+.luxury-feature-badge{
+  background:transparent !important; border:1px solid var(--light-15) !important; color:var(--light) !important;
+  border-radius:0 !important; padding:.55em 1em !important;
+}
+.luxury-feature-badge i{ color:var(--light) !important; }
+
+/* 5. Map info tiles — charcoal, cream text (were cream-on-cream / invisible) */
+.luxury-info-tile{
+  background:var(--dark) !important; border:1px solid var(--light-15) !important;
+  border-radius:0 !important; box-shadow:none !important;
+}
+.luxury-info-tile .tile-title,.luxury-info-tile strong{ color:var(--light) !important; }
+.luxury-info-tile .tile-text,.luxury-info-tile .text-white-50{ color:var(--light-70) !important; }
+.luxury-info-tile .tile-badge{
+  background:transparent !important; border:1px solid var(--light-15) !important; color:var(--light) !important; border-radius:0 !important;
+}
+.luxury-info-tile i{ color:var(--accent) !important; }
+
+/* 6. "Célébrez" box — solid charcoal (resolve the earlier rule conflict) */
+.call_section .box_1{ background:var(--dark) !important; border:1px solid var(--light-15) !important; }
+.call_section .box_1 h2,.call_section .box_1 .text-white{ color:var(--light) !important; }
+.call_section .box_1 p,.call_section .box_1 .text-white-50{ color:var(--light-70) !important; }
+
+/* 7. Review cards — don't clip the top badge; flat charcoal badge */
+.pro-review-card{ overflow:visible !important; }
+.pro-review-card .badge{ background:var(--dark) !important; color:var(--light) !important; border-radius:0 !important; }
+
+/* 8. Footer — remove zig-zag, make ALL content visible, cream links & socials */
+footer .frame.black,.frame.black,.footer .frame{ display:none !important; }
+footer{ background:var(--dark) !important; }
+footer h3,footer h4{ color:var(--light) !important; }
+footer p,footer li,footer ul,footer span,.footer_wp p,.footer_wp li,
+footer .copy,footer address{ color:var(--light-70) !important; }
+footer a{ color:var(--light-70) !important; }
+footer a:hover{ color:var(--accent) !important; }
+.footer_wp > i,footer h3 i,.footer_wp i{ color:var(--accent) !important; }
+.follow_us ul li a,footer .follow_us a{ color:var(--light) !important; background:transparent !important; }
+.follow_us ul li a:hover{ color:var(--accent) !important; }
+#newsletter .form-group{ display:flex; gap:0; }
+#newsletter input{ color:var(--light) !important; border-bottom:1px solid var(--light-15) !important; }
+#newsletter input::placeholder{ color:var(--light-70) !important; }
+#newsletter button{ background:var(--accent) !important; color:var(--light) !important; border:none !important; border-radius:0 !important; padding:0 16px; }
+
+/* social icon pills on dark surfaces -> flat cream */
+.social-icon-circle,.creative-social-badge{
+  background:transparent !important; border:1px solid var(--light-15) !important; color:var(--light) !important;
+  border-radius:0 !important; box-shadow:none !important;
+}
+.creative-social-badge.whatsapp{ background:var(--dark) !important; }
+.social-icon-circle i,.creative-social-badge i{ color:var(--light) !important; }
+.social-icon-circle:hover,.creative-social-badge:hover{ border-color:var(--accent) !important; }
+
+/* 9. Floating buttons — WhatsApp charcoal, Réservation terracotta, no glow, square */
+.fixed-floating-buttons a,.float-btn{ box-shadow:none !important; border-radius:0 !important; }
+.float-whatsapp,.float-btn.float-whatsapp{ background:var(--dark) !important; color:var(--light) !important; }
+.float-reservation,.float-btn.float-reservation{ background:var(--accent) !important; color:var(--light) !important; }
+.float-whatsapp:hover{ background:var(--accent) !important; }
+.float-reservation:hover{ background:var(--dark) !important; }
+
+/* ===========================================================================
+   ROUND 3 — specificity overrides + user requests
+   =========================================================================== */
+/* top bar: contact text was --muted-ink (dark on dark) -> cream */
+.top-header-bar .top-info-item,.top-header-bar .top-info-item span{ color:var(--light) !important; }
+.top-header-bar .top-info-item i{ color:var(--accent) !important; }
+
+/* footer social icons were --muted-ink (invisible) -> cream, flat */
+footer .follow_us ul li a{ color:var(--light) !important; background:transparent !important; border:1px solid var(--light-15) !important; }
+footer .follow_us ul li a i{ color:var(--light) !important; }
+footer .follow_us ul li a:hover{ color:var(--accent) !important; border-color:var(--accent) !important; background:transparent !important; }
+
+/* GOLD stars — specificity high enough to beat custom.css terracotta/saffron */
+.hero-floating-card.card-rating .stars,
+.hero-floating-card.card-rating .stars i,
+.hero-floating-card .stars i{ color:var(--star) !important; }
+.pro-review-card .text-warning,.pro-review-card .stars i,
+.review-card .text-warning,.text-warning i.bi-star-fill,
+.card-special .fire-icon{ color:var(--star) !important; }
+.card-special .fire-icon{ color:var(--light) !important; }   /* "Plat Vedette" label stays cream */
+
+/* WhatsApp button -> brand WhatsApp green (user request; intentional palette exception) */
+.float-whatsapp,.float-btn.float-whatsapp{ background:#25D366 !important; color:#FFFFFF !important; border:none !important; }
+.float-whatsapp:hover,.float-btn.float-whatsapp:hover{ background:#1DA851 !important; }
+.float-whatsapp i,.float-btn.float-whatsapp i{ color:#FFFFFF !important; }
+.creative-social-badge.whatsapp{ background:#25D366 !important; border:none !important; }
+.creative-social-badge.whatsapp i{ color:#FFFFFF !important; }
