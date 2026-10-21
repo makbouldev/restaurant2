@@ -522,3 +522,39 @@ footer .follow_us ul li a:hover{ color:var(--accent) !important; border-color:va
 .float-whatsapp i,.float-btn.float-whatsapp i{ color:#FFFFFF !important; }
 .creative-social-badge.whatsapp{ background:#25D366 !important; border:none !important; }
 .creative-social-badge.whatsapp i{ color:#FFFFFF !important; }
+
+/* ===========================================================================
+   STANDING RULE — every star glyph on the site is GOLD (user preference)
+   Covers bootstrap-icons, ElegantIcons, FontAwesome, text ★ and rating widgets
+   =========================================================================== */
+.bi-star,.bi-star-fill,.bi-star-half,.bi-stars,
+.icon_star,.icon_star_alt,.icon_star-half,.icon_star-half_alt,
+.fa-star,.fa-star-half,.fa-star-o,.fa-star-half-alt,.fa-star-half-stroke,
+.stars,.stars i,.rating i,.rating-stars i,.star,.review-stars,.review-stars i,
+.review-stars-gold,.review-stars-gold i,.review-rating-hero-badge i,
+.tasty-card-rating-badge,.tasty-card-rating-badge i,
+.popular-rating-badge,.popular-rating-badge i,.photo-badge-rating,.photo-badge-rating i,
+.hero-floating-card.card-rating .stars,.hero-floating-card.card-rating .stars i,
+.text-warning,.text-warning i,
+[class*="star-fill"],[class*="icon_star"],[class*="star-half"]{
+  color:var(--star) !important;
+}
+/* elements that merely reuse text-warning / fire-icon but are NOT stars */
+.tile-badge.text-warning,.luxury-info-tile .text-warning,
+.card-special .fire-icon{ color:var(--light) !important; }
+
+/* Gold stars rendered as ::before/::after content (e.g. dish rating badge) */
+.tasty-card-rating-badge::before,.popular-rating-badge::before,
+.photo-badge-rating::before,[class*="rating-badge"]::before,
+[class*="rating"]::before{ color:var(--star) !important; }
+.tasty-card-rating-badge{ border-radius:0 !important; box-shadow:none !important; }
+
+/* Hero title: match the dish-card title font (Archivo 700, no heavy 800/tight tracking) */
+.hero-main-title,
+.hero-main-title .cursive-accent,
+.creative-hero-section .hero-main-title{
+  font-family:'Archivo',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif !important;
+  font-weight:700 !important;
+  font-style:normal !important;
+  letter-spacing:-.01em !important;
+}
