@@ -744,3 +744,30 @@ h1,h2,h3,h4,h5,h6,
 /* Rouna is a display serif — give headings a touch more line-height & keep hero readable */
 .hero-main-title{ line-height:1.08 !important; }
 h1,h2{ line-height:1.1 !important; }
+
+/* ===========================================================================
+   DISH CARD — larger description + "Ajouter au panier" in Rouna (user request)
+   =========================================================================== */
+.tasty-card-sub{ font-size:14px !important; line-height:1.5 !important; }
+.tasty-pill-add-btn,.add_to_cart{
+  font-family:var(--font-heading) !important;
+  letter-spacing:.04em !important;
+  font-size:13px !important;
+}
+
+/* ===========================================================================
+   NAV UNDERLINE — one thin line, hugs the text (link padding = 15px),
+   grows from centre on hover AND active (replaces the chunky 3px bar)
+   =========================================================================== */
+.main-menu ul li a::after,
+.main-menu ul li a.active::after,
+.main-menu ul li.active > a::after{
+  content:"" !important; position:absolute !important;
+  left:15px !important; right:15px !important; width:auto !important;
+  bottom:2px !important; top:auto !important;
+  height:2px !important; border-radius:0 !important; background:var(--accent) !important;
+  transform:scaleX(0); transform-origin:center; transition:transform .3s var(--ease) !important;
+}
+.main-menu ul li a:hover::after,
+.main-menu ul li a.active::after,
+.main-menu ul li.active > a::after{ transform:scaleX(1) !important; }
