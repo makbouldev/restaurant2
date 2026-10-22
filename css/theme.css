@@ -3,7 +3,7 @@
    Palette : Charcoal #20261C · Cream #F3EEE3 · Terracotta #6E7F4E (only)
    Type    : Archivo (one family) · Shape: square · No shadows/gradients/glow
    ========================================================================== */
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;800&family=Mulish:wght@400;500;600;700;800&display=swap');
 
 /* Self-hosted display serif for headings (full French glyph set) */
 @font-face{
@@ -15,7 +15,8 @@
 :root{
   --dark:#20261C; --light:#F3EEE3; --accent:#6E7F4E;
   --brass:#B08941;  /* metallic highlight: stars + gold accents on dark */
-  --font-head:'Rouna', Georgia, 'Times New Roman', serif;
+  --font-heading:'Rouna', Georgia, 'Times New Roman', serif;  /* headings */
+  --font-body:'Mulish', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;  /* paragraphs / UI (pairs with Rouna) */
   --dark-70:rgba(32,38,28,.70); --dark-50:rgba(32,38,28,.50);
   --dark-12:rgba(32,38,28,.12); --dark-06:rgba(32,38,28,.06);
   --light-70:rgba(243,238,227,.70); --light-15:rgba(243,238,227,.15);
@@ -27,14 +28,13 @@
 
 /* ------------------------------------------------------------------ TYPE -- */
 html,body{
-  font-family:'Archivo',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif !important;
+  font-family:var(--font-body) !important;
   background:var(--light); color:var(--dark);
   -webkit-font-smoothing:antialiased;
 }
 body,p,li,a,label,input,select,textarea,button,.btn,
-h1,h2,h3,h4,h5,h6,.main_title h2,.hero-main-title,.popular-title,
 blockquote,figcaption,th,td{
-  font-family:'Archivo',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif !important;
+  font-family:var(--font-body) !important;
 }
 /* keep icon fonts */
 [class^="icon_"],[class*=" icon_"],[class^="arrow_"],[class*=" arrow_"],
@@ -366,8 +366,8 @@ iframe[src*="google.com/maps"],iframe[src*="maps.google"],.map-embed iframe,
 }
 /* accent words: same family, highlight by colour only (no cursive / italic / glow) */
 .hero-main-title .cursive-accent,.cursive-accent{
-  font-family:'Archivo',-apple-system,sans-serif !important; font-style:normal !important;
-  font-weight:800 !important; color:var(--accent) !important; font-size:inherit !important;
+  font-family:var(--font-heading) !important; font-style:normal !important;
+  font-weight:700 !important; color:var(--accent) !important; font-size:inherit !important;
   margin-left:0 !important; text-shadow:none !important; letter-spacing:-.02em !important;
 }
 .hero-main-title{ font-style:normal !important; }
@@ -558,11 +558,11 @@ footer .follow_us ul li a:hover{ color:var(--accent) !important; border-color:va
 [class*="rating"]::before{ color:var(--star) !important; }
 .tasty-card-rating-badge{ border-radius:0 !important; box-shadow:none !important; }
 
-/* Hero title: match the dish-card title font (Archivo 700, no heavy 800/tight tracking) */
+/* Hero title: Rouna display serif */
 .hero-main-title,
 .hero-main-title .cursive-accent,
 .creative-hero-section .hero-main-title{
-  font-family:'Archivo',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif !important;
+  font-family:var(--font-heading) !important;
   font-weight:700 !important;
   font-style:normal !important;
   letter-spacing:-.01em !important;
