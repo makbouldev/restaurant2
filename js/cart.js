@@ -384,7 +384,7 @@
                 '   <div class="side-cart-footer">' +
                 '       <div class="side-cart-summary">' +
                 '           <div class="summary-row"><span>Sous-total</span><strong id="sideCartSubtotal">0 DH</strong></div>' +
-                '           <div class="summary-row"><span>Livraison Casablanca</span><strong style="color:#B5482A;">Gratuite</strong></div>' +
+                '           <div class="summary-row"><span>Livraison Casablanca</span><strong style="color:#6E7F4E;">Gratuite</strong></div>' +
                 '           <div class="summary-row total-row"><span>Total à Payer</span><strong class="side-cart-grand-total" id="sideCartGrandTotal">0 DH</strong></div>' +
                 '       </div>' +
                 '       <div class="side-cart-actions">' +
@@ -439,8 +439,8 @@
         if (cart.length === 0) {
             container.innerHTML = 
                 '<div class="text-center py-5 my-auto" style="color: #6E6A64;">' +
-                '   <i class="icon_cart fs-1 mb-3" style="font-size: 48px; color: #B5482A; opacity: 0.6;"></i>' +
-                '   <h4 style="font-family: \'Archivo\', serif; color: #F5EFE4; margin-bottom: 8px;">Votre panier est vide</h4>' +
+                '   <i class="icon_cart fs-1 mb-3" style="font-size: 48px; color: #6E7F4E; opacity: 0.6;"></i>' +
+                '   <h4 style="font-family: \'Archivo\', serif; color: #F3EEE3; margin-bottom: 8px;">Votre panier est vide</h4>' +
                 '   <p style="font-size: 13.5px; opacity: 0.8; margin-bottom: 20px;">Découvrez nos recettes faites maison et ajoutez vos spécialités préférées !</p>' +
                 '   <button class="btn_1" onclick="window.FOORES_CART.toggleSideCart(false)">Découvrir le Menu</button>' +
                 '</div>';
@@ -455,7 +455,7 @@
                 '   <img src="' + item.image + '" alt="' + item.title + '" class="side-cart-item-img" onerror="this.onerror=null; this.src=\'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500&auto=format&fit=crop&q=80\';">' +
                 '   <div class="side-cart-item-info">' +
                 '       <h4 class="side-cart-item-title">' + item.title + '</h4>' +
-                (optText ? '       <div class="side-cart-item-options" style="font-size: 11.5px; color: #B5482A; margin-bottom: 2px;">' + optText + '</div>' : '') +
+                (optText ? '       <div class="side-cart-item-options" style="font-size: 11.5px; color: #6E7F4E; margin-bottom: 2px;">' + optText + '</div>' : '') +
                 '       <span class="side-cart-item-price">' + formatPrice(item.price * item.quantity) + '</span>' +
                 '       <div class="side-cart-qty-row">' +
                 '           <button class="side-cart-qty-btn" onclick="window.FOORES_CART.updateQuantity(\'' + item.id + '\', ' + (item.quantity - 1) + ')">-</button>' +
@@ -575,7 +575,7 @@
                 '<img src="' + item.image + '" alt="' + item.title + '" class="cart-item-img">' +
                 '<div>' +
                 '<span class="cart-item-title d-block">' + item.title + '</span>' +
-                (optText ? '<small style="color: #B5482A; font-size: 12px; margin-left: 15px;">' + optText + '</small>' : '') +
+                (optText ? '<small style="color: #6E7F4E; font-size: 12px; margin-left: 15px;">' + optText + '</small>' : '') +
                 '</div>' +
                 '</div>' +
                 '</td>' +
@@ -668,19 +668,19 @@
                 '           <img src="' + item.image + '" alt="' + item.title + '" width="46" height="46" class="rounded object-fit-cover flex-shrink-0" onerror="this.onerror=null; this.src=\'img/menu_items/1.jpg\';">' +
                 '           <div class="lh-sm text-truncate">' +
                 '               <strong class="d-block text-dark text-truncate" style="font-size: 13.5px; font-weight: 700;">' + item.title + '</strong>' +
-                '               <span style="font-size: 13px; font-weight: 700; color: #B5482A;">' + formatPrice(item.price * item.quantity) + '</span>' +
+                '               <span style="font-size: 13px; font-weight: 700; color: #6E7F4E;">' + formatPrice(item.price * item.quantity) + '</span>' +
                 '           </div>' +
                 '       </div>' +
                 '       <button type="button" class="btn btn-sm text-danger border-0 p-1 flex-shrink-0" onclick="window.FOORES_CART.removeFromCart(\'' + item.id + '\')" title="Supprimer">' +
                 '           <i class="bi bi-trash3-fill fs-6"></i>' +
                 '       </button>' +
                 '   </div>' +
-                (optText ? '   <div class="checkout-item-options-box p-2 mb-2 rounded border" style="font-size: 11.5px; line-height: 1.35; background: #F5EFE4; border-left: 3px solid #B5482A !important; color: #6E6A64;"><i class="bi bi-sliders text-warning me-1"></i> ' + optText + '</div>' : '') +
+                (optText ? '   <div class="checkout-item-options-box p-2 mb-2 rounded border" style="font-size: 11.5px; line-height: 1.35; background: #F3EEE3; border-left: 3px solid #6E7F4E !important; color: #6E6A64;"><i class="bi bi-sliders text-warning me-1"></i> ' + optText + '</div>' : '') +
                 '   <div class="d-flex align-items-center justify-content-between pt-2 border-top mt-2">' +
                 '       <div>' +
                 (hasOptionsAvailable ? '           <button type="button" class="btn-edit-options" onclick="window.FOORES_CART.editCartItemOptions(\'' + item.id + '\')"><i class="bi bi-pencil-square me-1"></i> Modifier options</button>' : '<span class="text-muted" style="font-size: 11px;">Standard</span>') +
                 '       </div>' +
-                '       <div class="checkout-qty-stepper d-flex align-items-center rounded border px-1" style="background: #F5EFE4; border-color: #E3DCCB;">' +
+                '       <div class="checkout-qty-stepper d-flex align-items-center rounded border px-1" style="background: #F3EEE3; border-color: #E3DCCB;">' +
                 '           <button type="button" class="btn btn-sm text-dark px-2 py-0 border-0 fw-bold" onclick="window.FOORES_CART.updateQuantity(\'' + item.id + '\', ' + (item.quantity - 1) + ')">-</button>' +
                 '           <span class="px-2 fw-bold text-dark" style="font-size: 13px; min-width: 22px; text-align: center;">' + item.quantity + '</span>' +
                 '           <button type="button" class="btn btn-sm text-dark px-2 py-0 border-0 fw-bold" onclick="window.FOORES_CART.updateQuantity(\'' + item.id + '\', ' + (item.quantity + 1) + ')">+</button>' +
@@ -831,7 +831,7 @@
             order.items.forEach(function (item) {
                 var optText = formatOptionsText(item.selectedOptions);
                 itemsHtml += '<li class="d-flex justify-content-between align-items-center py-2 border-bottom">' +
-                    '<div><strong>' + item.quantity + 'x</strong> ' + item.title + (optText ? ' <small style="color: #B5482A;" class="d-block">' + optText + '</small>' : '') + '</div>' +
+                    '<div><strong>' + item.quantity + 'x</strong> ' + item.title + (optText ? ' <small style="color: #6E7F4E;" class="d-block">' + optText + '</small>' : '') + '</div>' +
                     '<span class="fw-bold">' + formatPrice(item.price * item.quantity) + '</span>' +
                     '</li>';
             });
@@ -1764,10 +1764,10 @@
 
                     var waUrl = "https://wa.me/212522223344?text=" + encodeURIComponent(waMsg);
 
-                    container.innerHTML = '<div class="text-center p-4 bg-white rounded shadow-sm border" style="border-color: #B5482A !important;">' +
+                    container.innerHTML = '<div class="text-center p-4 bg-white rounded shadow-sm border" style="border-color: #6E7F4E !important;">' +
                         '<div class="icon icon--order-success svg mb-3">' +
                         '<svg xmlns="http://www.w3.org/2000/svg" width="72" height="72">' +
-                        '<g fill="none" stroke="#B5482A" stroke-width="2">' +
+                        '<g fill="none" stroke="#6E7F4E" stroke-width="2">' +
                         '<circle cx="36" cy="36" r="35" style="stroke-dasharray:240px, 240px; stroke-dashoffset: 480px;"></circle>' +
                         '<path d="M17.417,37.778l9.93,9.909l25.444-25.393" style="stroke-dasharray:50px, 50px; stroke-dashoffset: 0px;"></path>' +
                         '</g>' +

@@ -291,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             type: 'bar',
                             label: 'Tables Réservées',
                             data: [0, 0, 0, 0, 0, 0, 0],
-                            backgroundColor: '#B5482A',
+                            backgroundColor: '#6E7F4E',
                             borderRadius: 6,
                             borderSkipped: 'bottom',
                             barThickness: 22,
@@ -305,9 +305,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     plugins: {
                         legend: { display: false },
                         tooltip: {
-                            backgroundColor: '#1A1714',
-                            titleColor: '#F5EFE4',
-                            bodyColor: '#F5EFE4',
+                            backgroundColor: '#20261C',
+                            titleColor: '#F3EEE3',
+                            bodyColor: '#F3EEE3',
                             padding: 10,
                             cornerRadius: 8
                         }
@@ -352,12 +352,12 @@ document.addEventListener('DOMContentLoaded', () => {
                             type: 'line',
                             label: 'Recettes (DH)',
                             data: [0, 0, 0, 0, 0, 0, 0],
-                            borderColor: '#B5482A',
+                            borderColor: '#6E7F4E',
                             borderWidth: 3,
                             pointRadius: 4.5,
                             pointHoverRadius: 6,
-                            pointBackgroundColor: '#F5EFE4',
-                            pointBorderColor: '#B5482A',
+                            pointBackgroundColor: '#F3EEE3',
+                            pointBorderColor: '#6E7F4E',
                             pointBorderWidth: 2.5,
                             tension: 0.35,
                             yAxisID: 'y1',
@@ -367,7 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             type: 'bar',
                             label: 'Commandes',
                             data: [0, 0, 0, 0, 0, 0, 0],
-                            backgroundColor: '#B5482A',
+                            backgroundColor: '#6E7F4E',
                             borderRadius: 6,
                             borderSkipped: 'bottom',
                             barThickness: 16,
@@ -394,9 +394,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             }
                         },
                         tooltip: {
-                            backgroundColor: '#1A1714',
-                            titleColor: '#F5EFE4',
-                            bodyColor: '#F5EFE4',
+                            backgroundColor: '#20261C',
+                            titleColor: '#F3EEE3',
+                            bodyColor: '#F3EEE3',
                             padding: 10,
                             cornerRadius: 8
                         }
@@ -1204,8 +1204,8 @@ document.addEventListener('DOMContentLoaded', () => {
         div.style.background = 'rgba(0,0,0,0.25)';
         div.style.border = '1px solid rgba(255,255,255,0.1)';
         div.innerHTML = `
-            <input type="text" class="form-control form-control-sm opt-name-input" placeholder="Attribut (Ex: Sauce)" value="${optName}" style="max-width: 130px; background: rgba(0,0,0,0.4); color: #F5EFE4; border-color: rgba(255,255,255,0.15);">
-            <input type="text" class="form-control form-control-sm opt-values-input flex-grow-1" placeholder="Options (Ex: Piquante , Douce , Mix )" value="${optValuesStr}" style="background: rgba(0,0,0,0.4); color: #F5EFE4; border-color: rgba(255,255,255,0.15);">
+            <input type="text" class="form-control form-control-sm opt-name-input" placeholder="Attribut (Ex: Sauce)" value="${optName}" style="max-width: 130px; background: rgba(0,0,0,0.4); color: #F3EEE3; border-color: rgba(255,255,255,0.15);">
+            <input type="text" class="form-control form-control-sm opt-values-input flex-grow-1" placeholder="Options (Ex: Piquante , Douce , Mix )" value="${optValuesStr}" style="background: rgba(0,0,0,0.4); color: #F3EEE3; border-color: rgba(255,255,255,0.15);">
             <button type="button" class="btn btn-sm btn-outline-danger remove-opt-btn" title="Supprimer"><i class="fa-solid fa-trash"></i></button>
         `;
         div.querySelector('.remove-opt-btn').addEventListener('click', () => div.remove());
@@ -2363,11 +2363,11 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="ticket-info-row"><span>HEURE :</span><strong>${time}</strong></div>
             <div style="border-top: 1px dashed rgba(255,255,255,0.2); margin: 8px 0;"></div>
             <div style="margin: 8px 0;">
-                <strong style="color: #B5482A; display: block; margin-bottom: 4px;">ARTICLES COMMANDÉS :</strong>
+                <strong style="color: #6E7F4E; display: block; margin-bottom: 4px;">ARTICLES COMMANDÉS :</strong>
                 ${dishes}
             </div>
             <div style="border-top: 1px dashed rgba(255,255,255,0.2); margin: 8px 0;"></div>
-            <div class="ticket-info-row" style="font-size: 15px;"><span>TOTAL RÈGLÉ :</span><strong style="color: #B5482A;">${price}</strong></div>
+            <div class="ticket-info-row" style="font-size: 15px;"><span>TOTAL RÈGLÉ :</span><strong style="color: #6E7F4E;">${price}</strong></div>
         `;
 
         ticketModal.classList.add('active');
@@ -2549,7 +2549,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span class="pos-cart-item-name">${item.icon} ${item.name}</span>
                     <div class="pos-qty-controls">
                         <button type="button" class="pos-qty-btn qty-minus" data-id="${item.id}">-</button>
-                        <strong style="color: #F5EFE4; font-size: 11px;">${item.qty}</strong>
+                        <strong style="color: #F3EEE3; font-size: 11px;">${item.qty}</strong>
                         <button type="button" class="pos-qty-btn qty-plus" data-id="${item.id}">+</button>
                     </div>
                     <span class="pos-cart-item-price">${itemTotal} DH</span>
@@ -3107,7 +3107,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </td>
                     <td>
                         <div style="display: flex; flex-direction: column; gap: 2px;">
-                            <strong style="color: #F5EFE4; font-size: 13px;"><i class="fa-solid fa-clock text-green"></i> ${date}, ${time}</strong>
+                            <strong style="color: #F3EEE3; font-size: 13px;"><i class="fa-solid fa-clock text-green"></i> ${date}, ${time}</strong>
                             <span class="time-ago">Nouveau</span>
                         </div>
                     </td>
@@ -3278,7 +3278,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px dashed rgba(255,255,255,0.1); padding-bottom: 12px;">
                 <div>
                     <span style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">EXPÉDITEUR</span>
-                    <h4 style="color: #F5EFE4; font-size: 16px; margin: 2px 0;">${clientName}</h4>
+                    <h4 style="color: #F3EEE3; font-size: 16px; margin: 2px 0;">${clientName}</h4>
                 </div>
                 <div>${subjectBadge}</div>
             </div>
@@ -3290,7 +3290,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
             <div class="msg-body-preview" style="margin-top: 10px;">
                 <strong style="color: var(--primary-green); display: block; margin-bottom: 6px;"><i class="fa-solid fa-message"></i> Contenu du Message :</strong>
-                <p style="color: #F5EFE4; margin: 0; line-height: 1.5; font-size: 13px;">"${messageText}"</p>
+                <p style="color: #F3EEE3; margin: 0; line-height: 1.5; font-size: 13px;">"${messageText}"</p>
             </div>
         `;
 

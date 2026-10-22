@@ -1,15 +1,16 @@
 /* ==========================================================================
    FOORES — EDITORIAL DESIGN SYSTEM  (loaded LAST on every page)
-   Palette : Charcoal #1A1714 · Cream #F5EFE4 · Terracotta #B5482A (only)
+   Palette : Charcoal #20261C · Cream #F3EEE3 · Terracotta #6E7F4E (only)
    Type    : Archivo (one family) · Shape: square · No shadows/gradients/glow
    ========================================================================== */
 @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;800&display=swap');
 
 :root{
-  --dark:#1A1714; --light:#F5EFE4; --accent:#B5482A;
-  --dark-70:rgba(26,23,20,.70); --dark-50:rgba(26,23,20,.50);
-  --dark-12:rgba(26,23,20,.12); --dark-06:rgba(26,23,20,.06);
-  --light-70:rgba(245,239,228,.70); --light-15:rgba(245,239,228,.15);
+  --dark:#20261C; --light:#F3EEE3; --accent:#6E7F4E;
+  --brass:#B08941;  /* metallic highlight: stars + gold accents on dark */
+  --dark-70:rgba(32,38,28,.70); --dark-50:rgba(32,38,28,.50);
+  --dark-12:rgba(32,38,28,.12); --dark-06:rgba(32,38,28,.06);
+  --light-70:rgba(243,238,227,.70); --light-15:rgba(243,238,227,.15);
   --ease:cubic-bezier(.22,.61,.36,1);
   /* legacy aliases used by custom.css */
   --border-ink:var(--dark-12); --muted-ink:var(--dark-70); --faint-ink:var(--dark-06);
@@ -380,10 +381,10 @@ iframe[src*="google.com/maps"],iframe[src*="maps.google"],.map-embed iframe,
 .floating-signature-badge .badge-label{ color:var(--light-70) !important; }
 /* feature chips: flat, square, subtle cream hairline — no pill / glass / glow */
 .feature-item{
-  background:rgba(245,239,228,.05) !important; border:1px solid var(--light-15) !important;
+  background:rgba(243,238,227,.05) !important; border:1px solid var(--light-15) !important;
   border-radius:0 !important; box-shadow:none !important; backdrop-filter:none !important; padding:10px 14px !important;
 }
-.feature-item:hover{ border-color:var(--accent) !important; transform:none !important; background:rgba(245,239,228,.1) !important; }
+.feature-item:hover{ border-color:var(--accent) !important; transform:none !important; background:rgba(243,238,227,.1) !important; }
 .feature-icon-circle{
   width:auto !important; height:auto !important; border-radius:0 !important;
   background:transparent !important; border:none !important; box-shadow:none !important; color:var(--accent) !important;
@@ -403,7 +404,7 @@ iframe[src*="google.com/maps"],iframe[src*="maps.google"],.map-embed iframe,
 /* ===========================================================================
    USER-REQUESTED SECTION FIXES (round 2) — readability & simplification
    =========================================================================== */
-:root{ --star:#E4A135; }  /* standard gold rating stars (user request) */
+:root{ --star:#B08941; }  /* standard gold rating stars (user request) */
 
 /* 1. Gold rating stars site-wide (hero, review cards, badges) */
 .stars,.stars i,.rating i,.card-rating .stars,.hero-floating-card .stars,
@@ -665,7 +666,7 @@ footer .follow_us ul li a:hover{ color:var(--accent) !important; border-color:va
    MENU PAGE + reservation banner (flat charcoal overlay, square search)
    =========================================================================== */
 .luxury-banner-wrapper{ border-radius:0 !important; }
-.luxury-banner-overlay{ background:rgba(26,23,20,.80) !important; background-image:none !important; border-radius:0 !important; }
+.luxury-banner-overlay{ background:rgba(32,38,28,.80) !important; background-image:none !important; border-radius:0 !important; }
 .luxury-action-card{ border-radius:0 !important; box-shadow:none !important; }
 
 /* menu search bar — square field + charcoal button */
