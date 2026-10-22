@@ -5,9 +5,17 @@
    ========================================================================== */
 @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;800&display=swap');
 
+/* Self-hosted display serif for headings (full French glyph set) */
+@font-face{
+  font-family:'Rouna';
+  src:url('../fonts/Rouna-Bold.otf') format('opentype');
+  font-weight:400 800; font-style:normal; font-display:swap;
+}
+
 :root{
   --dark:#20261C; --light:#F3EEE3; --accent:#6E7F4E;
   --brass:#B08941;  /* metallic highlight: stars + gold accents on dark */
+  --font-head:'Rouna', Georgia, 'Times New Roman', serif;
   --dark-70:rgba(32,38,28,.70); --dark-50:rgba(32,38,28,.50);
   --dark-12:rgba(32,38,28,.12); --dark-06:rgba(32,38,28,.06);
   --light-70:rgba(243,238,227,.70); --light-15:rgba(243,238,227,.15);
@@ -719,3 +727,20 @@ footer .follow_us ul li a:hover{ color:var(--accent) !important; border-color:va
   display:block; border-radius:0 !important; transition:transform 1.2s var(--ease);
 }
 .about-story-figure:hover .about-story-img{ transform:scale(1.05); }
+
+/* ===========================================================================
+   HEADINGS FONT — Rouna (self-hosted display serif); body stays Archivo
+   =========================================================================== */
+h1,h2,h3,h4,h5,h6,
+.hero-main-title,.hero-main-title .cursive-accent,.cursive-accent,
+.main_title h2,.main_title_2 h2,.popular-title,.luxury-title,.luxury-card-title,
+.tasty-card-title,.about-story-title,.classic-res-section-title,.classic-res-hero-header h1,
+.creative-map-title,.pro-section-title,.footer h3,.footer h4,footer h3,footer h4,
+.box_how h3,.contact-info-card h3,.card-title,.product-title,.item_title{
+  font-family:'Rouna', Georgia, 'Times New Roman', serif !important;
+  font-weight:700 !important;
+  letter-spacing:0 !important;
+}
+/* Rouna is a display serif — give headings a touch more line-height & keep hero readable */
+.hero-main-title{ line-height:1.08 !important; }
+h1,h2{ line-height:1.1 !important; }
