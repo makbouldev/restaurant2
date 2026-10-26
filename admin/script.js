@@ -2099,7 +2099,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const clientPhone = order.customer ? order.customer.phone : '-';
-            const cleanPhone = clientPhone.replace(/[^0-9]/g, '').replace(/^0/, '');
+            const rawClean = (clientPhone || '').replace(/[^0-9]/g, '');
+            const cleanPhone = rawClean.startsWith('212') ? rawClean.slice(3) : rawClean.replace(/^0/, '');
 
             tr.innerHTML = `
                 <td>
@@ -2202,7 +2203,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const nameStr = res.name || 'Client Web';
             const initials = nameStr.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2) || 'CR';
-            const cleanPhone = (res.phone || '').replace(/[^0-9]/g, '').replace(/^0/, '');
+            const rawResPhone = (res.phone || '').replace(/[^0-9]/g, '');
+            const cleanPhone = rawResPhone.startsWith('212') ? rawResPhone.slice(3) : rawResPhone.replace(/^0/, '');
+
+            let resStatusBadge = '<span class="order-status-badge status-pending"><i class="fa-solid fa-hourglass-half"></i> En Attente</span>';
+            if (res.status === 'confirmed') {
+                resStatusBadge = '<span class="order-status-badge status-completed"><i class="fa-solid fa-circle-check"></i> Confirmée</span>';
+            } else if (res.status === 'seated') {
+                resStatusBadge = '<span class="order-status-badge status-seated"><i class="fa-solid fa-chair"></i> Installé</span>';
+            } else if (res.status === 'cancelled') {
+                resStatusBadge = '<span class="order-status-badge status-cancelled"><i class="fa-solid fa-circle-xmark"></i> Annulée</span>';
+            }
 
             tr.innerHTML = `
                 <td>
@@ -2236,7 +2247,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <i class="fa-solid fa-comment-dots text-orange"></i> <span>${res.notes || 'Aucune remarque'}</span>
                     </div>
                 </td>
-                <td><span class="order-status-badge status-pending"><i class="fa-solid fa-hourglass-half"></i> En Attente</span></td>
+                <td>${resStatusBadge}</td>
                 <td style="text-align: right;">
                     <div class="order-action-btns">
                         <button class="order-btn cycle-resa-btn" title="Confirmer la réservation" data-id="${resIdStr}"><i class="fa-solid fa-check text-green"></i></button>
