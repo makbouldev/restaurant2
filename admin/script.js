@@ -445,7 +445,64 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 3. Dynamic Metrics Loader with Zero-Latency Instant In-Memory Cache (< 10ms switch)
+    // Number Counter Animation for Smooth Value Transitions
+    function animateCount(el, targetVal, duration = 320, decimals = 0) {
+        if (!el) return;
+        const currentStr = el.textContent.replace(/[^0-9.-]/g, '');
+        const startVal = parseFloat(el.getAttribute('data-raw-val') || currentStr) || 0;
+        const numTarget = typeof targetVal === 'number' ? targetVal : parseFloat(targetVal) || 0;
+        el.setAttribute('data-raw-val', numTarget);
+
+        if (startVal === numTarget) {
+            el.textContent = decimals > 0 
+                ? Number(numTarget).toLocaleString('fr-FR', { minimumFractionDigits: decimals, maximumFractionDigits: decimals })
+                : Math.round(numTarget).toLocaleString('fr-FR');
+            return;
+        }
+
+        const startTime = performance.now();
+        function frame(now) {
+            const progress = Math.min((now - startTime) / duration, 1);
+            const ease = 1 - Math.pow(1 - progress, 3);
+            const val = startVal + (numTarget - startVal) * ease;
+
+            if (decimals > 0) {
+                el.textContent = Number(val).toLocaleString('fr-FR', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+            } else {
+                el.textContent = Math.round(val).toLocaleString('fr-FR');
+            }
+
+            if (progress < 1) {
+                requestAnimationFrame(frame);
+            } else {
+                if (decimals > 0) {
+                    el.textContent = Number(numTarget).toLocaleString('fr-FR', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+                } else {
+                    el.textContent = Math.round(numTarget).toLocaleString('fr-FR');
+                }
+            }
+        }
+        requestAnimationFrame(frame);
+    }
+
+    function triggerDataSwapAnimation() {
+        const targets = [
+            document.querySelector('.stat-cards-grid'),
+            document.querySelector('.weekly-orders-chart-container'),
+            document.querySelector('.featured-stats-card.finance-accounting-card'),
+            document.querySelector('.reservations-chart-card'),
+            document.getElementById('topDishesLeaderboard')
+        ];
+        targets.forEach(el => {
+            if (el) {
+                el.classList.remove('data-swap-anim');
+                void el.offsetWidth;
+                el.classList.add('data-swap-anim');
+            }
+        });
+    }
+
+    // 3. Dynamic Metrics Loader with Zero-Latency Instant In-Memory Cache & Smooth Animations
     let currentDashboardRange = 'this-week';
     const dashboardMetricsCache = {
         'today': null,
@@ -504,12 +561,12 @@ document.addEventListener('DOMContentLoaded', () => {
             else resaMainTitle.textContent = "Réservations de la Semaine";
         }
 
-        // Top 4 KPI Cards
+        // Top 4 KPI Cards with Rolling Number Animation
         if (data.kpi) {
-            if (kpiOrders) kpiOrders.textContent = data.kpi.orders;
-            if (kpiReservations) kpiReservations.textContent = data.kpi.reservations;
-            if (kpiRevenue) kpiRevenue.textContent = Number(data.kpi.revenue || 0).toLocaleString('fr-FR');
-            if (kpiAvgTicket) kpiAvgTicket.textContent = Number(data.kpi.avgTicket || 0).toLocaleString('fr-FR');
+            if (kpiOrders) animateCount(kpiOrders, data.kpi.orders, 300, 0);
+            if (kpiReservations) animateCount(kpiReservations, data.kpi.reservations, 300, 0);
+            if (kpiRevenue) animateCount(kpiRevenue, data.kpi.revenue, 350, 0);
+            if (kpiAvgTicket) animateCount(kpiAvgTicket, data.kpi.avgTicket, 350, 2);
 
             const occFill = document.getElementById('occupancyFill');
             const occLabel = document.getElementById('occupancyLabel');
@@ -517,19 +574,25 @@ document.addEventListener('DOMContentLoaded', () => {
             if (occLabel) occLabel.textContent = `${data.kpi.occupancyRate || 0} % occupé`;
         }
 
-        // Weekly Orders Chart (Instant update without animation lag)
+        // Weekly Orders Chart (Smooth 360ms morph animation)
         if (weeklyOrdersChart && data.chart) {
             weeklyOrdersChart.data.labels = data.chart.labels;
             weeklyOrdersChart.data.datasets[0].data = data.chart.revenue;
             weeklyOrdersChart.data.datasets[1].data = data.chart.orders;
-            weeklyOrdersChart.update('none');
+            weeklyOrdersChart.update({
+                duration: 360,
+                easing: 'easeOutQuart'
+            });
         }
 
-        // Reservations Chart (Instant update)
+        // Reservations Chart (Smooth 360ms morph animation)
         if (reservationsChart && data.reservationsChart) {
             reservationsChart.data.labels = data.reservationsChart.labels;
             reservationsChart.data.datasets[0].data = data.reservationsChart.tables;
-            reservationsChart.update('none');
+            reservationsChart.update({
+                duration: 360,
+                easing: 'easeOutQuart'
+            });
         }
 
         // Sales Channels Breakdown
@@ -586,7 +649,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (imgUrl.startsWith('img/')) imgUrl = '/' + imgUrl;
 
                     return `
-                        <div class="leaderboard-item rank-${rank}">
+                        <div class="leaderboard-item rank-${rank}" style="animation-delay: ${idx * 40}ms;">
                             <span class="rank-badge ${rankColor}">${rank}</span>
                             <img src="${imgUrl}" alt="${dish.title}" class="dish-thumb" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=100&auto=format&fit=crop&q=80';">
                             <div class="dish-meta-info">
@@ -606,7 +669,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!range) return;
         currentDashboardRange = range;
 
-        // 1. Instant 0ms Visual Feedback: Highlight buttons across all groups
+        // Trigger visual card entrance transition
+        triggerDataSwapAnimation();
+
+        // 1. Instant Visual Feedback: Highlight buttons across all groups
         document.querySelectorAll('.date-filter-btn').forEach(btn => {
             const r = btn.getAttribute('data-kpi-range') || btn.getAttribute('data-range') || btn.getAttribute('data-resa-range');
             if (r === range) btn.classList.add('active');

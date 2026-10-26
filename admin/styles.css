@@ -6110,3 +6110,50 @@ textarea::placeholder {
         padding: 24px 20px;
     }
 }
+
+/* ==========================================================================
+   Smooth Dashboard & Filter Transition Animations
+   ========================================================================== */
+@keyframes dataSwapPulse {
+    0% {
+        opacity: 0.65;
+        transform: translateY(4px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.data-swap-anim {
+    animation: dataSwapPulse 0.32s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+}
+
+@keyframes dishCascadeIn {
+    0% {
+        opacity: 0;
+        transform: translateX(12px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.leaderboard-item {
+    animation: dishCascadeIn 0.32s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+}
+
+.occupancy-fill,
+.channel-segment,
+.sales-progress {
+    transition: width 0.45s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.date-filter-btn {
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.date-filter-btn:active {
+    transform: scale(0.94) !important;
+}
