@@ -13,7 +13,7 @@
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
  <!-- Chart.js CDN -->
  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
- <link rel="stylesheet" href="/admin/styles.css?v=58.0">
+ <link rel="stylesheet" href="/admin/styles.css?v=60.0">
 </head>
 <body>
  <div class="app-container">
@@ -216,8 +216,11 @@
 
  <!-- Side Card: Top Selling Dishes Leaderboard -->
  <div class="side-card top-dishes-card">
- <div class="card-top-header">
- <h2 class="card-title">Plats les plus vendus</h2>
+ <div class="card-top-header" style="display: flex; justify-content: space-between; align-items: flex-start;">
+ <div>
+ <h2 class="card-title" style="margin-bottom: 2px;">Plats les plus vendus</h2>
+ <span style="font-size: 11px; color: var(--muted, #6E6A64); font-weight: 500;">Classement par articles vendus</span>
+ </div>
  <a href="#recipes" class="link-olive nav-trigger" data-target="recipes">Voir tout</a>
  </div>
 
@@ -1364,7 +1367,7 @@
  </div>
 
  <script src="/js/dishes_data.js"></script>
- <script src="/admin/script.js?v=59.0"></script>
+ <script src="/admin/script.js?v=60.0"></script>
 
  <!-- ================= ADMIN AUTH LOGIN GATE MODAL ================= -->
  <div id="adminLoginGate" class="admin-login-overlay" style="display: none;">

@@ -352,13 +352,13 @@ document.addEventListener('DOMContentLoaded', () => {
                             type: 'line',
                             label: 'Recettes (DH)',
                             data: [0, 0, 0, 0, 0, 0, 0],
-                            borderColor: '#6E7F4E',
-                            borderWidth: 3,
+                            borderColor: '#F1A344',
+                            borderWidth: 2.8,
                             pointRadius: 4.5,
-                            pointHoverRadius: 6,
-                            pointBackgroundColor: '#F3EEE3',
-                            pointBorderColor: '#6E7F4E',
-                            pointBorderWidth: 2.5,
+                            pointHoverRadius: 6.5,
+                            pointBackgroundColor: '#F1A344',
+                            pointBorderColor: '#FFFFFF',
+                            pointBorderWidth: 2,
                             tension: 0.35,
                             yAxisID: 'y1',
                             order: 1
@@ -367,7 +367,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             type: 'bar',
                             label: 'Commandes',
                             data: [0, 0, 0, 0, 0, 0, 0],
-                            backgroundColor: '#6E7F4E',
+                            backgroundColor: '#557945',
+                            hoverBackgroundColor: '#425F35',
                             borderRadius: 6,
                             borderSkipped: 'bottom',
                             barThickness: 16,
@@ -417,8 +418,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             position: 'left',
                             grid: { color: '#E3DCCB', drawBorder: false },
                             ticks: {
-                                color: '#6E6A64',
-                                font: { family: 'Archivo', size: 11 },
+                                color: '#557945',
+                                font: { family: 'Archivo', size: 11, weight: '600' },
                                 precision: 0
                             }
                         },
@@ -429,8 +430,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             position: 'right',
                             grid: { display: false },
                             ticks: {
-                                color: '#6E6A64',
-                                font: { family: 'Archivo', size: 11 },
+                                color: '#D97706',
+                                font: { family: 'Archivo', size: 11, weight: '600' },
                                 callback: function(val) {
                                     return val >= 1000 ? (val / 1000) + 'k' : val;
                                 }
@@ -460,8 +461,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 const kpiHeaderDate = document.getElementById('kpiHeaderDate');
                 if (kpiHeaderDate) {
                     const now = new Date();
-                    const formatted = now.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
-                    kpiHeaderDate.textContent = formatted.charAt(0).toUpperCase() + formatted.slice(1);
+                    if (range === 'today') {
+                        const formatted = now.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+                        kpiHeaderDate.textContent = formatted.charAt(0).toUpperCase() + formatted.slice(1);
+                    } else if (range === 'this-month') {
+                        const monthName = now.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
+                        kpiHeaderDate.textContent = 'Mois de ' + monthName.charAt(0).toUpperCase() + monthName.slice(1);
+                    } else {
+                        const todayName = now.toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric', month: 'short' });
+                        kpiHeaderDate.textContent = 'Semaine en cours • ' + todayName;
+                    }
                 }
 
                 // Titles synchronization
