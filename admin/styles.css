@@ -1,3 +1,4 @@
+@font-face{font-family:'Rouna';src:url('../fonts/Rouna-Bold.otf') format('opentype');font-weight:400 800;font-style:normal;font-display:swap;}
 /* ==========================================================================
    Foores - Minimal Elegant Admin Panel Stylesheet
    Strict Color Tokens & Typography Specification
@@ -33,8 +34,8 @@
     --faint:        var(--muted-ink);   /* section labels like "MENU PRINCIPAL" */
 
     /* Typography */
-    --font-heading: Archivo, serif;
-    --font-body:    Archivo, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-heading: 'Rouna', Georgia, 'Times New Roman', serif;
+    --font-body:    'Mulish', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --font-family:  var(--font-body);
 
     /* Legacy Mappings to ensure 100% backward compatibility */
@@ -55,9 +56,9 @@
     --text-muted: var(--muted);
     --border-color: var(--border);
 
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 20px;
+    --radius-sm: 2px;
+    --radius-md: 3px;
+    --radius-lg: 5px;
     --radius-full: 9999px;
     --transition: all 0.2s ease;
 }
@@ -1748,7 +1749,7 @@ button {
     font-size: 12px !important;
     color: var(--olive-dark) !important;
     font-weight: 600 !important;
-    font-family: Archivo, sans-serif !important;
+    font-family: var(--font-body) !important;
 }
 
 /* Category Action Overlay Buttons (Edit / Delete) */
@@ -1881,7 +1882,7 @@ button {
     font-size: 12.5px;
     font-weight: 600;
     color: var(--ink-2);
-    font-family: Archivo, sans-serif;
+    font-family: var(--font-body);
     display: flex;
     align-items: center;
     gap: 6px;
@@ -1906,7 +1907,7 @@ button {
     border-radius: 12px !important;
     padding: 10px 14px !important;
     color: var(--ink) !important;
-    font-family: Archivo, sans-serif !important;
+    font-family: var(--font-body) !important;
     font-size: 13.5px !important;
     outline: none !important;
     transition: var(--transition) !important;
@@ -2073,7 +2074,7 @@ button {
     opacity: 0;
     transition: var(--transition);
     z-index: 1100;
-    font-family: Archivo, sans-serif !important;
+    font-family: var(--font-body) !important;
     font-size: 13px !important;
     font-weight: 600 !important;
 }
@@ -2108,7 +2109,7 @@ button {
     max-width: calc(100vw - 48px);
     overflow: hidden;
     color: var(--light) !important;
-    font-family: Archivo, sans-serif !important;
+    font-family: var(--font-body) !important;
 }
 
 .live-popup-notif::before {
@@ -2156,7 +2157,7 @@ button {
 }
 
 .popup-title {
-    font-family: Archivo, sans-serif !important;
+    font-family: var(--font-body) !important;
     font-size: 11px !important;
     font-weight: 700 !important;
     color: var(--gold) !important;
@@ -2186,7 +2187,7 @@ button {
     color: var(--light) !important;
     line-height: 1.45 !important;
     margin: 2px 0 0 !important;
-    font-family: Archivo, sans-serif !important;
+    font-family: var(--font-body) !important;
 }
 
 .popup-message strong {
@@ -2214,7 +2215,7 @@ button {
     padding: 8px 14px !important;
     font-size: 12px !important;
     font-weight: 700 !important;
-    font-family: Archivo, sans-serif !important;
+    font-family: var(--font-body) !important;
     cursor: pointer !important;
     display: inline-flex !important;
     align-items: center !important;
@@ -2809,7 +2810,7 @@ body.cyber-theme .btn-green {
     border-radius: 9999px !important;
     font-size: 12px !important;
     font-weight: 600 !important;
-    font-family: Archivo, sans-serif !important;
+    font-family: var(--font-body) !important;
     cursor: pointer !important;
     transition: var(--transition) !important;
     box-shadow: none !important;
@@ -3106,7 +3107,7 @@ body.cyber-theme .btn-green {
     border: none !important;
     font-size: 12.5px !important;
     font-weight: 600 !important;
-    font-family: Archivo, sans-serif !important;
+    font-family: var(--font-body) !important;
     padding: 8px 18px !important;
     border-radius: 10px !important;
     color: var(--light) !important;
@@ -3188,7 +3189,7 @@ body.cyber-theme .btn-green {
     font-weight: 600 !important;
     outline: none !important;
     cursor: pointer !important;
-    font-family: Archivo, sans-serif !important;
+    font-family: var(--font-body) !important;
     padding-right: 22px !important;
     padding-left: 2px !important;
     appearance: none !important;
@@ -3249,7 +3250,7 @@ body.cyber-theme .btn-green {
     color: var(--ink) !important;
     font-size: 13.5px !important;
     font-weight: 500 !important;
-    font-family: Archivo, sans-serif !important;
+    font-family: var(--font-body) !important;
     transition: var(--transition) !important;
     box-shadow: none !important;
 }
@@ -3278,7 +3279,7 @@ body.cyber-theme .btn-green {
     border: 1px solid var(--border) !important;
     color: var(--muted) !important;
     font-size: 11px !important;
-    font-family: Archivo, sans-serif !important;
+    font-family: var(--font-body) !important;
     font-weight: 600 !important;
     padding: 3px 8px !important;
     border-radius: 6px !important;
@@ -4049,7 +4050,7 @@ body.cyber-theme .btn-green {
     border: 1px solid rgba(110, 127, 78, 0.2) !important;
     padding: 4px 12px !important;
     border-radius: var(--radius-full) !important;
-    font-family: Archivo, sans-serif !important;
+    font-family: var(--font-body) !important;
     font-size: 11.5px !important;
     font-weight: 600 !important;
     display: inline-flex;
@@ -4067,7 +4068,7 @@ body.cyber-theme .btn-green {
     border: 1px solid rgba(110, 127, 78, 0.25) !important;
     padding: 4px 12px !important;
     border-radius: var(--radius-full) !important;
-    font-family: Archivo, sans-serif !important;
+    font-family: var(--font-body) !important;
     font-size: 11.5px !important;
     font-weight: 600 !important;
     display: inline-flex;
@@ -4080,7 +4081,7 @@ body.cyber-theme .btn-green {
 }
 
 .admin-hero-email {
-    font-family: Archivo, sans-serif !important;
+    font-family: var(--font-body) !important;
     font-size: 13px !important;
     color: var(--ink-2) !important;
     display: flex;
@@ -4108,7 +4109,7 @@ body.cyber-theme .btn-green {
 }
 
 .meta-tag {
-    font-family: Archivo, sans-serif !important;
+    font-family: var(--font-body) !important;
     font-size: 11.5px !important;
     font-weight: 500 !important;
     color: var(--muted) !important;
@@ -4183,7 +4184,7 @@ body.cyber-theme .btn-green {
 }
 
 .settings-card-header p {
-    font-family: Archivo, sans-serif !important;
+    font-family: var(--font-body) !important;
     font-size: 12px !important;
     color: var(--muted) !important;
     margin: 2px 0 0;
@@ -4241,7 +4242,7 @@ body.cyber-theme .btn-green {
     box-shadow: none !important;
     background: transparent !important;
     padding: 10px 14px !important;
-    font-family: Archivo, sans-serif !important;
+    font-family: var(--font-body) !important;
     font-size: 13px !important;
     color: var(--ink) !important;
     outline: none !important;
@@ -5667,7 +5668,7 @@ textarea::placeholder {
     box-shadow: none !important;
     background: transparent !important;
     padding: 0 14px !important;
-    font-family: Archivo, sans-serif !important;
+    font-family: var(--font-body) !important;
     font-size: 13px !important;
     color: var(--ink) !important;
     outline: none !important;
@@ -5811,7 +5812,7 @@ textarea::placeholder {
     align-items: center;
     justify-content: center;
     padding: 20px;
-    font-family: Archivo, -apple-system, sans-serif;
+    font-family: var(--font-body);
     overflow-y: auto;
     box-sizing: border-box;
 }
@@ -5823,7 +5824,7 @@ textarea::placeholder {
 .login-brand-title,
 .login-form-header h3 {
     color: var(--light) !important;
-    font-family: Archivo, serif !important;
+    font-family: var(--font-heading) !important;
 }
 
 .admin-login-card.admin-login-split {
@@ -5886,7 +5887,7 @@ textarea::placeholder {
 
 .login-brand-title span {
     color: var(--accent) !important;
-    font-family: Archivo, sans-serif !important;
+    font-family: var(--font-body) !important;
     font-size: 0.9rem !important;
     font-weight: 700 !important;
     background: rgba(110, 127, 78, 0.15) !important;
@@ -6108,3 +6109,71 @@ textarea::placeholder {
         padding: 24px 20px;
     }
 }
+
+/* ===========================================================================
+   MATCH WEBSITE — Rouna headings + big numbers, Mulish body, square cards
+   (circular avatars / legend dots kept round)
+   =========================================================================== */
+h1,h2,h3,h4,h5,h6,
+.stat-number,.stat-box-val,.featured-stat-number,.kpi-value,.order-kpi-card .value,
+.channel-stat-box .value{
+  font-family:var(--font-heading) !important;
+}
+.user-avatar-initials,[class*="avatar"],.legend-dot,[class*="rank-num"],
+.rank-badge,.chart-dot,.online-dot,.status-dot{
+  border-radius:50% !important;
+}
+
+/* square the segmented date toggles (match website's flat style) */
+.date-filter-btn,.date-filter-group,.date-filter-segment,
+[class*="segment"],.range-toggle,.period-toggle{
+  border-radius:3px !important;
+}
+
+/* ===========================================================================
+   DASHBOARD POLISH — real-product feel (KPI tiles, cards, headers)
+   =========================================================================== */
+.stat-card{
+  background:var(--light) !important; border:1px solid var(--dark-12) !important; border-radius:4px !important;
+  padding:22px 22px 20px !important; box-shadow:none !important;
+  display:flex !important; flex-direction:column !important; align-items:stretch !important; gap:16px !important;
+  transition:border-color .2s ease;
+}
+.stat-card:hover{ border-color:var(--accent) !important; transform:none !important; }
+.stat-card-header{ display:flex !important; align-items:center !important; gap:12px !important; }
+.stat-icon,.stat-icon.icon-olive,.stat-icon.icon-orange,.stat-icon.icon-blue,.stat-icon.icon-purple,.stat-icon.icon-saffron{
+  width:38px !important; height:38px !important; min-width:38px !important; border-radius:3px !important;
+  background:rgba(110,127,78,.10) !important; color:var(--accent) !important;
+  display:flex !important; align-items:center !important; justify-content:center !important;
+  font-size:15px !important; box-shadow:none !important;
+}
+.stat-title{ font-size:11.5px !important; text-transform:uppercase !important; letter-spacing:.11em !important;
+  color:var(--dark-50) !important; font-weight:700 !important; }
+.stat-data{ display:flex !important; align-items:baseline !important; gap:10px !important; justify-content:space-between !important; }
+.stat-number{ font-size:36px !important; font-weight:700 !important; line-height:1 !important; color:var(--dark) !important; margin:0 !important; }
+.stat-badge{ font-size:11.5px !important; color:var(--dark-50) !important; display:inline-flex; align-items:center; gap:5px; }
+.stat-badge i,.badge-sub + i,.stat-badge .fa-clock{ color:var(--accent) !important; }
+
+/* general cards — clean, flat, consistent */
+.featured-stats-card,.top-dishes-card,.order-kpi-card,.cat-card-large,
+.pending-card,.online-card,.completed-card,.channel-stat-box,.stat-box,.stats-card{
+  border-radius:4px !important; box-shadow:none !important;
+  border:1px solid var(--dark-12) !important; background:var(--light) !important;
+}
+.featured-stats-card,.top-dishes-card{ padding:24px !important; }
+
+/* section eyebrows -> accent, titles -> Rouna (already via h-tags) */
+.nav-section-title{
+  font-size:11px !important; text-transform:uppercase !important; letter-spacing:.14em !important;
+  color:var(--dark-50) !important; font-weight:700 !important;
+}
+.stats-card-top-header .stat-eyebrow,.card-eyebrow,[class*="eyebrow"]{
+  font-size:11px !important; text-transform:uppercase !important; letter-spacing:.14em !important;
+  color:var(--accent) !important; font-weight:700 !important;
+}
+
+/* thumbnails & rank squares in "Plats les plus vendus" */
+.top-dishes-card img,.top-dish-img,.dish-thumb{ border-radius:3px !important; }
+
+/* sidebar hairline */
+.sidebar,.admin-sidebar,.app-sidebar{ border-right:1px solid var(--dark-12) !important; }
