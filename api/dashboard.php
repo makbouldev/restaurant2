@@ -5,22 +5,12 @@ header('Content-Type: application/json; charset=utf8mb4');
 $range = $_GET['range'] ?? 'this-week';
 
 try {
-    // Current timestamp & boundaries
     $now = time();
     $startOfToday = strtotime('today midnight');
     $startOfWeek = strtotime('monday this week midnight');
     $startOfMonth = strtotime('first day of this month midnight');
 
-    $minTs = 0;
-    if ($range === 'today') {
-        $minTs = $startOfToday * 1000;
-    } elseif ($range === 'this-week') {
-        $minTs = $startOfWeek * 1000;
-    } elseif ($range === 'this-month') {
-        $minTs = $startOfMonth * 1000;
-    }
-
-    // 0. Pre-load dish metadata (images and prices) from Neon dishes table
+    // 0. Pre-load dish metadata
     $allDishesQuery = $pdo->query("SELECT title, price, image FROM dishes ORDER BY id ASC")->fetchAll();
     $dishMetaMap = [];
     foreach ($allDishesQuery as $d) {
@@ -30,241 +20,246 @@ try {
         ];
     }
 
-    // 1. Fetch Orders
-    if ($minTs > 0) {
-        $ordersStmt = $pdo->prepare("SELECT * FROM orders WHERE created_at >= :minTs ORDER BY id DESC");
-        $ordersStmt->execute([':minTs' => $minTs]);
-    } else {
-        $ordersStmt = $pdo->query("SELECT * FROM orders ORDER BY id DESC");
-    }
-    $orders = $ordersStmt->fetchAll();
+    // 1. Fetch Orders and Reservations for the entire month in 2 quick queries
+    $ordersStmt = $pdo->prepare("SELECT * FROM orders WHERE created_at >= :minTs ORDER BY id DESC");
+    $ordersStmt->execute([':minTs' => $startOfMonth * 1000]);
+    $allOrders = $ordersStmt->fetchAll();
 
-    $totalOrders = count($orders);
-    $totalRevenue = 0;
-    $pendingOrders = 0;
-    $cookingOrders = 0;
-    $completedOrders = 0;
-    $dishSalesCount = [];
+    $resStmt = $pdo->prepare("SELECT * FROM reservations WHERE created_at >= :minTs ORDER BY id DESC");
+    $resStmt->execute([':minTs' => $startOfMonth * 1000]);
+    $allReservations = $resStmt->fetchAll();
 
-    $channelStats = [
-        'sur-place' => ['count' => 0, 'revenue' => 0],
-        'online' => ['count' => 0, 'revenue' => 0],
-        'takeaway' => ['count' => 0, 'revenue' => 0]
-    ];
+    function computeRangeMetrics($rKey, $orders, $reservations, $dishMetaMap, $allDishesQuery) {
+        $totalOrders = count($orders);
+        $totalRevenue = 0;
+        $pendingOrders = 0;
+        $cookingOrders = 0;
+        $completedOrders = 0;
+        $dishSalesCount = [];
 
-    // Chart labels depending on range
-    if ($range === 'today') {
-        $chartLabels = ['08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00'];
-        $ordersPerInterval = array_fill(0, count($chartLabels), 0);
-        $revenuePerInterval = array_fill(0, count($chartLabels), 0);
-    } elseif ($range === 'this-month') {
-        $chartLabels = ['Semaine 1', 'Semaine 2', 'Semaine 3', 'Semaine 4'];
-        $ordersPerInterval = [0, 0, 0, 0];
-        $revenuePerInterval = [0, 0, 0, 0];
-    } else {
-        $chartLabels = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
-        $ordersPerInterval = [0, 0, 0, 0, 0, 0, 0];
-        $revenuePerInterval = [0, 0, 0, 0, 0, 0, 0];
-    }
+        $channelStats = [
+            'sur-place' => ['count' => 0, 'revenue' => 0],
+            'online' => ['count' => 0, 'revenue' => 0],
+            'takeaway' => ['count' => 0, 'revenue' => 0]
+        ];
 
-    foreach ($orders as $o) {
-        $price = (float)$o['total_price'];
-        $totalRevenue += $price;
-
-        $st = strtolower($o['status'] ?? 'pending');
-        if ($st === 'pending') $pendingOrders++;
-        elseif ($st === 'cooking') $cookingOrders++;
-        elseif ($st === 'completed' || $st === 'confirmed') $completedOrders++;
-
-        $ch = strtolower($o['channel'] ?? 'online');
-        if ($ch === 'sur-place' || $ch === 'dine-in') {
-            $channelStats['sur-place']['count']++;
-            $channelStats['sur-place']['revenue'] += $price;
-        } elseif ($ch === 'takeaway' || $ch === 'comptoir') {
-            $channelStats['takeaway']['count']++;
-            $channelStats['takeaway']['revenue'] += $price;
+        if ($rKey === 'today') {
+            $chartLabels = ['08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00'];
+            $ordersPerInterval = array_fill(0, count($chartLabels), 0);
+            $revenuePerInterval = array_fill(0, count($chartLabels), 0);
+        } elseif ($rKey === 'this-month') {
+            $chartLabels = ['Semaine 1', 'Semaine 2', 'Semaine 3', 'Semaine 4'];
+            $ordersPerInterval = [0, 0, 0, 0];
+            $revenuePerInterval = [0, 0, 0, 0];
         } else {
-            $channelStats['online']['count']++;
-            $channelStats['online']['revenue'] += $price;
+            $chartLabels = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
+            $ordersPerInterval = [0, 0, 0, 0, 0, 0, 0];
+            $revenuePerInterval = [0, 0, 0, 0, 0, 0, 0];
         }
 
-        // Top sold dishes from items_json
-        $items = [];
-        if (!empty($o['items_json'])) {
-            $decoded = is_string($o['items_json']) ? json_decode($o['items_json'], true) : $o['items_json'];
-            if (is_array($decoded)) $items = $decoded;
-        }
+        foreach ($orders as $o) {
+            $price = (float)$o['total_price'];
+            $totalRevenue += $price;
 
-        foreach ($items as $it) {
-            $title = $it['title'] ?? 'Plat';
-            $qty = (int)($it['quantity'] ?? 1);
-            $itPrice = (float)($it['price'] ?? ($dishMetaMap[$title]['price'] ?? 0));
-            $itImg = $dishMetaMap[$title]['image'] ?? ($it['image'] ?? 'img/menu_items/1.jpg');
+            $st = strtolower($o['status'] ?? 'pending');
+            if ($st === 'pending') $pendingOrders++;
+            elseif ($st === 'cooking') $cookingOrders++;
+            elseif ($st === 'completed' || $st === 'confirmed') $completedOrders++;
 
-            if (!isset($dishSalesCount[$title])) {
-                $dishSalesCount[$title] = [
-                    'title' => $title,
-                    'count' => 0,
-                    'revenue' => 0,
-                    'image' => $itImg,
-                    'price' => $itPrice
-                ];
+            $ch = strtolower($o['channel'] ?? 'online');
+            if ($ch === 'sur-place' || $ch === 'dine-in') {
+                $channelStats['sur-place']['count']++;
+                $channelStats['sur-place']['revenue'] += $price;
+            } elseif ($ch === 'takeaway' || $ch === 'comptoir') {
+                $channelStats['takeaway']['count']++;
+                $channelStats['takeaway']['revenue'] += $price;
+            } else {
+                $channelStats['online']['count']++;
+                $channelStats['online']['revenue'] += $price;
             }
-            $dishSalesCount[$title]['count'] += $qty;
-            $dishSalesCount[$title]['revenue'] += ($qty * $itPrice);
-        }
 
-        // Interval distribution
-        if (!empty($o['created_at'])) {
-            $ts = (int)$o['created_at'];
-            if ($ts > 1000000000000) $ts = (int)($ts / 1000);
+            $items = [];
+            if (!empty($o['items_json'])) {
+                $decoded = is_string($o['items_json']) ? json_decode($o['items_json'], true) : $o['items_json'];
+                if (is_array($decoded)) $items = $decoded;
+            }
 
-            if ($range === 'today') {
-                $hour = (int)date('G', $ts);
-                $idx = min(7, max(0, intval(($hour - 8) / 2)));
-                if ($hour >= 8 && $idx >= 0 && $idx < 8) {
+            foreach ($items as $it) {
+                $title = $it['title'] ?? 'Plat';
+                $qty = (int)($it['quantity'] ?? 1);
+                $itPrice = (float)($it['price'] ?? ($dishMetaMap[$title]['price'] ?? 0));
+                $itImg = $dishMetaMap[$title]['image'] ?? ($it['image'] ?? 'img/menu_items/1.jpg');
+
+                if (!isset($dishSalesCount[$title])) {
+                    $dishSalesCount[$title] = [
+                        'title' => $title,
+                        'count' => 0,
+                        'revenue' => 0,
+                        'image' => $itImg,
+                        'price' => $itPrice
+                    ];
+                }
+                $dishSalesCount[$title]['count'] += $qty;
+                $dishSalesCount[$title]['revenue'] += ($qty * $itPrice);
+            }
+
+            if (!empty($o['created_at'])) {
+                $ts = (int)$o['created_at'];
+                if ($ts > 1000000000000) $ts = (int)($ts / 1000);
+
+                if ($rKey === 'today') {
+                    $hour = (int)date('G', $ts);
+                    $idx = min(7, max(0, intval(($hour - 8) / 2)));
+                    if ($hour >= 8 && $idx >= 0 && $idx < 8) {
+                        $ordersPerInterval[$idx]++;
+                        $revenuePerInterval[$idx] += $price;
+                    }
+                } elseif ($rKey === 'this-month') {
+                    $dayOfMonth = (int)date('j', $ts);
+                    $idx = min(3, intval(($dayOfMonth - 1) / 7));
                     $ordersPerInterval[$idx]++;
                     $revenuePerInterval[$idx] += $price;
-                }
-            } elseif ($range === 'this-month') {
-                $dayOfMonth = (int)date('j', $ts);
-                $idx = min(3, intval(($dayOfMonth - 1) / 7));
-                $ordersPerInterval[$idx]++;
-                $revenuePerInterval[$idx] += $price;
-            } else {
-                $dayIdx = (int)date('N', $ts) - 1;
-                if ($dayIdx >= 0 && $dayIdx < 7) {
-                    $ordersPerInterval[$dayIdx]++;
-                    $revenuePerInterval[$dayIdx] += $price;
+                } else {
+                    $dayIdx = (int)date('N', $ts) - 1;
+                    if ($dayIdx >= 0 && $dayIdx < 7) {
+                        $ordersPerInterval[$dayIdx]++;
+                        $revenuePerInterval[$dayIdx] += $price;
+                    }
                 }
             }
         }
-    }
 
-    $avgTicket = ($totalOrders > 0) ? round($totalRevenue / $totalOrders, 2) : 0;
+        $avgTicket = ($totalOrders > 0) ? round($totalRevenue / $totalOrders, 2) : 0;
 
-    // 2. Fetch Reservations
-    if ($minTs > 0) {
-        $resStmt = $pdo->prepare("SELECT * FROM reservations WHERE created_at >= :minTs ORDER BY id DESC");
-        $resStmt->execute([':minTs' => $minTs]);
-    } else {
-        $resStmt = $pdo->query("SELECT * FROM reservations ORDER BY id DESC");
-    }
-    $reservations = $resStmt->fetchAll();
-    $totalReservations = count($reservations);
-    $pendingReservations = 0;
+        // Reservations calculation
+        $totalReservations = count($reservations);
+        $pendingReservations = 0;
+        $resaPerInterval = array_fill(0, count($chartLabels), 0);
+        $occupancyPerInterval = array_fill(0, count($chartLabels), 0);
 
-    $resaPerInterval = array_fill(0, count($chartLabels), 0);
-    $occupancyPerInterval = array_fill(0, count($chartLabels), 0);
+        foreach ($reservations as $r) {
+            if (($r['status'] ?? 'pending') === 'pending') $pendingReservations++;
+            if (!empty($r['created_at'])) {
+                $ts = (int)$r['created_at'];
+                if ($ts > 1000000000000) $ts = (int)($ts / 1000);
 
-    foreach ($reservations as $r) {
-        if (($r['status'] ?? 'pending') === 'pending') $pendingReservations++;
-
-        if (!empty($r['created_at'])) {
-            $ts = (int)$r['created_at'];
-            if ($ts > 1000000000000) $ts = (int)($ts / 1000);
-
-            if ($range === 'today') {
-                $hour = (int)date('G', $ts);
-                $idx = min(7, max(0, intval(($hour - 8) / 2)));
-                if ($hour >= 8 && $idx >= 0 && $idx < 8) {
+                if ($rKey === 'today') {
+                    $hour = (int)date('G', $ts);
+                    $idx = min(7, max(0, intval(($hour - 8) / 2)));
+                    if ($hour >= 8 && $idx >= 0 && $idx < 8) {
+                        $resaPerInterval[$idx]++;
+                        $occupancyPerInterval[$idx] = min(100, $occupancyPerInterval[$idx] + 15);
+                    }
+                } elseif ($rKey === 'this-month') {
+                    $dayOfMonth = (int)date('j', $ts);
+                    $idx = min(3, intval(($dayOfMonth - 1) / 7));
                     $resaPerInterval[$idx]++;
                     $occupancyPerInterval[$idx] = min(100, $occupancyPerInterval[$idx] + 15);
-                }
-            } elseif ($range === 'this-month') {
-                $dayOfMonth = (int)date('j', $ts);
-                $idx = min(3, intval(($dayOfMonth - 1) / 7));
-                $resaPerInterval[$idx]++;
-                $occupancyPerInterval[$idx] = min(100, $occupancyPerInterval[$idx] + 15);
-            } else {
-                $dayIdx = (int)date('N', $ts) - 1;
-                if ($dayIdx >= 0 && $dayIdx < 7) {
-                    $resaPerInterval[$dayIdx]++;
-                    $occupancyPerInterval[$dayIdx] = min(100, $occupancyPerInterval[$dayIdx] + 15);
+                } else {
+                    $dayIdx = (int)date('N', $ts) - 1;
+                    if ($dayIdx >= 0 && $dayIdx < 7) {
+                        $resaPerInterval[$dayIdx]++;
+                        $occupancyPerInterval[$dayIdx] = min(100, $occupancyPerInterval[$dayIdx] + 15);
+                    }
                 }
             }
         }
-    }
 
-    $overallOccupancy = $totalReservations > 0 ? min(100, round(($totalReservations / 20) * 100)) : 0;
+        $overallOccupancy = $totalReservations > 0 ? min(100, round(($totalReservations / 20) * 100)) : 0;
 
-    // 3. Top Dishes Leaderboard
-    usort($dishSalesCount, function($a, $b) {
-        return $b['count'] - $a['count'];
-    });
-    $topDishes = array_slice(array_values($dishSalesCount), 0, 6);
-
-    // If fewer than 6 dishes sold, complete with menu dishes from database with 0 sales
-    $soldTitles = array_column($topDishes, 'title');
-    foreach ($allDishesQuery as $sd) {
-        if (count($topDishes) >= 6) break;
-        if (!in_array($sd['title'], $soldTitles)) {
-            $topDishes[] = [
-                'title' => $sd['title'],
-                'count' => 0,
-                'revenue' => 0,
-                'image' => $sd['image'] ?: 'img/menu_items/1.jpg',
-                'price' => (float)$sd['price']
-            ];
-            $soldTitles[] = $sd['title'];
+        // Top dishes
+        usort($dishSalesCount, function($a, $b) { return $b['count'] - $a['count']; });
+        $topDishes = array_slice(array_values($dishSalesCount), 0, 6);
+        $soldTitles = array_column($topDishes, 'title');
+        foreach ($allDishesQuery as $sd) {
+            if (count($topDishes) >= 6) break;
+            if (!in_array($sd['title'], $soldTitles)) {
+                $topDishes[] = [
+                    'title' => $sd['title'],
+                    'count' => 0,
+                    'revenue' => 0,
+                    'image' => $sd['image'] ?: 'img/menu_items/1.jpg',
+                    'price' => (float)$sd['price']
+                ];
+                $soldTitles[] = $sd['title'];
+            }
         }
-    }
 
-    // 4. Sales Channels Breakdown Percentages
-    $surPlacePct = $totalRevenue > 0 ? round(($channelStats['sur-place']['revenue'] / $totalRevenue) * 100) : 0;
-    $onlinePct = $totalRevenue > 0 ? round(($channelStats['online']['revenue'] / $totalRevenue) * 100) : 0;
-    $takeawayPct = $totalRevenue > 0 ? round(($channelStats['takeaway']['revenue'] / $totalRevenue) * 100) : 0;
-
-    // Delivery metrics
-    $deliveryOrdersCount = $channelStats['online']['count'];
-    $deliveryRev = $channelStats['online']['revenue'];
-    $avgDeliveryTicket = $deliveryOrdersCount > 0 ? round($deliveryRev / $deliveryOrdersCount, 2) : 0;
-
-    echo json_encode([
-        'status' => 'success',
-        'range' => $range,
-        'kpi' => [
-            'orders' => $totalOrders,
-            'reservations' => $totalReservations,
-            'revenue' => $totalRevenue,
-            'avgTicket' => $avgTicket,
-            'occupancyRate' => $overallOccupancy,
-            'pendingOrders' => $pendingOrders,
-            'cookingOrders' => $cookingOrders,
-            'completedOrders' => $completedOrders,
-            'pendingReservations' => $pendingReservations
-        ],
-        'chart' => [
-            'labels' => $chartLabels,
-            'orders' => $ordersPerInterval,
-            'revenue' => $revenuePerInterval
-        ],
-        'reservationsChart' => [
-            'labels' => $chartLabels,
-            'tables' => $resaPerInterval,
-            'occupancy' => $occupancyPerInterval
-        ],
-        'channels' => [
+        $totRev = $totalRevenue ?: 1;
+        $channels = [
             'totalRevenue' => $totalRevenue,
             'surPlace' => [
                 'count' => $channelStats['sur-place']['count'],
                 'revenue' => $channelStats['sur-place']['revenue'],
-                'pct' => $surPlacePct
+                'pct' => round(($channelStats['sur-place']['revenue'] / $totRev) * 100)
             ],
             'online' => [
                 'count' => $channelStats['online']['count'],
                 'revenue' => $channelStats['online']['revenue'],
-                'pct' => $onlinePct
+                'pct' => round(($channelStats['online']['revenue'] / $totRev) * 100)
             ],
             'takeaway' => [
                 'count' => $channelStats['takeaway']['count'],
                 'revenue' => $channelStats['takeaway']['revenue'],
-                'pct' => $takeawayPct
+                'pct' => round(($channelStats['takeaway']['revenue'] / $totRev) * 100)
             ],
-            'avgDeliveryTicket' => $avgDeliveryTicket,
-            'avgDeliveryTime' => $deliveryOrdersCount > 0 ? '25 min' : '-'
-        ],
-        'topDishes' => $topDishes
+            'avgDeliveryTicket' => $channelStats['online']['count'] > 0 ? round($channelStats['online']['revenue'] / $channelStats['online']['count'], 2) : 0,
+            'avgDeliveryTime' => $channelStats['online']['count'] > 0 ? '25 min' : '-'
+        ];
+
+        return [
+            'kpi' => [
+                'orders' => $totalOrders,
+                'reservations' => $totalReservations,
+                'revenue' => $totalRevenue,
+                'avgTicket' => $avgTicket,
+                'occupancyRate' => $overallOccupancy,
+                'pendingOrders' => $pendingOrders,
+                'cookingOrders' => $cookingOrders,
+                'completedOrders' => $completedOrders,
+                'pendingReservations' => $pendingReservations
+            ],
+            'chart' => [
+                'labels' => $chartLabels,
+                'orders' => $ordersPerInterval,
+                'revenue' => $revenuePerInterval
+            ],
+            'reservationsChart' => [
+                'labels' => $chartLabels,
+                'tables' => $resaPerInterval,
+                'occupancy' => $occupancyPerInterval
+            ],
+            'channels' => $channels,
+            'topDishes' => $topDishes
+        ];
+    }
+
+    // Split orders and reservations into intervals in-memory
+    $todayOrders = array_values(array_filter($allOrders, fn($o) => ((int)($o['created_at'] > 1e12 ? $o['created_at']/1000 : $o['created_at'])) >= $startOfToday));
+    $todayResa = array_values(array_filter($allReservations, fn($r) => ((int)($r['created_at'] > 1e12 ? $r['created_at']/1000 : $r['created_at'])) >= $startOfToday));
+
+    $weekOrders = array_values(array_filter($allOrders, fn($o) => ((int)($o['created_at'] > 1e12 ? $o['created_at']/1000 : $o['created_at'])) >= $startOfWeek));
+    $weekResa = array_values(array_filter($allReservations, fn($r) => ((int)($r['created_at'] > 1e12 ? $r['created_at']/1000 : $r['created_at'])) >= $startOfWeek));
+
+    $resultToday = computeRangeMetrics('today', $todayOrders, $todayResa, $dishMetaMap, $allDishesQuery);
+    $resultWeek = computeRangeMetrics('this-week', $weekOrders, $weekResa, $dishMetaMap, $allDishesQuery);
+    $resultMonth = computeRangeMetrics('this-month', $allOrders, $allReservations, $dishMetaMap, $allDishesQuery);
+
+    $currentResult = ($range === 'today') ? $resultToday : (($range === 'this-month') ? $resultMonth : $resultWeek);
+
+    echo json_encode([
+        'status' => 'success',
+        'range' => $range,
+        'kpi' => $currentResult['kpi'],
+        'chart' => $currentResult['chart'],
+        'reservationsChart' => $currentResult['reservationsChart'],
+        'channels' => $currentResult['channels'],
+        'topDishes' => $currentResult['topDishes'],
+        'allRanges' => [
+            'today' => $resultToday,
+            'this-week' => $resultWeek,
+            'this-month' => $resultMonth
+        ]
     ], JSON_UNESCAPED_UNICODE);
 
 } catch (Exception $e) {

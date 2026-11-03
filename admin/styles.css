@@ -5104,18 +5104,20 @@ table td,
 }
 
 .sales-meter {
-    width: 60px !important;
-    height: 4px !important;
-    background-color: var(--track) !important;
+    width: 75px !important;
+    height: 7px !important;
+    background-color: #E2DDD3 !important;
     border-radius: 9999px !important;
     overflow: hidden !important;
     flex-shrink: 0 !important;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.08) !important;
 }
 
 .sales-progress {
     height: 100% !important;
-    background-color: var(--olive) !important;
+    background: linear-gradient(90deg, #557945, #6E8F5D) !important;
     border-radius: 9999px !important;
+    transition: width 0.4s ease !important;
 }
 
 /* Home Bottom Grid */
@@ -6177,3 +6179,49 @@ h1,h2,h3,h4,h5,h6,
 
 /* sidebar hairline */
 .sidebar,.admin-sidebar,.app-sidebar{ border-right:1px solid var(--dark-12) !important; }
+/* ==========================================================================
+   Smooth Dashboard & Filter Transition Animations
+   ========================================================================== */
+@keyframes dataSwapPulse {
+    0% {
+        opacity: 0.65;
+        transform: translateY(4px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.data-swap-anim {
+    animation: dataSwapPulse 0.32s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+}
+
+@keyframes dishCascadeIn {
+    0% {
+        opacity: 0;
+        transform: translateX(12px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.leaderboard-item {
+    animation: dishCascadeIn 0.32s cubic-bezier(0.16, 1, 0.3, 1) both !important;
+}
+
+.occupancy-fill,
+.channel-segment,
+.sales-progress {
+    transition: width 0.45s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.date-filter-btn {
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.date-filter-btn:active {
+    transform: scale(0.94) !important;
+}

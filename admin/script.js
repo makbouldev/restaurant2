@@ -352,15 +352,15 @@ document.addEventListener('DOMContentLoaded', () => {
                             type: 'line',
                             label: 'Recettes (DH)',
                             data: [0, 0, 0, 0, 0, 0, 0],
-                            borderColor: '#6E7F4E',
+                            borderColor: '#B08941',
                             borderWidth: 2,
                             fill: true,
-                            backgroundColor: 'rgba(110,127,78,0.08)',
+                            backgroundColor: 'rgba(176,137,65,0.08)',
                             pointRadius: 3,
                             pointHoverRadius: 5,
                             pointBackgroundColor: '#F3EEE3',
-                            pointBorderColor: '#6E7F4E',
-                            pointBorderWidth: 2.5,
+                            pointBorderColor: '#B08941',
+                            pointBorderWidth: 2,
                             tension: 0.4,
                             yAxisID: 'y1',
                             order: 1
@@ -370,6 +370,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             label: 'Commandes',
                             data: [0, 0, 0, 0, 0, 0, 0],
                             backgroundColor: '#6E7F4E',
+                            hoverBackgroundColor: '#5A6A40',
                             borderRadius: 2,
                             borderSkipped: 'bottom',
                             barThickness: 16,
@@ -419,8 +420,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             position: 'left',
                             grid: { color: 'rgba(32,38,28,0.06)', drawBorder: false },
                             ticks: {
-                                color: '#6E6A64',
-                                font: { family: 'Archivo', size: 11 },
+                                color: '#557945',
+                                font: { family: 'Archivo', size: 11, weight: '600' },
                                 precision: 0
                             }
                         },
@@ -431,8 +432,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             position: 'right',
                             grid: { display: false },
                             ticks: {
-                                color: '#6E6A64',
-                                font: { family: 'Archivo', size: 11 },
+                                color: '#D97706',
+                                font: { family: 'Archivo', size: 11, weight: '600' },
                                 callback: function(val) {
                                     return val >= 1000 ? (val / 1000) + 'k' : val;
                                 }
@@ -446,11 +447,250 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 3. Dynamic Metrics Loader (Fetches directly from Neon Cloud Database)
+    // Number Counter Animation for Smooth Value Transitions
+    function animateCount(el, targetVal, duration = 320, decimals = 0) {
+        if (!el) return;
+        const currentStr = el.textContent.replace(/[^0-9.-]/g, '');
+        const startVal = parseFloat(el.getAttribute('data-raw-val') || currentStr) || 0;
+        const numTarget = typeof targetVal === 'number' ? targetVal : parseFloat(targetVal) || 0;
+        el.setAttribute('data-raw-val', numTarget);
+
+        if (startVal === numTarget) {
+            el.textContent = decimals > 0 
+                ? Number(numTarget).toLocaleString('fr-FR', { minimumFractionDigits: decimals, maximumFractionDigits: decimals })
+                : Math.round(numTarget).toLocaleString('fr-FR');
+            return;
+        }
+
+        const startTime = performance.now();
+        function frame(now) {
+            const progress = Math.min((now - startTime) / duration, 1);
+            const ease = 1 - Math.pow(1 - progress, 3);
+            const val = startVal + (numTarget - startVal) * ease;
+
+            if (decimals > 0) {
+                el.textContent = Number(val).toLocaleString('fr-FR', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+            } else {
+                el.textContent = Math.round(val).toLocaleString('fr-FR');
+            }
+
+            if (progress < 1) {
+                requestAnimationFrame(frame);
+            } else {
+                if (decimals > 0) {
+                    el.textContent = Number(numTarget).toLocaleString('fr-FR', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+                } else {
+                    el.textContent = Math.round(numTarget).toLocaleString('fr-FR');
+                }
+            }
+        }
+        requestAnimationFrame(frame);
+    }
+
+    function triggerDataSwapAnimation() {
+        const targets = [
+            document.querySelector('.stat-cards-grid'),
+            document.querySelector('.weekly-orders-chart-container'),
+            document.querySelector('.featured-stats-card.finance-accounting-card'),
+            document.querySelector('.reservations-chart-card'),
+            document.getElementById('topDishesLeaderboard')
+        ];
+        targets.forEach(el => {
+            if (el) {
+                el.classList.remove('data-swap-anim');
+                void el.offsetWidth;
+                el.classList.add('data-swap-anim');
+            }
+        });
+    }
+
+    // 3. Dynamic Metrics Loader with Zero-Latency Instant In-Memory Cache & Smooth Animations
     let currentDashboardRange = 'this-week';
+    const dashboardMetricsCache = {
+        'today': null,
+        'this-week': null,
+        'this-month': null
+    };
+
+    // Attempt to restore persistent cache for instant 0ms startup
+    try {
+        const savedCache = localStorage.getItem('foores_dashboard_metrics_cache');
+        if (savedCache) {
+            const parsed = JSON.parse(savedCache);
+            if (parsed && typeof parsed === 'object') {
+                if (parsed.today) dashboardMetricsCache['today'] = parsed.today;
+                if (parsed['this-week']) dashboardMetricsCache['this-week'] = parsed['this-week'];
+                if (parsed['this-month']) dashboardMetricsCache['this-month'] = parsed['this-month'];
+            }
+        }
+    } catch (e) {}
+
+    function applyDashboardMetricsToUI(data, range) {
+        if (!data) return;
+
+        // Synchronize Active States on Buttons across all panels immediately
+        document.querySelectorAll('.date-filter-btn').forEach(btn => {
+            const r = btn.getAttribute('data-kpi-range') || btn.getAttribute('data-range') || btn.getAttribute('data-resa-range');
+            if (r === range) btn.classList.add('active');
+            else if (r) btn.classList.remove('active');
+        });
+
+        // Header Dynamic Live Date
+        const kpiHeaderDate = document.getElementById('kpiHeaderDate');
+        if (kpiHeaderDate) {
+            const now = new Date();
+            if (range === 'today') {
+                const formatted = now.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+                kpiHeaderDate.textContent = formatted.charAt(0).toUpperCase() + formatted.slice(1);
+            } else if (range === 'this-month') {
+                const monthName = now.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
+                kpiHeaderDate.textContent = 'Mois de ' + monthName.charAt(0).toUpperCase() + monthName.slice(1);
+            } else {
+                const todayName = now.toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric', month: 'short' });
+                kpiHeaderDate.textContent = 'Semaine en cours • ' + todayName;
+            }
+        }
+
+        // Titles synchronization
+        if (statsMainTitle) {
+            if (range === 'today') statsMainTitle.textContent = "Commandes d'Aujourd'hui";
+            else if (range === 'this-month') statsMainTitle.textContent = "Commandes du Mois";
+            else statsMainTitle.textContent = "Commandes de la Semaine";
+        }
+        if (resaMainTitle) {
+            if (range === 'today') resaMainTitle.textContent = "Réservations d'Aujourd'hui";
+            else if (range === 'this-month') resaMainTitle.textContent = "Réservations du Mois";
+            else resaMainTitle.textContent = "Réservations de la Semaine";
+        }
+
+        // Top 4 KPI Cards with Rolling Number Animation
+        if (data.kpi) {
+            if (kpiOrders) animateCount(kpiOrders, data.kpi.orders, 300, 0);
+            if (kpiReservations) animateCount(kpiReservations, data.kpi.reservations, 300, 0);
+            if (kpiRevenue) animateCount(kpiRevenue, data.kpi.revenue, 350, 0);
+            if (kpiAvgTicket) animateCount(kpiAvgTicket, data.kpi.avgTicket, 350, 2);
+
+            const occFill = document.getElementById('occupancyFill');
+            const occLabel = document.getElementById('occupancyLabel');
+            if (occFill) occFill.style.width = `${data.kpi.occupancyRate || 0}%`;
+            if (occLabel) occLabel.textContent = `${data.kpi.occupancyRate || 0} % occupé`;
+        }
+
+        // Weekly Orders Chart (Smooth 360ms morph animation)
+        if (weeklyOrdersChart && data.chart) {
+            weeklyOrdersChart.data.labels = data.chart.labels;
+            weeklyOrdersChart.data.datasets[0].data = data.chart.revenue;
+            weeklyOrdersChart.data.datasets[1].data = data.chart.orders;
+            weeklyOrdersChart.update({
+                duration: 360,
+                easing: 'easeOutQuart'
+            });
+        }
+
+        // Reservations Chart (Smooth 360ms morph animation)
+        if (reservationsChart && data.reservationsChart) {
+            reservationsChart.data.labels = data.reservationsChart.labels;
+            reservationsChart.data.datasets[0].data = data.reservationsChart.tables;
+            reservationsChart.update({
+                duration: 360,
+                easing: 'easeOutQuart'
+            });
+        }
+
+        // Sales Channels Breakdown
+        if (data.channels) {
+            const finTotal = document.getElementById('financeTotalAmount');
+            const payCard = document.getElementById('payCardAmount');
+            const payCash = document.getElementById('payCashAmount');
+            const payDelivery = document.getElementById('payDeliveryAmount');
+            const segOlive = document.getElementById('channelSegOlive');
+            const segSaffron = document.getElementById('channelSegSaffron');
+            const segGold = document.getElementById('channelSegGold');
+            const subSurPlace = document.getElementById('channelSubSurPlace');
+            const subLivraison = document.getElementById('channelSubLivraison');
+            const subTakeaway = document.getElementById('channelSubTakeaway');
+            const finFees = document.getElementById('finFeesVal');
+            const finNet = document.getElementById('finNetVal');
+
+            if (finTotal) finTotal.textContent = `${Number(data.channels.totalRevenue || 0).toLocaleString('fr-FR')} DH`;
+            if (payCard) payCard.textContent = `${Number(data.channels.surPlace.revenue || 0).toLocaleString('fr-FR')} DH`;
+            if (payCash) payCash.textContent = `${Number(data.channels.online.revenue || 0).toLocaleString('fr-FR')} DH`;
+            if (payDelivery) payDelivery.textContent = `${Number(data.channels.takeaway.revenue || 0).toLocaleString('fr-FR')} DH`;
+
+            if (segOlive) segOlive.style.width = `${data.channels.surPlace.pct}%`;
+            if (segSaffron) segSaffron.style.width = `${data.channels.online.pct}%`;
+            if (segGold) segGold.style.width = `${data.channels.takeaway.pct}%`;
+
+            if (subSurPlace) subSurPlace.textContent = `${data.channels.surPlace.pct} % • ${data.channels.surPlace.count} commandes`;
+            if (subLivraison) subLivraison.textContent = `${data.channels.online.pct} % • ${data.channels.online.count} livraisons`;
+            if (subTakeaway) subTakeaway.textContent = `${data.channels.takeaway.pct} % • ${data.channels.takeaway.count} commandes`;
+
+            if (finFees) finFees.textContent = `${data.channels.avgDeliveryTicket} DH`;
+            if (finNet) finNet.textContent = `${data.channels.avgDeliveryTime}`;
+        }
+
+        // Top Selling Dishes Leaderboard
+        if (data.topDishes && Array.isArray(data.topDishes) && leaderboardContainer) {
+            if (data.topDishes.length === 0) {
+                leaderboardContainer.innerHTML = `
+                    <div style="padding: 32px 16px; text-align: center; color: var(--text-muted, #6E6A64); font-size: 0.88rem;">
+                        <i class="fa-solid fa-utensils" style="font-size: 1.6rem; opacity: 0.35; margin-bottom: 8px; display: block;"></i>
+                        Aucun plat vendu pour cette période.
+                    </div>`;
+            } else {
+                const maxSales = (data.topDishes[0] && data.topDishes[0].count > 0) ? data.topDishes[0].count : 1;
+                const rankColors = ['rank-gold', 'rank-saffron', 'rank-peach', 'rank-track', 'rank-track', 'rank-track'];
+                leaderboardContainer.innerHTML = data.topDishes.slice(0, 6).map((dish, idx) => {
+                    const rank = idx + 1;
+                    const rankColor = rankColors[idx] || 'rank-track';
+                    const pct = dish.count > 0 ? Math.max(12, Math.min(100, Math.round((dish.count / maxSales) * 100))) : 0;
+                    const countText = dish.count > 0 
+                        ? `${dish.count} article${dish.count > 1 ? 's' : ''} vendu${dish.count > 1 ? 's' : ''} • ${Number(dish.revenue || 0).toLocaleString('fr-FR')} DH`
+                        : `${Number(dish.price || 0).toLocaleString('fr-FR')} DH • 0 vente`;
+                    let imgUrl = dish.image || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=100&auto=format&fit=crop&q=80';
+                    if (imgUrl.startsWith('img/')) imgUrl = '/' + imgUrl;
+
+                    return `
+                        <div class="leaderboard-item rank-${rank}" style="animation-delay: ${idx * 40}ms;">
+                            <span class="rank-badge ${rankColor}">${rank}</span>
+                            <img src="${imgUrl}" alt="${dish.title}" class="dish-thumb" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=100&auto=format&fit=crop&q=80';">
+                            <div class="dish-meta-info">
+                                <h4>${dish.title}</h4>
+                                <span class="dish-sub">${countText}</span>
+                            </div>
+                            <div class="sales-meter">
+                                <div class="sales-progress" style="width: ${pct}%;"></div>
+                            </div>
+                        </div>`;
+                }).join('');
+            }
+        }
+    }
+
+    function switchDashboardRange(range) {
+        if (!range) return;
+        currentDashboardRange = range;
+
+        // Trigger visual card entrance transition
+        triggerDataSwapAnimation();
+
+        // 1. Instant Visual Feedback: Highlight buttons across all groups
+        document.querySelectorAll('.date-filter-btn').forEach(btn => {
+            const r = btn.getAttribute('data-kpi-range') || btn.getAttribute('data-range') || btn.getAttribute('data-resa-range');
+            if (r === range) btn.classList.add('active');
+            else if (r) btn.classList.remove('active');
+        });
+
+        // 2. Instant 0ms UI Rendering from Memory Cache
+        if (dashboardMetricsCache[range]) {
+            applyDashboardMetricsToUI(dashboardMetricsCache[range], range);
+        }
+
+        // 3. Background Sync (Silent Revalidation)
+        loadNeonDashboardMetrics(range);
+    }
 
     function loadNeonDashboardMetrics(range = currentDashboardRange) {
-        currentDashboardRange = range;
         const apiPath = window.location.pathname.includes('/admin') ? '../api/dashboard.php' : 'api/dashboard.php';
 
         fetch(`${apiPath}?range=${encodeURIComponent(range)}`)
@@ -458,143 +698,41 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
                 if (!data || data.status !== 'success') return;
 
-                // Header Dynamic Live Date
-                const kpiHeaderDate = document.getElementById('kpiHeaderDate');
-                if (kpiHeaderDate) {
-                    const now = new Date();
-                    const formatted = now.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
-                    kpiHeaderDate.textContent = formatted.charAt(0).toUpperCase() + formatted.slice(1);
+                // Cache all returned ranges
+                if (data.allRanges) {
+                    if (data.allRanges.today) dashboardMetricsCache['today'] = data.allRanges.today;
+                    if (data.allRanges['this-week']) dashboardMetricsCache['this-week'] = data.allRanges['this-week'];
+                    if (data.allRanges['this-month']) dashboardMetricsCache['this-month'] = data.allRanges['this-month'];
+                    try {
+                        localStorage.setItem('foores_dashboard_metrics_cache', JSON.stringify(dashboardMetricsCache));
+                    } catch (e) {}
+                } else {
+                    dashboardMetricsCache[range] = data;
                 }
 
-                // Titles synchronization
-                if (statsMainTitle) {
-                    if (range === 'today') statsMainTitle.textContent = "Commandes d'Aujourd'hui";
-                    else if (range === 'this-month') statsMainTitle.textContent = "Commandes du Mois";
-                    else statsMainTitle.textContent = "Commandes de la Semaine";
+                // If user is currently looking at this range, apply update
+                if (currentDashboardRange === range) {
+                    applyDashboardMetricsToUI(data, range);
                 }
-                if (resaMainTitle) {
-                    if (range === 'today') resaMainTitle.textContent = "Réservations d'Aujourd'hui";
-                    else if (range === 'this-month') resaMainTitle.textContent = "Réservations du Mois";
-                    else resaMainTitle.textContent = "Réservations de la Semaine";
-                }
-
-                // Top 4 KPI Cards
-                if (data.kpi) {
-                    if (kpiOrders) kpiOrders.textContent = data.kpi.orders;
-                    if (kpiReservations) kpiReservations.textContent = data.kpi.reservations;
-                    if (kpiRevenue) kpiRevenue.textContent = Number(data.kpi.revenue || 0).toLocaleString('fr-FR');
-                    if (kpiAvgTicket) kpiAvgTicket.textContent = Number(data.kpi.avgTicket || 0).toLocaleString('fr-FR');
-
-                    const occFill = document.getElementById('occupancyFill');
-                    const occLabel = document.getElementById('occupancyLabel');
-                    if (occFill) occFill.style.width = `${data.kpi.occupancyRate || 0}%`;
-                    if (occLabel) occLabel.textContent = `${data.kpi.occupancyRate || 0} % occupé`;
-                }
-
-                // Weekly Orders Chart
-                if (weeklyOrdersChart && data.chart) {
-                    weeklyOrdersChart.data.labels = data.chart.labels;
-                    weeklyOrdersChart.data.datasets[0].data = data.chart.revenue;
-                    weeklyOrdersChart.data.datasets[1].data = data.chart.orders;
-                    weeklyOrdersChart.update();
-                }
-
-                // Reservations Chart
-                if (reservationsChart && data.reservationsChart) {
-                    reservationsChart.data.labels = data.reservationsChart.labels;
-                    reservationsChart.data.datasets[0].data = data.reservationsChart.tables;
-                    reservationsChart.update();
-                }
-
-                // Sales Channels Breakdown
-                if (data.channels) {
-                    const finTotal = document.getElementById('financeTotalAmount');
-                    const payCard = document.getElementById('payCardAmount');
-                    const payCash = document.getElementById('payCashAmount');
-                    const payDelivery = document.getElementById('payDeliveryAmount');
-                    const segOlive = document.getElementById('channelSegOlive');
-                    const segSaffron = document.getElementById('channelSegSaffron');
-                    const segGold = document.getElementById('channelSegGold');
-                    const subSurPlace = document.getElementById('channelSubSurPlace');
-                    const subLivraison = document.getElementById('channelSubLivraison');
-                    const subTakeaway = document.getElementById('channelSubTakeaway');
-                    const finFees = document.getElementById('finFeesVal');
-                    const finNet = document.getElementById('finNetVal');
-
-                    if (finTotal) finTotal.textContent = `${Number(data.channels.totalRevenue || 0).toLocaleString('fr-FR')} DH`;
-                    if (payCard) payCard.textContent = `${Number(data.channels.surPlace.revenue || 0).toLocaleString('fr-FR')} DH`;
-                    if (payCash) payCash.textContent = `${Number(data.channels.online.revenue || 0).toLocaleString('fr-FR')} DH`;
-                    if (payDelivery) payDelivery.textContent = `${Number(data.channels.takeaway.revenue || 0).toLocaleString('fr-FR')} DH`;
-
-                    if (segOlive) segOlive.style.width = `${data.channels.surPlace.pct}%`;
-                    if (segSaffron) segSaffron.style.width = `${data.channels.online.pct}%`;
-                    if (segGold) segGold.style.width = `${data.channels.takeaway.pct}%`;
-
-                    if (subSurPlace) subSurPlace.textContent = `${data.channels.surPlace.pct} % • ${data.channels.surPlace.count} commandes`;
-                    if (subLivraison) subLivraison.textContent = `${data.channels.online.pct} % • ${data.channels.online.count} livraisons`;
-                    if (subTakeaway) subTakeaway.textContent = `${data.channels.takeaway.pct} % • ${data.channels.takeaway.count} commandes`;
-
-                    if (finFees) finFees.textContent = `${data.channels.avgDeliveryTicket} DH`;
-                    if (finNet) finNet.textContent = `${data.channels.avgDeliveryTime}`;
-                }
-
-                // Top Selling Dishes Leaderboard (Dynamic Real Dishes from Neon with Real Images)
-                if (data.topDishes && Array.isArray(data.topDishes) && leaderboardContainer) {
-                    if (data.topDishes.length === 0) {
-                        leaderboardContainer.innerHTML = `
-                            <div style="padding: 32px 16px; text-align: center; color: var(--text-muted, #6E6A64); font-size: 0.88rem;">
-                                <i class="fa-solid fa-utensils" style="font-size: 1.6rem; opacity: 0.35; margin-bottom: 8px; display: block;"></i>
-                                Aucun plat vendu pour cette période.
-                            </div>`;
-                    } else {
-                        const maxSales = (data.topDishes[0] && data.topDishes[0].count > 0) ? data.topDishes[0].count : 1;
-                        const rankColors = ['rank-gold', 'rank-saffron', 'rank-peach', 'rank-track', 'rank-track', 'rank-track'];
-                        leaderboardContainer.innerHTML = data.topDishes.slice(0, 6).map((dish, idx) => {
-                            const rank = idx + 1;
-                            const rankColor = rankColors[idx] || 'rank-track';
-                            const pct = dish.count > 0 ? Math.max(12, Math.min(100, Math.round((dish.count / maxSales) * 100))) : 0;
-                            const countText = dish.count > 0 
-                                ? `${dish.count} vendu${dish.count > 1 ? 's' : ''} • ${Number(dish.revenue || 0).toLocaleString('fr-FR')} DH`
-                                : `${Number(dish.price || 0).toLocaleString('fr-FR')} DH • 0 vente`;
-                            let imgUrl = dish.image || 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=100&auto=format&fit=crop&q=80';
-                            if (imgUrl.startsWith('img/')) imgUrl = '/' + imgUrl;
-
-                            return `
-                                <div class="leaderboard-item rank-${rank}">
-                                    <span class="rank-badge ${rankColor}">${rank}</span>
-                                    <img src="${imgUrl}" alt="${dish.title}" class="dish-thumb" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=100&auto=format&fit=crop&q=80';">
-                                    <div class="dish-meta-info">
-                                        <h4>${dish.title}</h4>
-                                        <span class="dish-sub">${countText}</span>
-                                    </div>
-                                    <div class="sales-meter">
-                                        <div class="sales-progress" style="width: ${pct}%;"></div>
-                                    </div>
-                                </div>`;
-                        }).join('');
-                    }
-                }
-
-                // Synchronize Active States on Buttons
-                document.querySelectorAll('.date-filter-btn').forEach(btn => {
-                    const r = btn.getAttribute('data-kpi-range') || btn.getAttribute('data-range') || btn.getAttribute('data-resa-range');
-                    if (r === range) btn.classList.add('active');
-                    else if (r) btn.classList.remove('active');
-                });
             })
             .catch(err => console.warn('Erreur chargement metrics Neon', err));
     }
 
-    // Initial Load & Real-Time Auto-Refresh every 8 seconds
+    // Initial Instant Render from Cache if exists
+    if (dashboardMetricsCache['this-week']) {
+        applyDashboardMetricsToUI(dashboardMetricsCache['this-week'], 'this-week');
+    }
+
+    // Initial Live Load & Auto-Refresh every 8 seconds
     loadNeonDashboardMetrics('this-week');
     setInterval(() => loadNeonDashboardMetrics(currentDashboardRange), 8000);
 
-    // Date Filter Click Handlers (KPI header, Orders Chart header & Reservations header)
+    // Instant Date Filter Click Handlers (0ms response)
     document.querySelectorAll('.date-filter-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', (e) => {
             const range = btn.getAttribute('data-kpi-range') || btn.getAttribute('data-range') || btn.getAttribute('data-resa-range');
             if (range) {
-                loadNeonDashboardMetrics(range);
+                switchDashboardRange(range);
                 const labelMap = { 'today': "Aujourd'hui", 'this-week': 'Cette semaine', 'this-month': 'Ce mois' };
                 showToast(`Filtre activé : ${labelMap[range] || range}`);
             }
@@ -2092,7 +2230,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const clientPhone = order.customer ? order.customer.phone : '-';
-            const cleanPhone = clientPhone.replace(/[^0-9]/g, '').replace(/^0/, '');
+            const rawClean = (clientPhone || '').replace(/[^0-9]/g, '');
+            const cleanPhone = rawClean.startsWith('212') ? rawClean.slice(3) : rawClean.replace(/^0/, '');
 
             tr.innerHTML = `
                 <td>
@@ -2195,7 +2334,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const nameStr = res.name || 'Client Web';
             const initials = nameStr.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2) || 'CR';
-            const cleanPhone = (res.phone || '').replace(/[^0-9]/g, '').replace(/^0/, '');
+            const rawResPhone = (res.phone || '').replace(/[^0-9]/g, '');
+            const cleanPhone = rawResPhone.startsWith('212') ? rawResPhone.slice(3) : rawResPhone.replace(/^0/, '');
+
+            let resStatusBadge = '<span class="order-status-badge status-pending"><i class="fa-solid fa-hourglass-half"></i> En Attente</span>';
+            if (res.status === 'confirmed') {
+                resStatusBadge = '<span class="order-status-badge status-completed"><i class="fa-solid fa-circle-check"></i> Confirmée</span>';
+            } else if (res.status === 'seated') {
+                resStatusBadge = '<span class="order-status-badge status-seated"><i class="fa-solid fa-chair"></i> Installé</span>';
+            } else if (res.status === 'cancelled') {
+                resStatusBadge = '<span class="order-status-badge status-cancelled"><i class="fa-solid fa-circle-xmark"></i> Annulée</span>';
+            }
 
             tr.innerHTML = `
                 <td>
@@ -2229,7 +2378,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <i class="fa-solid fa-comment-dots text-orange"></i> <span>${res.notes || 'Aucune remarque'}</span>
                     </div>
                 </td>
-                <td><span class="order-status-badge status-pending"><i class="fa-solid fa-hourglass-half"></i> En Attente</span></td>
+                <td>${resStatusBadge}</td>
                 <td style="text-align: right;">
                     <div class="order-action-btns">
                         <button class="order-btn cycle-resa-btn" title="Confirmer la réservation" data-id="${resIdStr}"><i class="fa-solid fa-check text-green"></i></button>
