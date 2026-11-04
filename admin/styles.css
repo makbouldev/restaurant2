@@ -6791,3 +6791,16 @@ input:focus,select:focus,textarea:focus,.form-control:focus{
   padding:3px 11px !important; line-height:1.4;
 }
 .cat-card-info,.cat-card-body{ align-items:flex-start !important; }
+
+/* fix: category edit/delete buttons -> identical, clearly visible */
+.cat-action-overlay .cat-action-btn{
+  width:34px !important; height:34px !important; border-radius:50% !important; padding:0 !important;
+  background:rgba(255,255,255,.96) !important; border:1px solid rgba(16,24,40,.10) !important;
+  box-shadow:0 2px 8px rgba(16,24,40,.18) !important; color:var(--dark) !important;
+  display:inline-flex !important; align-items:center; justify-content:center;
+}
+.cat-action-overlay .cat-action-btn i{ color:var(--dark) !important; font-size:13px !important; }
+.cat-action-overlay .edit-cat-btn:hover{ background:var(--accent) !important; border-color:var(--accent) !important; transform:scale(1.06); }
+.cat-action-overlay .edit-cat-btn:hover i{ color:#fff !important; }
+.cat-action-overlay .delete-cat-btn:hover{ background:var(--c5) !important; border-color:var(--c5) !important; transform:scale(1.06); }
+.cat-action-overlay .delete-cat-btn:hover i{ color:#fff !important; }
