@@ -5115,7 +5115,7 @@ table td,
 
 .sales-progress {
     height: 100% !important;
-    background: linear-gradient(90deg, #557945, #6E8F5D) !important;
+    background: var(--c1) !important;
     border-radius: 9999px !important;
     transition: width 0.4s ease !important;
 }
@@ -6554,3 +6554,40 @@ input,.form-control,textarea{ border-radius:12px !important; background:var(--su
 }
 /* edit/delete buttons that sit over the photo get a solid white chip */
 .card-action-bar .dish-action-btn{ background:rgba(255,255,255,.92) !important; backdrop-filter:blur(4px); }
+
+/* ===========================================================================
+   KPI DETAIL MODAL (Analyse Détaillée) — multi-colour stat boxes + clean list
+   =========================================================================== */
+.kpi-modal-grid-3{ display:grid !important; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:20px; }
+.kpi-modal-stat-box{
+  background:var(--surface) !important; border:1px solid var(--border) !important; border-radius:16px !important;
+  box-shadow:var(--shadow-soft) !important; padding:18px 20px 18px 22px !important;
+  display:flex; flex-direction:column; gap:6px; position:relative; overflow:hidden;
+}
+.kpi-modal-stat-box::before{ content:""; position:absolute; left:0; top:0; bottom:0; width:4px; }
+.kpi-modal-stat-box:nth-child(1)::before{ background:var(--c1); }
+.kpi-modal-stat-box:nth-child(2)::before{ background:var(--c2); }
+.kpi-modal-stat-box:nth-child(3)::before{ background:var(--c4); }
+.kpi-modal-stat-box .title{ font-size:11px !important; text-transform:uppercase; letter-spacing:.1em; color:rgba(16,24,40,.5) !important; font-weight:700 !important; }
+.kpi-modal-stat-box .value{ font-family:var(--font-heading) !important; font-size:30px !important; font-weight:700 !important; color:var(--dark) !important; line-height:1; }
+.kpi-modal-stat-box .sub{ font-size:12px !important; color:rgba(16,24,40,.55) !important; display:inline-flex; align-items:center; gap:6px; }
+.kpi-modal-stat-box:nth-child(1) .sub i{ color:var(--c1) !important; }
+.kpi-modal-stat-box:nth-child(2) .sub i{ color:var(--c2) !important; }
+.kpi-modal-stat-box:nth-child(3) .sub i{ color:var(--c4) !important; }
+
+.kpi-modal-list-box{
+  background:var(--bg) !important; border:1px solid var(--border) !important; border-radius:16px !important; padding:18px 20px !important;
+}
+.kpi-modal-list-box h4{
+  font-family:var(--font-heading) !important; font-size:16px !important; color:var(--dark) !important;
+  margin:0 0 10px !important; display:flex; align-items:center; gap:8px;
+}
+.kpi-modal-list-box h4 i,.kpi-modal-list-box h4 .text-green{ color:var(--accent) !important; }
+.kpi-list-row{
+  display:flex; justify-content:space-between; align-items:center; gap:12px;
+  padding:12px 0 !important; border-bottom:1px solid rgba(16,24,40,.07) !important;
+}
+.kpi-list-row:last-child{ border-bottom:none !important; }
+.kpi-list-row span{ color:rgba(16,24,40,.6) !important; font-size:13.5px !important; }
+.kpi-list-row strong{ color:var(--dark) !important; font-weight:700 !important; font-size:13.5px !important; font-family:var(--font-heading) !important; }
+@media (max-width:760px){ .kpi-modal-grid-3{ grid-template-columns:1fr; } }
