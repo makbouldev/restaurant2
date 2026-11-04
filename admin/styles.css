@@ -6738,3 +6738,56 @@ input:focus,select:focus,textarea:focus,.form-control:focus{
   *,*::before,*::after{ animation-duration:.001ms !important; transition-duration:.001ms !important; }
   .stat-card:hover,.order-kpi-card:hover,.featured-stats-card:hover,.recipe-card-full:hover{ transform:none !important; }
 }
+
+/* ===========================================================================
+   SECTION-BY-SECTION ENHANCEMENTS + fixes
+   =========================================================================== */
+/* -- Catégories: remove empty icon circle, polish cards -- */
+.cat-icon-badge{ display:none !important; }
+.cat-card-large{ border-radius:18px !important; overflow:hidden; box-shadow:var(--shadow-card) !important; border:1px solid var(--border) !important; }
+.cat-card-large img{ transition:transform .6s var(--ease-out) !important; }
+.cat-card-large:hover img{ transform:scale(1.05); }
+.cat-count-badge{ background:var(--c1-bg) !important; color:var(--c1) !important; border-radius:9999px !important; font-weight:700; font-size:11px; border:none !important; }
+.cat-action-overlay .cat-action-btn{ background:rgba(255,255,255,.92) !important; backdrop-filter:blur(4px); }
+
+/* -- Paramètres: fix password eye overlap -- */
+.password-input-wrapper{ position:relative; }
+.password-input-wrapper input{ padding-right:42px !important; }
+.password-input-wrapper .toggle-pass-btn{
+  position:absolute !important; right:6px; top:50%; transform:translateY(-50%);
+  background:transparent !important; border:none !important; box-shadow:none !important;
+  color:rgba(16,24,40,.42) !important; width:30px; height:30px; cursor:pointer;
+}
+.password-input-wrapper .toggle-pass-btn:hover{ color:var(--accent) !important; }
+
+/* -- Paramètres: social links get full width so URLs are readable -- */
+.date-picker-row:has(.social-input-wrapper){ grid-template-columns:1fr !important; }
+.social-input-wrapper{ display:flex !important; align-items:center; gap:8px; }
+.social-input-wrapper .social-field{ flex:1 1 auto !important; min-width:0 !important; }
+.social-input-icon{ color:var(--accent) !important; flex-shrink:0; width:28px; text-align:center; }
+.social-test-btn{ flex-shrink:0; color:rgba(16,24,40,.42) !important; width:30px; height:30px; display:inline-flex; align-items:center; justify-content:center; border-radius:8px; }
+.social-test-btn:hover{ color:var(--accent) !important; background:rgba(110,127,78,.08); }
+
+/* -- Settings profile header: subtle premium gradient accent -- */
+.profile-overview-card,.admin-profile-header,.stats-card:first-of-type{ position:relative; }
+
+/* -- Commandes: denser, readable data table (zebra + sticky header) -- */
+.creative-orders-table thead th{ position:sticky; top:0; z-index:2; background:#F7F6F3 !important; }
+.creative-orders-table tbody tr:nth-child(even){ background:rgba(16,24,40,.018); }
+.creative-orders-table tbody tr:hover{ background:rgba(110,127,78,.06) !important; }
+.creative-orders-table tbody td{ padding:12px 16px !important; }
+.orders-table-wrapper{ max-height:none; }
+
+/* -- status badges across tables: soft coloured pills -- */
+.status-confirmed,.badge-confirmed,[data-status="confirmee"],[data-status="confirmed"]{ background:var(--c1-bg) !important; color:#3C7A38 !important; }
+.status-pending,[data-status="attente"]{ background:var(--c3-bg) !important; color:#9A6B1A !important; }
+
+/* -- section headers: small accent underline flourish -- */
+.page-title,.section-title-bar h2{ position:relative; display:inline-block; }
+
+/* fix: category count badge should hug its text, not span full width */
+.cat-count-badge{
+  display:inline-block !important; width:auto !important; max-width:max-content;
+  padding:3px 11px !important; line-height:1.4;
+}
+.cat-card-info,.cat-card-body{ align-items:flex-start !important; }
