@@ -6591,3 +6591,17 @@ input,.form-control,textarea{ border-radius:12px !important; background:var(--su
 .kpi-list-row span{ color:rgba(16,24,40,.6) !important; font-size:13.5px !important; }
 .kpi-list-row strong{ color:var(--dark) !important; font-weight:700 !important; font-size:13.5px !important; font-family:var(--font-heading) !important; }
 @media (max-width:760px){ .kpi-modal-grid-3{ grid-template-columns:1fr; } }
+
+/* ===========================================================================
+   FIX — remove permanent green overlay on image preview; show hint on hover
+   =========================================================================== */
+.preview-box-wrapper{
+  box-shadow:var(--shadow-card) !important; border:1px solid var(--border) !important;
+}
+.preview-box-wrapper::after{
+  background:rgba(16,24,40,.55) !important;   /* dark scrim, not green */
+  color:#fff !important;
+  opacity:0 !important;                        /* hidden by default -> image fully visible */
+  transition:opacity .25s ease !important;
+}
+.preview-box-wrapper:hover::after{ opacity:1 !important; }   /* hint appears on hover */
