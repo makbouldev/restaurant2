@@ -6391,3 +6391,7 @@ input,.form-control,textarea{ border-radius:12px !important; background:var(--su
 
 /* "Voir tout" link */
 .top-dishes-card .card-link,.top-dishes-card a{ color:var(--accent) !important; font-weight:600; font-size:13px; }
+
+/* chart section polish */
+.featured-stats-card .chart-canvas-wrap,.chart-body,canvas{ margin-top:4px; }
+.featured-stats-card .card-eyebrow,.chart-eyebrow{ color:var(--accent) !important; }

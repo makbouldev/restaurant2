@@ -292,7 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             label: 'Tables Réservées',
                             data: [0, 0, 0, 0, 0, 0, 0],
                             backgroundColor: '#5A9A3C',
-                            borderRadius: 2,
+                            borderRadius: 4,
                             borderSkipped: 'bottom',
                             barThickness: 22,
                             maxBarThickness: 26
@@ -315,19 +315,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     scales: {
                         x: {
                             type: 'category',
+                            border: { display: false },
                             grid: { display: false },
                             ticks: {
-                                color: '#6E6A64',
-                                font: { family: 'Archivo', size: 12, weight: '500' }
+                                color: '#9A958C',
+                                font: { family: 'Mulish', size: 12, weight: '500' }
                             }
                         },
                         y: {
                             type: 'linear',
                             beginAtZero: true,
-                            grid: { color: 'rgba(32,38,28,0.06)', drawBorder: false },
+                            border: { display: false }, grid: { color: 'rgba(32,38,28,0.05)', drawBorder: false, borderDash: [4, 4] },
                             ticks: {
-                                color: '#6E6A64',
-                                font: { family: 'Archivo', size: 11 },
+                                color: '#9A958C',
+                                font: { family: 'Mulish', size: 11 },
                                 precision: 0
                             }
                         }
@@ -355,7 +356,14 @@ document.addEventListener('DOMContentLoaded', () => {
                             borderColor: '#DA5F3C',
                             borderWidth: 2,
                             fill: true,
-                            backgroundColor: 'rgba(218,95,60,0.10)',
+                            backgroundColor: function(ctx){
+                                const chart = ctx.chart; const area = chart.chartArea;
+                                if (!area) return 'rgba(218,95,60,0.12)';
+                                const g = chart.ctx.createLinearGradient(0, area.top, 0, area.bottom);
+                                g.addColorStop(0, 'rgba(218,95,60,0.24)');
+                                g.addColorStop(1, 'rgba(218,95,60,0.01)');
+                                return g;
+                            },
                             pointRadius: 3,
                             pointHoverRadius: 5,
                             pointBackgroundColor: '#F3EEE3',
@@ -371,7 +379,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             data: [0, 0, 0, 0, 0, 0, 0],
                             backgroundColor: '#5A9A3C',
                             hoverBackgroundColor: '#4C8A32',
-                            borderRadius: 2,
+                            borderRadius: 4,
                             borderSkipped: 'bottom',
                             barThickness: 16,
                             maxBarThickness: 18,
@@ -391,8 +399,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                 usePointStyle: true,
                                 boxWidth: 8,
                                 boxHeight: 8,
-                                color: '#6E6A64',
-                                font: { family: 'Archivo', size: 12, weight: '500' },
+                                color: '#9A958C',
+                                font: { family: 'Mulish', size: 12, weight: '500' },
                                 padding: 16
                             }
                         },
@@ -407,10 +415,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     scales: {
                         x: {
                             type: 'category',
+                            border: { display: false },
                             grid: { display: false },
                             ticks: {
-                                color: '#6E6A64',
-                                font: { family: 'Archivo', size: 12, weight: '500' }
+                                color: '#9A958C',
+                                font: { family: 'Mulish', size: 12, weight: '500' }
                             }
                         },
                         y: {
@@ -418,26 +427,19 @@ document.addEventListener('DOMContentLoaded', () => {
                             beginAtZero: true,
                             display: true,
                             position: 'left',
-                            grid: { color: 'rgba(32,38,28,0.06)', drawBorder: false },
+                            border: { display: false }, grid: { color: 'rgba(32,38,28,0.05)', drawBorder: false, borderDash: [4, 4] },
                             ticks: {
-                                color: '#557945',
-                                font: { family: 'Archivo', size: 11, weight: '600' },
+                                color: '#9A958C',
+                                font: { family: 'Mulish', size: 11, weight: '600' },
                                 precision: 0
                             }
                         },
                         y1: {
                             type: 'linear',
                             beginAtZero: true,
-                            display: true,
+                            display: false,
                             position: 'right',
-                            grid: { display: false },
-                            ticks: {
-                                color: '#D97706',
-                                font: { family: 'Archivo', size: 11, weight: '600' },
-                                callback: function(val) {
-                                    return val >= 1000 ? (val / 1000) + 'k' : val;
-                                }
-                            }
+                            grid: { display: false }
                         }
                     }
                 }
