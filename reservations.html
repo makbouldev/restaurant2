@@ -369,10 +369,10 @@
             guests: 2,
             zone: "Terrasse Panoramique ",
             date: "",
-            time: "20:00"
+            time: "13:00"
         };
 
-        const availableTimeSlots = ["12:30", "13:00", "13:30", "19:30", "20:00", "20:30", "21:00", "21:30"];
+        const availableTimeSlots = ["08:00", "09:00", "10:00", "12:00", "13:00", "14:00"];
 
         document.addEventListener('DOMContentLoaded', function() {
             // Set default date to today
@@ -400,7 +400,7 @@
             const groups = { 'Déjeuner': [], 'Dîner': [] };
             availableTimeSlots.forEach(slot => {
                 const h = parseInt(slot.split(':')[0], 10);
-                (h < 16 ? groups['Déjeuner'] : groups['Dîner']).push(slot);
+                (h < 11 ? groups['Déjeuner'] : groups['Dîner']).push(slot);
             });
 
             Object.keys(groups).forEach(label => {
