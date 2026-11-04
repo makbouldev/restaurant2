@@ -3798,3 +3798,37 @@ document.addEventListener('DOMContentLoaded', () => {
     })();
 });
 
+
+/* ==========================================================================
+   Global broken-image fallback — any <img> that fails to load gets a clean
+   placeholder instead of the broken-image icon.
+   ========================================================================== */
+(function () {
+    var FALLBACK = 'data:image/svg+xml,' + encodeURIComponent(
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">' +
+        '<rect width="400" height="300" fill="#F0EBE0"/>' +
+        '<g fill="none" stroke="#C3BCAD" stroke-width="7" stroke-linejoin="round" stroke-linecap="round">' +
+        '<rect x="112" y="96" width="176" height="108" rx="10"/>' +
+        '<path d="M126 198l46-52 28 30 26-34 50 56"/></g>' +
+        '<circle cx="152" cy="132" r="13" fill="#C3BCAD"/></svg>'
+    );
+    function applyFallback(img) {
+        if (!img || img.getAttribute('data-img-fallback') === '1') return;
+        img.setAttribute('data-img-fallback', '1');
+        img.src = FALLBACK;
+        img.style.objectFit = 'cover';
+    }
+    document.addEventListener('error', function (e) {
+        var t = e.target;
+        if (t && t.tagName === 'IMG' && t.src !== FALLBACK) applyFallback(t);
+    }, true);
+    function scan() {
+        var imgs = document.querySelectorAll('img');
+        for (var i = 0; i < imgs.length; i++) {
+            var im = imgs[i];
+            if (im.complete && im.naturalWidth === 0 && im.src && im.src !== FALLBACK) applyFallback(im);
+        }
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', scan); else scan();
+    setTimeout(scan, 1500);
+})();

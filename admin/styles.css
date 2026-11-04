@@ -6666,3 +6666,75 @@ input,.form-control,textarea{ border-radius:12px !important; background:var(--su
   .login-brand-panel{ padding:30px !important; }
   .login-form-panel{ padding:30px !important; }
 }
+
+/* ===========================================================================
+   PREMIUM POLISH LAYER — depth, micro-interactions, gradient accents, motion
+   =========================================================================== */
+:root{
+  --shadow-card: 0 1px 2px rgba(16,24,40,.04), 0 2px 6px rgba(16,24,40,.04), 0 12px 28px rgba(16,24,40,.07) !important;
+  --shadow-hover: 0 2px 6px rgba(16,24,40,.06), 0 18px 42px rgba(16,24,40,.13) !important;
+  --ease-out: cubic-bezier(.22,1,.36,1);
+}
+/* smoother interaction on everything clickable */
+.stat-card,.order-kpi-card,.featured-stats-card,.top-dishes-card,.recipe-card-full,
+.cat-card-large,.channel-stat-box,.btn-login-submit,.date-filter-btn,.order-btn,
+.action-btn,.sidebar-menu a,.nav-link,.leaderboard-item,.stat-icon{
+  transition:transform .28s var(--ease-out), box-shadow .28s var(--ease-out),
+             background-color .2s ease, border-color .2s ease, color .2s ease !important;
+}
+.stat-card:hover,.order-kpi-card:hover,.featured-stats-card:hover{ transform:translateY(-3px) !important; box-shadow:var(--shadow-hover) !important; }
+.recipe-card-full:hover,.cat-card-large:hover{ transform:translateY(-3px) !important; }
+
+/* gradient primary button + sheen */
+.btn-primary,.btn-save,.btn-confirm,.btn-login-submit{
+  background:linear-gradient(135deg, #7D9158 0%, var(--accent) 55%, #5E6E42 100%) !important;
+  position:relative; overflow:hidden;
+}
+.btn-login-submit::after,.btn-primary::after{
+  content:""; position:absolute; top:0; left:-120%; width:60%; height:100%;
+  background:linear-gradient(100deg, transparent, rgba(255,255,255,.28), transparent);
+  transform:skewX(-18deg); transition:left .6s var(--ease-out); pointer-events:none;
+}
+.btn-login-submit:hover::after,.btn-primary:hover::after{ left:130%; }
+
+/* sidebar active = soft gradient pill + accent rail */
+.sidebar-menu a.active,.sidebar-menu li.active>a,.nav-link.active{
+  background:linear-gradient(90deg, rgba(110,127,78,.16), rgba(110,127,78,.06)) !important;
+  position:relative;
+}
+.sidebar-menu a.active::before,.nav-link.active::before{
+  content:""; position:absolute; left:0; top:18%; bottom:18%; width:3px; border-radius:3px; background:var(--accent);
+}
+
+/* KPI accent-bar + icon tiles get a subtle gradient */
+.stat-card .stat-icon{ box-shadow:inset 0 0 0 1px rgba(255,255,255,.4); }
+.kpi-modal-stat-box::before{ opacity:.9; }
+
+/* refined focus ring on inputs */
+input:focus,select:focus,textarea:focus,.form-control:focus{
+  box-shadow:0 0 0 3px rgba(110,127,78,.14) !important; border-color:var(--accent) !important;
+}
+
+/* staggered entrance for dashboard cards */
+@keyframes riseIn{ from{ opacity:0; transform:translateY(14px);} to{ opacity:1; transform:translateY(0);} }
+.page-view.active .stat-card,
+.page-view.active .featured-stats-card,
+.page-view.active .top-dishes-card,
+.page-view.active .order-kpi-card{
+  animation:riseIn .5s var(--ease-out) both;
+}
+.page-view.active .stat-card:nth-child(1),.page-view.active .order-kpi-card:nth-child(1){ animation-delay:.02s; }
+.page-view.active .stat-card:nth-child(2),.page-view.active .order-kpi-card:nth-child(2){ animation-delay:.08s; }
+.page-view.active .stat-card:nth-child(3),.page-view.active .order-kpi-card:nth-child(3){ animation-delay:.14s; }
+.page-view.active .stat-card:nth-child(4),.page-view.active .order-kpi-card:nth-child(4){ animation-delay:.20s; }
+
+/* elegant custom scrollbars */
+*::-webkit-scrollbar{ width:10px; height:10px; }
+*::-webkit-scrollbar-thumb{ background:rgba(16,24,40,.16); border-radius:9999px; border:2px solid transparent; background-clip:padding-box; }
+*::-webkit-scrollbar-thumb:hover{ background:rgba(16,24,40,.28); background-clip:padding-box; }
+*::-webkit-scrollbar-track{ background:transparent; }
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{ animation-duration:.001ms !important; transition-duration:.001ms !important; }
+  .stat-card:hover,.order-kpi-card:hover,.featured-stats-card:hover,.recipe-card-full:hover{ transform:none !important; }
+}
