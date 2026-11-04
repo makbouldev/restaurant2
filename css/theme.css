@@ -771,3 +771,21 @@ h1,h2{ line-height:1.1 !important; }
 .main-menu ul li a:hover::after,
 .main-menu ul li a.active::after,
 .main-menu ul li.active > a::after{ transform:scaleX(1) !important; }
+
+/* Remove the public-site top bar (address / hours / phone / socials) site-wide */
+.top-header-bar{ display:none !important; }
+
+/* ===========================================================================
+   Remove dated zig-zag dividers site-wide + tighten inner-page hero
+   =========================================================================== */
+.frame,.frame.gray,.frame.black,.frame.white{ display:none !important; }
+.hero_single.inner_pages{
+  height:auto !important; min-height:360px !important; padding:120px 0 64px !important;
+  background-color:var(--dark) !important;
+}
+.hero_single.inner_pages .wrapper{ height:auto !important; padding:0 !important; }
+/* step indicator on the dark hero: clearer */
+.hero_single .cart-steps-nav .cart-step{ color:rgba(245,239,228,.55) !important; }
+.hero_single .cart-steps-nav .cart-step.active{ color:var(--light) !important; }
+.hero_single .cart-steps-nav .cart-step.active .cart-step-num{ background:var(--accent) !important; color:#fff !important; border-color:var(--accent) !important; }
+.hero_single .cart-steps-nav .cart-step-num{ border-color:rgba(245,239,228,.3) !important; }
