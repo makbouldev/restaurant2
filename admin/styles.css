@@ -6395,3 +6395,92 @@ input,.form-control,textarea{ border-radius:12px !important; background:var(--su
 /* chart section polish */
 .featured-stats-card .chart-canvas-wrap,.chart-body,canvas{ margin-top:4px; }
 .featured-stats-card .card-eyebrow,.chart-eyebrow{ color:var(--accent) !important; }
+
+/* ===========================================================================
+   ALL-TABS COMPONENT POLISH (Recettes / Commandes / Réservations / Paramètres)
+   =========================================================================== */
+/* --- page headers (consistent across tabs) --- */
+.page-header,.section-title-bar{ margin-bottom:22px !important; }
+.page-title,.section-title-bar h2,.page-header h1,.page-header h2{
+  font-family:var(--font-heading) !important; font-weight:700 !important; letter-spacing:-.01em !important;
+  color:var(--dark) !important; font-size:26px !important; margin:0 0 4px !important;
+}
+.view-tagline,.section-eyebrow{
+  font-size:11px !important; text-transform:uppercase !important; letter-spacing:.12em !important;
+  color:var(--accent) !important; font-weight:700 !important;
+}
+.section-subtitle{ color:rgba(16,24,40,.52) !important; font-size:13.5px !important; }
+.live-pulse-badge{ color:var(--c1) !important; font-weight:700; font-size:11px; }
+.live-pulse-badge i{ color:var(--c1) !important; }
+
+/* --- status KPI cards (orders + reservations tabs) --- */
+.orders-kpi-grid{ display:grid; gap:16px; }
+.order-kpi-card{
+  background:var(--surface) !important; border:1px solid var(--border) !important;
+  border-radius:16px !important; box-shadow:var(--shadow-card) !important; padding:18px !important;
+  display:flex; align-items:center; gap:14px; transition:box-shadow .2s ease, transform .2s ease;
+}
+.order-kpi-card:hover{ box-shadow:var(--shadow-hover) !important; transform:translateY(-1px); }
+.order-kpi-card .kpi-icon{
+  width:44px !important; height:44px !important; min-width:44px; border-radius:12px !important;
+  display:flex; align-items:center; justify-content:center; font-size:17px !important; box-shadow:none !important;
+}
+.order-kpi-card .kpi-info{ display:flex; flex-direction:column; gap:2px; }
+.order-kpi-card .kpi-info .label{ font-size:12px !important; color:rgba(16,24,40,.52) !important; font-weight:600 !important; }
+.order-kpi-card .kpi-info .value,.order-kpi-card .kpi-info strong{
+  font-family:var(--font-heading) !important; font-size:26px !important; font-weight:700 !important; color:var(--dark) !important; line-height:1.05;
+}
+/* one colour per status */
+.pending-card   .kpi-icon{ background:var(--c3-bg) !important; color:var(--c3) !important; }
+.online-card    .kpi-icon{ background:var(--c2-bg) !important; color:var(--c2) !important; }
+.kitchen-card   .kpi-icon{ background:var(--c5-bg) !important; color:var(--c5) !important; }
+.completed-card .kpi-icon{ background:var(--c1-bg) !important; color:var(--c1) !important; }
+.delivery-card  .kpi-icon{ background:var(--c4-bg) !important; color:var(--c4) !important; }
+
+/* --- tables (Commandes / lists) --- */
+.orders-table-wrapper,.table-wrapper{ border-radius:16px !important; overflow:hidden; border:1px solid var(--border) !important; box-shadow:var(--shadow-card) !important; background:var(--surface) !important; }
+.creative-orders-table,table.creative-orders-table{ width:100%; border-collapse:collapse; }
+.creative-orders-table thead th{
+  background:rgba(16,24,40,.025) !important; text-transform:uppercase; letter-spacing:.06em;
+  font-size:11px !important; font-weight:700 !important; color:rgba(16,24,40,.5) !important;
+  padding:13px 16px !important; text-align:left; border-bottom:1px solid var(--border) !important;
+}
+.creative-orders-table tbody td{ padding:14px 16px !important; border-bottom:1px solid rgba(16,24,40,.05) !important; color:var(--dark) !important; font-size:13.5px; vertical-align:middle; }
+.creative-orders-table tbody tr{ transition:background .15s ease; }
+.creative-orders-table tbody tr:hover{ background:rgba(16,24,40,.025) !important; }
+.creative-orders-table tbody tr:last-child td{ border-bottom:none !important; }
+
+/* --- toolbars & search boxes --- */
+.orders-toolbar-creative,.toolbar{ display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin:18px 0; }
+.creative-search-box,.recipe-search-box,.category-search-box{
+  display:flex; align-items:center; gap:8px; background:var(--surface) !important;
+  border:1px solid var(--border) !important; border-radius:9999px !important; padding:8px 16px !important; box-shadow:var(--shadow-soft) !important;
+}
+.creative-search-box input,.recipe-search-box input,.category-search-box input{
+  border:none !important; background:transparent !important; box-shadow:none !important; padding:0 !important;
+}
+.search-icon{ color:rgba(16,24,40,.4) !important; }
+.search-kbd-shortcut{ background:rgba(16,24,40,.05) !important; border-radius:6px !important; padding:2px 7px; font-size:11px; color:rgba(16,24,40,.45); }
+
+/* --- settings cards (keep focused dark panels, modernised) --- */
+.settings-grid-container{ display:grid; gap:20px; }
+.settings-card-dark{ border-radius:18px !important; box-shadow:var(--shadow-card) !important; overflow:hidden; }
+.settings-card-header{ padding:18px 22px !important; }
+.settings-card-body{ padding:22px !important; }
+.settings-header-icon-box{ border-radius:12px !important; }
+
+/* --- modals: rounded, soft shadow, refined --- */
+.modal-card-dark,.creative-dish-modal,.pos-order-modal,.ticket-modal-card,.kpi-slide-modal-card,.date-modal{
+  border-radius:20px !important; box-shadow:0 24px 60px rgba(16,24,40,.28) !important; overflow:hidden;
+}
+.modal-overlay,.kpi-slide-modal-overlay{ backdrop-filter:blur(3px) !important; -webkit-backdrop-filter:blur(3px) !important; background:rgba(16,24,40,.45) !important; }
+.modal-head,.kpi-modal-header{ padding:20px 24px !important; }
+.modal-body-dark,.kpi-modal-body{ padding:24px !important; }
+.modal-actions-dark{ padding:16px 24px !important; gap:10px; }
+
+/* --- buttons (consistent) --- */
+.btn-primary,.btn-save,.btn-confirm,.btn-add,button.primary{
+  background:var(--accent) !important; color:#fff !important; border:none !important;
+  border-radius:10px !important; font-weight:600 !important; box-shadow:none !important;
+}
+.btn-primary:hover,.btn-save:hover,.btn-confirm:hover{ filter:brightness(.94); }
