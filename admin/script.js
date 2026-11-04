@@ -97,11 +97,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (alertBox) alertBox.style.display = 'none';
 
         try {
-            const res = await fetch('/api/auth.php', {
+            const authPath = window.location.pathname.includes('/admin') ? '../api/auth.php' : 'api/auth.php';
+            const res = await fetch(authPath, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ action: 'login', username, password })
             });
+            const contentType = res.headers.get('content-type') || '';
+            if (!contentType.includes('application/json')) {
+                // The .php endpoint returned HTML/raw source => PHP is not executing
+                throw new Error('php-not-running');
+            }
             const data = await res.json();
 
             if (res.ok && data.status === 'success' && data.token) {
@@ -133,7 +139,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } catch (err) {
             if (alertBox) alertBox.style.display = 'flex';
-            if (alertMsg) alertMsg.textContent = 'Erreur réseau ou serveur. Veuillez réessayer.';
+            if (alertMsg) {
+                alertMsg.textContent = (err && err.message === 'php-not-running')
+                    ? "Serveur PHP inactif. Ouvrez le site via « php -S localhost:8000 » puis allez sur /admin/ (pas via Live Server)."
+                    : 'Erreur réseau ou serveur. Veuillez réessayer.';
+            }
         } finally {
             if (submitBtn) {
                 submitBtn.disabled = false;
@@ -152,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sessionStorage.removeItem(ADMIN_USER_KEY);
         
         try {
-            fetch('/api/auth.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'logout' }) });
+            fetch((window.location.pathname.includes('/admin') ? '../api/auth.php' : 'api/auth.php'), { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'logout' }) });
         } catch (e) {}
 
         window.location.reload();

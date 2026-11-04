@@ -6605,3 +6605,64 @@ input,.form-control,textarea{ border-radius:12px !important; background:var(--su
   transition:opacity .25s ease !important;
 }
 .preview-box-wrapper:hover::after{ opacity:1 !important; }   /* hint appears on hover */
+
+/* ===========================================================================
+   LOGIN PAGE — premium split (rich olive brand panel + clean white form)
+   =========================================================================== */
+.admin-login-overlay{
+  background:radial-gradient(circle at 50% 12%, rgba(62,74,48,.97) 0%, var(--dark) 70%) !important;
+}
+.admin-login-card.admin-login-split{
+  background:#FFFFFF !important; border:1px solid rgba(16,24,40,.06) !important;
+  max-width:860px !important; border-radius:22px !important;
+  box-shadow:0 30px 80px rgba(16,24,40,.45) !important;
+}
+/* --- left: brand panel (rich olive) --- */
+.login-brand-panel{
+  width:42% !important; border-right:none !important; padding:44px 34px !important;
+  background:linear-gradient(162deg, #3E4A30 0%, #6E7F4E 56%, #52623C 100%) !important;
+  position:relative; overflow:hidden;
+}
+.login-brand-panel::after{
+  content:""; position:absolute; right:-40px; bottom:-40px; width:160px; height:160px;
+  background:radial-gradient(circle, rgba(255,255,255,.10), transparent 70%); border-radius:50%;
+}
+.login-brand-panel *{ color:#fff !important; position:relative; z-index:1; }
+.login-brand-sub{ color:rgba(255,255,255,.74) !important; }
+.login-panel-footer,.login-panel-footer *{ color:rgba(255,255,255,.6) !important; }
+.login-logo-badge{ background:rgba(255,255,255,.15) !important; box-shadow:none !important; color:#fff !important; border-radius:14px !important; }
+.login-brand-title{ color:#fff !important; }
+.login-brand-title span{ color:rgba(255,255,255,.75) !important; }
+
+/* --- right: form panel (clean white) --- */
+.login-form-panel{ width:58% !important; background:#FFFFFF !important; padding:48px 42px !important; }
+.admin-login-overlay .login-form-header h3{ color:var(--dark) !important; font-size:1.65rem !important; font-weight:700 !important; }
+.login-form-header p{ color:rgba(16,24,40,.5) !important; }
+.form-group-login label{ color:var(--dark) !important; font-weight:600 !important; }
+.form-group-login label i{ color:var(--accent) !important; }
+.input-icon-wrap input{
+  background:#FFFFFF !important; border:1px solid rgba(16,24,40,.14) !important; color:var(--dark) !important;
+  border-radius:12px !important; padding:13px 42px 13px 15px !important;
+}
+.input-icon-wrap input:focus{ border-color:var(--accent) !important; box-shadow:0 0 0 3px rgba(110,127,78,.12) !important; }
+.input-icon-wrap input::placeholder{ color:rgba(16,24,40,.38) !important; }
+.input-icon-wrap i,.input-icon-wrap button,.toggle-pass-btn{ color:rgba(16,24,40,.42) !important; }
+.login-options-row,.login-options-row *{ color:rgba(16,24,40,.62) !important; }
+.login-options-row .checkmark,.login-options-row input{ accent-color:var(--accent); }
+.login-alert-box{ background:rgba(218,95,60,.1) !important; border:1px solid rgba(218,95,60,.3) !important; color:#B0411F !important; }
+
+/* submit button: solid accent, prominent */
+.btn-login-submit{
+  background:var(--accent) !important; color:#fff !important; border:none !important;
+  border-radius:12px !important; padding:14px !important; font-weight:700 !important; font-size:.95rem !important;
+  box-shadow:0 8px 20px rgba(110,127,78,.3) !important; transition:all .2s ease !important;
+}
+.btn-login-submit:hover{ filter:brightness(.95); box-shadow:0 12px 28px rgba(110,127,78,.42) !important; transform:translateY(-1px); }
+.btn-login-submit .btn-text,.btn-login-submit .btn-text i,.btn-login-submit i{ color:#fff !important; }
+
+@media (max-width:640px){
+  .admin-login-card.admin-login-split{ flex-direction:column !important; max-width:420px !important; }
+  .login-brand-panel,.login-form-panel{ width:100% !important; }
+  .login-brand-panel{ padding:30px !important; }
+  .login-form-panel{ padding:30px !important; }
+}
