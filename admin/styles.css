@@ -6484,3 +6484,73 @@ input,.form-control,textarea{ border-radius:12px !important; background:var(--su
   border-radius:10px !important; font-weight:600 !important; box-shadow:none !important;
 }
 .btn-primary:hover,.btn-save:hover,.btn-confirm:hover{ filter:brightness(.94); }
+
+/* ===========================================================================
+   FIXES — dark file box, low-contrast preview overlays, invisible-icon buttons
+   =========================================================================== */
+/* file upload box -> light to match the modal */
+.custom-file-upload-box{
+  background:var(--bg) !important; border:1px dashed rgba(16,24,40,.22) !important;
+  border-radius:12px !important; box-shadow:none !important;
+}
+.custom-file-upload-box:hover{ border-color:var(--accent) !important; background:rgba(110,127,78,.05) !important; box-shadow:none !important; }
+.custom-file-upload-box span{ color:rgba(16,24,40,.6) !important; }
+.btn-upload-browse{ background:var(--accent) !important; color:#fff !important; border-radius:8px !important; box-shadow:none !important; }
+.btn-upload-browse:hover{ transform:none !important; filter:brightness(.94); box-shadow:none !important; }
+
+/* preview overlays -> dark scrim + white text (readable on any photo) */
+.preview-tag{
+  background:rgba(16,24,40,.55) !important; color:#fff !important; border:none !important;
+  backdrop-filter:blur(4px) !important; border-radius:9999px !important;
+}
+.live-preview-badge-overlay{
+  background:linear-gradient(to top, rgba(16,24,40,.85), rgba(16,24,40,.35)) !important;
+  border:none !important; box-shadow:none !important;
+}
+.live-preview-badge-overlay strong,.live-preview-badge-overlay span{ color:#fff !important; }
+
+/* row action buttons -> consistent circles, visible icons */
+.order-action-btns,.action-btns,.header-action-btns{ display:inline-flex; gap:6px; align-items:center; }
+.order-btn,.action-btn,.cat-action-btn,.dish-action-btn{
+  width:34px !important; height:34px !important; border-radius:50% !important; padding:0 !important;
+  display:inline-flex !important; align-items:center; justify-content:center;
+  background:var(--surface) !important; border:1px solid var(--border) !important; box-shadow:var(--shadow-soft) !important;
+  color:var(--dark) !important; cursor:pointer; transition:all .18s ease;
+}
+.order-btn:hover,.action-btn:hover,.cat-action-btn:hover,.dish-action-btn:hover{ border-color:var(--accent) !important; }
+.order-btn i,.action-btn i{ font-size:13px !important; }
+/* confirm / status button = green filled, WHITE check (was olive-on-olive) */
+.cycle-status-btn{ background:var(--c1) !important; border-color:var(--c1) !important; }
+.cycle-status-btn i,.cycle-status-btn i.text-green{ color:#fff !important; }
+.cycle-status-btn:hover{ filter:brightness(.94); border-color:var(--c1) !important; }
+/* whatsapp icon = brand green */
+.order-btn .fa-whatsapp,.action-btn .fa-whatsapp,a[href*="wa.me"] .fa-whatsapp{ color:#25D366 !important; }
+/* delete = coral/red affordance on hover */
+.delete-order-btn:hover,.delete-btn:hover,.delete-dish-btn:hover,.delete-cat-btn:hover{
+  background:rgba(218,95,60,.12) !important; border-color:var(--c5) !important;
+}
+.delete-order-btn:hover i,.delete-btn:hover i,.delete-dish-btn:hover i,.delete-cat-btn:hover i{ color:var(--c5) !important; }
+
+/* resize handle off on modal textareas */
+.modal-body-dark textarea,.creative-dish-modal textarea,textarea{ resize:none !important; }
+
+/* ===========================================================================
+   RECETTES dish cards (.recipe-card-full) + generic cards -> white, readable
+   =========================================================================== */
+.recipe-card-full,.card-block,.side-card{
+  background:var(--surface) !important; border:1px solid var(--border) !important;
+  border-radius:18px !important; box-shadow:var(--shadow-card) !important; overflow:hidden;
+}
+.recipe-card-full:hover{ box-shadow:var(--shadow-hover) !important; transform:translateY(-2px); }
+.recipe-card-full img{ border-radius:0 !important; }
+.recipe-card-full .card-info{ padding:16px !important; }
+.recipe-card-full h3{ color:var(--dark) !important; font-family:var(--font-heading) !important; font-size:16px !important; margin:0 0 4px !important; }
+.recipe-card-full p{ color:rgba(16,24,40,.55) !important; font-size:13px !important; line-height:1.5; }
+.recipe-card-full .card-footer-meta span{ color:rgba(16,24,40,.55) !important; }
+.recipe-card-full .card-footer-meta strong{ color:var(--accent) !important; font-family:var(--font-heading) !important; }
+.recipe-card-full .cat-badge{
+  background:var(--c1-bg) !important; color:var(--c1) !important; border-radius:9999px !important;
+  border:none !important; font-weight:700; font-size:11px;
+}
+/* edit/delete buttons that sit over the photo get a solid white chip */
+.card-action-bar .dish-action-btn{ background:rgba(255,255,255,.92) !important; backdrop-filter:blur(4px); }
