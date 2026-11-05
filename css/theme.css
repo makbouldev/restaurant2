@@ -846,3 +846,10 @@ h1,h2{ line-height:1.1 !important; }
 }
 .header-brand-text span{ color:var(--accent) !important; font-weight:700 !important; }
 @media (max-width:575px){ .header-brand-text{ font-size:17px !important; } #logo img{ height:42px !important; } }
+
+/* guarantee the header brand text is visible next to the logo */
+#logo{ float:left; width:auto !important; text-align:left !important; overflow:visible !important; }
+#logo a{ display:inline-flex !important; align-items:center !important; gap:11px !important; font-size:21px !important; overflow:visible !important; }
+.header-left-brand{ overflow:visible !important; }
+.header-brand-text{ display:inline-block !important; visibility:visible !important; opacity:1 !important; color:var(--dark) !important; font-size:21px !important; }
+.header-brand-text span{ color:var(--accent) !important; }
