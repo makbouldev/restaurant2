@@ -816,3 +816,17 @@ h1,h2{ line-height:1.1 !important; }
 }
 .search-bar-action-btn:hover{ background:var(--accent) !important; }
 .search-bar-action-btn i{ margin-right:6px; }
+
+/* ===========================================================================
+   Dish quick-view lightbox — readable price tag + square to match the site
+   =========================================================================== */
+.lightbox-card-wrapper{ border-radius:4px !important; }
+.lightbox-image-container,.lightbox-image-container img{ border-radius:0 !important; }
+.lightbox-price-tag{
+  background:var(--accent) !important; color:#FFFFFF !important;
+  border-radius:3px !important; padding:7px 15px !important; font-weight:800 !important;
+}
+.lightbox-category-badge{ border-radius:3px !important; background:var(--dark) !important; color:var(--light) !important; }
+.lightbox-cart-btn{ background:var(--accent) !important; color:#FFFFFF !important; border-radius:3px !important; background-image:none !important; }
+.lightbox-cart-btn:hover{ background:var(--dark) !important; }
+.lightbox-close-btn{ border-radius:3px !important; }
