@@ -6804,3 +6804,15 @@ input:focus,select:focus,textarea:focus,.form-control:focus{
 .cat-action-overlay .edit-cat-btn:hover i{ color:#fff !important; }
 .cat-action-overlay .delete-cat-btn:hover{ background:var(--c5) !important; border-color:var(--c5) !important; transform:scale(1.06); }
 .cat-action-overlay .delete-cat-btn:hover i{ color:#fff !important; }
+
+/* ===========================================================================
+   WEVTEX brand logo (sidebar + login)
+   =========================================================================== */
+.brand-logo{ display:flex; align-items:center; gap:10px; }
+.brand-logo-img{ height:42px; width:auto; object-fit:contain; display:block; }
+.login-logo-img-box{
+  background:#fff !important; padding:10px 12px !important; border-radius:14px !important;
+  width:auto !important; height:auto !important; display:inline-flex !important; align-items:center; justify-content:center;
+  box-shadow:0 6px 16px rgba(0,0,0,.18) !important; margin-bottom:16px;
+}
+.login-logo-img-box img{ height:40px; width:auto; object-fit:contain; display:block; }
