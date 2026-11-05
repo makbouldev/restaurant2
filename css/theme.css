@@ -789,3 +789,6 @@ h1,h2{ line-height:1.1 !important; }
 .hero_single .cart-steps-nav .cart-step.active{ color:var(--light) !important; }
 .hero_single .cart-steps-nav .cart-step.active .cart-step-num{ background:var(--accent) !important; color:#fff !important; border-color:var(--accent) !important; }
 .hero_single .cart-steps-nav .cart-step-num{ border-color:rgba(245,239,228,.3) !important; }
+
+/* Wevtex logo in public header — size the near-square mark correctly */
+#logo img,#header_menu img,.header-left-brand #logo img{ height:40px !important; width:auto !important; }
