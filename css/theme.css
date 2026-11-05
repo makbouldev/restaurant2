@@ -798,7 +798,7 @@ h1,h2{ line-height:1.1 !important; }
    =========================================================================== */
 .search-filter-wrapper{
   display:flex !important; align-items:center; gap:10px;
-  background:#FFFFFF !important; border:1px solid var(--border-ink) !important;
+  background:var(--light) !important; border:1.5px solid var(--border-ink) !important;
   border-radius:2px !important; box-shadow:none !important;
   padding:6px 6px 6px 16px !important; max-width:720px; width:100%;
 }
@@ -830,3 +830,19 @@ h1,h2{ line-height:1.1 !important; }
 .lightbox-cart-btn{ background:var(--accent) !important; color:#FFFFFF !important; border-radius:3px !important; background-image:none !important; }
 .lightbox-cart-btn:hover{ background:var(--dark) !important; }
 .lightbox-close-btn{ border-radius:3px !important; }
+
+/* lightbox description was dark-on-dark (invisible) -> light muted on the dark modal */
+.lightbox-content-footer p,#lightboxModalDesc{ color:var(--muted-cream) !important; }
+.lightbox-content-footer h3,.lightbox-header-row h3{ color:var(--light) !important; }
+
+/* ===========================================================================
+   Public header brand — larger wevtex logo + "Foores Restaurant" lockup
+   =========================================================================== */
+#logo a{ display:inline-flex !important; align-items:center; gap:11px; text-decoration:none !important; }
+#logo img,#header_menu img,.header-left-brand #logo img{ height:52px !important; width:auto !important; }
+.header-brand-text{
+  font-family:var(--font-heading) !important; font-weight:700 !important; font-size:21px !important;
+  color:var(--dark) !important; line-height:1; letter-spacing:-.01em; white-space:nowrap;
+}
+.header-brand-text span{ color:var(--accent) !important; font-weight:700 !important; }
+@media (max-width:575px){ .header-brand-text{ font-size:17px !important; } #logo img{ height:42px !important; } }
