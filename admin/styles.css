@@ -6816,3 +6816,10 @@ input:focus,select:focus,textarea:focus,.form-control:focus{
   box-shadow:0 6px 16px rgba(0,0,0,.18) !important; margin-bottom:16px;
 }
 .login-logo-img-box img{ height:40px; width:auto; object-fit:contain; display:block; }
+
+/* brand text label next to the Wevtex logo */
+.brand-logo-text{
+  font-family:var(--font-heading) !important; font-weight:700 !important; font-size:16px !important;
+  color:var(--dark) !important; line-height:1.1; letter-spacing:-.01em; white-space:nowrap;
+}
+.brand-logo-text span{ color:var(--accent) !important; font-weight:700 !important; }
