@@ -792,3 +792,27 @@ h1,h2{ line-height:1.1 !important; }
 
 /* Wevtex logo in public header — size the near-square mark correctly */
 #logo img,#header_menu img,.header-left-brand #logo img{ height:40px !important; width:auto !important; }
+
+/* ===========================================================================
+   MENU search bar (.search-filter-wrapper) — proper outlined field
+   =========================================================================== */
+.search-filter-wrapper{
+  display:flex !important; align-items:center; gap:10px;
+  background:#FFFFFF !important; border:1px solid var(--border-ink) !important;
+  border-radius:2px !important; box-shadow:none !important;
+  padding:6px 6px 6px 16px !important; max-width:720px; width:100%;
+}
+.search-filter-wrapper:focus-within{ border-color:var(--accent) !important; }
+.search-filter-wrapper .search-bar-icon{ color:var(--muted-ink) !important; font-size:18px; flex-shrink:0; }
+#creativeMenuSearchInput{
+  flex:1 1 auto; min-width:0; border:0 !important; background:transparent !important;
+  outline:none !important; box-shadow:none !important; padding:10px 0 !important; color:var(--dark) !important;
+}
+#creativeMenuSearchInput::placeholder{ color:var(--muted-ink) !important; }
+.search-bar-action-btn{
+  flex-shrink:0; background:var(--dark) !important; color:var(--light) !important;
+  border:none !important; border-radius:2px !important; padding:11px 20px !important;
+  font-weight:700; text-transform:uppercase; letter-spacing:.08em; cursor:pointer; transition:background .25s var(--ease);
+}
+.search-bar-action-btn:hover{ background:var(--accent) !important; }
+.search-bar-action-btn i{ margin-right:6px; }
