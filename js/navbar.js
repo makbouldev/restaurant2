@@ -60,6 +60,7 @@
             '                    <img src="img/logo_sticky.svg" width="140" height="35" alt="" class="logo_normal">' +
             '                    <img src="img/logo_sticky.svg" width="140" height="35" alt="" class="logo_sticky">' +
             '                </a>' +
+            '                <span class="header-brand-text">Foores <span>Restaurant</span></span>' +
             '            </div>' +
             '        </div>' +
             '        <nav class="main-menu">' +

@@ -853,3 +853,9 @@ h1,h2{ line-height:1.1 !important; }
 .header-left-brand{ overflow:visible !important; }
 .header-brand-text{ display:inline-block !important; visibility:visible !important; opacity:1 !important; color:var(--dark) !important; font-size:21px !important; }
 .header-brand-text span{ color:var(--accent) !important; }
+
+/* lay out logo + brand text side by side */
+#logo{ display:inline-flex !important; align-items:center !important; gap:11px !important; float:left; }
+
+/* remove the gap between header and hero (main had 25px top padding) */
+main{ padding-top:0 !important; }
