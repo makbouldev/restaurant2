@@ -1,3 +1,26 @@
+/* Chart empty/zero-state (visual only) — draws a muted icon + message when all data is 0 */
+if (typeof Chart !== 'undefined') {
+  Chart.register({
+    id: 'emptyState',
+    afterDraw: function (chart) {
+      var ds = chart.data.datasets || [];
+      var hasData = ds.some(function (d) { return (d.data || []).some(function (v) { return Number(v) > 0; }); });
+      if (hasData) return;
+      var ca = chart.chartArea; if (!ca) return;
+      var ctx = chart.ctx;
+      var cx = (ca.left + ca.right) / 2, cy = (ca.top + ca.bottom) / 2;
+      ctx.save();
+      ctx.strokeStyle = '#CFC8BC'; ctx.lineWidth = 2; ctx.lineCap = 'round';
+      ctx.beginPath(); ctx.arc(cx, cy - 14, 15, 0, Math.PI * 2); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(cx - 10, cy - 24); ctx.lineTo(cx + 10, cy - 4); ctx.stroke();
+      ctx.fillStyle = '#A89F92'; ctx.textAlign = 'center';
+      ctx.font = "600 13px Mulish, system-ui, -apple-system, sans-serif";
+      ctx.fillText('Aucune donnée pour cette période', cx, cy + 20);
+      ctx.restore();
+    }
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     /* ==========================================================================
        0. ADMIN AUTHENTICATION GATE & SESSION CONTROLLER
@@ -301,7 +324,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             type: 'bar',
                             label: 'Tables Réservées',
                             data: [0, 0, 0, 0, 0, 0, 0],
-                            backgroundColor: '#5A9A3C',
+                            backgroundColor: '#72B800',
                             borderRadius: 4,
                             borderSkipped: 'bottom',
                             barThickness: 22,
@@ -363,21 +386,21 @@ document.addEventListener('DOMContentLoaded', () => {
                             type: 'line',
                             label: 'Recettes (DH)',
                             data: [0, 0, 0, 0, 0, 0, 0],
-                            borderColor: '#DA5F3C',
+                            borderColor: '#F1AC18',
                             borderWidth: 2,
                             fill: true,
                             backgroundColor: function(ctx){
                                 const chart = ctx.chart; const area = chart.chartArea;
-                                if (!area) return 'rgba(218,95,60,0.12)';
+                                if (!area) return 'rgba(241,172,24,0.12)';
                                 const g = chart.ctx.createLinearGradient(0, area.top, 0, area.bottom);
-                                g.addColorStop(0, 'rgba(218,95,60,0.24)');
-                                g.addColorStop(1, 'rgba(218,95,60,0.01)');
+                                g.addColorStop(0, 'rgba(241,172,24,0.26)');
+                                g.addColorStop(1, 'rgba(241,172,24,0.01)');
                                 return g;
                             },
                             pointRadius: 3,
                             pointHoverRadius: 5,
                             pointBackgroundColor: '#F3EEE3',
-                            pointBorderColor: '#DA5F3C',
+                            pointBorderColor: '#F1AC18',
                             pointBorderWidth: 2,
                             tension: 0.4,
                             yAxisID: 'y1',
@@ -387,8 +410,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             type: 'bar',
                             label: 'Commandes',
                             data: [0, 0, 0, 0, 0, 0, 0],
-                            backgroundColor: '#5A9A3C',
-                            hoverBackgroundColor: '#4C8A32',
+                            backgroundColor: '#72B800',
+                            hoverBackgroundColor: '#5fa000',
                             borderRadius: 4,
                             borderSkipped: 'bottom',
                             barThickness: 16,

@@ -6823,3 +6823,449 @@ input:focus,select:focus,textarea:focus,.form-control:focus{
   color:var(--dark) !important; line-height:1.1; letter-spacing:-.01em; white-space:nowrap;
 }
 .brand-logo-text span{ color:var(--accent) !important; font-weight:700 !important; }
+
+/* ===========================================================================
+   LIGHT LUXURY 2026 — bright canvas + dark plum sidebar + gold accent
+   =========================================================================== */
+:root{
+  --bg:#F2EEE6; --bg-main:#F2EEE6;
+  --surface:#FFFFFF; --surface-2:#FBF8F2; --bg-card:#FFFFFF; --bg-card-hover:#FBF8F2; --bg-input:#FFFFFF; --bg-sidebar:#2A1324;
+  --sidebar:#2A1324;
+  /* Admin typeface — Plus Jakarta Sans for the whole dashboard (mockup target) */
+  --font-heading:'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body:'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family:'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --border:rgba(20,16,12,.07); --border-color:rgba(20,16,12,.07);
+  --text:#1C1A17; --text-dim:#8A8176; --text-onDark:#F7F3EC;
+  --gold:#F1AC18; --amber:#E7A545; --orange:#F25B0A; --red:#CC010A; --green:#72B800; --green-2:#189E01; --olive:#79A33D; --plum:#883A61;
+  --accent:#883A61;          /* plum = readable accent for text/links/borders */
+  --dark:#1C1A17; --light:#FFFFFF; --muted-ink:rgba(28,26,23,.55);
+  /* data-viz: gold, green, orange, plum, olive */
+  --c1:#F1AC18; --c2:#72B800; --c3:#F25B0A; --c4:#883A61; --c5:#79A33D;
+  --c1-bg:rgba(241,172,24,.16); --c2-bg:rgba(114,184,0,.14); --c3-bg:rgba(242,91,10,.14); --c4-bg:rgba(136,58,97,.14); --c5-bg:rgba(121,163,61,.14);
+  --shadow-card:0 1px 2px rgba(20,16,12,.04), 0 8px 24px rgba(20,16,12,.06);
+  --shadow-soft:0 1px 3px rgba(20,16,12,.05);
+  --shadow-hover:0 2px 8px rgba(20,16,12,.06), 0 16px 36px rgba(20,16,12,.12);
+}
+body,.app-container{ background:var(--bg) !important; color:var(--text) !important; }
+
+/* ---------- SIDEBAR: deep plum anchor ---------- */
+.sidebar,.admin-sidebar,.app-sidebar{ background:var(--sidebar) !important; border-right:none !important; box-shadow:none !important; }
+.sidebar .nav-section-title,.nav-section-title{ color:rgba(247,243,236,.42) !important; }
+.sidebar-menu a,.sidebar-menu li a,.nav-link{ color:rgba(247,243,236,.82) !important; border-radius:12px !important; font-weight:600; }
+.sidebar-menu a i,.sidebar-menu a span{ color:inherit !important; }
+.sidebar-menu a:hover{ background:rgba(255,255,255,.06) !important; color:#fff !important; }
+.sidebar-menu a.active,.sidebar-menu li.active>a,.nav-link.active{
+  background:linear-gradient(135deg,var(--gold),var(--amber)) !important; color:#241017 !important;
+  box-shadow:0 8px 20px rgba(241,172,24,.32) !important;
+}
+.sidebar-menu a.active::before,.nav-link.active::before{ display:none !important; }
+.sidebar-menu a.active i,.sidebar-menu a.active span{ color:#241017 !important; }
+/* logo + brand on dark sidebar */
+.brand-logo-img{ background:#F7F3EC !important; border-radius:9px !important; padding:5px 7px !important; }
+.brand-logo-text{ color:var(--text-onDark) !important; }
+.brand-logo-text span{ color:var(--gold) !important; }
+/* voir le site client */
+.sidebar-site-btn,.sidebar-site-link-wrapper a{
+  background:transparent !important; border:1px solid rgba(247,243,236,.22) !important; color:var(--text-onDark) !important; border-radius:12px !important;
+}
+.sidebar-site-btn:hover{ background:rgba(255,255,255,.08) !important; border-color:rgba(247,243,236,.4) !important; }
+/* user card at bottom */
+.sidebar-user-card{ background:rgba(255,255,255,.055) !important; border:1px solid rgba(247,243,236,.1) !important; }
+.sidebar-user-card *,.logout-btn-sidebar{ color:var(--text-onDark) !important; }
+.logout-btn-sidebar{ background:rgba(255,255,255,.08) !important; border-radius:10px !important; }
+
+/* ---------- GOLD primary system ---------- */
+.btn-primary,.btn-save,.btn-confirm,.btn-add,button.primary,.btn-login-submit{
+  background:linear-gradient(135deg,var(--gold),var(--amber)) !important; color:#241017 !important; border:none !important;
+  box-shadow:0 6px 16px rgba(241,172,24,.28) !important; font-weight:700 !important;
+}
+.btn-primary:hover,.btn-save:hover,.btn-confirm:hover{ filter:brightness(1.03); box-shadow:0 10px 24px rgba(241,172,24,.4) !important; }
+/* active period / filter pill = gold */
+.date-filter-btn.active{ background:linear-gradient(135deg,var(--gold),var(--amber)) !important; color:#241017 !important; box-shadow:0 4px 12px rgba(241,172,24,.28) !important; }
+.cat-pill-btn.active,.filter-chip.active,.pos-cat-pill.active{ background:var(--gold) !important; color:#241017 !important; border-color:var(--gold) !important; }
+/* progress / meters → gold */
+.sales-progress,.top-dishes-leaderboard .sales-progress{ background:linear-gradient(90deg,var(--gold),var(--amber)) !important; }
+.leaderboard-item.rank-1 .sales-progress{ background:var(--gold) !important; }
+.leaderboard-item.rank-2 .sales-progress{ background:var(--green) !important; }
+.leaderboard-item.rank-3 .sales-progress{ background:var(--orange) !important; }
+/* rank medals */
+.rank-badge.rank-gold{ background:var(--c1-bg) !important; color:#9a6a05 !important; }
+.rank-badge.rank-saffron{ background:var(--c2-bg) !important; color:#3f6b00 !important; }
+.rank-badge.rank-peach{ background:var(--c3-bg) !important; color:#a23c05 !important; }
+
+/* ---------- HERO banner (Plat du jour) ---------- */
+.dash-hero-banner{
+  display:flex; align-items:center; justify-content:space-between; gap:20px;
+  background:linear-gradient(120deg,#2A1324 0%, #5A2340 55%, #883A61 100%);
+  border-radius:22px !important; padding:28px 32px; margin-bottom:22px; overflow:hidden; position:relative;
+  box-shadow:0 14px 40px rgba(42,19,36,.3);
+}
+.dash-hero-content{ position:relative; z-index:2; max-width:62%; }
+.dash-hero-eyebrow{ font-size:12px; text-transform:uppercase; letter-spacing:.16em; font-weight:700; color:var(--gold); }
+.dash-hero-title{ font-family:var(--font-heading) !important; font-size:30px !important; font-weight:700 !important; color:#F7F3EC !important; margin:6px 0 8px !important; }
+.dash-hero-sub{ color:rgba(247,243,236,.78); font-size:14px; max-width:420px; margin-bottom:16px; }
+.dash-hero-cta{
+  display:inline-flex; align-items:center; gap:8px; background:linear-gradient(135deg,var(--gold),var(--amber));
+  color:#241017 !important; font-weight:700; padding:11px 22px; border-radius:999px; text-decoration:none;
+  box-shadow:0 8px 20px rgba(241,172,24,.35); transition:all .2s var(--ease-out);
+}
+.dash-hero-cta:hover{ filter:brightness(1.04); transform:translateY(-1px); }
+.dash-hero-art{ flex-shrink:0; width:180px; height:140px; }
+.dash-hero-art img{ width:100%; height:100%; object-fit:cover; border-radius:18px; box-shadow:0 10px 26px rgba(0,0,0,.3); }
+.dash-hero-banner::after{ content:""; position:absolute; right:-60px; top:-40px; width:260px; height:260px; background:radial-gradient(circle,rgba(241,172,24,.18),transparent 70%); }
+@media (max-width:820px){ .dash-hero-art{ display:none; } .dash-hero-content{ max-width:100%; } }
+
+/* KPI icon contrast: darken the gold/olive icons on their light tint */
+[data-kpi-type="orders"] .stat-icon{ color:#B07D06 !important; }
+.stat-card:not([data-kpi-type]) .stat-icon{ background:var(--c4-bg) !important; color:var(--plum) !important; }
+
+/* channel breakdown: sur place=green, livraison=orange, à emporter=plum */
+.channel-stat-box:nth-child(1) .channel-dot,.sub-channel:nth-child(1) .dot,.channel-item:nth-child(1) .dot{ background:var(--green) !important; }
+.channel-stat-box:nth-child(2) .channel-dot,.sub-channel:nth-child(2) .dot,.channel-item:nth-child(2) .dot{ background:var(--orange) !important; }
+.channel-stat-box:nth-child(3) .channel-dot,.sub-channel:nth-child(3) .dot,.channel-item:nth-child(3) .dot{ background:var(--plum) !important; }
+
+/* prices / accent text stays plum (readable); eyebrows plum */
+.price,[class*="price"],.stat-eyebrow,.view-tagline{ color:var(--plum) !important; }
+
+/* ===========================================================================
+   FIX — sidebar contrast on dark plum (icons + user card) + channel colors
+   =========================================================================== */
+.sidebar-menu li a i{ color:rgba(247,243,236,.80) !important; }
+.sidebar-menu li a:hover i{ color:#FFFFFF !important; }
+.sidebar-menu li.active a i,.sidebar-menu li.active > a i{ color:#241017 !important; }
+.sidebar-menu li a span{ color:inherit !important; }
+.sidebar-user-card .user-name,.sidebar-user-card .user-details strong{ color:var(--text-onDark) !important; font-weight:700 !important; }
+.sidebar-user-card .user-status,.sidebar-user-card .user-details span,.sidebar-user-card .user-details small{ color:rgba(247,243,236,.62) !important; }
+.sidebar-user-card .user-avatar-initials{ background:rgba(255,255,255,.14) !important; color:var(--text-onDark) !important; }
+.sidebar-user-card .logout-btn-sidebar,.sidebar-user-card .logout-btn-sidebar i{ color:var(--text-onDark) !important; }
+
+/* channel dots per brief: sur place=green, livraison=orange, à emporter=plum */
+.channel-dot.dot-olive{ background:var(--green) !important; }
+.channel-dot.dot-saffron{ background:var(--orange) !important; }
+.channel-dot.dot-gold,.channel-dot.dot-plum,.channel-dot.dot-purple{ background:var(--plum) !important; }
+.channel-row:nth-of-type(3) .channel-dot{ background:var(--plum) !important; }
+
+/* ===========================================================================
+   DASHBOARD REFINEMENTS — spacing, trend pills, hero bleed, hover glow, donut
+   =========================================================================== */
+/* 2. tighter vertical spacing */
+.stat-card{ padding:16px 18px !important; gap:10px !important; }
+.stat-card .stat-data{ margin-top:2px; }
+.stat-number{ font-size:32px !important; }
+.featured-stats-card,.top-dishes-card{ padding:20px !important; }
+.order-kpi-card{ padding:16px !important; }
+.stat-cards-grid{ gap:16px !important; margin-bottom:18px !important; }
+.kpi-header-bar{ margin-bottom:16px !important; }
+
+/* 3. KPI trend pills + palette */
+.stat-badge{
+  display:inline-flex !important; align-items:center; gap:5px; padding:3px 9px !important;
+  border-radius:999px !important; font-size:11.5px !important; font-weight:700 !important;
+  background:var(--c2-bg) !important; color:#3F6B00 !important;
+}
+.stat-badge i{ color:inherit !important; }
+.stat-badge.trend-down,[data-trend="down"] .stat-badge{ background:rgba(204,1,10,.12) !important; color:#CC010A !important; }
+/* tinted chips */
+.cat-pill-btn,.date-filter-btn,.pos-cat-pill,.filter-chip{ background:var(--surface) !important; border:1px solid var(--border) !important; border-radius:999px !important; }
+
+/* 4. hero — bleed the dish image to the card edge + soft glow */
+.dash-hero-banner{ padding:0 !important; overflow:hidden !important; align-items:stretch !important; }
+.dash-hero-content{ padding:28px 32px !important; display:flex; flex-direction:column; justify-content:center; max-width:60% !important; }
+.dash-hero-art{ width:320px !important; height:auto !important; align-self:stretch !important; margin:0 !important; position:relative; flex-shrink:0; }
+.dash-hero-art img{ width:100% !important; height:100% !important; object-fit:cover !important; border-radius:0 !important; box-shadow:none !important; }
+.dash-hero-art::before{ content:""; position:absolute; inset:0; z-index:1; box-shadow:inset 70px 0 60px -30px #3A1A2E; pointer-events:none; }
+.dash-hero-art::after{ content:""; position:absolute; left:-10%; top:50%; transform:translateY(-50%); width:70%; height:120%; background:radial-gradient(ellipse,rgba(241,172,24,.28),transparent 60%); z-index:0; pointer-events:none; }
+@media (max-width:820px){ .dash-hero-art{ display:none; } .dash-hero-content{ max-width:100% !important; } }
+
+/* 5. hover-lift + gold glow */
+.stat-card,.featured-stats-card,.top-dishes-card,.order-kpi-card,.cat-card-large,.recipe-card-full{
+  transition:transform .25s var(--ease-out), box-shadow .25s var(--ease-out) !important;
+}
+.stat-card:hover,.featured-stats-card:hover,.top-dishes-card:hover,.order-kpi-card:hover{ transform:translateY(-3px) !important; box-shadow:var(--shadow-hover) !important; }
+.sidebar-menu li.active a,.sidebar-menu li.active>a{ box-shadow:0 8px 24px rgba(241,172,24,.42) !important; }
+.btn-primary,.btn-save,.btn-confirm,.dash-hero-cta,.date-filter-btn.active{ box-shadow:0 8px 20px rgba(241,172,24,.35) !important; }
+
+/* colored channel stacked bar (green/orange/plum) */
+.channel-multi-bar{ height:12px !important; border-radius:999px !important; overflow:hidden; background:rgba(20,16,12,.06) !important; }
+.channel-bar-seg.seg-olive{ background:var(--green) !important; }
+.channel-bar-seg.seg-saffron{ background:var(--orange) !important; }
+.channel-bar-seg.seg-gold,.channel-bar-seg.seg-plum{ background:var(--plum) !important; }
+
+/* decorative channel donut */
+.channel-donut{ width:92px; height:92px; border-radius:50%;
+  background:conic-gradient(var(--green) 0 34%, var(--orange) 34% 62%, var(--plum) 62% 100%);
+  -webkit-mask:radial-gradient(circle 28px at center, transparent 98%, #000 100%);
+          mask:radial-gradient(circle 28px at center, transparent 98%, #000 100%);
+  flex-shrink:0; opacity:.95;
+}
+.channel-donut-wrap{ display:flex; align-items:center; gap:16px; margin:4px 0 14px; }
+.channel-donut-legend{ display:flex; flex-direction:column; gap:6px; font-size:12px; color:var(--text-dim); }
+.channel-donut-legend span b{ color:var(--text); font-weight:700; }
+.channel-donut-dot{ display:inline-block; width:9px; height:9px; border-radius:50%; margin-right:6px; vertical-align:middle; }
+
+/* fix: sidebar hover kept text dark (invisible) — force light on hover */
+.sidebar-menu li a:hover{ background-color:rgba(255,255,255,.06) !important; color:#FFFFFF !important; }
+.sidebar-menu li a:hover span,.sidebar-menu li a:hover i{ color:#FFFFFF !important; }
+/* active item keeps dark text on its gold pill, even on hover */
+.sidebar-menu li.active a:hover,.sidebar-menu li.active > a:hover{
+  background:linear-gradient(135deg,var(--gold),var(--amber)) !important; color:#241017 !important;
+}
+.sidebar-menu li.active a:hover span,.sidebar-menu li.active a:hover i{ color:#241017 !important; }
+
+/* fix: "Voir le site client" keeps light text on hover */
+.sidebar-site-btn,.sidebar-site-link-wrapper a,
+.sidebar-site-btn:hover,.sidebar-site-link-wrapper a:hover{ color:var(--text-onDark) !important; }
+.sidebar-site-btn i,.sidebar-site-btn span,
+.sidebar-site-btn:hover i,.sidebar-site-btn:hover span{ color:var(--text-onDark) !important; }
+.sidebar-site-btn:hover{ background:rgba(255,255,255,.1) !important; border-color:rgba(247,243,236,.45) !important; }
+
+/* ===========================================================================
+   MATCH MOCKUP (Design cible) — solid gradient icon chips + colored accent bars
+   Ports the target mockup's polished KPI look onto the real class names.
+   Styling only: no layout/structure/logic changes.
+   =========================================================================== */
+
+/* gradient tokens */
+:root{
+  --grad-gold:linear-gradient(135deg,#F1AC18,#E7A545);
+  --grad-green:linear-gradient(135deg,#72B800,#189E01);
+  --grad-orange:linear-gradient(135deg,#F25B0A,#D94A05);
+  --grad-plum:linear-gradient(135deg,#883A61,#A53E74);
+}
+
+/* ---- Dashboard KPI stat cards: left accent bar + solid gradient chip ---- */
+.stat-cards-grid .stat-card{ position:relative !important; overflow:hidden !important; }
+.stat-cards-grid .stat-card::before{
+  content:"" !important; position:absolute !important; left:0; top:0; bottom:0;
+  width:5px !important; border-radius:0 6px 6px 0 !important; display:block !important;
+}
+.stat-card[data-kpi-type="orders"]::before{ background:var(--gold) !important; }
+.stat-card[data-kpi-type="reservations"]::before{ background:var(--green) !important; }
+.stat-card[data-kpi-type="revenue"]::before{ background:var(--orange) !important; }
+.stat-card[data-kpi-type="avgTicket"]::before{ background:var(--plum) !important; }
+
+/* solid gradient chip, white glyph */
+.stat-cards-grid .stat-icon{
+  color:#fff !important; border:none !important;
+  box-shadow:0 6px 16px rgba(20,16,12,.14) !important;
+}
+.stat-card[data-kpi-type="orders"] .stat-icon{ background:var(--grad-gold) !important; color:#fff !important; }
+.stat-card[data-kpi-type="reservations"] .stat-icon{ background:var(--grad-green) !important; color:#fff !important; }
+.stat-card[data-kpi-type="revenue"] .stat-icon{ background:var(--grad-orange) !important; color:#fff !important; }
+.stat-card[data-kpi-type="avgTicket"] .stat-icon{ background:var(--grad-plum) !important; color:#fff !important; }
+
+/* ---- Orders / Reservations mini-KPI cards: solid gradient chip, white glyph ---- */
+.order-kpi-card .kpi-icon{ color:#fff !important; border:none !important; box-shadow:0 6px 16px rgba(20,16,12,.14) !important; }
+.pending-card   .kpi-icon{ background:var(--grad-orange) !important; color:#fff !important; }
+.online-card    .kpi-icon{ background:var(--grad-green)  !important; color:#fff !important; }
+.kitchen-card   .kpi-icon{ background:var(--grad-gold)   !important; color:#fff !important; }
+.delivery-card  .kpi-icon{ background:var(--grad-plum)   !important; color:#fff !important; }
+/* completed-card differs by page: Terminé (orders)=plum, Confirmées (resa)=gold */
+#view-orders .completed-card .kpi-icon{ background:var(--grad-plum) !important; color:#fff !important; }
+#view-reservations .completed-card .kpi-icon{ background:var(--grad-gold) !important; color:#fff !important; }
+
+/* ---- Settings card header icon boxes: solid gradient, white glyph ---- */
+.settings-header-icon-box{ color:#fff !important; border:none !important; box-shadow:0 6px 16px rgba(20,16,12,.14) !important; }
+.settings-grid-container .settings-card-dark:nth-child(1) .settings-header-icon-box{ background:var(--grad-gold) !important; }
+.settings-header-icon-box.saffron-theme{ background:var(--grad-green) !important; }
+.settings-grid-container .settings-card-dark:nth-child(3) .settings-header-icon-box{ background:var(--grad-plum) !important; }
+.settings-header-icon-box i{ color:#fff !important; }
+
+/* ===========================================================================
+   MODERN POLISH LAYER (v89) — depth, micro-interactions, refined detail
+   Styling only. Keeps all structure, logic, data, French labels, DH.
+   =========================================================================== */
+
+/* --- Smooth, springy transitions on interactive surfaces --- */
+.stat-card,.order-kpi-card,.featured-stats-card,.side-card,.top-dishes-card,
+.cat-card-large,.recipe-card-full,.settings-card-dark,.btn,.btn-green,.glow-btn-sm,
+.cat-pill-btn,.order-pill-btn,.date-filter-btn,.sidebar-menu a,.leaderboard-item,
+.channel-stat-box,.social-test-btn,.toggle-pass-btn{
+  transition:transform .28s cubic-bezier(.22,1,.36,1), box-shadow .28s cubic-bezier(.22,1,.36,1),
+             background-color .2s ease, border-color .2s ease, color .2s ease !important;
+}
+
+/* --- Refined card depth: crisp top highlight + layered soft shadow --- */
+.stat-card,.order-kpi-card,.featured-stats-card,.side-card,.top-dishes-card,
+.cat-card-large,.recipe-card-full,.settings-card-dark{
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.65),
+             0 1px 2px rgba(20,16,12,.04),
+             0 10px 30px rgba(20,16,12,.07) !important;
+}
+
+/* --- Colored hover glow matched to each KPI accent --- */
+.stat-card[data-kpi-type="orders"]:hover{ box-shadow:0 14px 34px rgba(241,172,24,.22), 0 2px 8px rgba(20,16,12,.06) !important; }
+.stat-card[data-kpi-type="reservations"]:hover{ box-shadow:0 14px 34px rgba(114,184,0,.20), 0 2px 8px rgba(20,16,12,.06) !important; }
+.stat-card[data-kpi-type="revenue"]:hover{ box-shadow:0 14px 34px rgba(242,91,10,.20), 0 2px 8px rgba(20,16,12,.06) !important; }
+.stat-card[data-kpi-type="avgTicket"]:hover{ box-shadow:0 14px 34px rgba(136,58,97,.22), 0 2px 8px rgba(20,16,12,.06) !important; }
+.stat-card:hover,.order-kpi-card:hover{ transform:translateY(-4px) !important; }
+
+/* --- Section eyebrow labels become tinted pill chips --- */
+.tag-label,.stat-eyebrow{
+  display:inline-flex !important; align-items:center; gap:6px;
+  background:rgba(136,58,97,.09) !important; color:#883A61 !important;
+  padding:4px 11px !important; border-radius:999px !important;
+  font-size:10.5px !important; font-weight:700 !important; letter-spacing:.12em !important;
+  text-transform:uppercase !important;
+}
+
+/* --- Hero banner: decorative gold glow + soft vignette + shine sweep --- */
+.dash-hero-banner{ isolation:isolate; }
+.dash-hero-banner::after{
+  content:"" !important; position:absolute !important; inset:0 !important; z-index:0 !important;
+  background:radial-gradient(120% 90% at 86% 12%, rgba(241,172,24,.28), transparent 52%),
+            radial-gradient(90% 120% at 0% 100%, rgba(0,0,0,.22), transparent 55%) !important;
+  pointer-events:none !important;
+}
+.dash-hero-content,.dash-hero-art{ position:relative; z-index:1; }
+.dash-hero-art img{ border-radius:18px !important; box-shadow:0 18px 44px rgba(0,0,0,.34) !important; }
+
+/* --- Big numbers: tabular figures for clean alignment --- */
+.stat-number,.order-kpi-card strong,.featured-stat-number,.finance-total-badge strong{
+  font-variant-numeric:tabular-nums !important; letter-spacing:-.01em !important;
+}
+
+/* --- Primary buttons: inset sheen + lift --- */
+.btn-green,.glow-btn-sm,.glow-btn-lg{
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.28), 0 8px 20px rgba(114,184,0,.30) !important;
+}
+.btn-green:hover,.glow-btn-sm:hover,.glow-btn-lg:hover{ transform:translateY(-2px) !important; box-shadow:inset 0 1px 0 rgba(255,255,255,.3), 0 12px 26px rgba(114,184,0,.40) !important; }
+
+/* --- Active filter pills: soft gold glow + gentle pop --- */
+.cat-pill-btn.active,.order-pill-btn.active,.date-filter-btn.active{
+  box-shadow:0 6px 16px rgba(241,172,24,.34) !important;
+}
+
+/* --- Tables: subtle row hover wash + sticky header --- */
+.creative-orders-table thead th{ position:sticky; top:0; z-index:2; background:#FBF8F2 !important; }
+.creative-orders-table tbody tr{ transition:background-color .18s ease; }
+.creative-orders-table tbody tr:hover{ background:rgba(241,172,24,.05) !important; }
+
+/* --- Inputs: modern focus ring --- */
+.form-group-dark input:focus,.form-group-dark textarea:focus,
+.social-field:focus,.creative-search-box input:focus,.recipe-search-box input:focus{
+  border-color:#F1AC18 !important;
+  box-shadow:0 0 0 3px rgba(241,172,24,.16) !important; outline:none !important;
+}
+
+/* --- Accessible keyboard focus ring --- */
+.btn:focus-visible,.btn-green:focus-visible,.glow-btn-sm:focus-visible,
+.cat-pill-btn:focus-visible,.order-pill-btn:focus-visible,.date-filter-btn:focus-visible,
+.sidebar-menu a:focus-visible{ outline:2px solid #F1AC18 !important; outline-offset:2px !important; }
+
+/* --- Leaderboard row hover --- */
+.leaderboard-item:hover{ background:rgba(241,172,24,.05) !important; border-radius:12px; }
+
+/* --- Refined thin scrollbars (plum) --- */
+*{ scrollbar-width:thin; scrollbar-color:rgba(136,58,97,.32) transparent; }
+::-webkit-scrollbar{ width:10px; height:10px; }
+::-webkit-scrollbar-track{ background:transparent; }
+::-webkit-scrollbar-thumb{ background:rgba(136,58,97,.30); border-radius:999px; border:2px solid transparent; background-clip:content-box; }
+::-webkit-scrollbar-thumb:hover{ background:rgba(136,58,97,.5); background-clip:content-box; }
+
+/* --- Sidebar active item: subtle inner sheen on the gold pill --- */
+.sidebar-menu a.active,.sidebar-menu li.active>a{
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.4), 0 8px 20px rgba(241,172,24,.34) !important;
+}
+
+/* ===========================================================================
+   MODERN POLISH — Recettes (menu cards) + Catégories cards (v90)
+   Styling only; images/data/logic untouched.
+   =========================================================================== */
+
+/* ---- CATEGORY cards ---- */
+.cat-card-large{ border-radius:20px !important; }
+.cat-card-large img{ height:150px !important; object-fit:cover !important; transition:transform .5s cubic-bezier(.22,1,.36,1) !important; }
+.cat-card-large:hover img{ transform:scale(1.06) !important; }
+/* count pill = gold tinted (matches mockup) */
+.cat-count-badge{
+  display:inline-block !important; background:rgba(241,172,24,.16) !important; color:#9A6A05 !important;
+  padding:5px 12px !important; border-radius:999px !important; font-weight:700 !important; font-size:12px !important;
+}
+.cat-overlay h3{ font-weight:700 !important; }
+/* frosted action buttons on image */
+.cat-action-btn{
+  background:rgba(255,255,255,.92) !important; backdrop-filter:blur(6px) !important;
+  border:none !important; border-radius:9px !important; box-shadow:0 4px 10px rgba(0,0,0,.14) !important;
+}
+.cat-action-btn:hover{ background:#fff !important; transform:translateY(-1px) !important; }
+.cat-action-btn.delete-btn:hover i,.cat-action-btn.delete-btn:hover{ color:#CC010A !important; }
+
+/* ---- RECIPE (menu) cards ---- */
+.recipe-card-full{ border-radius:20px !important; overflow:hidden !important; }
+.recipe-card-img-wrapper{ position:relative !important; height:160px !important; overflow:hidden !important; }
+.recipe-card-img-wrapper img{ width:100% !important; height:100% !important; object-fit:cover !important; transition:transform .5s cubic-bezier(.22,1,.36,1) !important; }
+.recipe-card-full:hover .recipe-card-img-wrapper img{ transform:scale(1.06) !important; }
+/* frosted edit/delete tools top-right */
+.card-action-bar{ position:absolute !important; top:10px !important; right:10px !important; display:flex !important; gap:6px !important; opacity:0 !important; transform:translateY(-4px) !important; transition:opacity .2s ease, transform .2s ease !important; z-index:4; }
+.recipe-card-full:hover .card-action-bar{ opacity:1 !important; transform:translateY(0) !important; }
+.dish-action-btn{
+  width:30px !important; height:30px !important; border:none !important; border-radius:9px !important;
+  background:rgba(255,255,255,.92) !important; backdrop-filter:blur(6px) !important;
+  box-shadow:0 4px 10px rgba(0,0,0,.14) !important; display:grid !important; place-items:center !important; cursor:pointer;
+}
+.dish-action-btn:hover{ background:#fff !important; transform:translateY(-1px) !important; }
+.dish-action-btn.delete-btn:hover,.dish-action-btn.delete-btn:hover i{ color:#CC010A !important; }
+/* category badge = gold pill */
+.recipe-card-full .cat-badge{
+  display:inline-block !important; background:rgba(241,172,24,.16) !important; color:#9A6A05 !important;
+  padding:3px 10px !important; border-radius:999px !important; font-size:10.5px !important; font-weight:700 !important;
+  text-transform:uppercase !important; letter-spacing:.04em !important; margin-bottom:8px !important;
+}
+/* footer meta: divider + accent price + gold star */
+.recipe-card-full .card-footer-meta{
+  display:flex !important; align-items:center !important; gap:12px !important;
+  border-top:1px solid var(--border) !important; padding-top:11px !important; margin-top:10px !important;
+  font-size:12px !important; font-weight:600 !important;
+}
+.recipe-card-full .card-footer-meta span:nth-of-type(2){ color:#B08941 !important; }  /* ★ rating gold */
+.recipe-card-full .card-footer-meta strong{ margin-left:auto !important; font-size:16px !important; font-weight:800 !important; color:#883A61 !important; }
+
+/* ===========================================================================
+   DASHBOARD BANNER as full image (v91)
+   =========================================================================== */
+.dash-hero-banner.dash-hero-image{
+  display:block !important; padding:0 !important; background:none !important;
+  border-radius:22px !important; overflow:hidden !important; position:relative !important;
+  box-shadow:0 14px 40px rgba(42,19,36,.22) !important; margin-bottom:22px !important;
+  transition:transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s ease !important;
+}
+.dash-hero-banner.dash-hero-image::after,
+.dash-hero-banner.dash-hero-image::before{ display:none !important; content:none !important; }
+.dash-hero-banner.dash-hero-image:hover{ transform:translateY(-3px) !important; box-shadow:0 20px 50px rgba(42,19,36,.3) !important; }
+.dash-hero-full-img{ display:block !important; width:100% !important; height:auto !important; border-radius:22px !important; }
+
+/* ===========================================================================
+   DASHBOARD BANNER — text overlay on the empty plum area (v92)
+   =========================================================================== */
+.dash-hero-overlay{
+  position:absolute !important; top:50% !important; left:0 !important; transform:translateY(-50%) !important;
+  padding:0 clamp(24px,4.5%,64px) !important; max-width:54% !important; z-index:3 !important;
+  text-align:left !important; pointer-events:none !important;
+}
+.dash-hero-overlay .dhb-eyebrow{
+  display:inline-block !important; color:#FBD36B !important;
+  font-size:clamp(11px,.95vw,13px) !important; letter-spacing:.18em !important; font-weight:800 !important;
+  text-transform:uppercase !important; margin-bottom:10px !important;
+}
+.dash-hero-overlay .dhb-title{
+  font-family:var(--font-heading) !important; color:#fff !important;
+  font-size:clamp(26px,3.1vw,46px) !important; font-weight:800 !important; line-height:1.04 !important;
+  margin:0 0 12px !important; text-shadow:0 2px 24px rgba(0,0,0,.28) !important;
+}
+.dash-hero-overlay .dhb-sub{
+  color:rgba(255,255,255,.88) !important; font-size:clamp(13px,1.05vw,16px) !important;
+  max-width:400px !important; line-height:1.5 !important; margin:0 0 20px !important;
+  text-shadow:0 1px 12px rgba(0,0,0,.25) !important;
+}
+.dash-hero-overlay .dhb-cta{
+  display:inline-flex !important; align-items:center !important; gap:9px !important;
+  background:linear-gradient(135deg,#F1AC18,#E7A545) !important; color:#2A1324 !important;
+  font-weight:800 !important; font-size:clamp(13px,1vw,15px) !important; padding:13px 26px !important;
+  border-radius:14px !important; box-shadow:0 10px 26px rgba(241,172,24,.45) !important;
+}
+@media(max-width:860px){
+  .dash-hero-overlay{ max-width:72% !important; }
+  .dash-hero-overlay .dhb-sub{ display:none !important; }
+}

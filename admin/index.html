@@ -7,13 +7,13 @@
  <!-- Google Fonts: Archivo & Archivo -->
  <link rel="preconnect" href="https://fonts.googleapis.com">
  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
- <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+ <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
  <!-- FontAwesome Icons -->
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
  <!-- Chart.js CDN -->
  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
- <link rel="stylesheet" href="/admin/styles.css?v=80.0">
+ <link rel="stylesheet" href="/admin/styles.css?v=92.0">
 </head>
 <body>
  <div class="app-container">
@@ -128,6 +128,17 @@
  </button>
  </div>
  </div>
+
+ <!-- Hero banner: Plat du jour (image) -->
+ <a href="#recipes" class="dash-hero-banner dash-hero-image dash-hero-cta" data-view="recipes" aria-label="Gérer le menu">
+ <img src="../img/banner%20d.png" alt="Plat du Jour — Gérer le menu" class="dash-hero-full-img">
+ <div class="dash-hero-overlay">
+ <span class="dhb-eyebrow">Suggestion du Chef</span>
+ <h2 class="dhb-title">Plat du Jour</h2>
+ <p class="dhb-sub">Mettez en avant une création signature et boostez vos ventes du service.</p>
+ <span class="dhb-cta">Gérer le menu <i class="fa-solid fa-arrow-right"></i></span>
+ </div>
+ </a>
 
  <!-- 4 Restaurant KPI Stat Cards -->
  <div class="stat-cards-grid">
@@ -251,6 +262,16 @@
  <div class="channel-bar-seg seg-olive" id="channelSegOlive" style="width: 0%;"></div>
  <div class="channel-bar-seg seg-saffron" id="channelSegSaffron" style="width: 0%;"></div>
  <div class="channel-bar-seg seg-gold" id="channelSegGold" style="width: 0%;"></div>
+ </div>
+
+ <!-- Colored donut (green/orange/plum) -->
+ <div class="channel-donut-wrap">
+ <div class="channel-donut" aria-hidden="true"></div>
+ <div class="channel-donut-legend">
+ <span><span class="channel-donut-dot" style="background:#72B800"></span>Sur place</span>
+ <span><span class="channel-donut-dot" style="background:#F25B0A"></span>Livraison à domicile</span>
+ <span><span class="channel-donut-dot" style="background:#883A61"></span>À emporter</span>
+ </div>
  </div>
 
  <!-- Services Breakdown List -->
@@ -1365,7 +1386,7 @@
  </div>
 
  <script src="/js/dishes_data.js"></script>
- <script src="/admin/script.js?v=66.0"></script>
+ <script src="/admin/script.js?v=68.0"></script>
 
  <!-- ================= ADMIN AUTH LOGIN GATE MODAL ================= -->
  <div id="adminLoginGate" class="admin-login-overlay" style="display: none;">
