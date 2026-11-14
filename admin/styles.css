@@ -7269,3 +7269,123 @@ body,.app-container{ background:var(--bg) !important; color:var(--text) !importa
   .dash-hero-overlay{ max-width:72% !important; }
   .dash-hero-overlay .dhb-sub{ display:none !important; }
 }
+
+/* ===========================================================================
+   DASHBOARD DESIGN PASS (v93) — richer KPI cards + surrounding polish
+   =========================================================================== */
+
+/* KPI cards: rounded, subtle per-type color wash, clean accent bar */
+.stat-cards-grid .stat-card{ border-radius:20px !important; overflow:hidden !important; }
+.stat-card[data-kpi-type="orders"]{ background:linear-gradient(165deg,rgba(241,172,24,.07),#fff 58%) !important; }
+.stat-card[data-kpi-type="reservations"]{ background:linear-gradient(165deg,rgba(114,184,0,.07),#fff 58%) !important; }
+.stat-card[data-kpi-type="revenue"]{ background:linear-gradient(165deg,rgba(242,91,10,.07),#fff 58%) !important; }
+.stat-card[data-kpi-type="avgTicket"]{ background:linear-gradient(165deg,rgba(136,58,97,.07),#fff 58%) !important; }
+.stat-cards-grid .stat-card::before{ width:4px !important; border-radius:0 4px 4px 0 !important; }
+.stat-number{ font-size:34px !important; letter-spacing:-.02em !important; }
+.stat-title{ color:#8A8176 !important; }
+
+/* occupancy meter → green gradient fill on soft track */
+.occupancy-track{ background:rgba(20,16,12,.08) !important; border-radius:999px !important; height:7px !important; overflow:hidden; }
+.occupancy-fill{ background:linear-gradient(90deg,#72B800,#189E01) !important; border-radius:999px !important; height:100% !important; }
+.occupancy-label{ color:#8A8176 !important; font-weight:600 !important; font-size:11.5px !important; }
+.stat-meta-text{ display:inline-flex !important; align-items:center; gap:5px; padding:3px 9px !important; border-radius:999px !important;
+  background:rgba(242,91,10,.12) !important; color:#C24E09 !important; font-size:11.5px !important; font-weight:700 !important; }
+
+/* chart + leaderboard + channels panels: generous radius, clean header rhythm */
+.featured-stats-card,.top-dishes-card,.side-card{ border-radius:22px !important; }
+.stats-card-top-header{ margin-bottom:14px !important; }
+.stats-main-title{ font-weight:800 !important; letter-spacing:-.01em !important; }
+.stats-subtitle{ color:#8A8176 !important; font-size:13px !important; }
+.finance-total-badge{ text-align:right; }
+.finance-total-badge .label{ font-size:12px !important; color:#8A8176 !important; font-weight:600 !important; }
+.finance-total-badge strong{ font-size:22px !important; font-weight:800 !important; color:#883A61 !important; }
+
+/* leaderboard rows: rank squares + progress accents */
+.top-dishes-leaderboard .leaderboard-item{ padding:10px 8px !important; border-radius:12px !important; }
+.channel-amount{ font-weight:800 !important; color:#883A61 !important; }
+.channel-name{ font-weight:700 !important; }
+.channel-sub{ color:#8A8176 !important; font-size:11.5px !important; }
+
+/* "Voir tout" link */
+.link-olive,.nav-trigger{ color:#883A61 !important; font-weight:700 !important; font-size:13px !important; }
+
+/* date-filter segmented group: pill container like the mockup */
+.date-filter-group{ background:#fff !important; border:1px solid var(--border) !important; border-radius:999px !important; padding:4px !important; box-shadow:0 1px 3px rgba(20,16,12,.05) !important; }
+.date-filter-btn{ border-radius:999px !important; border:none !important; background:transparent !important; color:#8A8176 !important; font-weight:600 !important; }
+.date-filter-btn.active{ color:#241017 !important; }
+
+/* ===========================================================================
+   RECETTES CARDS — enhanced design (v94)
+   =========================================================================== */
+.recipe-card-full{ position:relative !important; border:1px solid var(--border) !important; border-radius:22px !important; }
+.recipe-card-full:hover{ transform:translateY(-6px) !important; box-shadow:0 20px 44px rgba(20,16,12,.15) !important; }
+
+/* image: taller + soft bottom scrim for depth */
+.recipe-card-img-wrapper{ height:170px !important; }
+.recipe-card-img-wrapper::after{
+  content:"" !important; position:absolute !important; inset:0 !important; z-index:1 !important; pointer-events:none !important;
+  background:linear-gradient(to top, rgba(0,0,0,.30), transparent 42%) !important;
+}
+
+/* category chip floats on the image (frosted) */
+.recipe-card-full .cat-badge{
+  position:absolute !important; top:12px !important; left:12px !important; z-index:3 !important; margin:0 !important;
+  background:rgba(255,255,255,.94) !important; -webkit-backdrop-filter:blur(6px) !important; backdrop-filter:blur(6px) !important;
+  color:#9A6A05 !important; box-shadow:0 4px 12px rgba(0,0,0,.16) !important;
+  padding:5px 12px !important; font-size:10px !important; letter-spacing:.06em !important;
+}
+
+/* body + title */
+.recipe-card-full .card-info{ padding:18px 18px 16px !important; }
+.recipe-card-full h3{ font-size:17px !important; font-weight:800 !important; }
+.recipe-card-full p{ min-height:38px !important; }
+
+/* action buttons: consistent frosted, ICONS VISIBLE, colored hover */
+.card-action-bar .dish-action-btn{
+  width:32px !important; height:32px !important; background:rgba(255,255,255,.95) !important;
+  color:#2A1324 !important; border:none !important; border-radius:10px !important;
+  box-shadow:0 4px 12px rgba(0,0,0,.18) !important;
+}
+.card-action-bar .dish-action-btn i{ color:#2A1324 !important; }
+.card-action-bar .dish-action-btn.delete-btn,
+.card-action-bar .dish-action-btn.delete-btn i{ color:#CC010A !important; background:rgba(255,255,255,.95) !important; }
+.card-action-bar .dish-action-btn:hover{ background:#fff !important; transform:translateY(-1px) !important; }
+.card-action-bar .dish-action-btn.delete-btn:hover{ background:#CC010A !important; }
+.card-action-bar .dish-action-btn.delete-btn:hover i{ color:#fff !important; }
+
+/* meta row: colored clock, divider, bigger price */
+.recipe-card-full .card-footer-meta{ padding-top:12px !important; margin-top:12px !important; }
+.recipe-card-full .card-footer-meta span:first-child i{ color:#883A61 !important; }
+.recipe-card-full .card-footer-meta strong{ font-size:17px !important; }
+
+/* ===========================================================================
+   CATEGORIES CARDS — enhanced, per-category color coding (v95)
+   =========================================================================== */
+.cat-card-large{ border-radius:22px !important; position:relative !important; }
+.cat-card-large:hover{ transform:translateY(-6px) !important; box-shadow:0 20px 44px rgba(20,16,12,.15) !important; }
+.cat-card-large img{ height:162px !important; }
+.cat-overlay{ position:relative !important; padding:16px 18px 16px 22px !important; }
+.cat-overlay h3{ font-size:18px !important; font-weight:800 !important; }
+
+/* colored left accent bar on the body, per category */
+.cat-overlay::before{ content:"" !important; position:absolute !important; left:0; top:0; bottom:0; width:4px !important; background:#883A61; border-radius:0 3px 3px 0; }
+.cat-card-large[data-category="pastas"]   .cat-overlay::before{ background:#F1AC18 !important; }
+.cat-card-large[data-category="burgers"]  .cat-overlay::before{ background:#79A33D !important; }
+.cat-card-large[data-category="pizzas"]   .cat-overlay::before{ background:#F25B0A !important; }
+.cat-card-large[data-category="grillades"].cat-overlay::before,
+.cat-card-large[data-category="grillades"] .cat-overlay::before{ background:#CC010A !important; }
+.cat-card-large[data-category="salades"]  .cat-overlay::before{ background:#72B800 !important; }
+.cat-card-large[data-category="boissons"] .cat-overlay::before{ background:#883A61 !important; }
+.cat-card-large[data-category="desserts"] .cat-overlay::before{ background:#E7A545 !important; }
+.cat-card-large[data-category="breakfast"].cat-overlay::before{ background:#F25B0A !important; }
+
+/* count pill tinted to the category color */
+.cat-card-large[data-category="pastas"]   .cat-count-badge{ background:rgba(241,172,24,.16) !important; color:#9A6A05 !important; }
+.cat-card-large[data-category="burgers"]  .cat-count-badge{ background:rgba(121,163,61,.18) !important; color:#4F7020 !important; }
+.cat-card-large[data-category="pizzas"]   .cat-count-badge{ background:rgba(242,91,10,.14) !important; color:#C24E09 !important; }
+.cat-card-large[data-category="grillades"].cat-count-badge,
+.cat-card-large[data-category="grillades"] .cat-count-badge{ background:rgba(204,1,10,.10) !important; color:#CC010A !important; }
+.cat-card-large[data-category="salades"]  .cat-count-badge{ background:rgba(114,184,0,.16) !important; color:#3F6B00 !important; }
+.cat-card-large[data-category="boissons"] .cat-count-badge{ background:rgba(136,58,97,.14) !important; color:#883A61 !important; }
+.cat-card-large[data-category="desserts"] .cat-count-badge{ background:rgba(241,172,24,.16) !important; color:#9A6A05 !important; }
+.cat-card-large[data-category="breakfast"].cat-count-badge{ background:rgba(242,91,10,.14) !important; color:#C24E09 !important; }
