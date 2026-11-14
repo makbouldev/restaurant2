@@ -7389,3 +7389,103 @@ body,.app-container{ background:var(--bg) !important; color:var(--text) !importa
 .cat-card-large[data-category="boissons"] .cat-count-badge{ background:rgba(136,58,97,.14) !important; color:#883A61 !important; }
 .cat-card-large[data-category="desserts"] .cat-count-badge{ background:rgba(241,172,24,.16) !important; color:#9A6A05 !important; }
 .cat-card-large[data-category="breakfast"].cat-count-badge{ background:rgba(242,91,10,.14) !important; color:#C24E09 !important; }
+
+/* ===========================================================================
+   PLATFORM FINISH PASS (v96) - tables, settings, modals, login
+   Styling only; structure/logic/data/French/DH untouched.
+   =========================================================================== */
+
+/* ---------- A. ORDERS & RESERVATIONS TABLES ---------- */
+.orders-table-wrapper{ background:#fff !important; border:1px solid var(--border) !important; border-radius:20px !important; box-shadow:var(--shadow-card) !important; padding:8px 18px 14px !important; overflow-x:auto !important; }
+.creative-orders-table{ width:100% !important; border-collapse:collapse !important; }
+.creative-orders-table thead th{ text-align:left; font-size:11px !important; letter-spacing:.07em !important; text-transform:uppercase !important; color:#8A8176 !important; font-weight:700 !important; padding:14px !important; border-bottom:1px solid var(--border) !important; background:#FBF8F2 !important; }
+.creative-orders-table tbody td{ padding:14px !important; border-top:1px solid var(--border) !important; font-size:13.5px !important; vertical-align:middle !important; color:#1C1A17 !important; }
+.creative-orders-table tbody tr:hover td{ background:rgba(241,172,24,.05) !important; }
+
+.order-id-badge strong{ font-weight:800 !important; color:#1C1A17 !important; display:block !important; }
+.sub-channel.online-order{ display:inline-flex !important; align-items:center; gap:5px; margin-top:5px; background:rgba(114,184,0,.14) !important; color:#3F6B00 !important; font-size:11px !important; font-weight:700 !important; padding:3px 9px !important; border-radius:7px !important; }
+.sub-channel.online-order i{ color:inherit !important; }
+.client-meta strong{ font-weight:700 !important; display:block !important; color:#1C1A17 !important; }
+.client-phone,.client-addr{ display:block !important; color:#8A8176 !important; font-size:12px !important; font-weight:600 !important; margin-top:2px !important; }
+.avatar-circle-sm{ width:38px !important; height:38px !important; border-radius:11px !important; display:grid !important; place-items:center !important; font-weight:800 !important; font-size:13px !important; color:#fff !important; flex-shrink:0; }
+.avatar-circle-sm.green{ background:var(--grad-green) !important; }
+.dishes-summary span{ display:block !important; color:#4A463F !important; font-size:13px !important; }
+.price-tag{ font-weight:800 !important; color:#883A61 !important; font-size:14.5px !important; }
+.time-ago{ color:#8A8176 !important; font-weight:600 !important; font-size:12.5px !important; }
+.resa-date-meta span{ display:block !important; font-size:12.5px !important; color:#4A463F !important; font-weight:600 !important; margin:2px 0 !important; }
+.guest-count-pill{ display:inline-flex !important; align-items:center; gap:6px; background:rgba(136,58,97,.12) !important; color:#883A61 !important; font-weight:700 !important; font-size:12px !important; padding:5px 11px !important; border-radius:999px !important; }
+.resa-notes-box{ font-size:12.5px !important; color:#6A665F !important; max-width:230px; line-height:1.45; }
+
+/* status pills */
+.order-status-badge{ display:inline-flex !important; align-items:center; gap:5px; font-size:12px !important; font-weight:700 !important; padding:5px 12px !important; border-radius:999px !important; }
+.order-status-badge i{ color:inherit !important; }
+.status-pending{ background:rgba(242,91,10,.14) !important; color:#C24E09 !important; }
+.status-cooking{ background:rgba(241,172,24,.18) !important; color:#9A6A05 !important; }
+.status-completed,.status-confirmed{ background:rgba(114,184,0,.16) !important; color:#3F6B00 !important; }
+.status-seated{ background:rgba(136,58,97,.14) !important; color:#883A61 !important; }
+.status-cancelled{ background:rgba(204,1,10,.10) !important; color:#CC010A !important; }
+
+/* round action buttons */
+.order-action-btns{ display:flex !important; gap:6px !important; justify-content:flex-end !important; }
+.order-btn{ width:34px !important; height:34px !important; border-radius:10px !important; border:none !important; display:grid !important; place-items:center !important; cursor:pointer; background:rgba(114,184,0,.14) !important; transition:transform .18s ease !important; }
+.order-btn:hover{ transform:translateY(-2px) !important; }
+.order-btn i{ color:#3F6B00 !important; }
+.order-btn.delete-order-btn,.order-btn.delete-resa-btn{ background:rgba(204,1,10,.10) !important; }
+.order-btn.delete-order-btn i,.order-btn.delete-resa-btn i{ color:#CC010A !important; }
+.order-btn.edit-resa-btn{ background:rgba(241,172,24,.18) !important; }
+.order-btn.edit-resa-btn i{ color:#9A6A05 !important; }
+
+/* ---------- B. PARAMETRES ---------- */
+.admin-hero-card{ background:#fff !important; border:1px solid var(--border) !important; border-radius:22px !important; box-shadow:var(--shadow-card) !important; padding:22px 24px !important; display:flex !important; gap:18px !important; align-items:center !important; }
+.admin-hero-avatar{ width:78px !important; height:78px !important; border-radius:20px !important; object-fit:cover !important; border:3px solid #fff !important; box-shadow:0 8px 20px rgba(20,16,12,.16) !important; }
+.avatar-edit-btn{ background:var(--grad-gold) !important; color:#241017 !important; border:2px solid #fff !important; border-radius:50% !important; }
+.admin-hero-top h3{ font-weight:800 !important; font-size:22px !important; color:#1C1A17 !important; }
+.role-badge{ background:rgba(114,184,0,.16) !important; color:#3F6B00 !important; padding:5px 12px !important; border-radius:999px !important; font-size:12px !important; font-weight:700 !important; }
+.status-pill-online{ background:rgba(136,58,97,.14) !important; color:#883A61 !important; padding:5px 12px !important; border-radius:999px !important; font-size:12px !important; font-weight:700 !important; }
+.admin-hero-email{ color:#8A8176 !important; font-weight:600 !important; }
+.admin-meta-tags .meta-tag{ background:#F2EEE6 !important; border:1px solid var(--border) !important; color:#8A8176 !important; font-size:12px !important; font-weight:600 !important; padding:6px 12px !important; border-radius:9px !important; }
+.settings-card-dark{ background:#fff !important; border:1px solid var(--border) !important; border-radius:22px !important; box-shadow:var(--shadow-card) !important; }
+.settings-card-dark h3{ color:#1C1A17 !important; font-weight:800 !important; }
+.settings-card-dark p{ color:#8A8176 !important; }
+.form-group-dark label{ font-size:12.5px !important; font-weight:700 !important; color:#1C1A17 !important; }
+.form-group-dark input,.form-group-dark textarea,.social-field{ background:#FBF8F2 !important; border:1px solid var(--border) !important; border-radius:12px !important; padding:12px 14px !important; color:#1C1A17 !important; }
+.social-input-wrapper{ background:#FBF8F2 !important; border:1px solid var(--border) !important; border-radius:12px !important; }
+.social-input-wrapper .social-field{ background:transparent !important; border:none !important; }
+.social-input-icon{ color:#883A61 !important; }
+.social-test-btn{ background:rgba(136,58,97,.12) !important; color:#883A61 !important; border-radius:9px !important; }
+.toggle-pass-btn{ background:transparent !important; color:#8A8176 !important; }
+/* toggle switches */
+.switch-dark{ position:relative !important; display:inline-block !important; width:46px !important; height:26px !important; }
+.switch-dark input{ opacity:0 !important; width:0 !important; height:0 !important; }
+.slider-dark{ position:absolute !important; inset:0 !important; background:rgba(20,16,12,.18) !important; border-radius:999px !important; transition:.2s !important; cursor:pointer !important; }
+.slider-dark::before{ content:"" !important; position:absolute !important; width:20px !important; height:20px !important; border-radius:50% !important; background:#fff !important; top:3px !important; left:3px !important; transition:.2s !important; box-shadow:0 2px 5px rgba(0,0,0,.2) !important; }
+.switch-dark input:checked + .slider-dark{ background:var(--green) !important; }
+.switch-dark input:checked + .slider-dark::before{ transform:translateX(20px) !important; }
+.security-toggle-item{ border-top:1px solid var(--border) !important; }
+.security-toggle-item strong{ color:#1C1A17 !important; }
+.security-toggle-item p{ color:#8A8176 !important; }
+
+/* ---------- C. MODALS (already light - refine) ---------- */
+.modal-overlay,.kpi-slide-modal-overlay{ background:rgba(28,20,30,.48) !important; -webkit-backdrop-filter:blur(4px) !important; backdrop-filter:blur(4px) !important; }
+.modal-card-dark,.ticket-modal-card,.pos-order-modal,.creative-dish-modal,.kpi-slide-modal-card{ border-radius:22px !important; box-shadow:0 30px 70px rgba(20,16,12,.28) !important; }
+.modal-head h3{ font-weight:800 !important; color:#1C1A17 !important; }
+.close-modal{ background:#F2EEE6 !important; color:#1C1A17 !important; border-radius:10px !important; border:none !important; }
+.close-modal:hover{ background:rgba(204,1,10,.12) !important; color:#CC010A !important; }
+.modal-actions-dark{ border-top:1px solid var(--border) !important; }
+.btn-outline-dark{ background:#fff !important; border:1px solid var(--border) !important; color:#1C1A17 !important; border-radius:12px !important; }
+.btn-outline-dark:hover{ background:#F2EEE6 !important; }
+.kpi-modal-icon{ background:var(--grad-plum) !important; color:#fff !important; border-radius:12px !important; }
+
+/* ---------- D. LOGIN - migrate olive to plum/gold ---------- */
+.admin-login-card.admin-login-split{ background:#fff !important; border:1px solid var(--border) !important; color:#1C1A17 !important; box-shadow:0 30px 70px rgba(42,19,36,.32) !important; }
+.login-brand-panel{ background:linear-gradient(160deg,#311a2a 0%,#2A1324 60%,#22101d 100%) !important; border-right:none !important; color:#F7F3EC !important; }
+.login-brand-title{ color:#fff !important; font-weight:800 !important; }
+.login-brand-title span{ color:var(--gold) !important; }
+.login-brand-sub{ color:rgba(247,243,236,.78) !important; }
+.login-panel-footer,.login-panel-footer *{ color:rgba(247,243,236,.62) !important; }
+.login-logo-badge.login-logo-img-box{ background:#F7F3EC !important; }
+.login-form-panel{ background:#fff !important; color:#1C1A17 !important; }
+.login-form-panel h1,.login-form-panel h2,.login-form-panel h3,.login-form-panel h4,.login-form-header *{ color:#1C1A17 !important; }
+.form-group-login label{ color:#1C1A17 !important; font-weight:700 !important; }
+.form-group-login input{ background:#FBF8F2 !important; border:1px solid var(--border) !important; color:#1C1A17 !important; border-radius:12px !important; }
+.form-group-login input:focus{ border-color:var(--gold) !important; box-shadow:0 0 0 3px rgba(241,172,24,.16) !important; }
