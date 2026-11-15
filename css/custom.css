@@ -4257,7 +4257,7 @@ a.cart_bt strong#cart-count {
     display: inline-flex !important;
     background: linear-gradient(135deg,#F1AC18,#E7A545) !important;
     color: #2A1324 !important;
-    color: var(--light) !important;
+    align-items: center !important;
     font-family: var(--font-body) !important;
     font-size: 13px !important;
     font-weight: 700 !important;

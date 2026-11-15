@@ -1220,7 +1220,8 @@ section[style*="var(--light)"] .btn-outline-dark i{ color:var(--accent) !importa
   border-radius:18px !important; padding:16px 18px !important; text-align:center !important;
   box-shadow:0 16px 36px rgba(42,19,36,.52), 0 0 0 6px rgba(241,172,24,.08),
              inset 0 1px 0 rgba(255,255,255,.10) !important;
-  position:relative !important; overflow:hidden !important;
+  position:absolute !important; top:16px !important; right:14px !important; left:auto !important; bottom:auto !important;
+  width:auto !important; height:auto !important; overflow:hidden !important; z-index:10 !important;
   animation:sigFloat 6s ease-in-out infinite alternate;
 }
 .floating-signature-badge::after{
@@ -1316,3 +1317,24 @@ body a.creative-view-menu-btn::before, body a.load-more-btn::before,
 body a.creative-view-menu-btn:hover::before, body a.load-more-btn:hover::before{ display:none !important; content:none !important; }
 body a.creative-view-menu-btn span, body a.creative-view-menu-btn i,
 body a.creative-view-menu-btn:hover span, body a.creative-view-menu-btn:hover i{ color:#2A1324 !important; position:relative; z-index:2; }
+
+/* =========================================================================
+   REAL FIX (v47): kill the dark ::before FILL LAYER on outline buttons
+   (this pseudo-element, background:var(--dark), was the dark hover all along)
+   ========================================================================= */
+body .btn-outline-dark::before, body a.btn-outline-dark::before,
+body .btn-outline-dark:hover::before, body a.btn-outline-dark:hover::before,
+body .btn-creative-about-more::before, body a.btn-creative-about-more::before,
+body .btn-creative-about-more:hover::before, body a.btn-creative-about-more:hover::before,
+body .btn-hero-outline::before, body .btn-hero-outline:hover::before{
+  display:none !important; content:none !important; background:none !important; transform:none !important; opacity:0 !important;
+}
+/* hover stays gold with dark text (override the template's color:var(--light)) */
+body a.btn-outline-dark:hover, body .btn.btn-outline-dark:hover{
+  background:linear-gradient(135deg,#F1AC18,#E7A545) !important; color:#2A1324 !important; border-color:transparent !important;
+}
+body a.btn-outline-dark:hover i, body a.btn-outline-dark:hover span{ color:#2A1324 !important; }
+body a.btn-creative-about-more:hover, body .btn-creative-about-more:hover{
+  background:linear-gradient(135deg,#FFC93C,#EFA200) !important; color:#2A1324 !important;
+}
+body a.btn-creative-about-more:hover i, body a.btn-creative-about-more:hover span{ color:#2A1324 !important; }
