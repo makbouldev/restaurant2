@@ -4255,8 +4255,8 @@ a.cart_bt strong#cart-count {
 
 .btn-creative-about-more {
     display: inline-flex !important;
-    align-items: center !important;
-    background: var(--dark) !important;
+    background: linear-gradient(135deg,#F1AC18,#E7A545) !important;
+    color: #2A1324 !important;
     color: var(--light) !important;
     font-family: var(--font-body) !important;
     font-size: 13px !important;
@@ -4271,8 +4271,8 @@ a.cart_bt strong#cart-count {
 }
 
 .btn-creative-about-more:hover {
-    background: var(--accent) !important;
-    color: var(--light) !important;
+    background: linear-gradient(135deg,#FFC93C,#EFA200) !important;
+    color: #2A1324 !important;
     transform: translateY(-2px) !important;
     box-shadow: 0 8px 22px rgba(110, 127, 78, 0.4) !important;
 }

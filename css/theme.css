@@ -859,3 +859,460 @@ h1,h2{ line-height:1.1 !important; }
 
 /* remove the gap between header and hero (main had 25px top padding) */
 main{ padding-top:0 !important; }
+
+
+/* =========================================================================
+   PREMIUM REFINEMENT LAYER (v34) - rounded, soft-shadow, elevated
+   Keeps the olive (--accent) + cream (--light) palette. Layout/styling only;
+   no images, colors, text, routes, forms or cart logic changed.
+   ========================================================================= */
+
+/* ---- Typography hierarchy ---- */
+h1,h2,h3,h4,.main_title h2,.hero-main-title{ letter-spacing:-.015em !important; line-height:1.1 !important; }
+.main_title h2{ font-size:clamp(28px,3.4vw,46px) !important; margin-bottom:12px !important; }
+.main_title{ margin-bottom:40px !important; }
+.luxury-eyebrow,.pre-title,.section-subtitle,.main_title .subtitle,[class*="eyebrow"]{
+  letter-spacing:.2em !important; text-transform:uppercase !important; font-size:12px !important; font-weight:700 !important;
+}
+p{ line-height:1.72 !important; }
+
+/* ---- Sticky nav: subtle blur + hairline + shadow ---- */
+.main-nav-bar{
+  -webkit-backdrop-filter:blur(12px) !important; backdrop-filter:blur(12px) !important;
+  background:rgba(243,238,227,.9) !important;
+  border-bottom:1px solid rgba(32,38,28,.08) !important;
+  box-shadow:0 4px 24px rgba(32,38,28,.06) !important;
+  transition:box-shadow .25s ease, background .25s ease !important;
+}
+
+/* ---- Cards: rounded + soft layered shadow + hairline + hover-lift ---- */
+.menu_item,.card,.box_style_1,.box_about,.review-card,.review_box,.member,.box_news,
+.comment_box,.box_1,.hero-floating-card,.tasty-food-card,.luxury-action-card,.info-box,.box_feat{
+  border-radius:20px !important;
+  border:1px solid rgba(32,38,28,.08) !important;
+  box-shadow:0 1px 2px rgba(32,38,28,.04), 0 12px 32px rgba(32,38,28,.08) !important;
+  overflow:hidden !important;
+  transition:transform .18s ease, box-shadow .18s ease !important;
+}
+.menu_item:hover,.card:hover,.box_style_1:hover,.review-card:hover,.member:hover,
+.box_news:hover,.box_1:hover,.tasty-food-card:hover,.luxury-action-card:hover,.box_feat:hover{
+  transform:translateY(-6px) !important;
+  box-shadow:0 18px 44px rgba(32,38,28,.14) !important;
+}
+
+/* image framing inside cards + gentle zoom on hover */
+.menu_item figure,.card-img-container,.tasty-food-card figure{
+  border-radius:16px !important; overflow:hidden !important; margin:0 !important;
+}
+.menu_item figure img,.card img,.card-img-container img,.member img,.tasty-food-card img{
+  transition:transform .5s cubic-bezier(.22,1,.36,1) !important;
+}
+.menu_item:hover figure img,.card:hover img,.tasty-food-card:hover img,.member:hover img{
+  transform:scale(1.05) !important;
+}
+
+/* ---- Buttons: unified pill system (keeps the existing green fill) ---- */
+.btn_1,.btn,button[type="submit"],input[type="submit"],.btn_book_table_pill,
+.add_to_cart,.btn-primary,.cart-btn,.checkout-btn,.btn-hero-orange,.btn-hero-outline{
+  border-radius:999px !important;
+  padding:13px 30px !important;
+  letter-spacing:.015em !important;
+  transition:transform .18s ease, box-shadow .18s ease, color .2s ease !important;
+}
+.btn_1:hover,.btn:hover,button[type="submit"]:hover,input[type="submit"]:hover,
+.btn_book_table_pill:hover,.add_to_cart:hover,.btn-primary:hover,.checkout-btn:hover{
+  transform:translateY(-2px) !important;
+  box-shadow:0 10px 24px rgba(110,127,78,.28) !important;
+}
+
+/* ---- Forms: rounded + green focus ring ---- */
+input[type="text"],input[type="email"],input[type="tel"],input[type="number"],
+input[type="password"],input[type="date"],input[type="time"],input[type="search"],
+select,textarea,.form-control,.form-select{
+  border-radius:12px !important;
+  border:1px solid rgba(32,38,28,.14) !important;
+  transition:border-color .2s ease, box-shadow .2s ease !important;
+}
+input:focus,select:focus,textarea:focus,.form-control:focus,.form-select:focus{
+  border-color:var(--accent) !important;
+  box-shadow:0 0 0 3px rgba(110,127,78,.16) !important;
+  outline:none !important;
+}
+
+/* ---- Accessible keyboard focus ---- */
+a:focus-visible,button:focus-visible,.btn_1:focus-visible,input:focus-visible{
+  outline:2px solid var(--accent) !important; outline-offset:2px !important;
+}
+
+
+/* =========================================================================
+   PREMIUM REFINEMENT LAYER II (v35) - elegant details
+   Olive (--accent) + cream (--light) + brass (--brass) palette kept.
+   ========================================================================= */
+
+/* ---- Menu cards: padded text, full-bleed image + scrim, brass price pill ---- */
+.menu_item figure{ position:relative !important; }
+.menu_item figure::after{
+  content:"" !important; position:absolute !important; inset:0 !important; pointer-events:none !important;
+  background:linear-gradient(to top, rgba(32,38,28,.22), transparent 42%) !important;
+}
+.menu_item .menu_title{
+  display:flex !important; align-items:center !important; justify-content:space-between !important;
+  gap:12px !important; padding:16px 18px 0 !important;
+}
+.menu_item .menu_title h3{ margin:0 !important; font-size:18px !important; }
+.menu_item .menu_title em{
+  font-style:normal !important; font-weight:700 !important; white-space:nowrap !important;
+  background:rgba(176,137,65,.14) !important; color:var(--brass) !important;
+  padding:5px 13px !important; border-radius:999px !important; font-size:14px !important;
+}
+.menu_item > p{ padding:6px 18px 18px !important; margin:0 !important; color:var(--dark-70,rgba(32,38,28,.7)) !important; }
+
+/* ---- Section title accent flourish ---- */
+.main_title h2::after{
+  content:"" !important; display:block !important; width:46px !important; height:3px !important;
+  background:var(--accent) !important; border-radius:2px !important; margin:16px auto 0 !important;
+}
+
+/* ---- Nav links: animated underline on hover ---- */
+.main-menu ul li a,.main-menu > ul > li > a{ position:relative !important; }
+.main-menu ul li a::after{
+  content:"" !important; position:absolute !important; left:0; right:0; bottom:-4px; margin:auto;
+  width:0; height:2px; background:var(--accent) !important; border-radius:2px;
+  transition:width .25s ease !important;
+}
+.main-menu ul li a:hover::after,.main-menu ul li a.active::after{ width:70% !important; }
+
+/* ---- Buttons: arrow nudge if an icon is present ---- */
+.btn_1 i,.btn-hero-orange i,.btn_book_table_pill i{ transition:transform .2s ease !important; }
+.btn_1:hover i,.btn-hero-orange:hover i,.btn_book_table_pill:hover i{ transform:translateX(3px) !important; }
+
+/* ---- Gallery items: zoom + soft overlay ---- */
+.gallery-item,.grid-item figure{ border-radius:18px !important; overflow:hidden !important; }
+.gallery-item img,.grid-item figure img{ transition:transform .5s cubic-bezier(.22,1,.36,1) !important; }
+.gallery-item:hover img,.grid-item figure:hover img{ transform:scale(1.06) !important; }
+
+/* ---- Footer links: elegant hover ---- */
+footer a,.footer a{ transition:color .2s ease !important; }
+footer a:hover,.footer a:hover{ color:var(--brass) !important; }
+
+/* ---- Review cards: refined quote ---- */
+.review-card,.review_box{ position:relative !important; }
+.review-card .rating i,.review_box .rating i,.star,.stars i{ color:var(--brass) !important; }
+
+/* ---- Smooth scroll + elegant scrollbar ---- */
+html{ scroll-behavior:smooth !important; }
+*{ scrollbar-width:thin; scrollbar-color:rgba(110,127,78,.4) transparent; }
+::-webkit-scrollbar{ width:11px; height:11px; }
+::-webkit-scrollbar-track{ background:transparent; }
+::-webkit-scrollbar-thumb{ background:rgba(110,127,78,.38); border-radius:999px; border:3px solid transparent; background-clip:content-box; }
+::-webkit-scrollbar-thumb:hover{ background:rgba(110,127,78,.6); background-clip:content-box; }
+
+
+/* =========================================================================
+   DASHBOARD-MATCH REBRAND (v36) - plum + gold identity, Plus Jakarta Sans
+   Public site now matches the admin: deep plum surfaces, gold accents,
+   plum/gold banners. Images, text, prices, routes, cart logic unchanged.
+   ========================================================================= */
+
+:root{
+  --dark:#2A1324 !important;      /* deep plum: body text + all dark surfaces */
+  --light:#F2EEE6 !important;     /* warm cream canvas (matches admin) */
+  --accent:#883A61 !important;    /* plum accent: links, eyebrows, icons, borders */
+  --brass:#C8911F !important;     /* readable gold: stars, prices, highlights */
+  --star:#C8911F !important;
+  --gold:#F1AC18;                 /* bright gold: button fills + banner accents */
+  --amber:#E7A545;
+  --plum-deep:#2A1324;
+  --plum-mid:#5A2340;
+  --font-heading:'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
+  --font-body:'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
+}
+
+/* fonts everywhere */
+body,p,li,a,label,input,select,textarea,button,.btn,h1,h2,h3,h4,h5,h6,
+.main_title h2,.hero-main-title,.hero-title,[class*="title"]{
+  font-family:'Plus Jakarta Sans', system-ui, -apple-system, sans-serif !important;
+}
+h1,h2,h3,h4,.hero-main-title,.main_title h2{ font-weight:800 !important; letter-spacing:-.02em !important; }
+
+/* ---- PRIMARY BUTTONS -> gold gradient, dark-plum text ---- */
+.btn_1,.btn_book_table_pill,.btn-hero-orange,.add_to_cart,.tasty-pill-add-btn,
+.btn-primary,.cart-btn,.checkout-btn,button[type="submit"],input[type="submit"],
+.creative-view-menu-btn,.load-more-btn,.btn-creative-map-reserve{
+  background:linear-gradient(135deg,#F1AC18,#E7A545) !important;
+  color:#2A1324 !important; border:none !important; border-radius:999px !important;
+  box-shadow:0 8px 20px rgba(241,172,24,.30) !important;
+}
+.btn_1::before,.btn_book_table_pill::before,.btn-hero-orange::before,.add_to_cart::before,
+.btn-primary::before,.cart-btn::before,.checkout-btn::before,button[type="submit"]::before,
+input[type="submit"]::before,.creative-view-menu-btn::before,.load-more-btn::before,
+.btn-creative-map-reserve::before{ display:none !important; }
+.btn_1:hover,.btn_book_table_pill:hover,.btn-hero-orange:hover,.add_to_cart:hover,
+.btn-primary:hover,.checkout-btn:hover,button[type="submit"]:hover,input[type="submit"]:hover,
+.creative-view-menu-btn:hover,.btn-creative-map-reserve:hover{
+  color:#2A1324 !important; transform:translateY(-2px) !important;
+  box-shadow:0 12px 28px rgba(241,172,24,.45) !important;
+}
+/* outline buttons on dark banners -> gold outline */
+.btn-hero-outline,.btn-creative-map-waze,.btn-outline-dark,.btn-creative-about-more{
+  background:transparent !important; border:1.5px solid rgba(241,172,24,.6) !important;
+  color:#F7F3EC !important; border-radius:999px !important;
+}
+.btn-hero-outline::before,.btn-creative-map-waze::before{ display:none !important; }
+.btn-hero-outline:hover,.btn-creative-map-waze:hover,.btn-creative-about-more:hover{
+  background:linear-gradient(135deg,#F1AC18,#E7A545) !important; color:#2A1324 !important; border-color:transparent !important;
+}
+/* about-more sits on cream -> make text plum */
+.btn-creative-about-more{ color:#2A1324 !important; border-color:rgba(42,19,36,.25) !important; }
+
+/* ---- HERO + BANNER SECTIONS -> plum gradient (dashboard banner look) ---- */
+.hero,.hero-section,.reservation-banner,.events-banner,[class*="events-banner"]{
+  background:linear-gradient(120deg,#2A1324 0%, #5A2340 55%, #883A61 100%) !important;
+}
+.creative-map-section,.map-section,.top-header-bar,footer,.footer,.section-dark,.pro-testimonials-dark{
+  background:#2A1324 !important;
+}
+/* soft gold glow accent inside hero */
+.hero-section,.hero{ position:relative; }
+
+/* eyebrows -> gold on dark, plum on light (accent already plum) */
+.hero .luxury-eyebrow,.hero-section [class*="eyebrow"],.bg-dark [class*="eyebrow"],
+.reservation-banner [class*="eyebrow"],.call_section [class*="eyebrow"]{ color:var(--gold) !important; }
+
+/* ---- Price pills + rating stars stay gold ---- */
+.menu_item .menu_title em,.card-price,[class*="price"]{ color:#9A6A05 !important; }
+.menu_item .menu_title em{ background:rgba(200,145,31,.16) !important; }
+.card-rating-badge,[class*="rating-badge"]{ background:#2A1324 !important; color:#F1AC18 !important; }
+
+/* section-title accent flourish -> plum */
+.main_title h2::after{ background:var(--accent) !important; }
+/* nav underline + active -> gold */
+.main-menu ul li a::after{ background:var(--gold) !important; }
+.main-menu ul li a.active{ color:var(--accent) !important; }
+
+/* ---- WHATSAPP stays brand green (saved exception) ---- */
+.float-whatsapp,.float-btn.float-whatsapp,.creative-social-badge.whatsapp{ background:#25D366 !important; color:#fff !important; }
+.float-whatsapp:hover,.creative-social-badge.whatsapp:hover{ background:#1EBE5A !important; }
+
+/* =========================================================================
+   FIX (v37): restore call_section background photos + brighter hover yellow
+   ========================================================================= */
+
+/* restore the data-bg photos on events + testimonials sections, plum tint overlay */
+.call_section{ position:relative !important; background-color:#2A1324 !important; }
+.call_section::before{
+  content:"" !important; position:absolute !important; inset:0 !important; z-index:0 !important; pointer-events:none !important;
+  background:linear-gradient(120deg, rgba(42,19,36,.82), rgba(90,35,64,.62) 55%, rgba(136,58,97,.55)) !important;
+}
+.call_section > .container,.call_section > *{ position:relative !important; z-index:1 !important; }
+.call_section .box_1{ background:rgba(42,19,36,.74) !important; border:1px solid rgba(255,255,255,.15) !important; }
+.call_section.testimonials h3{ color:#F7F3EC !important; }
+
+/* button hover -> a brighter, different yellow */
+.btn_1:hover,.btn_book_table_pill:hover,.btn-hero-orange:hover,.add_to_cart:hover,
+.tasty-pill-add-btn:hover,.btn-primary:hover,.checkout-btn:hover,.cart-btn:hover,
+button[type="submit"]:hover,input[type="submit"]:hover,.creative-view-menu-btn:hover,
+.load-more-btn:hover,.btn-creative-map-reserve:hover,.btn-hero-outline:hover,
+.btn-creative-map-waze:hover,.btn-creative-about-more:hover{
+  background:linear-gradient(135deg,#FFC93C,#EFA200) !important; color:#2A1324 !important; border-color:transparent !important;
+}
+
+/* =========================================================================
+   FIX (v38): bare .btn / .btn-outline-dark buttons that lost contrast
+   ========================================================================= */
+/* any bare .btn with an inline accent/dark background -> gold gradient, dark text */
+a.btn[style*="var(--accent)"],a.btn[style*="var(--dark)"],
+button.btn[style*="var(--accent)"],.btn.btn-dark{
+  background:linear-gradient(135deg,#F1AC18,#E7A545) !important;
+  color:#2A1324 !important; border:none !important;
+}
+a.btn[style*="var(--accent)"] i,a.btn[style*="var(--dark)"] i,.btn.btn-dark i{ color:#2A1324 !important; }
+a.btn[style*="var(--accent)"]:hover,a.btn[style*="var(--dark)"]:hover,.btn.btn-dark:hover{
+  background:linear-gradient(135deg,#FFC93C,#EFA200) !important; color:#2A1324 !important;
+}
+/* outline-dark on cream -> readable plum text, fills plum on hover */
+.btn-outline-dark{ background:transparent !important; border:1.5px solid rgba(42,19,36,.3) !important; color:#2A1324 !important; }
+.btn-outline-dark i{ color:var(--accent) !important; }
+.btn-outline-dark:hover{ background:#2A1324 !important; color:#F7F3EC !important; border-color:#2A1324 !important; }
+.btn-outline-dark:hover i{ color:#F1AC18 !important; }
+
+/* =========================================================================
+   FIX (v39): .btn-outline-dark adapts to its section (dark vs cream)
+   ========================================================================= */
+/* default = on DARK sections -> light text, gold border */
+.btn-outline-dark{ background:transparent !important; border:1.5px solid rgba(241,172,24,.6) !important; color:#F7F3EC !important; }
+.btn-outline-dark i{ color:#F1AC18 !important; }
+.btn-outline-dark:hover{ background:linear-gradient(135deg,#F1AC18,#E7A545) !important; color:#2A1324 !important; border-color:transparent !important; }
+.btn-outline-dark:hover i{ color:#2A1324 !important; }
+/* on LIGHT / cream sections -> dark plum text */
+.pro-testimonials-section .btn-outline-dark,
+.bg-white .btn-outline-dark,.bg-light .btn-outline-dark,.bg_white .btn-outline-dark,
+section[style*="var(--light)"] .btn-outline-dark,div[style*="var(--light)"] .btn-outline-dark{
+  border-color:rgba(42,19,36,.3) !important; color:#2A1324 !important;
+}
+.pro-testimonials-section .btn-outline-dark i,
+.bg-white .btn-outline-dark i,.bg-light .btn-outline-dark i,
+section[style*="var(--light)"] .btn-outline-dark i{ color:var(--accent) !important; }
+
+/* =========================================================================
+   HERO AURA BACKGROUND (v40) — banner hero.png + animated plum/gold aura
+   ========================================================================= */
+.creative-hero-section{
+  background-image:
+    linear-gradient(90deg, rgba(42,19,36,.90) 0%, rgba(42,19,36,.60) 38%, rgba(42,19,36,.22) 72%, rgba(136,58,97,.10) 100%),
+    url('../img/banner hero.png') !important;
+  background-size:cover, cover !important;
+  background-position:center, center right !important;
+  background-repeat:no-repeat, no-repeat !important;
+  position:relative !important; overflow:hidden !important;
+}
+/* re-enable + animate the ambient aura glows (were display:none in flat theme) */
+.creative-hero-section .hero-ambient-glow-1{
+  display:block !important; position:absolute !important; width:540px; height:540px; border-radius:50%;
+  background:radial-gradient(circle, rgba(241,172,24,.22), transparent 62%) !important;
+  filter:blur(44px); top:-140px; right:6%; z-index:0; pointer-events:none;
+  animation:heroAura1 15s ease-in-out infinite alternate;
+}
+.creative-hero-section .hero-ambient-glow-2{
+  display:block !important; position:absolute !important; width:480px; height:480px; border-radius:50%;
+  background:radial-gradient(circle, rgba(136,58,97,.42), transparent 60%) !important;
+  filter:blur(52px); bottom:-160px; left:-70px; z-index:0; pointer-events:none;
+  animation:heroAura2 19s ease-in-out infinite alternate;
+}
+@keyframes heroAura1{ from{ transform:translate(0,0) scale(1); opacity:.85 } to{ transform:translate(-70px,50px) scale(1.18); opacity:1 } }
+@keyframes heroAura2{ from{ transform:translate(0,0) scale(1); opacity:.8 }  to{ transform:translate(60px,-40px) scale(1.22); opacity:1 } }
+/* keep hero content above the aura layer */
+.creative-hero-section > .container,.creative-hero-section > .container-fluid,
+.creative-hero-section .row{ position:relative !important; z-index:2 !important; }
+/* soft gold glow behind the dish */
+.hero-image-wrapper{ position:relative !important; }
+.hero-image-wrapper::before{
+  content:"" !important; position:absolute !important; inset:-10% !important; z-index:0 !important; pointer-events:none !important;
+  background:radial-gradient(circle at 55% 48%, rgba(241,172,24,.26), transparent 60%) !important; filter:blur(8px);
+}
+.hero-image-wrapper > *{ position:relative; z-index:1; }
+@media (prefers-reduced-motion:reduce){
+  .creative-hero-section .hero-ambient-glow-1,.creative-hero-section .hero-ambient-glow-2{ animation:none !important; }
+}
+
+/* =========================================================================
+   FIX (v41): hero title accent "Chaque Moment" -> gold (like the button)
+   ========================================================================= */
+.creative-hero-section .hero-main-title .cursive-accent,
+.creative-hero-section .cursive-accent{
+  color:#F1AC18 !important;
+  background:linear-gradient(135deg,#F6C64B,#E7A545) !important;
+  -webkit-background-clip:text !important; background-clip:text !important;
+  -webkit-text-fill-color:transparent !important;
+}
+
+/* FIX (v42): hero eyebrow "GASTRONOMIE & SAVEURS..." -> gold */
+.creative-hero-section .hero-badge-tag,
+.creative-hero-section .hero-badge-tag span{ color:#F1AC18 !important; }
+
+/* =========================================================================
+   ENHANCE (v43): "30+ Spécialités Signature" floating badge -> gold seal
+   ========================================================================= */
+.floating-signature-badge{
+  background:linear-gradient(150deg,#3A1A2E 0%, #2A1324 70%) !important;
+  border:1.5px solid rgba(241,172,24,.55) !important;
+  border-radius:18px !important; padding:16px 18px !important; text-align:center !important;
+  box-shadow:0 16px 36px rgba(42,19,36,.52), 0 0 0 6px rgba(241,172,24,.08),
+             inset 0 1px 0 rgba(255,255,255,.10) !important;
+  position:relative !important; overflow:hidden !important;
+  animation:sigFloat 6s ease-in-out infinite alternate;
+}
+.floating-signature-badge::after{
+  content:"" !important; position:absolute !important; inset:0 !important; pointer-events:none !important;
+  background:radial-gradient(circle at 50% 0%, rgba(241,172,24,.22), transparent 60%) !important;
+}
+.floating-signature-badge .badge-inner{ position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; gap:3px; }
+.floating-signature-badge .badge-inner::before{
+  content:"\2726" !important; color:#F1AC18 !important; font-size:12px !important; line-height:1 !important; margin-bottom:2px;
+}
+.floating-signature-badge .badge-number{
+  font-weight:800 !important; font-size:32px !important; line-height:1 !important;
+  background:linear-gradient(135deg,#F9D26B,#E7A545) !important;
+  -webkit-background-clip:text !important; background-clip:text !important; -webkit-text-fill-color:transparent !important;
+  text-shadow:0 2px 10px rgba(241,172,24,.25);
+}
+.floating-signature-badge .badge-label{
+  color:#F7F3EC !important; letter-spacing:.16em !important; text-transform:uppercase !important;
+  font-weight:700 !important; font-size:10px !important; line-height:1.3 !important; margin-top:3px !important;
+}
+@keyframes sigFloat{ from{ transform:translateY(0) rotate(0deg) } to{ transform:translateY(-7px) rotate(-1.5deg) } }
+@media (prefers-reduced-motion:reduce){ .floating-signature-badge{ animation:none !important; } }
+
+/* =========================================================================
+   FIX + ENHANCE (v44): high-specificity buttons (beat custom.css a.btn_1)
+   + premium feature cards (.box_how)
+   ========================================================================= */
+
+/* primary buttons -> gold (a.* specificity to outrank custom.css) */
+a.btn_1, a.btn_1.mt-2, a.btn_1.about-story-btn, a.btn_book_table_pill,
+a.btn.text-white, a.btn[style*="var(--accent)"], a.btn[style*="var(--dark)"]{
+  background:linear-gradient(135deg,#F1AC18,#E7A545) !important; color:#2A1324 !important;
+  border:none !important; border-radius:999px !important; box-shadow:0 8px 20px rgba(241,172,24,.28) !important;
+}
+a.btn_1 i, a.btn_book_table_pill i, a.btn.text-white i{ color:#2A1324 !important; }
+a.btn_1:hover, a.btn_1.about-story-btn:hover, a.btn_book_table_pill:hover, a.btn.text-white:hover{
+  background:linear-gradient(135deg,#FFC93C,#EFA200) !important; color:#2A1324 !important; transform:translateY(-2px) !important;
+}
+
+/* "Découvrir Notre Histoire" -> gold outline that fills on hover */
+a.btn-creative-about-more, .btn-creative-about-more{
+  background:transparent !important; border:1.5px solid rgba(241,172,24,.65) !important; color:#2A1324 !important;
+  border-radius:999px !important; font-weight:700 !important; padding:12px 26px !important; transition:all .2s ease !important;
+}
+a.btn-creative-about-more i, .btn-creative-about-more i{ color:var(--accent) !important; }
+a.btn-creative-about-more:hover, .btn-creative-about-more:hover{
+  background:linear-gradient(135deg,#F1AC18,#E7A545) !important; color:#2A1324 !important; border-color:transparent !important;
+}
+a.btn-creative-about-more:hover i{ color:#2A1324 !important; }
+
+/* "G" google outline button -> force transparent (kill solid dark), adaptive text */
+a.btn-outline-dark, .btn.btn-outline-dark{ background:transparent !important; border:1.5px solid rgba(241,172,24,.6) !important; color:#F7F3EC !important; }
+a.btn-outline-dark i, .btn.btn-outline-dark i{ color:#F1AC18 !important; }
+.pro-testimonials-section a.btn-outline-dark, .bg-white a.btn-outline-dark, .bg_gray a.btn-outline-dark{
+  border-color:rgba(42,19,36,.3) !important; color:#2A1324 !important;
+}
+.pro-testimonials-section a.btn-outline-dark i, .bg_gray a.btn-outline-dark i{ color:var(--accent) !important; }
+a.btn-outline-dark:hover, .btn.btn-outline-dark:hover{ background:linear-gradient(135deg,#F1AC18,#E7A545) !important; color:#2A1324 !important; border-color:transparent !important; }
+a.btn-outline-dark:hover i{ color:#2A1324 !important; }
+
+/* ---- Premium feature cards (.box_how) on "Pourquoi Choisir" ---- */
+.box_how{
+  background:#fff !important; border:1px solid rgba(32,38,28,.08) !important; border-radius:20px !important;
+  padding:28px 24px !important; text-align:center !important; margin-bottom:24px !important;
+  box-shadow:0 1px 2px rgba(32,38,28,.04), 0 12px 30px rgba(32,38,28,.07) !important;
+  transition:transform .18s ease, box-shadow .18s ease !important;
+}
+.box_how:hover{ transform:translateY(-6px) !important; box-shadow:0 18px 42px rgba(32,38,28,.14) !important; }
+.box_how figure{
+  width:74px !important; height:74px !important; margin:0 auto 16px !important; border-radius:50% !important;
+  background:rgba(241,172,24,.14) !important; display:flex !important; align-items:center !important; justify-content:center !important;
+}
+.box_how figure img{ width:42px !important; height:auto !important; }
+.box_how h3{ font-weight:800 !important; font-size:18px !important; color:#2A1324 !important; margin-bottom:8px !important; }
+.box_how p{ color:#6A665F !important; line-height:1.6 !important; margin:0 !important; }
+
+/* =========================================================================
+   NUCLEAR BUTTON HOVER FIX (v45) — no button fills dark on hover
+   ========================================================================= */
+body a.btn-outline-dark, body .btn.btn-outline-dark{ background:transparent !important; }
+body a.btn-outline-dark:hover, body .btn.btn-outline-dark:hover{
+  background:linear-gradient(135deg,#F1AC18,#E7A545) !important; color:#2A1324 !important; border-color:transparent !important;
+}
+body a.btn-outline-dark:hover i, body a.btn-outline-dark:hover span{ color:#2A1324 !important; }
+
+/* wide "VOIR TOUT LE MENU" + load-more: gold base & hover, kill dark ::before fill */
+body a.creative-view-menu-btn, body a.creative-view-menu-btn:hover,
+body a.load-more-btn, body a.load-more-btn:hover{
+  background:linear-gradient(135deg,#F1AC18,#E7A545) !important; color:#2A1324 !important; border:none !important;
+}
+body a.creative-view-menu-btn:hover, body a.load-more-btn:hover{ background:linear-gradient(135deg,#FFC93C,#EFA200) !important; }
+body a.creative-view-menu-btn::before, body a.load-more-btn::before,
+body a.creative-view-menu-btn:hover::before, body a.load-more-btn:hover::before{ display:none !important; content:none !important; }
+body a.creative-view-menu-btn span, body a.creative-view-menu-btn i,
+body a.creative-view-menu-btn:hover span, body a.creative-view-menu-btn:hover i{ color:#2A1324 !important; position:relative; z-index:2; }
