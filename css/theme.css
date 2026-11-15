@@ -1338,3 +1338,87 @@ body a.btn-creative-about-more:hover, body .btn-creative-about-more:hover{
   background:linear-gradient(135deg,#FFC93C,#EFA200) !important; color:#2A1324 !important;
 }
 body a.btn-creative-about-more:hover i, body a.btn-creative-about-more:hover span{ color:#2A1324 !important; }
+
+/* =========================================================================
+   SCROLL REVEAL (v48) — subtle fade/slide-up for content (JS-tagged only)
+   ========================================================================= */
+.sr-reveal{ opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .75s cubic-bezier(.22,1,.36,1); will-change:opacity, transform; }
+.sr-reveal.sr-in{ opacity:1; transform:none; }
+@media (prefers-reduced-motion:reduce){ .sr-reveal{ opacity:1 !important; transform:none !important; } }
+
+/* =========================================================================
+   TRANSPARENT OVERLAY NAVBAR (v49) — home hero only (.has-hero-overlay-nav)
+   ========================================================================= */
+.has-hero-overlay-nav .header.header, .has-hero-overlay-nav header.header{
+  position:absolute !important; top:0; left:0; right:0; z-index:999 !important;
+  background:transparent !important; box-shadow:none !important; border:none !important;
+}
+.has-hero-overlay-nav .main-nav-bar{
+  background:transparent !important; border:none !important; box-shadow:none !important;
+  -webkit-backdrop-filter:none !important; backdrop-filter:none !important;
+}
+.has-hero-overlay-nav .top-header-bar{ background:transparent !important; border:none !important; box-shadow:none !important; }
+/* white logo text, links and icons over the dark hero */
+.has-hero-overlay-nav .header-brand-text, .has-hero-overlay-nav .header-brand-text span{ color:#FFFFFF !important; }
+.has-hero-overlay-nav .main-menu ul li a{ color:#F3EEE3 !important; }
+.has-hero-overlay-nav .main-menu ul li a.active{ color:#FFFFFF !important; }
+.has-hero-overlay-nav .header-right-actions a, .has-hero-overlay-nav .header-right-actions i,
+.has-hero-overlay-nav .top_menu a, .has-hero-overlay-nav .top_menu i{ color:#F3EEE3 !important; }
+/* hero content clears the overlaying nav (no white gap — hero rises to top) */
+.has-hero-overlay-nav .creative-hero-section{ padding-top:116px !important; }
+/* on scroll: solid plum bar, fixed, text stays light */
+.has-hero-overlay-nav .header.sticky, .has-hero-overlay-nav header.header.sticky{
+  position:fixed !important; background:#2A1324 !important; box-shadow:0 6px 24px rgba(42,19,36,.32) !important;
+}
+.has-hero-overlay-nav .header.sticky .main-nav-bar,
+.has-hero-overlay-nav .header.sticky .top-header-bar{ background:transparent !important; }
+
+/* =========================================================================
+   OVERLAY NAV FIX (v50) — kill the fixed-header body offset (the cream gap)
+   and keep the header fixed + transparent over the hero
+   ========================================================================= */
+body.has-hero-overlay-nav{ padding-top:0 !important; }
+@media (max-width:991px){ body.has-hero-overlay-nav{ padding-top:0 !important; } }
+.has-hero-overlay-nav .header.header, .has-hero-overlay-nav header.header{
+  position:fixed !important; top:0 !important; left:0 !important; right:0 !important; width:100% !important;
+  background:transparent !important; box-shadow:none !important; border-bottom:none !important;
+}
+/* when scrolled: solid plum bar */
+.has-hero-overlay-nav .header.header.sticky, .has-hero-overlay-nav header.header.sticky{
+  background:#2A1324 !important; box-shadow:0 6px 24px rgba(42,19,36,.32) !important;
+}
+
+/* =========================================================================
+   OVERLAY NAV (v51) — white logo mark + enhanced glass action buttons
+   ========================================================================= */
+/* white logo over the dark hero (scoped so other pages keep the normal logo) */
+.has-hero-overlay-nav #logo img,
+.has-hero-overlay-nav .logo_normal,
+.has-hero-overlay-nav .logo_sticky,
+.has-hero-overlay-nav .brand-logo-img{
+  filter:brightness(0) invert(1) !important; -webkit-filter:brightness(0) invert(1) !important;
+}
+
+/* glassmorphic search + cart buttons */
+.has-hero-overlay-nav a.search-overlay-menu-btn,
+.has-hero-overlay-nav a.cart_bt{
+  width:44px !important; height:44px !important; border-radius:13px !important;
+  display:inline-flex !important; align-items:center !important; justify-content:center !important;
+  background:rgba(255,255,255,.12) !important; border:1px solid rgba(255,255,255,.28) !important;
+  -webkit-backdrop-filter:blur(8px) !important; backdrop-filter:blur(8px) !important;
+  color:#FFFFFF !important; transition:transform .2s ease, background .22s ease, border-color .22s ease !important; position:relative;
+}
+.has-hero-overlay-nav a.search-overlay-menu-btn i,
+.has-hero-overlay-nav a.cart_bt i{ color:#FFFFFF !important; }
+.has-hero-overlay-nav a.search-overlay-menu-btn:hover,
+.has-hero-overlay-nav a.cart_bt:hover{
+  background:linear-gradient(135deg,#F1AC18,#E7A545) !important; border-color:transparent !important;
+  color:#2A1324 !important; transform:translateY(-2px);
+  box-shadow:0 8px 18px rgba(241,172,24,.35) !important;
+}
+.has-hero-overlay-nav a.search-overlay-menu-btn:hover i,
+.has-hero-overlay-nav a.cart_bt:hover i{ color:#2A1324 !important; }
+/* cart count badge -> gold */
+.has-hero-overlay-nav .cart_bt #cart-count, .has-hero-overlay-nav #cart-count{
+  background:#F1AC18 !important; color:#2A1324 !important; border:2px solid rgba(42,19,36,.0) !important;
+}

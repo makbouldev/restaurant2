@@ -168,3 +168,47 @@
         render: renderNavbar
     };
 })();
+
+/* ---- Scroll reveal: complements scrollCue for elements without data-cue ---- */
+(function(){
+  try{
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    function initReveal(){
+      var sel = '.menu_item, .box_how, .pro-review-card, .review-card, .member, .cat-card-large, .recipe-card-full, .about-story-figure, .creative-map-frame, .box_about, .box_news';
+      var els = [].slice.call(document.querySelectorAll(sel)).filter(function(el){
+        return !el.hasAttribute('data-cue') && !el.classList.contains('sr-reveal');
+      });
+      if (!els.length) return;
+      if (!('IntersectionObserver' in window)) return;
+      els.forEach(function(el){ el.classList.add('sr-reveal'); });
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if (e.isIntersecting){
+            var el = e.target;
+            var sibs = el.parentNode ? [].slice.call(el.parentNode.children) : [el];
+            var idx = sibs.indexOf(el); if (idx < 0) idx = 0;
+            el.style.transitionDelay = Math.min(idx,5)*70 + 'ms';
+            el.classList.add('sr-in');
+            io.unobserve(el);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+      els.forEach(function(el){ io.observe(el); });
+      /* safety net: never leave anything hidden */
+      setTimeout(function(){ els.forEach(function(el){ el.classList.add('sr-in'); }); }, 2600);
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initReveal);
+    else initReveal();
+    window.addEventListener('load', function(){ setTimeout(initReveal, 300); });
+    setTimeout(initReveal, 1500);
+  }catch(e){}
+})();
+
+/* ---- Transparent overlay navbar on pages that have the dark hero ---- */
+(function(){
+  function flag(){
+    try{ if (document.querySelector('.creative-hero-section')) document.body.classList.add('has-hero-overlay-nav'); }catch(e){}
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', flag);
+  else flag();
+})();
